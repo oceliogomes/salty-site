@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>salty — estúdio de bem-estar &amp; movimento · Sergipe</title>
 <style>
   :root{
@@ -169,6 +174,64 @@
   .plan.pop .plan-btn{background:var(--cream);color:var(--navy)}
   .plans-note{text-align:center;color:var(--muted);margin-top:1.4rem;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.04em}
 
+  /* planos: assinatura em destaque + créditos */
+  .plans-wrap{display:flex;flex-direction:column;gap:1.5rem}
+  .plan-hero{position:relative;display:grid;grid-template-columns:1.5fr 1fr;gap:1.6rem;align-items:center;
+    background:var(--navy);color:var(--cream);border-radius:20px;padding:2rem 1.9rem;border:1.5px solid var(--navy)}
+  @media(max-width:720px){.plan-hero{grid-template-columns:1fr;gap:1.2rem}}
+  .plan-hero .badge{position:absolute;top:-12px;left:1.9rem;background:var(--red);color:var(--cream);font-family:var(--f-mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:999px}
+  .plan-hero .tag{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sky)}
+  .plan-hero h4{font-family:var(--f-serif);font-style:italic;font-weight:400;font-size:2.6rem;margin:.15rem 0 .5rem;color:var(--cream)}
+  .plan-hero .ph-desc{color:var(--sky);opacity:.92;margin-bottom:1rem;max-width:46ch}
+  .plan-hero ul{list-style:none;display:flex;flex-direction:column;gap:.45rem;padding:0;margin:0}
+  .plan-hero li{position:relative;padding-left:1.4rem;font-size:.95rem;color:var(--cream);opacity:.92}
+  .plan-hero li::before{content:"✓";position:absolute;left:0;color:var(--sky);font-weight:800}
+  .plan-hero .ph-right{text-align:center;background:rgba(255,255,255,.09);border-radius:16px;padding:1.5rem 1.3rem}
+  .plan-hero .ph-right .price{font-family:var(--f-serif);font-size:3rem;line-height:1;color:var(--cream);margin-bottom:.9rem}
+  .plan-hero .ph-right .price small{font-size:1rem;font-family:var(--f-body);color:var(--sky)}
+  .plan-hero .ph-right .plan-btn{display:block;background:var(--red);color:var(--cream)}
+  .plan-hero .ph-note{display:block;margin-top:.6rem;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;color:var(--sky);opacity:.8}
+
+  .credits{border:1.5px solid var(--brown);border-radius:20px;padding:1.8rem 1.7rem;background:var(--card)}
+  .credits .cr-head h4{font-family:var(--f-serif);font-style:italic;font-weight:400;font-size:1.9rem;color:var(--brown)}
+  .credits .cr-head p{color:var(--muted);font-size:.92rem;margin:.2rem 0 1.3rem;max-width:60ch}
+  .cr-chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.4rem}
+  .cr-chip{font-family:var(--f-serif);font-style:italic;font-size:1.35rem;min-width:66px;padding:.5rem;border-radius:12px;
+    border:1.5px solid var(--brown);background:transparent;color:var(--brown);cursor:pointer;transition:all .15s;text-align:center;line-height:1}
+  .cr-chip small{display:block;font-family:var(--f-mono);font-style:normal;font-size:.5rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:.28rem}
+  .cr-chip:hover{background:var(--sky)}
+  .cr-chip.on{background:var(--red);border-color:var(--red);color:var(--cream)}
+  .cr-chip.on small{color:var(--cream);opacity:.85}
+  .cr-panel{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;flex-wrap:wrap;background:var(--paper);border-radius:14px;padding:1.2rem 1.4rem}
+  .cr-info{display:flex;align-items:center;gap:1rem}
+  .cr-info .cr-n{font-family:var(--f-serif);font-style:italic;font-size:3rem;color:var(--red);line-height:1}
+  .cr-info .cr-lbl b{display:block;font-size:1.1rem;color:var(--brown)}
+  .cr-info .cr-lbl span{font-size:.82rem;color:var(--muted)}
+  .cr-price{display:flex;align-items:center;gap:1.1rem;flex-wrap:wrap}
+  .cr-price .price{font-family:var(--f-serif);font-size:2rem;color:var(--brown);line-height:1}
+  .cr-price .price small{font-size:.85rem;color:var(--muted);font-family:var(--f-body)}
+  @media(max-width:520px){.cr-panel{flex-direction:column;align-items:stretch}.cr-price{justify-content:space-between}}
+
+  /* localização */
+  .loc{display:grid;grid-template-columns:1.2fr 1fr;gap:1.5rem;align-items:stretch}
+  @media(max-width:720px){.loc{grid-template-columns:1fr}}
+  .loc-map{position:relative;min-height:300px;border-radius:18px;border:1.5px solid var(--brown);overflow:hidden;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55rem;
+    background:linear-gradient(rgba(201,232,245,.45),rgba(201,232,245,.45)),
+      repeating-linear-gradient(0deg,transparent 0 38px,rgba(72,39,29,.09) 38px 39px),
+      repeating-linear-gradient(90deg,transparent 0 38px,rgba(72,39,29,.09) 38px 39px),var(--sky)}
+  .loc-pin{font-size:2.6rem;filter:drop-shadow(0 6px 10px rgba(72,39,29,.3))}
+  .loc-soon{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--brown);opacity:.7}
+  .loc-info{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:1.7rem;display:flex;flex-direction:column}
+  .loc-info h4{font-family:var(--f-serif);font-style:italic;font-weight:400;font-size:1.9rem;color:var(--brown)}
+  .loc-addr{color:var(--muted);margin:.5rem 0 1.2rem}
+  .loc-addr span{display:block;font-size:.85rem;margin-top:.35rem;opacity:.85}
+  .loc-rows{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.4rem}
+  .loc-rows div{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--line);padding-bottom:.6rem}
+  .lr-l{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .lr-v{font-size:.9rem;color:var(--brown);font-weight:700;text-align:right}
+  .loc-info .step-btn{margin-top:auto;align-self:flex-start}
+
   /* grade de horários */
   .sched-legend{display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;margin-bottom:1.5rem}
   .sched-legend span{display:inline-flex;align-items:center;gap:.45rem;font-size:.78rem;color:var(--muted);font-weight:700}
@@ -266,6 +329,9 @@
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.scroll-hint .bar{animation:none}*{scroll-behavior:auto}}
 </style>
+</head>
+<body>
+
 
 <span id="topo"></span>
 <header>
@@ -498,45 +564,63 @@
       <a class="t-btn" href="https://wa.me/5579999999999?text=Oi!%20Quero%20agendar%20minha%20aula%20experimental%20na%20salty." target="_blank" rel="noopener">Agendar experimental</a>
     </div>
     <div class="sec-head"><h3>Escolha o seu <em>plano</em></h3><span class="idx mono">Planos</span></div>
-    <div class="plans">
-      <article class="plan">
-        <span class="tag">Sem compromisso</span>
-        <h4>Avulsa</h4>
-        <div class="price">R$ 39<small>/aula</small></div>
-        <ul>
-          <li>Uma aula, qualquer modalidade</li>
-          <li>Você escolhe o seu lugar na sala</li>
-          <li>Ideal pra testar no seu ritmo</li>
-        </ul>
-        <a class="plan-btn" href="https://wa.me/5579999999999?text=Oi!%20Quero%20o%20plano%20Avulsa%20da%20salty." target="_blank" rel="noopener">Quero avulsa</a>
+    <div class="plans-wrap">
+      <article class="plan-hero">
+        <span class="badge">Mais vantajoso</span>
+        <div class="ph-left">
+          <span class="tag">Assinatura mensal</span>
+          <h4>Ilimitado</h4>
+          <p class="ph-desc">Treine sem limites — quantas aulas quiser, todo dia. Todas as modalidades, a sua rotina no automático.</p>
+          <ul>
+            <li>Aulas ilimitadas, todos os dias</li>
+            <li>Bike, Hot Yoga &amp; Pilates, Hot Sculpt e Funcional</li>
+            <li>Prioridade na lista de espera</li>
+          </ul>
+        </div>
+        <div class="ph-right">
+          <div class="price">R$ <span>—</span><small>/mês</small></div>
+          <a class="plan-btn" href="https://wa.me/5579999999999?text=Oi!%20Quero%20a%20assinatura%20Ilimitado%20da%20salty." target="_blank" rel="noopener">Quero ser ilimitado</a>
+          <span class="ph-note">valor a definir</span>
+        </div>
       </article>
-      <article class="plan pop">
-        <span class="badge">Mais popular</span>
-        <span class="tag">2x por semana</span>
-        <h4>Flex</h4>
-        <div class="price">R$ 199<small>/mês</small></div>
-        <ul>
-          <li>8 aulas por mês</li>
-          <li>Bike, Hot e Funcional</li>
-          <li>Cancelamento até 2h antes</li>
-        </ul>
-        <a class="plan-btn" href="https://wa.me/5579999999999?text=Oi!%20Quero%20assinar%20o%20plano%20Flex%20da%20salty." target="_blank" rel="noopener">Assinar Flex</a>
-      </article>
-      <article class="plan">
-        <span class="tag">Treine todo dia</span>
-        <h4>Ilimitado</h4>
-        <div class="price">R$ 299<small>/mês</small></div>
-        <ul>
-          <li>Aulas ilimitadas</li>
-          <li>Todas as modalidades</li>
-          <li>Prioridade na lista de espera</li>
-        </ul>
-        <a class="plan-btn" href="https://wa.me/5579999999999?text=Oi!%20Quero%20assinar%20o%20plano%20Ilimitado%20da%20salty." target="_blank" rel="noopener">Assinar Ilimitado</a>
-      </article>
+
+      <div class="credits">
+        <div class="cr-head">
+          <h4>Pacotes de créditos</h4>
+          <p>1 crédito = 1 aula, em qualquer modalidade. Compre no seu ritmo — quanto maior o pacote, menor o valor por aula.</p>
+        </div>
+        <div class="cr-chips" id="crChips"></div>
+        <div class="cr-panel">
+          <div class="cr-info">
+            <div class="cr-n" id="crN">10</div>
+            <div class="cr-lbl"><b id="crClasses">10 aulas</b><span>créditos · 1 aula cada</span></div>
+          </div>
+          <div class="cr-price">
+            <div class="price">R$ <span>—</span></div>
+            <a class="plan-btn" id="crBtn" href="https://wa.me/5579999999999" target="_blank" rel="noopener">Comprar créditos</a>
+          </div>
+        </div>
+      </div>
     </div>
-    <p class="plans-note">Valores de exemplo — a definir com a cliente.</p>
+    <p class="plans-note">Valores e validade dos créditos a definir com a cliente. 1 crédito = 1 aula.</p>
   </div>
 </section>
+<script>
+(function(){
+  var packs=[5,10,20,30,60];
+  var wrap=document.getElementById('crChips'); if(!wrap) return;
+  wrap.innerHTML=packs.map(function(n){return '<button class="cr-chip" data-n="'+n+'">'+n+'<small>créditos</small></button>';}).join('');
+  var chips=wrap.querySelectorAll('.cr-chip');
+  var nEl=document.getElementById('crN'), cEl=document.getElementById('crClasses'), btn=document.getElementById('crBtn');
+  function sel(n){
+    chips.forEach(function(c){ c.classList.toggle('on', +c.dataset.n===n); });
+    nEl.textContent=n; cEl.textContent=n+(n===1?' aula':' aulas');
+    btn.href='https://wa.me/5579999999999?text='+encodeURIComponent('Oi! Quero o pacote de '+n+' créditos ('+n+' aulas) da salty.');
+  }
+  chips.forEach(function(c){ c.addEventListener('click', function(){ sel(+c.dataset.n); }); });
+  sel(10);
+})();
+</script>
 
 <!-- ===== DEPOIMENTOS ===== -->
 <section class="block alt reveal" id="depoimentos" data-page="sobre">
@@ -546,6 +630,29 @@
       <div class="quote"><div class="stars">★★★★★</div><p>"Fazer yoga no calor virou minha pausa com a vida. Saio leve e renovada toda aula."</p><div class="who">— Aluna de Hot Yoga</div></div>
       <div class="quote"><div class="stars">★★★★★</div><p>"O Hot Sculpt é viciante. Suo demais e amo. Marcar pelo WhatsApp é rápido demais."</p><div class="who">— Aluna de Hot Sculpt</div></div>
       <div class="quote"><div class="stars">★★★★★</div><p>"Faço Hot de manhã e funcional à tarde. Os dois no mesmo lugar mudou minha rotina."</p><div class="who">— Aluna de Hot + Funcional</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LOCALIZAÇÃO ===== -->
+<section class="block reveal" id="local" data-page="sobre">
+  <div class="shell">
+    <div class="sec-head"><h3>Onde a gente <em>fica</em></h3><span class="idx mono">Localização</span></div>
+    <div class="loc">
+      <div class="loc-map" aria-label="Mapa em breve">
+        <div class="loc-pin">📍</div>
+        <span class="loc-soon">Mapa em breve</span>
+      </div>
+      <div class="loc-info">
+        <h4>salty · Sergipe</h4>
+        <p class="loc-addr">Endereço a definir<span>Assim que o estúdio confirmar o ponto, o endereço completo e o mapa interativo entram aqui.</span></p>
+        <div class="loc-rows">
+          <div><span class="lr-l">Horário</span><span class="lr-v">Seg a Sáb · manhã e noite</span></div>
+          <div><span class="lr-l">Bairro</span><span class="lr-v">a definir</span></div>
+          <div><span class="lr-l">Contato</span><span class="lr-v">WhatsApp em breve</span></div>
+        </div>
+        <a class="step-btn" href="#horarios" data-nav="horarios">Ver horários</a>
+      </div>
     </div>
   </div>
 </section>
@@ -826,3 +933,6 @@
   showPage(keyFromHash());
 })();
 </script>
+
+</body>
+</html>
