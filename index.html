@@ -211,6 +211,26 @@
   .cr-price .price{font-family:var(--f-serif);font-size:2rem;color:var(--brown);line-height:1}
   .cr-price .price small{font-size:.85rem;color:var(--muted);font-family:var(--f-body)}
   @media(max-width:520px){.cr-panel{flex-direction:column;align-items:stretch}.cr-price{justify-content:space-between}}
+  /* planos — grade de 4 */
+  .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+  @media(max-width:900px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.pgrid{grid-template-columns:1fr}}
+  .pcard2{position:relative;background:var(--card);border:1.5px solid var(--brown);border-radius:18px;padding:1.7rem 1.4rem;display:flex;flex-direction:column;gap:.45rem}
+  .pcard2.feat{background:var(--navy);border-color:var(--navy)}
+  .pcard2 .pk{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);font-weight:600}
+  .pcard2.feat .pk{color:var(--sky)}
+  .pcard2 h4{font-family:var(--f-serif);font-style:italic;font-weight:400;font-size:1.7rem;color:var(--brown);line-height:1.05;margin:.1rem 0}
+  .pcard2.feat h4{color:var(--cream)}
+  .pcard2 .pp{font-family:var(--f-serif);font-weight:400;font-size:2.5rem;line-height:1;color:var(--brown)}
+  .pcard2.feat .pp{color:var(--cream)}
+  .pcard2 .pp small{font-size:.85rem;font-family:var(--f-body);color:var(--muted)}
+  .pcard2.feat .pp small{color:var(--sky)}
+  .pcard2 .pd{font-size:.9rem;color:var(--muted);line-height:1.4;margin-bottom:.3rem}
+  .pcard2.feat .pd{color:var(--sky);opacity:.95}
+  .pcard2 .pbtn{margin-top:auto;text-align:center;background:var(--red);color:var(--cream);font-weight:800;font-size:.9rem;padding:.75rem;border-radius:999px;transition:transform .15s}
+  .pcard2 .pbtn:hover{transform:translateY(-2px)}
+  .pcard2.feat .pbtn{background:var(--cream);color:var(--navy)}
+  .pcard2 .pbadge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--red);color:var(--cream);font-family:var(--f-mono);font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;padding:.28rem .7rem;border-radius:999px;white-space:nowrap}
 
   /* localização */
   .loc{display:grid;grid-template-columns:1.2fr 1fr;gap:1.5rem;align-items:stretch}
@@ -564,63 +584,40 @@
       <a class="t-btn" href="https://wa.me/5579999999999?text=Oi!%20Quero%20agendar%20minha%20aula%20experimental%20na%20salty." target="_blank" rel="noopener">Agendar experimental</a>
     </div>
     <div class="sec-head"><h3>Escolha o seu <em>plano</em></h3><span class="idx mono">Planos</span></div>
-    <div class="plans-wrap">
-      <article class="plan-hero">
-        <span class="badge">Mais vantajoso</span>
-        <div class="ph-left">
-          <span class="tag">Assinatura mensal</span>
-          <h4>Ilimitado</h4>
-          <p class="ph-desc">Treine sem limites — quantas aulas quiser, todo dia. Todas as modalidades, a sua rotina no automático.</p>
-          <ul>
-            <li>Aulas ilimitadas, todos os dias</li>
-            <li>Bike, Hot Yoga &amp; Pilates, Hot Sculpt e Funcional</li>
-            <li>Prioridade na lista de espera</li>
-          </ul>
-        </div>
-        <div class="ph-right">
-          <div class="price">R$ <span>—</span><small>/mês</small></div>
-          <a class="plan-btn" href="https://wa.me/5579999999999?text=Oi!%20Quero%20a%20assinatura%20Ilimitado%20da%20salty." target="_blank" rel="noopener">Quero ser ilimitado</a>
-          <span class="ph-note">valor a definir</span>
-        </div>
+    <div class="pgrid">
+      <article class="pcard2 feat">
+        <span class="pbadge">Mais vantajoso</span>
+        <span class="pk">Assinatura</span>
+        <h4>Clube Salty</h4>
+        <div class="pp">R$ 249<small>/mês</small></div>
+        <p class="pd">Aulas ilimitadas, todo dia + 1 convite por mês pra levar um amigo.</p>
+        <a class="pbtn" href="https://wa.me/5579999999999?text=Oi!%20Quero%20a%20assinatura%20Clube%20Salty." target="_blank" rel="noopener">Assinar</a>
       </article>
-
-      <div class="credits">
-        <div class="cr-head">
-          <h4>Pacotes de créditos</h4>
-          <p>1 crédito = 1 aula, em qualquer modalidade. Compre no seu ritmo — quanto maior o pacote, menor o valor por aula.</p>
-        </div>
-        <div class="cr-chips" id="crChips"></div>
-        <div class="cr-panel">
-          <div class="cr-info">
-            <div class="cr-n" id="crN">10</div>
-            <div class="cr-lbl"><b id="crClasses">10 aulas</b><span>créditos · 1 aula cada</span></div>
-          </div>
-          <div class="cr-price">
-            <div class="price">R$ <span>—</span></div>
-            <a class="plan-btn" id="crBtn" href="https://wa.me/5579999999999" target="_blank" rel="noopener">Comprar créditos</a>
-          </div>
-        </div>
-      </div>
+      <article class="pcard2">
+        <span class="pk">Assinatura</span>
+        <h4>12 créditos</h4>
+        <div class="pp">R$ 199<small>/mês</small></div>
+        <p class="pd">12 aulas por mês — ideal pra quem treina 3× por semana.</p>
+        <a class="pbtn" href="https://wa.me/5579999999999?text=Oi!%20Quero%20a%20assinatura%20de%2012%20cr%C3%A9ditos%20da%20salty." target="_blank" rel="noopener">Assinar</a>
+      </article>
+      <article class="pcard2">
+        <span class="pk">Assinatura</span>
+        <h4>8 créditos</h4>
+        <div class="pp">R$ 149<small>/mês</small></div>
+        <p class="pd">8 aulas por mês — ideal pra quem treina 2× por semana.</p>
+        <a class="pbtn" href="https://wa.me/5579999999999?text=Oi!%20Quero%20a%20assinatura%20de%208%20cr%C3%A9ditos%20da%20salty." target="_blank" rel="noopener">Assinar</a>
+      </article>
+      <article class="pcard2">
+        <span class="pk">Sem assinatura</span>
+        <h4>Avulso</h4>
+        <div class="pp">R$ 45</div>
+        <p class="pd">1 aula, qualquer modalidade. Vem quando quiser, sem compromisso.</p>
+        <a class="pbtn" href="https://wa.me/5579999999999?text=Oi!%20Quero%20uma%20aula%20avulsa%20na%20salty." target="_blank" rel="noopener">Comprar aula</a>
+      </article>
     </div>
-    <p class="plans-note">Valores e validade dos créditos a definir com a cliente. 1 crédito = 1 aula.</p>
+    <p class="plans-note">Valores de exemplo — a definir com a cliente.</p>
   </div>
 </section>
-<script>
-(function(){
-  var packs=[5,10,20,30,60];
-  var wrap=document.getElementById('crChips'); if(!wrap) return;
-  wrap.innerHTML=packs.map(function(n){return '<button class="cr-chip" data-n="'+n+'">'+n+'<small>créditos</small></button>';}).join('');
-  var chips=wrap.querySelectorAll('.cr-chip');
-  var nEl=document.getElementById('crN'), cEl=document.getElementById('crClasses'), btn=document.getElementById('crBtn');
-  function sel(n){
-    chips.forEach(function(c){ c.classList.toggle('on', +c.dataset.n===n); });
-    nEl.textContent=n; cEl.textContent=n+(n===1?' aula':' aulas');
-    btn.href='https://wa.me/5579999999999?text='+encodeURIComponent('Oi! Quero o pacote de '+n+' créditos ('+n+' aulas) da salty.');
-  }
-  chips.forEach(function(c){ c.addEventListener('click', function(){ sel(+c.dataset.n); }); });
-  sel(10);
-})();
-</script>
 
 <!-- ===== DEPOIMENTOS ===== -->
 <section class="block alt reveal" id="depoimentos" data-page="sobre">
