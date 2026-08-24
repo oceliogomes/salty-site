@@ -1,11 +1,4 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Painel interno de gestão — protótipo Salty (Sergipe)">
-<style>*,*::before,*::after{box-sizing:border-box}html,body{margin:0;padding:0}</style>
-<title>Painel da Salty</title>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Painel interno de gestão da recepção da Salty (prototipo, dados ficticios)."><title>Painel da Salty</title><style>*,*::before,*::after{box-sizing:border-box}html,body{margin:0;padding:0}</style></head><body><title>Painel da Salty</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -243,6 +236,8 @@
   .att-list{padding:0 1.5rem;display:flex;flex-direction:column;gap:.1rem;max-height:46vh;overflow-y:auto}
   .att-row{display:flex;align-items:center;gap:.7rem;padding:.55rem .2rem;border-bottom:1px solid var(--line)}
   .att-row:last-child{border-bottom:none}
+  .ag-list .att-row{transition:background .1s ease, box-shadow .1s ease}
+  .ag-list .att-row:hover{background:color-mix(in srgb,var(--navy) 10%,var(--panel));box-shadow:inset 3px 0 0 var(--navy)}
   .att-av{width:30px;height:30px;border-radius:50%;background:var(--navy);color:#FFFBF4;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.76rem;flex:none}
   .ag-list .att-av{cursor:pointer;transition:.12s;position:relative}
   .ag-list .att-av:hover{box-shadow:0 0 0 2px var(--panel),0 0 0 4px var(--navy)}
