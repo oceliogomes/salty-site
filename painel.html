@@ -680,7 +680,11 @@
   .bike.blocked{background:#8A6B5C;border:1.5px solid #6f5346;color:#fff}
   .bike.blocked .bm-ini{font-style:normal;font-weight:700;font-size:.6rem}
   .bike.blocked svg{opacity:.9}
+  .bike.blocked.hasnote{cursor:pointer}
+  .bm-note{position:absolute;top:0;right:0;width:0;height:0;border-top:13px solid var(--red);border-left:13px solid transparent;z-index:2}
+  .bikemap-wrap:not(.blocking) .bike.blocked{cursor:pointer}
   .bm-legend i.blocked{background:#8A6B5C}
+  textarea.wl-input{resize:vertical;min-height:72px;line-height:1.4}
   .bikemap-wrap.blocking .bike.free,.bikemap-wrap.blocking .bike.blocked{cursor:pointer}
   .bikemap-wrap.blocking .bike.free:hover{background:color-mix(in srgb,#8A6B5C 16%,transparent);border-style:solid;border-color:#8A6B5C}
   .bikemap-wrap.blocking .bike.blocked:hover{filter:brightness(1.12)}
@@ -2238,6 +2242,27 @@
   </div>
 </div>
 
+<div class="modal-ov" id="blkNoteModal" role="dialog" aria-modal="true" aria-label="Observação da posição bloqueada">
+  <div class="modal-card" style="max-width:430px">
+    <div class="modal-checker"></div>
+    <button class="modal-x" id="blkNoteX" aria-label="Fechar">×</button>
+    <h3 id="blkNoteTitle">Observação da posição</h3>
+    <p class="modal-sub" id="blkNoteSub">Posição bloqueada</p>
+    <div style="padding:0 1.5rem 1.2rem">
+      <label class="fld-l">Motivo do bloqueio</label>
+      <textarea id="blkNoteText" class="wl-input" rows="3" placeholder="Ex: bike com defeito no pedal, aguardando manutenção"></textarea>
+      <p class="wl-hint">A posição bloqueada fica com um ✦ vermelho no canto (igual comentário de célula no Excel). Passe o mouse pra ler.</p>
+      <div class="xf-actions" style="margin-top:1rem;justify-content:space-between;align-items:center">
+        <button class="fa" id="blkNoteFree" type="button" style="color:var(--red);border-color:color-mix(in srgb,var(--red) 40%,transparent)">Liberar posição</button>
+        <span style="display:inline-flex;gap:.6rem">
+          <button class="fa" id="blkNoteCancel" type="button">Cancelar</button>
+          <button class="fa fa-primary" id="blkNoteSave" type="button">Salvar</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal-ov" id="xfModal" role="dialog" aria-modal="true" aria-label="Transferir crédito">
   <div class="modal-card">
     <div class="modal-checker"></div>
@@ -2552,12 +2577,14 @@
     document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAtt();});
     var DAYFULL={seg:'Segunda',ter:'Terça',qua:'Quarta',qui:'Quinta',sex:'Sexta',sab:'Sábado',dom:'Domingo'};
     // monta o mapa da sala de Bike a partir dos SLOTS (posição = número da bike)
-    function buildBikeMap(ev,slots,blocked){
+    function buildBikeMap(ev,slots,blocked,notes){
       var cfg=mapCfg(ev.mod);
       var cells='', hasBlock=false, hasDone=false, hasMarco=false, hasBday=false, hasFirst=false;
       for(var n=1;n<=ev.cap;n++){
         var si=n-1, a=slots[si];
-        if(blocked&&blocked.has(si)){ hasBlock=true; cells+='<div class="bike blocked" data-slot="'+si+'" title="'+cfg.label+' '+n+' · bloqueada"><span class="bm-num">'+n+'</span><span class="bm-ini"><svg><use href="#i-lock"/></svg>bloq</span></div>'; }
+        if(blocked&&blocked.has(si)){ hasBlock=true;
+          var note=(notes&&notes[si])?(''+notes[si]).replace(/"/g,'&quot;'):'';
+          cells+='<div class="bike blocked'+(note?' hasnote':'')+'" data-slot="'+si+'" title="'+cfg.label+' '+n+' · bloqueada'+(note?' · '+note:'')+'">'+(note?'<span class="bm-note" title="'+note+'"></span>':'')+'<span class="bm-num">'+n+'</span><span class="bm-ini"><svg><use href="#i-lock"/></svg>bloq</span></div>'; }
         else if(a){
           if(a.state==='done')hasDone=true;
           // contorno por segmento (prioridade: marco > aniversário > 1ª aula)
@@ -2873,7 +2900,7 @@
     }
     function renderAgMap(){
       var mapEl=document.getElementById('agMap');
-      mapEl.innerHTML=buildBikeMap(agState.ev,agState.slots,agState.blocked); mapEl.hidden=false;
+      mapEl.innerHTML=buildBikeMap(agState.ev,agState.slots,agState.blocked,agState.blockNotes); mapEl.hidden=false;
     }
     function renderAgList(){
       var ab=document.getElementById('agBody'); ab.innerHTML=''; var isBike=agState.isBike, cfg=mapCfg(agState.ev.mod);
@@ -3001,7 +3028,7 @@
       var list=attendees(ev,idx+1), slots=new Array(ev.cap);
       for(var n=0;n<ev.cap;n++){ slots[n]=list[n]||null; }
       var defSort=isBike?'pos':'nome';
-      agState={ev:ev,isBike:isBike,slots:slots,day:d,picking:null,mode:null,blocked:new Set(),blockedN:0,
+      agState={ev:ev,isBike:isBike,slots:slots,day:d,picking:null,mode:null,blocked:new Set(),blockNotes:{},blockedN:0,
                tab:'agendados',sortBy:defSort,sortDir:1,cancels:genCancels(ev,idx+1),waits:genWaits(ev,idx+1)};
       // reseta a barra de ordenação (Bike abre por Posição; demais por Nome)
       document.querySelectorAll('#agSortBar .sb-opt').forEach(function(o){o.classList.toggle('on',o.dataset.sort===defSort);});
@@ -3190,13 +3217,42 @@
         renderAgMap(); document.getElementById('agMap').classList.add('blocking'); // re-render limpa a classe
         updBlkCount(); refreshAgStats();
       } else {
-        // sem modo: clicar numa bike com aluno agendado abre o resumo + ações
+        // sem modo: clicar numa bike BLOQUEADA abre a observação (motivo do bloqueio)
+        var blk=e.target.closest('.bike.blocked'); if(blk){ e.stopPropagation(); openBlockNote(+blk.dataset.slot); return; }
+        // clicar numa bike com aluno agendado abre o resumo + ações
         var occ=e.target.closest('.bike.occ'); if(!occ) return;
         var si2=+occ.dataset.slot, a2=agState.slots[si2]; if(!a2) return;
         e.stopPropagation();
         openAlResumo(a2,si2);
       }
     });
+    // ---- observação da posição bloqueada (tipo comentário do Excel) ----
+    var blkNoteSi=null, blkM=document.getElementById('blkNoteModal');
+    function openBlockNote(si){
+      if(!blkM) return; blkNoteSi=si;
+      document.getElementById('blkNoteSub').textContent=(agState.isBike?'Bike ':'Posição ')+(si+1)+' · bloqueada';
+      document.getElementById('blkNoteText').value=(agState.blockNotes&&agState.blockNotes[si])||'';
+      blkM.classList.add('open'); document.body.style.overflow='hidden';
+      setTimeout(function(){var t=document.getElementById('blkNoteText'); if(t)t.focus();},50);
+    }
+    function closeBlockNote(){ if(blkM){ blkM.classList.remove('open'); document.body.style.overflow=''; } }
+    if(blkM){
+      document.getElementById('blkNoteX').addEventListener('click',closeBlockNote);
+      document.getElementById('blkNoteCancel').addEventListener('click',closeBlockNote);
+      blkM.addEventListener('click',function(e){ if(e.target===blkM) closeBlockNote(); });
+      document.getElementById('blkNoteSave').addEventListener('click',function(){
+        if(blkNoteSi==null||!agState) return;
+        var v=document.getElementById('blkNoteText').value.trim();
+        if(v) agState.blockNotes[blkNoteSi]=v; else delete agState.blockNotes[blkNoteSi];
+        renderAgMap(); closeBlockNote(); toast(v?'Observação salva na Bike '+(blkNoteSi+1):'Observação removida');
+      });
+      document.getElementById('blkNoteFree').addEventListener('click',function(){
+        if(blkNoteSi==null||!agState) return;
+        agState.blocked.delete(blkNoteSi); delete agState.blockNotes[blkNoteSi];
+        renderAgMap(); updBlkCount(); refreshAgStats(); closeBlockNote(); toast('Bike '+(blkNoteSi+1)+' liberada');
+      });
+      document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&blkM.classList.contains('open'))closeBlockNote(); });
+    }
     // clique normal → navega na página; botão do meio / Ctrl / Cmd → abre em nova aba (link nativo)
     body.addEventListener('click',function(e){
       var a=e.target.closest('a.btn-see'); if(!a) return;
