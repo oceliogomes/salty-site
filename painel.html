@@ -863,6 +863,14 @@
   .cmeta-cell .cmeta-mini i{display:block;height:100%;border-radius:999px;background:var(--good)}
   .cmeta-cell .cmeta-mini.hit i{background:var(--good)}
   .comiss-tipo{font-family:var(--f-mono);font-size:.52rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--muted);border:1px solid var(--line2);border-radius:5px;padding:.06rem .32rem;margin-left:.3rem}
+  .meta-in{width:86px;font-family:var(--f-mono);font-size:.82rem;font-weight:600;color:var(--ink);background:var(--raise);border:1.5px solid var(--line2);border-radius:7px;padding:.25rem .4rem;text-align:right}
+  .meta-in:focus{outline:none;border-color:var(--red);background:var(--panel)}
+  .meta-in:disabled{opacity:.7;background:transparent;border-color:transparent;padding-left:0}
+  .icon-btn{width:34px;height:34px;flex:none;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid var(--line2);border-radius:9px;background:var(--panel);color:var(--muted);cursor:pointer;padding:0;transition:.12s}
+  .icon-btn:hover{border-color:var(--navy);color:var(--navy)}
+  .icon-btn svg{width:17px;height:17px}
+  .ver-banner{font-size:.84rem;color:var(--sky-ink);background:color-mix(in srgb,var(--sky-ink) 8%,transparent);border:1.5px solid color-mix(in srgb,var(--sky-ink) 30%,transparent);border-radius:10px;padding:.65rem .85rem;margin-bottom:1rem}
+  .ver-banner b{color:var(--ink)}
   /* engajamento (pontos do recepcionista) */
   .eng-note{font-size:.84rem;color:var(--muted);line-height:1.45;background:var(--raise);border:1.5px solid var(--line2);border-radius:11px;padding:.8rem .95rem;margin-bottom:1.2rem}
   .eng-note b{color:var(--ink)}
@@ -2042,11 +2050,19 @@
 
         <div class="staff-sub" id="staffComissao" hidden>
           <div class="rep-period">
-            <span class="fl-lbl">Comissão de:</span>
-            <button class="chip">Agosto</button>
-            <button class="chip">Setembro</button>
-            <button class="chip on">Outubro 2026</button>
+            <span class="fl-lbl">Período:</span>
+            <select id="comissMes" class="rev-sel" aria-label="Mês">
+              <option>Janeiro</option><option>Fevereiro</option><option>Março</option><option>Abril</option><option>Maio</option><option>Junho</option><option>Julho</option><option>Agosto</option><option>Setembro</option><option selected>Outubro</option><option>Novembro</option><option>Dezembro</option>
+            </select>
+            <select id="comissAno" class="rev-sel" aria-label="Ano">
+              <option selected>2026</option><option>2025</option><option>2024</option>
+            </select>
+            <span style="flex:1"></span>
+            <span class="fl-lbl">Ver como:</span>
+            <select id="comissView" class="rev-sel" aria-label="Ver como"><option value="gestor">Gestor (vê tudo)</option></select>
+            <button class="icon-btn" id="comissExport" type="button" title="Exportar" aria-label="Exportar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M8 7l4-4 4 4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></button>
           </div>
+          <div class="ver-banner" id="verBanner" hidden></div>
           <div class="comiss-meta-emp">
             <span class="fl-lbl">Meta da empresa (mês) <small style="text-transform:none;letter-spacing:0">· só o gestor edita</small></span>
             <div class="cme-row"><div class="pf-in">R$ <input type="number" id="metaEmpresa" value="40000" min="0" step="1000"></div><div class="cmeta-bar" id="cmeBar"><i></i></div><b id="cmePct">0%</b></div>
@@ -3839,34 +3855,58 @@
     function recepList(){ return staff.filter(function(f){return f.cargo==='recep';}); }
     // vendas do mês por recepcionista — determinístico (R$ 6k–22k)
     function vendasMes(f){ var r=rng(hashStr(f.nome+'|vendas')); return 6000+Math.round(r()*16000); }
+    function comissOf(f){ var vd=vendasMes(f); return (f.comissTipo==='fixo')?(f.comiss||0):vd*(f.comiss||0)/100; }
+    function renderComissView(){
+      var sel=document.getElementById('comissView'); if(!sel) return; var cur=sel.value||'gestor';
+      sel.innerHTML='<option value="gestor">Gestor (vê tudo)</option>'+recepList().map(function(f){return '<option value="'+f.user+'">'+f.nome.split(' ')[0]+' (recepção)</option>';}).join('');
+      sel.value=[].slice.call(sel.options).some(function(o){return o.value===cur;})?cur:'gestor';
+    }
     function renderComissao(){
       if(!document.getElementById('comissPay')) return;
-      var reps=recepList(), rows='', total=0, totVendas=0, bateram=0;
-      reps.forEach(function(f){
-        var vd=vendasMes(f), fixo=(f.comissTipo==='fixo'), com=fixo?(f.comiss||0):vd*(f.comiss||0)/100;
+      renderComissView();
+      var viewAs=(document.getElementById('comissView')||{}).value||'gestor', isGestor=(viewAs==='gestor');
+      var allReps=recepList(), totVendasAll=0; allReps.forEach(function(f){totVendasAll+=vendasMes(f);});
+      var shown=isGestor?allReps:allReps.filter(function(f){return f.user===viewAs;});
+      var rows='', total=0, totVendasShown=0, bateram=0;
+      shown.forEach(function(f){
+        var vd=vendasMes(f), fixo=(f.comissTipo==='fixo'), com=comissOf(f);
         var meta=f.meta||0, pm=meta?Math.min(200,Math.round(vd/meta*100)):0, hit=meta&&vd>=meta;
-        if(hit) bateram++; total+=com; totVendas+=vd;
+        if(hit) bateram++; total+=com; totVendasShown+=vd;
         var comLbl=fixo?('<span class="comiss-tipo">fixo</span>'):('<span class="comiss-tipo">'+f.comiss+'%</span>');
         rows+='<div class="comiss-row">'
           +'<div class="pl"><span class="pav" style="background:'+f.cor+'">'+ini(f.nome)+'</span><div><b>'+f.nome.split(' ')[0]+'</b><span>Recepção'+(f.ativo?'':' · inativo')+'</span></div></div>'
           +'<div class="r mono">'+money(vd)+'</div>'
-          +'<div class="cmeta-cell"><div class="cmeta-top">'+money(vd)+' / '+money(meta)+' <b style="color:'+(hit?'var(--good)':'var(--muted)')+'">'+pm+'%</b></div><div class="cmeta-mini'+(hit?' hit':'')+'"><i style="width:'+Math.min(100,pm)+'%"></i></div></div>'
+          +'<div class="cmeta-cell"><div class="cmeta-top">R$ <input class="meta-in" type="number" data-metaedit="'+staff.indexOf(f)+'" value="'+meta+'" min="0" step="500"'+(isGestor?'':' disabled')+'> <b style="color:'+(hit?'var(--good)':'var(--muted)')+'">'+pm+'%</b></div><div class="cmeta-mini'+(hit?' hit':'')+'"><i style="width:'+Math.min(100,pm)+'%"></i></div></div>'
           +'<div class="r mono tot">'+money(com)+comLbl+'</div></div>';
       });
-      document.getElementById('comissPay').innerHTML=rows||'<div class="pay-empty">Nenhuma recepção cadastrada no Quadro.</div>';
+      document.getElementById('comissPay').innerHTML=rows||'<div class="pay-empty">Nenhuma recepção nesse filtro.</div>';
       document.getElementById('comissFootVal').textContent=money(total);
-      // meta da empresa
-      var metaEmp=+document.getElementById('metaEmpresa').value||0;
-      var empPct=metaEmp?Math.round(totVendas/metaEmp*100):0;
+      // banner de visão
+      var banner=document.getElementById('verBanner');
+      if(banner){ if(isGestor){ banner.hidden=true; } else { var who=shown[0]; banner.hidden=false; banner.innerHTML='👤 Visão de <b>'+(who?who.nome.split(' ')[0]:'recepção')+'</b> — no login dele, só aparecem os <b>próprios números</b> e a <b>meta da empresa</b>. Editar metas é só o gestor.'; } }
+      // meta da empresa (sempre o total da loja; só o gestor edita)
+      var meInput=document.getElementById('metaEmpresa'); meInput.disabled=!isGestor;
+      var metaEmp=+meInput.value||0, empPct=metaEmp?Math.round(totVendasAll/metaEmp*100):0;
       var bar=document.getElementById('cmeBar'); if(bar){ bar.querySelector('i').style.width=Math.min(100,empPct)+'%'; bar.classList.toggle('over',empPct>100); }
-      var cp=document.getElementById('cmePct'); if(cp) cp.textContent=money(totVendas)+' · '+empPct+'%';
-      document.getElementById('comissTiles').innerHTML=
-        '<div class="tile"><div class="tl">Total de comissões</div><div class="val">'+money(total)+'</div><div class="delta flat">'+reps.length+' na recepção</div></div>'
-        +'<div class="tile"><div class="tl">Vendas da recepção</div><div class="val">'+money(totVendas)+'</div><div class="delta '+(empPct>=100?'up':'flat')+'">'+empPct+'% da meta da empresa</div></div>'
-        +'<div class="tile"><div class="tl">Bateram a meta</div><div class="val">'+bateram+'<small style="font-size:1rem"> / '+reps.length+'</small></div><div class="delta flat">meta individual</div></div>';
+      var cp=document.getElementById('cmePct'); if(cp) cp.textContent=money(totVendasAll)+' · '+empPct+'%';
+      // tiles
+      var t='';
+      if(isGestor){
+        t='<div class="tile"><div class="tl">Total de comissões</div><div class="val">'+money(total)+'</div><div class="delta flat">'+allReps.length+' na recepção</div></div>'
+          +'<div class="tile"><div class="tl">Vendas da recepção</div><div class="val">'+money(totVendasAll)+'</div><div class="delta '+(empPct>=100?'up':'flat')+'">'+empPct+'% da meta da empresa</div></div>'
+          +'<div class="tile"><div class="tl">Bateram a meta</div><div class="val">'+bateram+'<small style="font-size:1rem"> / '+allReps.length+'</small></div><div class="delta flat">meta individual</div></div>';
+      } else { var f0=shown[0]||{}, mp=(f0.meta?Math.round(vendasMes(f0)/f0.meta*100):0);
+        t='<div class="tile"><div class="tl">Minha comissão</div><div class="val">'+money(total)+'</div><div class="delta flat">outubro</div></div>'
+          +'<div class="tile"><div class="tl">Minhas vendas</div><div class="val">'+money(totVendasShown)+'</div><div class="delta '+(mp>=100?'up':'flat')+'">'+mp+'% da minha meta</div></div>'
+          +'<div class="tile"><div class="tl">Meta da empresa</div><div class="val">'+empPct+'%</div><div class="delta flat">'+money(totVendasAll)+' / '+money(metaEmp)+'</div></div>';
+      }
+      document.getElementById('comissTiles').innerHTML=t;
     }
     renderComissao();
-    (function(){ var me=document.getElementById('metaEmpresa'); if(me) me.addEventListener('input',renderComissao); })();
+    (function(){ var me=document.getElementById('metaEmpresa'); if(me) me.addEventListener('input',renderComissao);
+      var cv=document.getElementById('comissView'); if(cv) cv.addEventListener('change',renderComissao);
+      var cp2=document.getElementById('comissPay'); if(cp2) cp2.addEventListener('change',function(e){ var mi=e.target.closest('[data-metaedit]'); if(!mi)return; staff[+mi.dataset.metaedit].meta=+mi.value||0; renderComissao(); });
+    })();
 
     // ======= Engajamento (pontos do recepcionista + log do gestor) =======
     var engPeriod='mes';
