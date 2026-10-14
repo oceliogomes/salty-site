@@ -344,6 +344,8 @@
   .lrow .ldur{font-family:var(--f-mono);font-size:.6rem;color:var(--faint)}
   .lrow .lname{font-weight:700;font-size:.9rem;display:flex;align-items:center;gap:.5rem}
   .lrow .lname .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .lcrm-pend{display:inline-flex;align-items:center;color:#C79A2E;flex:none}
+  .lcrm-pend svg{width:14px;height:14px}
   .lrow .lsub{font-size:.72rem;color:var(--muted);margin-top:.1rem}
   .lrow .lprof,.lrow .lsala{font-size:.84rem;color:var(--ink)}
   .lrow .lsala{color:var(--muted)}
@@ -726,6 +728,16 @@
   .att-check:hover{border-color:var(--good);color:var(--good)}
   .att-check svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2}
   .att-check.on{background:var(--good);border-color:var(--good);color:#fff}
+  .att-crm{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--line2);background:var(--panel);color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;margin-left:.4rem;transition:.12s}
+  .att-crm svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8}
+  .att-crm:hover{border-color:#C79A2E;color:#C79A2E}
+  .att-crm.on{background:#C79A2E;border-color:#C79A2E;color:#fff}
+  .crm-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-radius:11px;padding:.55rem .85rem;margin-bottom:.7rem;border:1.5px solid var(--line2)}
+  .crm-bar.pend{background:color-mix(in srgb,#C79A2E 9%,transparent);border-color:color-mix(in srgb,#C79A2E 32%,transparent)}
+  .crm-bar.ok{background:color-mix(in srgb,var(--good) 9%,transparent);border-color:color-mix(in srgb,var(--good) 30%,transparent)}
+  .crm-bar-l b{font-weight:800;font-size:.9rem}
+  .crm-bar-l span{display:block;font-size:.78rem;color:var(--muted)}
+  .crm-bar-pts{font-family:var(--f-mono);font-size:.64rem;font-weight:700;color:#8a6a13;background:color-mix(in srgb,#C79A2E 16%,transparent);border-radius:999px;padding:.25rem .6rem;white-space:nowrap}
   /* toolbar da página de agendados */
   .ag-tools{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:1rem}
   .ag-tool{display:inline-flex;align-items:center;gap:.45rem;font-family:inherit;font-weight:700;font-size:.82rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--line2);border-radius:999px;padding:.5rem .9rem;cursor:pointer;transition:.12s}
@@ -2703,10 +2715,12 @@
       var st=status(ev), meta=LMOD[ev.mod], pct=Math.round(ev.booked/ev.cap*100);
       var sub=ev.agg.length?ev.agg.map(function(a){return AGN[a];}).join(' · '):'Só assinantes e avulso';
       var dotc=ev.mod.replace('l-','d-');
+      var crmPend=((ev.name.length+i+d.getDate())%3)!==0; // determinístico: ~2/3 com contato pendente
+      var crmIcon=crmPend?'<span class="lcrm-pend" title="Mini-CRM: há contatos pendentes nesta aula — abra pra dar os checks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.38 8.38 0 0 1-3.8-.9L3 20l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.5 8.5 0 0 1 21 11.5z"/></svg></span>':'';
       return '<div class="lrow">'
         +'<div><span class="st-badge '+st[0]+'"><span class="d"></span>'+st[1]+'</span></div>'
         +'<div><div class="lt">'+ev.t+'</div><div class="ldur">'+meta.dur+'</div></div>'
-        +'<div><div class="lname"><span class="dot '+dotc+'"></span>'+ev.name+'</div><div class="lsub">'+sub+'</div></div>'
+        +'<div><div class="lname"><span class="dot '+dotc+'"></span>'+ev.name+crmIcon+'</div><div class="lsub">'+sub+'</div></div>'
         +'<div class="lprof">'+ev.prof+'</div>'
         +'<div class="lsala">'+meta.sala+'</div>'
         +'<div class="lcap"><b>'+ev.booked+'<span>/'+ev.cap+'</span></b><div class="bar"><i style="width:'+pct+'%"></i></div></div>'
@@ -3111,6 +3125,11 @@
       var ab=document.getElementById('agBody'); ab.innerHTML=''; var isBike=agState.isBike, cfg=mapCfg(agState.ev.mod);
       // monta lista {si, aluno}, aplica ordenação escolhida
       var entries=[]; agState.slots.forEach(function(a,si){ if(a) entries.push({si:si,a:a}); });
+      // mini-CRM da aula: resumo de contatos
+      var totC=entries.length, feitosC=entries.filter(function(en){return agState.contatos[en.si];}).length, faltamC=totC-feitosC;
+      var crmBar=document.createElement('div'); crmBar.className='crm-bar'+(faltamC>0?' pend':' ok');
+      crmBar.innerHTML='<div class="crm-bar-l"><b>🗂️ Mini-CRM da aula</b><span>'+feitosC+' de '+totC+' contatados'+(faltamC>0?(' · faltam '+faltamC):' · tudo em dia!')+'</span></div><span class="crm-bar-pts">+1 ponto por contato</span>';
+      ab.appendChild(crmBar);
       var by=agState.sortBy||'nome', dir=agState.sortDir||1;
       entries.sort(function(x,y){
         var r= by==='pos' ? (x.si-y.si) : x.a.n.localeCompare(y.a.n,'pt',{sensitivity:'base'});
@@ -3126,6 +3145,7 @@
           +'<div><div class="att-nm">'+a.n+cakeHTML(a)+firstStar(a)+marcoBadge(a)+stateBadge(a)+'</div><div class="att-meta">'+a.meta+creditsBadge(a)+' · '+ckHTML(a)+'</div></div>'
           +bikeChip+shoe
           +'<span class="att-tag '+a.tag+'">'+(a.tag==='plano'?'Plano':a.tag==='avulso'?'Avulso':'Parceria')+'</span>'
+          +'<button class="att-crm'+(agState.contatos[si]?' on':'')+'" data-crm="'+si+'" title="'+(agState.contatos[si]?'Contatado ✓ — clique pra desfazer':'Marcar contato com o aluno (+1 ponto)')+'"><svg><use href="#i-crm"/></svg></button>'
           +'<button class="att-check'+(a.state==='done'?' on':'')+'" data-slot="'+si+'" title="'+(a.state==='done'?'Desfazer check-in':'Check-in / presença')+'"><svg><use href="#i-check"/></svg></button>'
           +'<span class="att-act"><button class="att-actbtn" data-slot="'+si+'" aria-label="Ações do aluno"><svg><use href="#i-dots"/></svg></button></span>';
         ab.appendChild(r);
@@ -3233,7 +3253,7 @@
       var list=attendees(ev,idx+1), slots=new Array(ev.cap);
       for(var n=0;n<ev.cap;n++){ slots[n]=list[n]||null; }
       var defSort=isBike?'pos':'nome';
-      agState={ev:ev,isBike:isBike,slots:slots,day:d,picking:null,mode:null,blocked:new Set(),blockNotes:{},blockedN:0,
+      agState={ev:ev,isBike:isBike,slots:slots,day:d,picking:null,mode:null,blocked:new Set(),blockNotes:{},blockedN:0,contatos:{},
                tab:'agendados',sortBy:defSort,sortDir:1,cancels:genCancels(ev,idx+1),waits:genWaits(ev,idx+1)};
       // reseta a barra de ordenação (Bike abre por Posição; demais por Nome)
       document.querySelectorAll('#agSortBar .sb-opt').forEach(function(o){o.classList.toggle('on',o.dataset.sort===defSort);});
@@ -3323,6 +3343,10 @@
     document.getElementById('agBody').addEventListener('click',function(e){
       var av=e.target.closest('.att-av');
       if(av && agState.tab==='agendados'){ var rr=av.closest('.att-row'); if(rr&&rr.dataset.slot!==undefined){ var sl=+rr.dataset.slot, sa=agState.slots[sl]; if(sa){ openAlResumo(sa,sl); return; } } }
+      var crmb=e.target.closest('.att-crm');
+      if(crmb){ e.stopPropagation(); var cs=+crmb.dataset.crm, ca=agState.slots[cs]; if(!ca) return; var wasC=!!agState.contatos[cs];
+        if(wasC) delete agState.contatos[cs]; else agState.contatos[cs]=true; renderAgList();
+        toast(wasC?('Contato com '+fn(ca)+' desmarcado'):('Contato com '+fn(ca)+' registrado · +1 ponto 🏆')); return; }
       var chk=e.target.closest('.att-check');
       if(chk){ e.stopPropagation(); var si=+chk.dataset.slot, a=agState.slots[si]; if(!a) return; var was=a.state; a.state=(a.state==='done'?null:'done'); renderAgList(); renderAgMap(); refreshAgStats();
         if(a.state==='done') toast('Check-in de '+fn(a)+' confirmado', function(){ a.state=was; renderAgList(); renderAgMap(); refreshAgStats(); toast('Check-in desfeito'); });
