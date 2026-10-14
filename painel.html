@@ -155,6 +155,16 @@
   .om-row.low .om-val{color:var(--warn)}
   .occ-insight{margin-top:1rem;font-size:.82rem;color:var(--muted);line-height:1.45;background:color-mix(in srgb,var(--warn) 9%,transparent);border:1.5px solid color-mix(in srgb,var(--warn) 30%,transparent);border-radius:10px;padding:.7rem .85rem}
   .occ-insight b{color:var(--ink)}
+  /* ficha completa (página dedicada) */
+  .fichafp-head{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;background:var(--panel);border:1.5px solid var(--line2);border-radius:14px;padding:1rem 1.2rem;margin-bottom:1.1rem}
+  .fichafp-head .ag-back{order:-1}
+  .fichafp-id{display:flex;align-items:center;gap:.8rem;flex:1;min-width:230px}
+  .fichafp-who h2{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.45rem;line-height:1.1}
+  .fichafp-who p{font-size:.8rem;color:var(--muted)}
+  .fichafp-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+  .ficha-secs{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;align-items:start}
+  @media(max-width:860px){.ficha-secs{grid-template-columns:1fr}}
+  .ficha-sec .panel-b{padding:.9rem 1.15rem 1.1rem}
 
   /* CRM tab */
   .crm-intro{color:var(--muted);font-size:.92rem;max-width:70ch;margin-bottom:1.3rem}
@@ -771,6 +781,18 @@
   .pay-foot span{font-weight:700;font-size:.9rem}
   .pay-foot b{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.9rem;color:var(--red);font-variant-numeric:tabular-nums}
   .pay-empty{padding:1.6rem 1.2rem;text-align:center;color:var(--muted);font-size:.88rem}
+  .comiss-head,.comiss-row{display:grid;grid-template-columns:1.8fr 1fr 64px 1.1fr;align-items:center;gap:.8rem;padding:.85rem 1.2rem}
+  .comiss-head{background:var(--raise);border-bottom:1.5px solid var(--line2);font-family:var(--f-mono);font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+  .comiss-head .r,.comiss-row .r{text-align:right;justify-self:end}
+  .comiss-head .c,.comiss-row .c{text-align:center;justify-self:center}
+  .comiss-row{border-bottom:1px dashed var(--line)}
+  .comiss-row:last-child{border-bottom:none}
+  .comiss-row .pl{display:flex;align-items:center;gap:.7rem}
+  .comiss-row .pl b{font-size:.95rem}.comiss-row .pl span{display:block;font-size:.74rem;color:var(--muted)}
+  .comiss-row .mono{font-family:var(--f-mono);font-size:.86rem;font-variant-numeric:tabular-nums}
+  .comiss-row .tot{font-weight:700;color:var(--red)}
+  .comiss-pct{font-family:var(--f-mono);font-weight:700;font-size:.82rem;color:var(--ink)}
+  @media(max-width:760px){.comiss-head{display:none}.comiss-row{grid-template-columns:1fr auto;gap:.4rem .8rem}.comiss-row .pl{grid-column:1/-1}.comiss-row .c{justify-self:start}}
   .folha-filters{display:flex;flex-wrap:wrap;gap:.6rem 2rem;margin-bottom:1.3rem}
   .folha-filters .ff-group{display:flex;flex-direction:column;gap:.45rem}
   .folha-filters .ff-chips{display:flex;flex-wrap:wrap;gap:.4rem}
@@ -1073,6 +1095,9 @@
   .cupom-row,.desc-row{display:flex;gap:.5rem}
   .cupom-row input,.desc-row input,.pay{width:100%;font-family:inherit;font-size:.88rem;color:var(--ink);background:var(--raise);border:1.5px solid var(--line2);border-radius:9px;padding:.55rem .75rem}
   .cupom-row input:focus,.desc-row input:focus,.pay:focus{outline:none;border-color:var(--red)}
+  #parcBlock[hidden]{display:none}
+  .parc-hint{font-size:.74rem;color:var(--muted);line-height:1.4;margin-top:.4rem}
+  .parc-hint b{color:var(--ink)}
   .btn-mini{flex:none;background:var(--ink);color:var(--panel);border:none;font-family:inherit;font-weight:700;font-size:.82rem;padding:.55rem 1rem;border-radius:9px;cursor:pointer}
   .btn-mini:hover{filter:brightness(1.1)}
   .chip-ok{margin-top:.5rem;font-size:.78rem;font-weight:700;color:var(--good);background:color-mix(in srgb,var(--good) 12%,transparent);border:1px solid color-mix(in srgb,var(--good) 40%,transparent);border-radius:8px;padding:.35rem .6rem;display:inline-block}
@@ -1144,9 +1169,14 @@
           <button class="navi navi-child" data-v="aulas"><svg class="ic"><use href="#i-gear"/></svg>Controle de aulas</button>
         </div>
       </div>
-      <button class="navi" data-v="planos"><svg class="ic"><use href="#i-plan"/></svg>Planos</button>
-      <button class="navi" data-v="produtos"><svg class="ic"><use href="#i-prod"/></svg>Produtos</button>
-      <button class="navi" data-v="cupons"><svg class="ic"><use href="#i-coup"/></svg>Cupons</button>
+      <button class="navi" data-v="planos"><svg class="ic"><use href="#i-plan"/></svg>PDV</button>
+      <div class="nav-group" id="navProd">
+        <button class="navi navi-parent"><svg class="ic"><use href="#i-prod"/></svg>Produtos<svg class="chev"><use href="#i-chev"/></svg></button>
+        <div class="nav-sub">
+          <button class="navi navi-child" data-v="produtos"><svg class="ic"><use href="#i-prod"/></svg>Catálogo</button>
+          <button class="navi navi-child" data-v="cupons"><svg class="ic"><use href="#i-coup"/></svg>Cupons</button>
+        </div>
+      </div>
       <button class="navi" data-v="crm"><svg class="ic"><use href="#i-crm"/></svg>CRM<span class="tagx">aqui</span></button>
       <button class="navi" data-v="fin"><svg class="ic"><use href="#i-fin"/></svg>Financeiro / NF</button>
       <button class="navi" data-v="staff"><svg class="ic"><use href="#i-staff"/></svg>Funcionários</button>
@@ -1565,6 +1595,12 @@
                 <input type="number" id="descIn" min="0" placeholder="0">
               </div>
 
+              <div id="parcBlock" hidden>
+                <label class="fld-l2">Desconto vale em quais parcelas?</label>
+                <div class="desc-row"><input type="text" id="parcIn" placeholder="0 = todas · ou ex: 1,2,3"></div>
+                <p class="parc-hint"><b>0</b> (ou em branco) aplica em <b>todas</b> as parcelas da assinatura. Ou digite as parcelas específicas — ex: <b>1,2,3</b> dá o desconto só nas três primeiras.</p>
+              </div>
+
               <label class="fld-l2">Forma de pagamento</label>
               <select id="paySel" class="pay">
                 <option>Pix</option>
@@ -1753,6 +1789,7 @@
         <div class="ag-tabs staff-tabs" id="staffTabs">
           <button class="ag-tab on" type="button" data-stab="quadro">Quadro<span class="tcount" id="tcQuadro">0</span></button>
           <button class="ag-tab" type="button" data-stab="folha">Folha de pagamento</button>
+          <button class="ag-tab" type="button" data-stab="comissao">Comissão de vendas</button>
         </div>
 
         <div class="staff-sub" id="staffQuadro">
@@ -1800,6 +1837,28 @@
         </div>
         <p class="week-note">O sistema calcula sozinho pela regra de cada professor (cadastrada no Quadro). Você só revisa e fecha — e pode filtrar por modalidade ou por professor.</p>
         </div>
+
+        <div class="staff-sub" id="staffComissao" hidden>
+          <div class="rep-period">
+            <span class="fl-lbl">Comissão de:</span>
+            <button class="chip">Junho</button>
+            <button class="chip">Julho</button>
+            <button class="chip on">Agosto 2026</button>
+          </div>
+          <div class="tiles" id="comissTiles"></div>
+          <div class="pay">
+            <div class="comiss-head">
+              <div>Recepção</div><div class="r">Vendas no mês</div><div class="c">%</div><div class="r">Comissão</div>
+            </div>
+            <div id="comissPay"></div>
+            <div class="pay-foot"><span>Total de comissões · Agosto 2026</span><b id="comissFootVal">R$ 0</b></div>
+          </div>
+          <p class="week-note">A comissão é <b>% sobre o que cada recepcionista vendeu no mês</b> (planos e produtos no PDV). A porcentagem de cada um é definida no cadastro, no <b>Quadro</b>.</p>
+        </div>
+      </section>
+
+      <section class="view" data-view="ficha">
+        <div id="fichaFull"></div>
       </section>
 
       <section class="view" data-view="rel">
@@ -1977,7 +2036,8 @@
       <span class="ficha-status" id="fStatus">Em dia</span>
     </div>
     <div class="ficha-actions">
-      <button class="fa fa-primary" data-fa="agendar"><svg class="ic"><use href="#i-cal"/></svg>Agendar</button>
+      <button class="fa fa-primary" id="fichaFullBtn"><svg class="ic"><use href="#i-crm"/></svg>Ver ficha completa</button>
+      <button class="fa" data-fa="agendar"><svg class="ic"><use href="#i-cal"/></svg>Agendar</button>
       <button class="fa" data-fa="vender"><svg class="ic"><use href="#i-plan"/></svg>Vender</button>
       <a class="fa fa-wpp" id="fWpp" href="#" target="_blank" rel="noopener">WhatsApp</a>
     </div>
@@ -2096,6 +2156,12 @@
         </div>
       </div>
 
+      <div id="fuRecepBox" hidden>
+        <label class="fld-l" style="display:block;margin-top:.5rem">Comissão sobre vendas</label>
+        <div class="pf-row"><span>% sobre o que vender no mês (PDV)</span><div class="pf-in"><input type="number" id="fuComiss" value="3" min="0" step="0.5"> %</div></div>
+        <p class="wl-hint">Ex.: 3% sobre R$ 12.000 vendidos no mês = R$ 360 de comissão. Aparece na aba <b>Comissão de vendas</b>.</p>
+      </div>
+
       <label class="fchk" style="margin-top:1rem"><input type="checkbox" id="fuAtivo" checked> Funcionário ativo</label>
 
       <div class="xf-actions" style="margin-top:1.1rem">
@@ -2132,12 +2198,13 @@
 
 <script>
 (function(){
-  var titles={dash:['Painel','Dashboard'],lista:['Aulas','Lista de aulas'],agendados:['Aulas','Agendados'],aulas:['Aulas','Controle de aulas'],planos:['Vendas','Planos'],produtos:['Vendas','Produtos'],cupons:['Marketing','Cupons'],crm:['Relacionamento','CRM'],fin:['Gestão','Financeiro / NF'],staff:['Gestão','Funcionários'],rel:['Análise','Relatórios']};
+  var titles={dash:['Painel','Dashboard'],lista:['Aulas','Lista de aulas'],agendados:['Aulas','Agendados'],aulas:['Aulas','Controle de aulas'],planos:['Vendas','PDV · Ponto de venda'],produtos:['Produtos','Catálogo'],cupons:['Produtos','Cupons'],crm:['Relacionamento','CRM'],fin:['Gestão','Financeiro / NF'],staff:['Gestão','Funcionários'],rel:['Análise','Relatórios'],ficha:['Relacionamento','Ficha completa']};
   var navis=document.querySelectorAll('.navi[data-v]'), views=document.querySelectorAll('.view');
   var side=document.getElementById('side'), scrim=document.getElementById('scrim');
   // marcos de aulas (parabéns) — configuráveis em Controle de aulas; lidos pela página da aula
   var MARCOS=[50,100,200,300,400,500];
   var navAulas=document.getElementById('navAulas'), aulasVs={lista:1,agendados:1,aulas:1};
+  var navProd=document.getElementById('navProd'), prodVs={produtos:1,cupons:1};
   function show(v){
     navis.forEach(function(n){n.classList.toggle('on',n.dataset.v===v);});
     // a página "Agendados" pertence a "Lista de aulas" — mantém esse item aceso
@@ -2148,12 +2215,14 @@
     document.getElementById('ptitle').textContent=t[1];
     document.querySelector('.content').scrollTo?window.scrollTo(0,0):0;
     if(navAulas){var inA=!!aulasVs[v]; if(inA)navAulas.classList.add('open'); navAulas.querySelector('.navi-parent').classList.toggle('hasactive',inA);}
+    if(navProd){var inP=!!prodVs[v]; if(inP)navProd.classList.add('open'); navProd.querySelector('.navi-parent').classList.toggle('hasactive',inP);}
     // limpa hash de agendados ao navegar pra outra tela pelo menu
     if(v!=='agendados' && /^#ag=/.test(location.hash)){ try{history.replaceState(null,'',location.pathname+location.search);}catch(_){ } }
     side.classList.remove('open'); scrim.classList.remove('on');
   }
   navis.forEach(function(n){n.addEventListener('click',function(){show(n.dataset.v);});});
   if(navAulas){navAulas.querySelector('.navi-parent').addEventListener('click',function(){navAulas.classList.toggle('open');});}
+  if(navProd){navProd.querySelector('.navi-parent').addEventListener('click',function(){navProd.classList.toggle('open');});}
   document.querySelectorAll('[data-jump]').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.jump);});});
   // ---- configuração de marcos de aulas ----
   var marcoChips=document.getElementById('marcoChips');
@@ -3089,18 +3158,23 @@
   // Planos — venda (PDV)
   (function(){
     var cards=document.querySelectorAll('.pcard'); if(!cards.length) return;
-    var st={base:249,cupom:0,dmode:'pct',dval:0};
+    var st={base:249,cupom:0,dmode:'pct',dval:0,isSub:false};
     var vName=document.getElementById('vName'),vSub=document.getElementById('vSub'),vBase=document.getElementById('vBase'),vTotal=document.getElementById('vTotal');
+    var parcBlock=document.getElementById('parcBlock'),parcIn=document.getElementById('parcIn');
     function fmt(n){return 'R$ '+Math.round(n).toLocaleString('pt-BR');}
+    // o campo de parcelas só aparece ao dar desconto numa ASSINATURA (plano /mês)
+    function updateParc(){ if(parcBlock) parcBlock.hidden=!(st.isSub && st.dval>0); }
     function recompute(){
       var t=st.base*(1-st.cupom/100);
       t=(st.dmode==='pct')?t*(1-(st.dval||0)/100):t-(st.dval||0);
       if(t<0)t=0; vTotal.textContent=fmt(t);
+      updateParc();
     }
+    var onc=document.querySelector('.pcard.on'); if(onc) st.isSub=(onc.dataset.unit==='/mês');
     cards.forEach(function(c){
       c.addEventListener('click',function(){
         cards.forEach(function(x){x.classList.remove('on');}); c.classList.add('on');
-        st.base=parseFloat(c.dataset.price);
+        st.base=parseFloat(c.dataset.price); st.isSub=(c.dataset.unit==='/mês');
         vName.textContent=c.dataset.name; vSub.textContent=c.dataset.sub; vBase.textContent=fmt(st.base);
         recompute();
       });
@@ -3120,7 +3194,9 @@
     var din=document.getElementById('descIn');
     din.addEventListener('input',function(){ st.dval=parseFloat(din.value)||0; recompute(); });
     document.getElementById('vFinish').addEventListener('click',function(){
-      alert('Venda registrada! (protótipo)\n\nItem: '+vName.textContent+'\nPagamento: '+document.getElementById('paySel').value+'\nTotal: '+vTotal.textContent);
+      var parcTxt='';
+      if(st.isSub && st.dval>0){ var pv=(parcIn.value||'').trim(); parcTxt='\nDesconto nas parcelas: '+((pv===''||pv==='0')?'todas':pv); }
+      alert('Venda registrada! (protótipo)\n\nItem: '+vName.textContent+'\nPagamento: '+document.getElementById('paySel').value+'\nTotal: '+vTotal.textContent+parcTxt);
     });
   })();
 
@@ -3134,7 +3210,9 @@
       {nome:'Marina Lopes',cargo:'prof',mods:['l-hy'],user:'marina@saltysergipe.com',cor:'#E73737',ativo:true,pay:{param:1,base:45,pp:0}},
       {nome:'Bia Santos',cargo:'prof',mods:['l-sc'],user:'bia@saltysergipe.com',cor:'#E0A020',ativo:true,pay:{param:2,base:45,faixas:[{pct:70,bonus:20},{pct:90,bonus:30}]}},
       {nome:'Rafa Costa',cargo:'prof',mods:['l-fn'],user:'rafa@saltysergipe.com',cor:'#3E9E6E',ativo:true,pay:{param:1,base:42,pp:0}},
-      {nome:'Ana Oliveira',cargo:'recep',mods:[],user:'recepcao@saltysergipe.com',cor:'#37346A',ativo:true},
+      {nome:'Ana Oliveira',cargo:'recep',mods:[],user:'recepcao@saltysergipe.com',cor:'#37346A',ativo:true,comiss:3},
+      {nome:'Pedro Alves',cargo:'recep',mods:[],user:'pedro@saltysergipe.com',cor:'#2A6C8C',ativo:true,comiss:2.5},
+      {nome:'Camila Rocha',cargo:'recep',mods:[],user:'camila@saltysergipe.com',cor:'#C0791A',ativo:true,comiss:3},
       {nome:'Océlio Gomes',cargo:'gestor',mods:[],user:'gestor@saltysergipe.com',cor:'#8A5FB0',ativo:true}
     ];
     function ini(n){var p=n.trim().split(' ');return (p[0][0]+(p[1]?p[1][0]:'')).toUpperCase();}
@@ -3148,7 +3226,7 @@
       var el=document.getElementById('staffList'); if(!el) return;
       el.innerHTML=staff.map(function(f,i){
         var mods=f.mods.map(function(m){return MODLBL[m];}).join(' · ');
-        var sub=f.cargo==='prof'?((mods||'sem modalidade')+' · '+payLabel(f)):('Acesso: '+CARGOLBL[f.cargo]+' · '+f.user);
+        var sub=f.cargo==='prof'?((mods||'sem modalidade')+' · '+payLabel(f)):(f.cargo==='recep'?('Recepção · comissão '+(f.comiss||0)+'% · '+f.user):('Acesso: '+CARGOLBL[f.cargo]+' · '+f.user));
         return '<div class="staff-row"><span class="sav" style="background:'+f.cor+'">'+ini(f.nome)+'</span>'
           +'<div class="sinfo"><div class="sn">'+f.nome+' <span class="scargo '+f.cargo+'">'+CARGOLBL[f.cargo]+'</span></div>'
           +'<div class="ssub">'+sub+'</div></div>'
@@ -3241,6 +3319,31 @@
     }
     renderFolhaProf(); renderFolha();
 
+    // ======= Comissão de vendas (recepção: % sobre o que vendeu no mês) =======
+    function recepList(){ return staff.filter(function(f){return f.cargo==='recep';}); }
+    // vendas do mês por recepcionista — determinístico (R$ 6k–22k)
+    function vendasMes(f){ var r=rng(hashStr(f.nome+'|vendas')); return 6000+Math.round(r()*16000); }
+    function renderComissao(){
+      if(!document.getElementById('comissPay')) return;
+      var reps=recepList(), rows='', total=0, totVendas=0;
+      reps.forEach(function(f){
+        var vd=vendasMes(f), pct=(f.comiss||0), com=vd*pct/100;
+        total+=com; totVendas+=vd;
+        rows+='<div class="comiss-row">'
+          +'<div class="pl"><span class="pav" style="background:'+f.cor+'">'+ini(f.nome)+'</span><div><b>'+f.nome.split(' ')[0]+'</b><span>Recepção'+(f.ativo?'':' · inativo')+'</span></div></div>'
+          +'<div class="r mono">'+money(vd)+'</div>'
+          +'<div class="c comiss-pct">'+pct+'%</div>'
+          +'<div class="r mono tot">'+money(com)+'</div></div>';
+      });
+      document.getElementById('comissPay').innerHTML=rows||'<div class="pay-empty">Nenhuma recepção cadastrada no Quadro.</div>';
+      document.getElementById('comissFootVal').textContent=money(total);
+      document.getElementById('comissTiles').innerHTML=
+        '<div class="tile"><div class="tl">Total de comissões</div><div class="val">'+money(total)+'</div><div class="delta flat">'+reps.length+' na recepção</div></div>'
+        +'<div class="tile"><div class="tl">Vendas da recepção</div><div class="val">'+money(totVendas)+'</div><div class="delta flat">no mês</div></div>'
+        +'<div class="tile"><div class="tl">Comissão média</div><div class="val">'+(reps.length?money(total/reps.length):'R$ 0')+'</div><div class="delta flat">por pessoa</div></div>';
+    }
+    renderComissao();
+
     // filtro de modalidade (um por vez)
     var fMod=document.getElementById('folhaMod');
     if(fMod)fMod.addEventListener('click',function(e){ var b=e.target.closest('[data-fmod]'); if(!b)return;
@@ -3270,14 +3373,16 @@
       alert('Folha de Agosto fechada! (protótipo)\n\nTotal: '+document.getElementById('folhaFootVal').textContent+' · '+profList().length+' professores\nPronta pra pagamento.');
     });
 
-    // sub-abas Quadro | Folha
+    // sub-abas Quadro | Folha | Comissão
+    var subMap={quadro:'staffQuadro',folha:'staffFolha',comissao:'staffComissao'};
     document.querySelectorAll('#staffTabs .ag-tab').forEach(function(t){
       t.addEventListener('click',function(){
         document.querySelectorAll('#staffTabs .ag-tab').forEach(function(x){x.classList.remove('on');});
         t.classList.add('on');
-        var q=t.dataset.stab==='quadro';
-        document.getElementById('staffQuadro').hidden=!q;
-        document.getElementById('staffFolha').hidden=q;
+        var sel=t.dataset.stab;
+        Object.keys(subMap).forEach(function(k){ var el=document.getElementById(subMap[k]); if(el)el.hidden=(k!==sel); });
+        if(sel==='folha') renderFolha();
+        if(sel==='comissao') renderComissao();
       });
     });
 
@@ -3286,6 +3391,7 @@
     function setCargo(c){ curCargo=c;
       document.querySelectorAll('#fuCargo button').forEach(function(b){b.classList.toggle('on',b.dataset.cargo===c);});
       document.getElementById('fuProfBox').hidden=(c!=='prof');
+      document.getElementById('fuRecepBox').hidden=(c!=='recep');
       document.getElementById('fuAcessoHint').innerHTML='Acesso de <b>'+CARGOLBL[c]+'</b>: '+ACESSO[c];
     }
     function setParam(pn){ curParam=pn;
@@ -3315,6 +3421,7 @@
       document.getElementById('fuBase2').value=pay.base!=null?pay.base:40;
       faixas=(pay.faixas?pay.faixas.map(function(x){return {pct:x.pct,bonus:x.bonus};}):[{pct:70,bonus:20},{pct:90,bonus:30}]);
       renderFaixas();
+      document.getElementById('fuComiss').value=(f&&f.comiss!=null)?f.comiss:3;
       M.classList.add('open'); document.body.style.overflow='hidden';
     }
     function closeFunc(){ M.classList.remove('open'); document.body.style.overflow=''; }
@@ -3340,8 +3447,9 @@
         if(curParam===1) f.pay={param:1,base:+document.getElementById('fuBase1').value||0,pp:+document.getElementById('fuPorPres').value||0};
         else f.pay={param:2,base:+document.getElementById('fuBase2').value||0,faixas:faixas.slice().sort(function(a,b){return a.pct-b.pct;})};
       }
+      if(curCargo==='recep'){ f.comiss=+document.getElementById('fuComiss').value||0; }
       if(editIdx!=null) staff[editIdx]=f; else staff.push(f);
-      renderStaff(); renderFolhaProf(); renderFolha(); closeFunc();
+      renderStaff(); renderFolhaProf(); renderFolha(); renderComissao(); closeFunc();
     });
   })();
 
@@ -3517,7 +3625,11 @@
       renderFichaTab(t.dataset.ft);
     });});
     function renderFichaTab(tab){
-      var a=fichaAluno, body=document.getElementById('fBody'); if(!a)return; var h='';
+      var a=fichaAluno, body=document.getElementById('fBody'); if(!a)return;
+      body.innerHTML=fichaTabHTML(a,tab,false);
+    }
+    function fichaTabHTML(a,tab,full){
+      var h='';
       if(tab==='resumo'){
         h='<div class="ficha-grid">'+fg('Telefone',a.tel)+fg('Email',a.email)+fg('Plano ativo',a.plano)+fg('Créditos / uso',a.cred)+fg('Última visita',a.ult)+fg('Cliente desde',a.desde)+'</div><div class="ficha-pay '+(a.ok?'ok':'pend')+'">'+(a.ok?'✓ ':'⚠ ')+a.pay+'</div>';
       } else if(tab==='aulas'){
@@ -3536,7 +3648,7 @@
         if(a.plano==='Avulso'){ h='<div class="fempty">Aluno de aulas avulsas — sem saldo de créditos mensais.</div>'; }
         else {
           h='<div class="fcred"><b>'+saldoDisp(a)+'</b><span>disponíveis</span></div>';
-          h+='<div class="xf-line"><button class="fa xf-open" data-xf="saldo"'+((a.saldoN||0)<1?' disabled':'')+'>Transferir créditos</button></div>';
+          if(!full) h+='<div class="xf-line"><button class="fa xf-open" data-xf="saldo"'+((a.saldoN||0)<1?' disabled':'')+'>Transferir créditos</button></div>';
           h+=credMovesHTML(a);
         }
       } else if(tab==='cartao'){
@@ -3549,9 +3661,36 @@
         if(a.termo.ok){ h='<div class="ftermo"><div class="ft-ic">📄</div><b>Contrato assinado digitalmente</b><p>Assinado em '+a.termo.d+'</p><button class="fa" style="margin:.9rem auto 0">Ver documento</button></div>'; }
         else { h='<div class="ftermo"><div class="ft-ic">✍️</div><b>Contrato pendente</b><p>Este aluno ainda não assinou o termo.</p><button class="fa fa-primary" style="margin:.9rem auto 0">Enviar para assinatura</button></div>'; }
       }
-      body.innerHTML=h;
+      return h;
     }
+    // ===== Ficha completa (página dedicada) =====
+    var fichaReturn='dash';
+    function openFichaFull(a){
+      if(!a) return; fichaAluno=a; activeAluno=a;
+      var cur=document.querySelector('.view.on'); fichaReturn=(cur&&cur.dataset.view!=='ficha')?cur.dataset.view:'dash';
+      var secs=[['Dados & resumo','resumo'],['Assinatura','assinatura'],['Créditos','creditos'],['Histórico de aulas','aulas'],['Pedidos & compras','pedidos'],['Cartão salvo','cartao'],['Situações de CRM','crm'],['Contrato / termos','termos']];
+      var head='<div class="fichafp-head">'
+        +'<button class="ag-back" id="fichaBack"><svg class="ic"><use href="#i-chev"/></svg>Voltar</button>'
+        +'<div class="fichafp-id"><span class="al-av">'+a.nome.charAt(0)+'</span>'
+          +'<div class="fichafp-who"><h2>'+a.nome+'</h2><p>CPF '+a.cpf+' · cliente desde '+a.desde+'</p></div>'
+          +'<span class="ficha-status '+(a.ok?'ok':'pend')+'">'+(a.ok?'Adimplente':'Pendência')+'</span></div>'
+        +'<div class="fichafp-actions">'
+          +'<a class="fa fa-primary" href="https://wa.me/55'+a.tel.replace(/\D/g,'')+'" target="_blank" rel="noopener">WhatsApp</a>'
+          +'<button class="fa" type="button" data-faf="agendar">Agendar</button>'
+          +'<button class="fa" type="button" data-faf="vender">Vender</button></div>'
+        +'</div>';
+      var grid='<div class="ficha-secs">'+secs.map(function(s){
+        return '<div class="panel ficha-sec"><div class="panel-h"><h2>'+s[0]+'</h2></div><div class="panel-b">'+fichaTabHTML(a,s[1],true)+'</div></div>';
+      }).join('')+'</div>';
+      document.getElementById('fichaFull').innerHTML=head+grid;
+      show('ficha');
+    }
+    document.getElementById('fichaFull').addEventListener('click',function(e){
+      if(e.target.closest('#fichaBack')){ show(fichaReturn||'dash'); return; }
+      var fa=e.target.closest('[data-faf]'); if(fa){ var k=fa.dataset.faf; if(k==='agendar')show('aulas'); else if(k==='vender')show('planos'); return; }
+    });
     function closeF(){modal.classList.remove('open');document.body.style.overflow='';}
+    document.getElementById('fichaFullBtn').addEventListener('click',function(){ var a=fichaAluno; closeF(); openFichaFull(a); });
     document.getElementById('alunoX').addEventListener('click',closeF);
     modal.addEventListener('click',function(e){if(e.target===modal)closeF();});
     modal.querySelectorAll('[data-fa]').forEach(function(b){
