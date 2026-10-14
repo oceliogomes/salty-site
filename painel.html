@@ -878,6 +878,35 @@
   .prod-stock.low{color:var(--warn);font-weight:600}
   .prod-edit{margin-top:.7rem;align-self:stretch;text-align:center;background:var(--raise);border:1.5px solid var(--line2);color:var(--ink);font-family:inherit;font-weight:600;font-size:.78rem;padding:.42rem;border-radius:8px;cursor:pointer}
   .prod-edit:hover{border-color:var(--red);color:var(--red)}
+  .prod-foto{width:52px;height:52px;border-radius:10px;object-fit:cover;margin-bottom:.3rem}
+  .prod.off{opacity:.6}
+  .prod-inativo{font-family:var(--f-mono);font-size:.54rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--muted);border:1px solid var(--line2);border-radius:5px;padding:.08rem .35rem;vertical-align:middle}
+  /* produtos no PDV (card de venda rápida) */
+  .prod-pcard{cursor:default}
+  .prod-pcard:hover{transform:none;border-color:var(--line2)}
+  .prod-pcard .pc-top{display:flex;align-items:center;gap:.6rem}
+  .prod-pcard .pc-emoji{font-size:1.7rem;line-height:1}
+  .prod-pcard .pc-foto{width:42px;height:42px;border-radius:9px;object-fit:cover;flex:none}
+  .prod-pcard .pc-name{display:block;font-weight:700;font-size:.9rem}
+  .prod-pcard .pc-price{display:block;font-family:var(--f-disp);font-style:italic;font-size:1.2rem}
+  .pc-launch{margin-top:.7rem;background:var(--red);color:#FFFBF4;border:none;font-family:inherit;font-weight:800;font-size:.82rem;padding:.5rem;border-radius:9px;cursor:pointer;transition:.12s}
+  .pc-launch:hover{filter:brightness(1.06)}
+  .pc-launch:disabled{background:var(--line2);color:var(--muted);cursor:not-allowed}
+  .venda[hidden]{display:none}
+  /* modal de produto */
+  .pd-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.5rem}
+  .pd-stock{display:flex;gap:.4rem;align-items:center}
+  .pd-stock .wl-input{flex:1;min-width:0}
+  .pd-stock .wl-add{white-space:nowrap;flex:none}
+  .pd-img{display:flex;gap:.9rem;align-items:flex-start}
+  .pd-preview{width:68px;height:68px;border-radius:12px;background:var(--raise);border:1.5px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:2rem;flex:none;overflow:hidden}
+  .pd-preview img{width:100%;height:100%;object-fit:cover}
+  .pd-imgopts{flex:1;min-width:0}
+  .pd-icons{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.5rem}
+  .pd-icon{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--line2);background:var(--panel);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.12s}
+  .pd-icon:hover{border-color:var(--red)}
+  .pd-icon.on{border-color:var(--red);box-shadow:0 0 0 2px color-mix(in srgb,var(--red) 20%,transparent)}
+  .pd-upload{display:inline-block;cursor:pointer}
   .planrow button:not(.btn-new){background:none;border:1.5px solid var(--line2);color:var(--ink);font-family:inherit;font-weight:600;font-size:.78rem;padding:.4rem .85rem;border-radius:8px;cursor:pointer}
   .planrow button:not(.btn-new):hover{border-color:var(--red);color:var(--red)}
   @media(max-width:560px){.planrow{grid-template-columns:1fr auto;gap:.5rem .8rem}.planrow .pr-status{grid-column:1}}
@@ -1534,6 +1563,11 @@
       <section class="view" data-view="planos">
         <div class="planos-layout">
           <div class="catalogo">
+            <div class="ag-tabs" id="pdvTabs" style="margin-bottom:1.1rem">
+              <button class="ag-tab on" type="button" data-ptab="planos">Planos &amp; assinaturas</button>
+              <button class="ag-tab" type="button" data-ptab="produtos">Produtos</button>
+            </div>
+            <div id="pdvPlanos">
             <h3 class="blk-h">Planos mensais</h3>
             <div class="pcards grid3">
               <button class="pcard" data-price="269" data-name="5 por mês" data-unit="/mês" data-sub="5 aulas/mês · começar o hábito">
@@ -1574,9 +1608,15 @@
               </button>
             </div>
             <p class="week-note">Valores oficiais da Salty.</p>
+            </div>
+            <div id="pdvProdutos" hidden>
+              <h3 class="blk-h">Produtos do balcão <span>· lance a venda direto no sistema</span></h3>
+              <div class="pcards grid3" id="pdvProdGrid"></div>
+              <p class="week-note">Se o aluno pedir uma água, clique em <b>Lançar venda</b>: registra e dá baixa no estoque, sem precisar da maquininha.</p>
+            </div>
           </div>
 
-          <aside class="venda">
+          <aside class="venda" id="vendaAside">
             <div class="modal-checker"></div>
             <div class="venda-body">
               <h3>Nova venda</h3>
@@ -1664,16 +1704,10 @@
 
         <div class="prod-head prod-head-flex">
           <h3 class="blk-h">Produtos do balcão <span>· venda avulsa na recepção</span></h3>
-          <button class="btn-new prod-act"><span>＋</span> Novo produto</button>
+          <button class="btn-new" id="novoProd"><span>＋</span> Novo produto</button>
         </div>
-        <div class="prod-grid">
-          <div class="prod"><div class="prod-emoji">🍫</div><div class="prod-name">Barrinha proteica</div><div class="prod-price">R$ 12</div><div class="prod-stock">Estoque: 34</div><button class="prod-edit prod-act">Editar</button></div>
-          <div class="prod"><div class="prod-emoji">🚰</div><div class="prod-name">Garrafa Salty</div><div class="prod-price">R$ 59</div><div class="prod-stock">Estoque: 12</div><button class="prod-edit prod-act">Editar</button></div>
-          <div class="prod"><div class="prod-emoji">👕</div><div class="prod-name">Camiseta</div><div class="prod-price">R$ 79</div><div class="prod-stock low">Estoque: 8 · baixo</div><button class="prod-edit prod-act">Editar</button></div>
-          <div class="prod"><div class="prod-emoji">🧦</div><div class="prod-name">Meia</div><div class="prod-price">R$ 29</div><div class="prod-stock">Estoque: 40</div><button class="prod-edit prod-act">Editar</button></div>
-          <div class="prod"><div class="prod-emoji">🧣</div><div class="prod-name">Toalha</div><div class="prod-price">R$ 39</div><div class="prod-stock">Estoque: 15</div><button class="prod-edit prod-act">Editar</button></div>
-        </div>
-        <p class="week-note">Dados de exemplo. Aqui você cadastra o que vende no balcão e edita os planos que aparecem na venda.</p>
+        <div class="prod-grid" id="prodGrid"></div>
+        <p class="week-note">Aqui você cadastra o que vende no balcão. Produtos <b>ativos</b> aparecem no PDV pra venda direta (sem maquininha). Clique em <b>Editar</b> pra mudar nome, preço, imagem, estoque ou ativar/desativar.</p>
       </section>
 
       <section class="view" data-view="cupons">
@@ -2168,6 +2202,37 @@
       <div class="xf-actions" style="margin-top:1.1rem">
         <button class="fa" id="funcCancel" type="button">Cancelar</button>
         <button class="fa fa-primary" id="funcSave" type="button">Salvar funcionário</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="prodModal" role="dialog" aria-modal="true" aria-label="Cadastro de produto">
+  <div class="modal-card">
+    <div class="modal-checker"></div>
+    <button class="modal-x" id="prodX" aria-label="Fechar">×</button>
+    <h3 id="prodTitle">Novo produto</h3>
+    <p class="modal-sub">Item do balcão: nome, preço, imagem e estoque.</p>
+    <div style="padding:0 1.5rem 1.2rem">
+      <label class="fld-l">Nome</label>
+      <input id="pdNome" class="wl-input" placeholder="Ex: Água 500ml" autocomplete="off">
+      <div class="pd-row">
+        <div><label class="fld-l">Preço (R$)</label><input id="pdPreco" type="number" min="0" step="1" class="wl-input" placeholder="0"></div>
+        <div><label class="fld-l">Estoque</label><div class="pd-stock"><input id="pdEstoque" type="number" min="0" class="wl-input" placeholder="0"><button type="button" class="wl-add" id="pdAbater">− Abater 1</button></div></div>
+      </div>
+      <label class="fld-l" style="display:block;margin-top:.9rem">Imagem</label>
+      <div class="pd-img">
+        <div class="pd-preview" id="pdPreview">🍫</div>
+        <div class="pd-imgopts">
+          <div class="pd-icons" id="pdIcons"></div>
+          <label class="wl-add pd-upload">Subir foto<input type="file" id="pdFoto" accept="image/*" hidden></label>
+          <p class="wl-hint">Escolha um ícone ou suba uma foto. No protótipo, a foto some ao recarregar — o ícone fica salvo.</p>
+        </div>
+      </div>
+      <label class="fchk" style="margin-top:1rem"><input type="checkbox" id="pdAtivo" checked> Produto ativo <span style="color:var(--muted);font-weight:400">(aparece no PDV pra venda)</span></label>
+      <div class="xf-actions" style="margin-top:1.1rem">
+        <button class="fa" id="prodCancel" type="button">Cancelar</button>
+        <button class="fa fa-primary" id="prodSave" type="button">Salvar produto</button>
       </div>
     </div>
   </div>
@@ -3231,6 +3296,104 @@
       var parcTxt='';
       if(st.isSub && st.dval>0){ var pv=(parcIn.value||'').trim(); parcTxt='\nDesconto nas parcelas: '+((pv===''||pv==='0')?'todas':pv); }
       alert('Venda registrada! (protótipo)\n\nItem: '+vName.textContent+'\nPagamento: '+document.getElementById('paySel').value+'\nTotal: '+vTotal.textContent+parcTxt);
+    });
+  })();
+
+  // Produtos — cadastro, edição (ícone/foto, estoque, ativo) e venda no PDV
+  (function(){
+    var grid=document.getElementById('prodGrid'); if(!grid) return;
+    var PRODUTOS=[
+      {id:1,nome:'Barrinha proteica',preco:12,icon:'🍫',foto:null,estoque:34,ativo:true},
+      {id:2,nome:'Garrafa Salty',preco:59,icon:'🚰',foto:null,estoque:12,ativo:true},
+      {id:3,nome:'Camiseta',preco:79,icon:'👕',foto:null,estoque:8,ativo:true},
+      {id:4,nome:'Meia',preco:29,icon:'🧦',foto:null,estoque:40,ativo:true},
+      {id:5,nome:'Toalha',preco:39,icon:'🧣',foto:null,estoque:15,ativo:true}
+    ];
+    var nextId=6;
+    var ICONS=['🍫','🥤','🚰','💧','👕','🧦','🧣','🧢','🎽','🩴','🧴','🧼','🍌','☕','🏷️','🛍️'];
+
+    function prodCard(p){
+      var img=p.foto?'<img class="prod-foto" src="'+p.foto+'" alt="">':'<div class="prod-emoji">'+p.icon+'</div>';
+      var low=p.estoque<=8?' low':'';
+      return '<div class="prod'+(p.ativo?'':' off')+'">'+img
+        +'<div class="prod-name">'+p.nome+(p.ativo?'':' <span class="prod-inativo">inativo</span>')+'</div>'
+        +'<div class="prod-price">R$ '+p.preco+'</div>'
+        +'<div class="prod-stock'+low+'">Estoque: '+p.estoque+(p.estoque<=8?' · baixo':'')+'</div>'
+        +'<button class="prod-edit" type="button" data-ped="'+p.id+'">Editar</button></div>';
+    }
+    function pdvCard(p){
+      var img=p.foto?'<img class="pc-foto" src="'+p.foto+'" alt="">':'<span class="pc-emoji">'+p.icon+'</span>';
+      return '<div class="pcard prod-pcard"><div class="pc-top">'+img+'<div><span class="pc-name">'+p.nome+'</span><span class="pc-price">R$ '+p.preco+'</span></div></div>'
+        +'<span class="pc-desc">Estoque: '+p.estoque+'</span>'
+        +'<button class="pc-launch" type="button" data-plaunch="'+p.id+'"'+(p.estoque<1?' disabled':'')+'>'+(p.estoque<1?'Sem estoque':'Lançar venda')+'</button></div>';
+    }
+    function renderPDV(){ var el=document.getElementById('pdvProdGrid'); if(el) el.innerHTML=PRODUTOS.filter(function(p){return p.ativo;}).map(pdvCard).join('')||'<p class="week-note">Nenhum produto ativo. Ative algum no Catálogo (Produtos).</p>'; }
+    function renderTiles(){
+      var tiles=document.querySelectorAll('[data-view="produtos"] .tiles .tile .val');
+      if(tiles.length>=3){ tiles[0].textContent=PRODUTOS.length; tiles[2].textContent=PRODUTOS.filter(function(p){return p.estoque<=8;}).length; }
+    }
+    function renderAll(){ grid.innerHTML=PRODUTOS.map(prodCard).join(''); renderPDV(); renderTiles(); }
+    renderAll();
+
+    // ---- modal de produto ----
+    var M=document.getElementById('prodModal'), editId=null, curIcon='🍫', curFoto=null;
+    var prev=document.getElementById('pdPreview'), iconsEl=document.getElementById('pdIcons');
+    function renderIcons(){ iconsEl.innerHTML=ICONS.map(function(ic){return '<button type="button" class="pd-icon'+(ic===curIcon&&!curFoto?' on':'')+'" data-ic="'+ic+'">'+ic+'</button>';}).join(''); }
+    function updatePreview(){ prev.innerHTML=curFoto?'<img src="'+curFoto+'" alt="">':curIcon; }
+    function openProd(id){
+      editId=(id==null?null:id);
+      var p=(id==null?null:PRODUTOS.filter(function(x){return x.id===id;})[0]);
+      document.getElementById('prodTitle').textContent=p?'Editar produto':'Novo produto';
+      document.getElementById('pdNome').value=p?p.nome:'';
+      document.getElementById('pdPreco').value=p?p.preco:'';
+      document.getElementById('pdEstoque').value=p?p.estoque:'';
+      document.getElementById('pdAtivo').checked=p?p.ativo:true;
+      curIcon=p?p.icon:'🍫'; curFoto=p?p.foto:null;
+      renderIcons(); updatePreview();
+      M.classList.add('open'); document.body.style.overflow='hidden';
+    }
+    function closeProd(){ M.classList.remove('open'); document.body.style.overflow=''; }
+    document.getElementById('novoProd').addEventListener('click',function(){openProd(null);});
+    grid.addEventListener('click',function(e){ var b=e.target.closest('[data-ped]'); if(b) openProd(+b.dataset.ped); });
+    document.getElementById('prodX').addEventListener('click',closeProd);
+    document.getElementById('prodCancel').addEventListener('click',closeProd);
+    M.addEventListener('click',function(e){ if(e.target===M) closeProd(); });
+    iconsEl.addEventListener('click',function(e){ var b=e.target.closest('[data-ic]'); if(!b)return; curIcon=b.dataset.ic; curFoto=null; renderIcons(); updatePreview(); });
+    document.getElementById('pdFoto').addEventListener('change',function(e){
+      var f=e.target.files&&e.target.files[0]; if(!f)return;
+      var r=new FileReader(); r.onload=function(){ curFoto=r.result; renderIcons(); updatePreview(); }; r.readAsDataURL(f);
+    });
+    document.getElementById('pdAbater').addEventListener('click',function(){ var el=document.getElementById('pdEstoque'); var v=parseInt(el.value,10)||0; if(v>0) el.value=v-1; });
+    document.getElementById('prodSave').addEventListener('click',function(){
+      var nome=document.getElementById('pdNome').value.trim(); if(!nome){ document.getElementById('pdNome').focus(); return; }
+      var p={ id:(editId!=null?editId:nextId++), nome:nome, preco:+document.getElementById('pdPreco').value||0,
+              estoque:+document.getElementById('pdEstoque').value||0, ativo:document.getElementById('pdAtivo').checked, icon:curIcon, foto:curFoto };
+      if(editId!=null){ for(var i=0;i<PRODUTOS.length;i++){ if(PRODUTOS[i].id===editId){ PRODUTOS[i]=p; break; } } }
+      else PRODUTOS.push(p);
+      renderAll(); closeProd();
+    });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&M.classList.contains('open'))closeProd(); });
+
+    // ---- abas do PDV (Planos / Produtos) ----
+    var aside=document.getElementById('vendaAside');
+    document.querySelectorAll('#pdvTabs .ag-tab').forEach(function(t){
+      t.addEventListener('click',function(){
+        document.querySelectorAll('#pdvTabs .ag-tab').forEach(function(x){x.classList.remove('on');});
+        t.classList.add('on');
+        var isProd=t.dataset.ptab==='produtos';
+        document.getElementById('pdvPlanos').hidden=isProd;
+        document.getElementById('pdvProdutos').hidden=!isProd;
+        if(aside) aside.hidden=isProd;
+        if(isProd) renderPDV();
+      });
+    });
+    // ---- lançar venda de produto no PDV ----
+    var pg=document.getElementById('pdvProdGrid');
+    if(pg)pg.addEventListener('click',function(e){
+      var b=e.target.closest('[data-plaunch]'); if(!b||b.disabled)return;
+      var id=+b.dataset.plaunch, p=PRODUTOS.filter(function(x){return x.id===id;})[0]; if(!p||p.estoque<1)return;
+      p.estoque--; renderAll();
+      alert('Venda lançada! (protótipo)\n\n'+p.nome+' · R$ '+p.preco+'\nBaixa no estoque: resta '+p.estoque+'.');
     });
   })();
 
