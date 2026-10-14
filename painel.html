@@ -1,4 +1,5 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Painel interno de gestao da recepcao da Salty (prototipo, dados ficticios)."><title>Painel da Salty</title><style>*,*::before,*::after{box-sizing:border-box}html,body{margin:0;padding:0}</style></head><body><title>Painel da Salty</title>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Painel interno de gestao da recepcao da Salty (prototipo, dados ficticios)."><title>Painel da Salty</title><style>*,*::before,*::after{box-sizing:border-box}html,body{margin:0;padding:0}</style></head><body>
+<title>Painel da Salty</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -366,8 +367,10 @@
   .bike.free{background:var(--panel);border:1.5px dashed var(--line2);color:var(--faint)}
   .bike.free .bm-ini{font-size:.6rem;font-style:italic}
   .bike.occ{background:#3AA0D0;border:1.5px solid #2E90C4;color:#fff;box-shadow:0 4px 10px -6px rgba(46,144,196,.7)}
-  .bike.occ .bm-bi{width:24px;height:24px;opacity:.85;margin-top:.5rem}
-  .bike.occ .bm-name{font-weight:700;font-size:.72rem;line-height:1.12;letter-spacing:.01em;max-width:96%;text-align:center;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .bike.occ .bm-bi{width:40px;height:40px;object-fit:contain;opacity:.95;margin-top:.25rem}
+  .bike.occ .bm-name{max-width:98%;text-align:center;display:flex;flex-direction:column;align-items:center;line-height:1.06;overflow:hidden}
+  .bike.occ .bm-fn{font-weight:700;font-size:.72rem;letter-spacing:.01em;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bike.occ .bm-sn{font-weight:600;font-size:.6rem;opacity:.82;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .bike.occ.done{background:var(--good);border-color:#2c7a4e;box-shadow:0 4px 10px -6px rgba(46,139,87,.7)}
   .bike svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.6;opacity:.75}
   .bike.hl{outline:3px solid var(--red);outline-offset:1px}
@@ -495,6 +498,52 @@
   .wl-pos{width:26px;height:26px;border-radius:8px;background:var(--navy);color:#fff;font-family:var(--f-mono);font-weight:700;font-size:.78rem;display:flex;align-items:center;justify-content:center;flex:none;margin-left:.4rem}
   .wl-call{font-family:inherit;font-weight:700;font-size:.76rem;color:#fff;background:var(--good);border:none;border-radius:999px;padding:.4rem .8rem;cursor:pointer;margin-left:.5rem;flex:none}
   .wl-call:hover{filter:brightness(1.05)}
+  .wl-top{display:flex;flex-direction:column;gap:.5rem;padding:.2rem 1.5rem .8rem}
+  .wl-add{align-self:flex-start;font-family:inherit;font-weight:700;font-size:.82rem;color:var(--navy);background:var(--raise);border:1.5px solid var(--line2);border-radius:9px;padding:.5rem .9rem;cursor:pointer;transition:.12s}
+  .wl-add:hover{border-color:var(--navy)}
+  .wl-rule{font-size:.72rem;color:var(--muted);line-height:1.4}
+  .wl-info{flex:1;min-width:0}
+  .wl-prazo{font-family:var(--f-mono);font-size:.66rem;color:var(--warn);margin-top:.15rem}
+  .wl-input{width:100%;font-family:inherit;font-size:.9rem;padding:.6rem .7rem;border:1.5px solid var(--line2);border-radius:9px;background:var(--panel);color:var(--ink);outline:none}
+  .wl-input:focus{border-color:var(--navy)}
+  .wl-hint{font-size:.72rem;color:var(--muted);margin:.3rem 0 .5rem;line-height:1.4}
+  .wl-buffers{display:flex;gap:.4rem;flex-wrap:wrap}
+  .wl-buffers button{font-family:inherit;font-weight:700;font-size:.82rem;color:var(--ink);background:var(--raise);border:1.5px solid var(--line2);border-radius:9px;padding:.5rem .9rem;cursor:pointer;transition:.12s}
+  .wl-buffers button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .wl-cal{display:inline-flex;align-items:center;gap:.4rem;margin-top:.9rem;font-family:inherit;font-weight:700;font-size:.8rem;color:var(--sky-ink);text-decoration:none}
+  .wl-cal svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8}
+  .wl-cal:hover{text-decoration:underline}
+  /* ===== Funcionários: Quadro + cadastro ===== */
+  .staff-tabs{max-width:none}
+  .stafflist{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem}
+  .staff-row{display:flex;align-items:center;gap:.9rem;background:var(--panel);border:1.5px solid var(--line2);border-radius:12px;padding:.8rem 1rem}
+  .staff-row .sav{width:40px;height:40px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none}
+  .staff-row .sinfo{flex:1;min-width:0}
+  .staff-row .sn{font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+  .scargo{font-family:var(--f-mono);font-size:.56rem;letter-spacing:.05em;text-transform:uppercase;font-weight:700;padding:.14rem .5rem;border-radius:6px}
+  .scargo.prof{background:var(--sky);color:var(--sky-ink)} .scargo.recep{background:color-mix(in srgb,var(--navy) 12%,transparent);color:var(--navy)} .scargo.gestor{background:color-mix(in srgb,#8A5FB0 15%,transparent);color:#6b3fa0}
+  .staff-row .ssub{font-size:.76rem;color:var(--muted);margin-top:.15rem}
+  .sstatus{font-family:var(--f-mono);font-size:.6rem;font-weight:700;text-transform:uppercase;padding:.2rem .5rem;border-radius:6px;flex:none}
+  .sstatus.on{background:color-mix(in srgb,var(--good) 14%,transparent);color:var(--good)} .sstatus.off{background:var(--line);color:var(--muted)}
+  .staff-edit{font-family:inherit;font-weight:700;font-size:.78rem;color:var(--navy);background:var(--raise);border:1.5px solid var(--line2);border-radius:999px;padding:.4rem .8rem;cursor:pointer;flex:none}
+  .staff-edit:hover{border-color:var(--navy)}
+  .seg3{display:flex;gap:.4rem;flex-wrap:wrap}
+  .seg3 button{flex:1;min-width:90px;font-family:inherit;font-weight:700;font-size:.82rem;color:var(--ink);background:var(--raise);border:1.5px solid var(--line2);border-radius:9px;padding:.5rem .6rem;cursor:pointer;transition:.12s}
+  .seg3 button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .seg3.seg-2 button{min-width:140px}
+  .fchk{display:inline-flex;align-items:center;gap:.4rem;font-size:.84rem;font-weight:600;color:var(--ink);cursor:pointer}
+  .fchk input{width:16px;height:16px;accent-color:var(--navy)}
+  #fuMods.chiprow{display:flex;gap:.5rem 1rem;flex-wrap:wrap}
+  .pay-fields{margin-top:.6rem;display:flex;flex-direction:column;gap:.5rem;border-left:2px solid var(--line2);padding-left:.8rem}
+  .pay-fields[hidden]{display:none}
+  .pf-row{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+  .pf-row>span{font-size:.84rem;color:var(--ink)}
+  .pf-in{display:inline-flex;align-items:center;gap:.3rem;font-size:.84rem;color:var(--muted)}
+  .pf-in input{width:84px;font-family:inherit;font-size:.9rem;font-weight:600;color:var(--ink);background:var(--panel);border:1.5px solid var(--line2);border-radius:8px;padding:.35rem .5rem;text-align:right}
+  .faixa-row{display:flex;align-items:center;gap:.4rem;font-size:.84rem;color:var(--ink)}
+  .faixa-row input{width:64px;font-family:inherit;font-weight:600;color:var(--ink);background:var(--panel);border:1.5px solid var(--line2);border-radius:8px;padding:.3rem .45rem;text-align:right}
+  .faixa-row .fx-rm{width:24px;height:24px;border-radius:6px;border:1.5px solid var(--line2);background:var(--panel);color:var(--muted);cursor:pointer;flex:none;margin-left:auto;line-height:1}
+  .faixa-row .fx-rm:hover{border-color:var(--red);color:var(--red)}
   .cx-empty{padding:1.6rem 1rem;color:var(--faint);font-style:italic;text-align:center}
   /* barra de ordenação */
   .ag-sortbar{display:flex;align-items:center;gap:.5rem;max-width:660px;margin:.7rem 0 .2rem}
@@ -683,6 +732,10 @@
   .pay-foot{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;background:var(--raise)}
   .pay-foot span{font-weight:700;font-size:.9rem}
   .pay-foot b{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.9rem;color:var(--red);font-variant-numeric:tabular-nums}
+  .pay-empty{padding:1.6rem 1.2rem;text-align:center;color:var(--muted);font-size:.88rem}
+  .folha-filters{display:flex;flex-wrap:wrap;gap:.6rem 2rem;margin-bottom:1.3rem}
+  .folha-filters .ff-group{display:flex;flex-direction:column;gap:.45rem}
+  .folha-filters .ff-chips{display:flex;flex-wrap:wrap;gap:.4rem}
   @media(max-width:760px){
     .pay-head{display:none}
     .pay-row{grid-template-columns:1fr auto;gap:.5rem .8rem}
@@ -1024,6 +1077,8 @@
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
   <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
   <symbol id="i-bike" viewBox="0 0 24 24"><circle cx="5.5" cy="17" r="3.2"/><circle cx="18.5" cy="17" r="3.2"/><path d="M5.5 17l3.5-8h4l3 8M9 9l1.5-3h3M12 9h4.5"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c1 3-2 4-2 7a2 2 0 0 0 4 0c2 2 3 4 3 6a5 5 0 0 1-10 0c0-4 4-6 5-13z"/></symbol>
+  <symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M3 9v6M6 7v10M18 7v10M21 9v6M6 12h12"/></symbol>
   <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v5l-4 2v-7z"/></symbol>
   <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5 11-11"/></symbol>
@@ -1372,37 +1427,46 @@
       <section class="view" data-view="planos">
         <div class="planos-layout">
           <div class="catalogo">
-            <h3 class="blk-h">Assinaturas</h3>
+            <h3 class="blk-h">Planos mensais</h3>
             <div class="pcards grid3">
-              <button class="pcard on" data-price="249" data-name="Clube Salty" data-unit="/mês" data-sub="Ilimitado + 1 convite por mês">
-                <span class="pc-tag pop">Clube Salty</span>
-                <span class="pc-name">Ilimitado</span>
-                <span class="pc-price">R$ 249<small>/mês</small></span>
-                <span class="pc-desc">Aulas ilimitadas · +1 convite/mês pra um amigo</span>
+              <button class="pcard" data-price="269" data-name="5 por mês" data-unit="/mês" data-sub="5 aulas/mês · começar o hábito">
+                <span class="pc-tag">Mensal</span>
+                <span class="pc-name">5 por mês</span>
+                <span class="pc-price">R$ 269<small>/mês</small></span>
+                <span class="pc-desc">5 aulas por mês · R$ 53,80 por presença</span>
               </button>
-              <button class="pcard" data-price="199" data-name="12 créditos" data-unit="/mês" data-sub="12 aulas/mês · 3× por semana">
-                <span class="pc-tag">Assinatura</span>
-                <span class="pc-name">12 créditos</span>
-                <span class="pc-price">R$ 199<small>/mês</small></span>
-                <span class="pc-desc">12 aulas por mês · ideal pra 3× por semana</span>
+              <button class="pcard on" data-price="499" data-name="10 por mês" data-unit="/mês" data-sub="10 aulas/mês · resultados e consistência">
+                <span class="pc-tag pop">Recomendado</span>
+                <span class="pc-name">10 por mês</span>
+                <span class="pc-price">R$ 499<small>/mês</small></span>
+                <span class="pc-desc">10 aulas por mês · R$ 49,90 por presença</span>
               </button>
-              <button class="pcard" data-price="149" data-name="8 créditos" data-unit="/mês" data-sub="8 aulas/mês · 2× por semana">
-                <span class="pc-tag">Assinatura</span>
-                <span class="pc-name">8 créditos</span>
-                <span class="pc-price">R$ 149<small>/mês</small></span>
-                <span class="pc-desc">8 aulas por mês · ideal pra 2× por semana</span>
+              <button class="pcard" data-price="679" data-name="Clube Salty" data-unit="/mês" data-sub="15 aulas/mês · melhor custo-benefício">
+                <span class="pc-tag">Clube Salty</span>
+                <span class="pc-name">15 por mês</span>
+                <span class="pc-price">R$ 679<small>/mês</small></span>
+                <span class="pc-desc">15 aulas/mês · R$ 45,27 por presença · aula adicional R$ 35</span>
               </button>
             </div>
-            <h3 class="blk-h">Avulso <span>· 1 aula, sem assinatura</span></h3>
+            <h3 class="blk-h">Entrada <span>· conhecer a Salty</span></h3>
             <div class="pcards">
-              <button class="pcard" data-price="45" data-name="Crédito avulso" data-unit="" data-sub="1 aula, qualquer modalidade">
-                <span class="pc-tag">Crédito avulso</span>
-                <span class="pc-name">1 aula</span>
-                <span class="pc-price">R$ 45</span>
-                <span class="pc-desc">Uma aula, qualquer modalidade — sem compromisso</span>
+              <button class="pcard" data-price="35" data-name="Experimental" data-unit="" data-sub="1 a 3 modalidades · 10 dias">
+                <span class="pc-tag">Experimental</span>
+                <span class="pc-name">Experimental</span>
+                <span class="pc-price">R$ 35<small> a R$ 90</small></span>
+                <span class="pc-desc">1 mod R$ 35 · 2 mod R$ 50 · 3 mod R$ 90 · validade 10 dias</span>
               </button>
             </div>
-            <p class="week-note">Valores de exemplo — a definir com a cliente.</p>
+            <h3 class="blk-h">Avulsa <span>· 1 aula, sem assinatura</span></h3>
+            <div class="pcards">
+              <button class="pcard" data-price="69" data-name="Avulsa" data-unit="" data-sub="1 aula · flexibilidade total">
+                <span class="pc-tag">Avulsa</span>
+                <span class="pc-name">1 aula</span>
+                <span class="pc-price">R$ 69</span>
+                <span class="pc-desc">Uma aula, qualquer modalidade · validade 7 dias</span>
+              </button>
+            </div>
+            <p class="week-note">Valores oficiais da Salty.</p>
           </div>
 
           <aside class="venda">
@@ -1410,7 +1474,7 @@
             <div class="venda-body">
               <h3>Nova venda</h3>
               <div class="v-cliente" id="vCliente"><i>Cliente</i> nenhum aluno selecionado</div>
-              <div class="v-item"><div><b id="vName">Clube Salty</b><span id="vSub">Ilimitado + 1 convite por mês</span></div><span class="v-base" id="vBase">R$ 249</span></div>
+              <div class="v-item"><div><b id="vName">10 por mês</b><span id="vSub">10 aulas/mês · resultados e consistência</span></div><span class="v-base" id="vBase">R$ 499</span></div>
 
               <label class="fld-l2">Cupom de desconto</label>
               <div class="cupom-row">
@@ -1435,7 +1499,7 @@
                 <option>Link de pagamento</option>
               </select>
 
-              <div class="v-total"><span>Total</span><b id="vTotal">R$ 249</b></div>
+              <div class="v-total"><span>Total</span><b id="vTotal">R$ 499</b></div>
               <button class="btn-new full" id="vFinish">Finalizar venda</button>
               <p class="v-note">Protótipo — a venda não é registrada de verdade ainda.</p>
             </div>
@@ -1448,32 +1512,38 @@
           <div class="tile"><div class="tl">Produtos no balcão</div><div class="val">5</div><div class="delta flat">itens cadastrados</div></div>
           <div class="tile"><div class="tl">Vendas de produtos</div><div class="val">R$ 1.870</div><div class="delta up">▲ 12% no mês</div></div>
           <div class="tile"><div class="tl">Estoque baixo</div><div class="val">1</div><div class="delta flat">repor em breve</div></div>
-          <div class="tile"><div class="tl">Planos ativos</div><div class="val">4</div><div class="delta flat">3 assinaturas + avulso</div></div>
+          <div class="tile"><div class="tl">Planos ativos</div><div class="val">5</div><div class="delta flat">3 mensais + experimental + avulsa</div></div>
         </div>
 
         <div class="prod-head"><h3 class="blk-h">Planos &amp; assinaturas <span>· o que o aluno compra</span></h3></div>
         <div class="planlist">
           <div class="planrow">
-            <div class="pr-main"><b>Clube Salty</b><span>Assinatura · aulas ilimitadas + 1 crédito-convite por mês</span></div>
-            <div class="pr-price">R$ 249<small>/mês</small></div>
+            <div class="pr-main"><b>5 por mês</b><span>Mensal · 5 aulas por mês · R$ 53,80 por presença</span></div>
+            <div class="pr-price">R$ 269<small>/mês</small></div>
             <span class="pr-status ativo">Ativo</span>
             <button class="prod-act">Editar</button>
           </div>
           <div class="planrow">
-            <div class="pr-main"><b>12 créditos</b><span>Assinatura · 12 aulas por mês (3× por semana)</span></div>
-            <div class="pr-price">R$ 199<small>/mês</small></div>
+            <div class="pr-main"><b>10 por mês</b><span>Mensal · 10 aulas/mês · R$ 49,90 por presença · recomendado</span></div>
+            <div class="pr-price">R$ 499<small>/mês</small></div>
             <span class="pr-status ativo">Ativo</span>
             <button class="prod-act">Editar</button>
           </div>
           <div class="planrow">
-            <div class="pr-main"><b>8 créditos</b><span>Assinatura · 8 aulas por mês (2× por semana)</span></div>
-            <div class="pr-price">R$ 149<small>/mês</small></div>
+            <div class="pr-main"><b>Clube Salty — 15 por mês</b><span>Mensal · 15 aulas/mês · R$ 45,27 por presença · aula adicional R$ 35</span></div>
+            <div class="pr-price">R$ 679<small>/mês</small></div>
             <span class="pr-status ativo">Ativo</span>
             <button class="prod-act">Editar</button>
           </div>
           <div class="planrow">
-            <div class="pr-main"><b>Crédito avulso</b><span>1 aula, qualquer modalidade — sem assinatura</span></div>
-            <div class="pr-price">R$ 45</div>
+            <div class="pr-main"><b>Experimental</b><span>Entrada · 1 a 3 modalidades (R$ 35 / 50 / 90) · validade 10 dias</span></div>
+            <div class="pr-price">R$ 35<small> a 90</small></div>
+            <span class="pr-status ativo">Ativo</span>
+            <button class="prod-act">Editar</button>
+          </div>
+          <div class="planrow">
+            <div class="pr-main"><b>Avulsa</b><span>1 aula, qualquer modalidade · validade 7 dias</span></div>
+            <div class="pr-price">R$ 69</div>
             <span class="pr-status ativo">Ativo</span>
             <button class="prod-act">Editar</button>
           </div>
@@ -1592,18 +1662,33 @@
           <div class="fin-head">
             <div>Data</div><div>Aluno</div><div>Item</div><div>Pagamento</div><div class="r">Valor</div><div class="r">Nota fiscal</div>
           </div>
-          <div class="fin-row"><div class="fmono">20/08</div><div class="fname">Ana Beatriz Souza</div><div>Clube Salty</div><div><span class="pgt">Cartão crédito</span></div><div class="r fmono">R$ 249</div><div class="r"><span class="nf ok">Emitida</span></div></div>
+          <div class="fin-row"><div class="fmono">20/08</div><div class="fname">Ana Beatriz Souza</div><div>Clube Salty (15/mês)</div><div><span class="pgt">Cartão crédito</span></div><div class="r fmono">R$ 679</div><div class="r"><span class="nf ok">Emitida</span></div></div>
           <div class="fin-row"><div class="fmono">20/08</div><div class="fname">Balcão</div><div>Barrinha proteica ×2</div><div><span class="pgt">Pix</span></div><div class="r fmono">R$ 24</div><div class="r"><span class="nf ok">Emitida</span></div></div>
-          <div class="fin-row"><div class="fmono">19/08</div><div class="fname">Carlos Menezes</div><div>Crédito avulso</div><div><span class="pgt">Dinheiro</span></div><div class="r fmono">R$ 45</div><div class="r"><button class="nf pend">Emitir NF</button></div></div>
-          <div class="fin-row"><div class="fmono">19/08</div><div class="fname">Juliana Prado</div><div>Clube Salty</div><div><span class="pgt">Cartão crédito</span></div><div class="r fmono">R$ 249</div><div class="r"><span class="nf ok">Emitida</span></div></div>
+          <div class="fin-row"><div class="fmono">19/08</div><div class="fname">Carlos Menezes</div><div>Avulsa</div><div><span class="pgt">Dinheiro</span></div><div class="r fmono">R$ 69</div><div class="r"><button class="nf pend">Emitir NF</button></div></div>
+          <div class="fin-row"><div class="fmono">19/08</div><div class="fname">Juliana Prado</div><div>5 por mês</div><div><span class="pgt">Cartão crédito</span></div><div class="r fmono">R$ 269</div><div class="r"><span class="nf ok">Emitida</span></div></div>
           <div class="fin-row"><div class="fmono">18/08</div><div class="fname">Rafael Lima</div><div>Camiseta</div><div><span class="pgt">Débito</span></div><div class="r fmono">R$ 79</div><div class="r"><button class="nf pend">Emitir NF</button></div></div>
-          <div class="fin-row"><div class="fmono">18/08</div><div class="fname">Marina Castro</div><div>Clube Salty</div><div><span class="pgt">Link</span></div><div class="r fmono">R$ 249</div><div class="r"><span class="nf ok">Emitida</span></div></div>
-          <div class="fin-row"><div class="fmono">17/08</div><div class="fname">Pedro Alves</div><div>Crédito avulso</div><div><span class="pgt">Pix</span></div><div class="r fmono">R$ 45</div><div class="r"><button class="nf pend">Emitir NF</button></div></div>
+          <div class="fin-row"><div class="fmono">18/08</div><div class="fname">Marina Castro</div><div>Clube Salty (15/mês)</div><div><span class="pgt">Link</span></div><div class="r fmono">R$ 679</div><div class="r"><span class="nf ok">Emitida</span></div></div>
+          <div class="fin-row"><div class="fmono">17/08</div><div class="fname">Pedro Alves</div><div>Avulsa</div><div><span class="pgt">Pix</span></div><div class="r fmono">R$ 69</div><div class="r"><button class="nf pend">Emitir NF</button></div></div>
         </div>
         <p class="week-note">Dados de exemplo. Toda venda vira uma linha aqui — com a nota fiscal a um clique de ser emitida.</p>
       </section>
 
       <section class="view" data-view="staff">
+        <div class="ag-tabs staff-tabs" id="staffTabs">
+          <button class="ag-tab on" type="button" data-stab="quadro">Quadro<span class="tcount" id="tcQuadro">0</span></button>
+          <button class="ag-tab" type="button" data-stab="folha">Folha de pagamento</button>
+        </div>
+
+        <div class="staff-sub" id="staffQuadro">
+          <div class="aulas-bar">
+            <h3 class="blk-h">Quadro de funcionários <span>· quem trabalha na Salty</span></h3>
+            <button class="btn-new" id="novoFunc"><span>+</span> Novo funcionário</button>
+          </div>
+          <div class="stafflist" id="staffList"></div>
+          <p class="week-note">Cadastre funcionários, defina o cargo e o acesso — e, para professores, as modalidades e a regra de pagamento (usada na Folha).</p>
+        </div>
+
+        <div class="staff-sub" id="staffFolha" hidden>
         <div class="rep-period">
           <span class="fl-lbl">Folha de:</span>
           <button class="chip">Junho</button>
@@ -1613,66 +1698,32 @@
           <button class="btn-new" id="fecharFolha"><span>✓</span> Fechar folha do mês</button>
         </div>
 
-        <div class="tiles">
-          <div class="tile"><div class="tl">Total da folha</div><div class="val">R$ 4.482</div><div class="delta flat">4 professores</div></div>
-          <div class="tile"><div class="tl">Aulas no mês</div><div class="val">98</div><div class="delta flat">todas as modalidades</div></div>
-          <div class="tile"><div class="tl">Aulas cheias (bônus)</div><div class="val">36</div><div class="delta up">▲ boa ocupação</div></div>
-          <div class="tile"><div class="tl">Status da folha</div><div class="val" id="folhaStatus" style="font-size:1.6rem">A revisar</div><div class="delta flat">fecha quando você revisar</div></div>
+        <div class="folha-filters">
+          <div class="ff-group"><span class="fl-lbl">Modalidade</span>
+            <div class="ff-chips" id="folhaMod">
+              <button class="chip on" type="button" data-fmod="all">Todas</button>
+              <button class="chip" type="button" data-fmod="l-bike">Bike</button>
+              <button class="chip" type="button" data-fmod="l-hy">Hot Yoga/Pilates</button>
+              <button class="chip" type="button" data-fmod="l-sc">Hot Sculpt</button>
+              <button class="chip" type="button" data-fmod="l-fn">Funcional</button>
+            </div>
+          </div>
+          <div class="ff-group"><span class="fl-lbl">Professor</span>
+            <div class="ff-chips" id="folhaProf"></div>
+          </div>
         </div>
+
+        <div class="tiles" id="folhaTiles"></div>
 
         <div class="pay">
           <div class="pay-head">
-            <div>Professor</div><div class="c">Aulas</div><div class="r">Base</div><div class="r">Bônus lotação</div><div class="r">Total</div><div></div>
+            <div>Professor</div><div class="c">Aulas</div><div class="r">Base</div><div class="r">Bônus</div><div class="r">Total</div><div></div>
           </div>
-
-          <div class="pay-row" data-toggle="d1">
-            <div class="pl"><span class="pav" style="background:#3AA0D0">C</span><div><b>Cauã</b><span>Bike</span></div></div>
-            <div class="c">30</div><div class="r mono">R$ 1.200</div><div class="r mono bonus">+ R$ 96</div><div class="r mono tot">R$ 1.296</div>
-            <div class="r"><span class="pstatus">A revisar</span><button class="calc-btn">Ver cálculo ▾</button></div>
-          </div>
-          <div class="pay-detail" id="d1">
-            <div class="calc-line"><span>Bike · 30 aulas × R$ 40</span><b>R$ 1.200</b></div>
-            <div class="calc-line"><span>Bônus lotação · 12 aulas cheias × R$ 8</span><b>R$ 96</b></div>
-            <div class="calc-line total"><span>Total a pagar</span><b>R$ 1.296</b></div>
-          </div>
-
-          <div class="pay-row" data-toggle="d2">
-            <div class="pl"><span class="pav" style="background:#E73737">M</span><div><b>Marina</b><span>Hot Yoga · Pilates</span></div></div>
-            <div class="c">26</div><div class="r mono">R$ 1.170</div><div class="r mono bonus">+ R$ 80</div><div class="r mono tot">R$ 1.250</div>
-            <div class="r"><span class="pstatus">A revisar</span><button class="calc-btn">Ver cálculo ▾</button></div>
-          </div>
-          <div class="pay-detail" id="d2">
-            <div class="calc-line"><span>Hot Yoga · 16 aulas × R$ 45</span><b>R$ 720</b></div>
-            <div class="calc-line"><span>Pilates · 10 aulas × R$ 45</span><b>R$ 450</b></div>
-            <div class="calc-line"><span>Bônus lotação · 10 aulas cheias × R$ 8</span><b>R$ 80</b></div>
-            <div class="calc-line total"><span>Total a pagar</span><b>R$ 1.250</b></div>
-          </div>
-
-          <div class="pay-row" data-toggle="d3">
-            <div class="pl"><span class="pav" style="background:#E0A020">B</span><div><b>Bia</b><span>Hot Sculpt</span></div></div>
-            <div class="c">20</div><div class="r mono">R$ 900</div><div class="r mono bonus">+ R$ 48</div><div class="r mono tot">R$ 948</div>
-            <div class="r"><span class="pstatus">A revisar</span><button class="calc-btn">Ver cálculo ▾</button></div>
-          </div>
-          <div class="pay-detail" id="d3">
-            <div class="calc-line"><span>Hot Sculpt · 20 aulas × R$ 45</span><b>R$ 900</b></div>
-            <div class="calc-line"><span>Bônus lotação · 6 aulas cheias × R$ 8</span><b>R$ 48</b></div>
-            <div class="calc-line total"><span>Total a pagar</span><b>R$ 948</b></div>
-          </div>
-
-          <div class="pay-row" data-toggle="d4">
-            <div class="pl"><span class="pav" style="background:#3E9E6E">R</span><div><b>Rafa</b><span>Funcional</span></div></div>
-            <div class="c">22</div><div class="r mono">R$ 924</div><div class="r mono bonus">+ R$ 64</div><div class="r mono tot">R$ 988</div>
-            <div class="r"><span class="pstatus">A revisar</span><button class="calc-btn">Ver cálculo ▾</button></div>
-          </div>
-          <div class="pay-detail" id="d4">
-            <div class="calc-line"><span>Funcional · 22 aulas × R$ 42</span><b>R$ 924</b></div>
-            <div class="calc-line"><span>Bônus lotação · 8 aulas cheias × R$ 8</span><b>R$ 64</b></div>
-            <div class="calc-line total"><span>Total a pagar</span><b>R$ 988</b></div>
-          </div>
-
-          <div class="pay-foot"><span>Total da folha · Agosto 2026</span><b>R$ 4.482</b></div>
+          <div id="folhaPay"></div>
+          <div class="pay-foot"><span id="folhaFootLbl">Total da folha · Agosto 2026</span><b id="folhaFootVal">R$ 0</b></div>
         </div>
-        <p class="week-note">Valores de exemplo. O sistema calcula sozinho pelas aulas dadas, a modalidade (cada uma tem seu valor) e um bônus por aula cheia. Você só revisa e fecha.</p>
+        <p class="week-note">O sistema calcula sozinho pela regra de cada professor (cadastrada no Quadro). Você só revisa e fecha — e pode filtrar por modalidade ou por professor.</p>
+        </div>
       </section>
 
       <section class="view" data-view="rel">
@@ -1712,7 +1763,7 @@
           <div class="chart">
             <h3>Planos ativos</h3>
             <p class="csub">Alunos por tipo de plano hoje</p>
-            <div class="rep-bars"><div class="rep-bar"><div class="rl">Ilimitado</div><div class="rt"><div class="rf" style="width:100.0%;background:#37346A"></div></div><div class="rv">42</div></div><div class="rep-bar"><div class="rl">10 créditos</div><div class="rt"><div class="rf" style="width:78.6%;background:#37346A"></div></div><div class="rv">33</div></div><div class="rep-bar"><div class="rl">20 créditos</div><div class="rt"><div class="rf" style="width:50.0%;background:#37346A"></div></div><div class="rv">21</div></div><div class="rep-bar"><div class="rl">5 créditos</div><div class="rt"><div class="rf" style="width:42.9%;background:#37346A"></div></div><div class="rv">18</div></div><div class="rep-bar"><div class="rl">30 créditos</div><div class="rt"><div class="rf" style="width:21.4%;background:#37346A"></div></div><div class="rv">9</div></div><div class="rep-bar"><div class="rl">60 créditos</div><div class="rt"><div class="rf" style="width:11.9%;background:#37346A"></div></div><div class="rv">5</div></div></div>
+            <div class="rep-bars"><div class="rep-bar"><div class="rl">10 por mês</div><div class="rt"><div class="rf" style="width:100.0%;background:#37346A"></div></div><div class="rv">42</div></div><div class="rep-bar"><div class="rl">Clube Salty</div><div class="rt"><div class="rf" style="width:78.6%;background:#37346A"></div></div><div class="rv">33</div></div><div class="rep-bar"><div class="rl">5 por mês</div><div class="rt"><div class="rf" style="width:50.0%;background:#37346A"></div></div><div class="rv">21</div></div><div class="rep-bar"><div class="rl">Avulsa</div><div class="rt"><div class="rf" style="width:42.9%;background:#37346A"></div></div><div class="rv">18</div></div><div class="rep-bar"><div class="rl">Experimental</div><div class="rt"><div class="rf" style="width:21.4%;background:#37346A"></div></div><div class="rv">9</div></div><div class="rep-bar"><div class="rl">Outros</div><div class="rt"><div class="rf" style="width:11.9%;background:#37346A"></div></div><div class="rv">5</div></div></div>
           </div>
           <div class="chart">
             <h3>Itens mais vendidos</h3>
@@ -1892,6 +1943,93 @@
   </div>
 </div>
 
+<div class="modal-ov" id="wlModal" role="dialog" aria-modal="true" aria-label="Entrar na lista de espera">
+  <div class="modal-card">
+    <div class="modal-checker"></div>
+    <button class="modal-x" id="wlX" aria-label="Fechar">×</button>
+    <h3>Entrar na lista de espera</h3>
+    <p class="modal-sub" id="wlSub">Aula cheia — entre na fila e seja chamado se abrir vaga.</p>
+    <div style="padding:0 1.5rem 1.2rem">
+      <label class="fld-l">Nome do aluno</label>
+      <input id="wlName" class="wl-input" placeholder="Nome do aluno…" autocomplete="off">
+      <label class="fld-l" style="display:block;margin-top:.9rem">De quanto tempo você precisa para chegar ao studio?</label>
+      <p class="wl-hint">Se a vaga abrir mas faltar menos que isso para a aula, você sai da fila e o crédito é devolvido — sem prejuízo.</p>
+      <div class="wl-buffers" id="wlBuffers">
+        <button type="button" data-buf="15" class="on">15 min</button>
+        <button type="button" data-buf="30">30 min</button>
+        <button type="button" data-buf="45">45 min</button>
+        <button type="button" data-buf="60">60 min</button>
+      </div>
+      <a class="wl-cal" id="wlCal" target="_blank" rel="noopener"><svg><use href="#i-cal"/></svg>Adicionar à agenda (lembrete)</a>
+      <div class="xf-actions" style="margin-top:1.1rem">
+        <button class="fa" id="wlCancel" type="button">Cancelar</button>
+        <button class="fa fa-primary" id="wlConfirm" type="button">Entrar na fila</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="funcModal" role="dialog" aria-modal="true" aria-label="Cadastro de funcionário">
+  <div class="modal-card">
+    <div class="modal-checker"></div>
+    <button class="modal-x" id="funcX" aria-label="Fechar">×</button>
+    <h3 id="funcTitle">Novo funcionário</h3>
+    <p class="modal-sub">Dados, cargo e acesso — e, se professor, modalidades e pagamento.</p>
+    <div style="padding:0 1.5rem 1.2rem">
+      <label class="fld-l">Nome</label>
+      <input id="fuNome" class="wl-input" placeholder="Nome do funcionário" autocomplete="off">
+
+      <label class="fld-l" style="display:block;margin-top:.8rem">Cargo</label>
+      <div class="seg3" id="fuCargo">
+        <button type="button" data-cargo="prof" class="on">Professor</button>
+        <button type="button" data-cargo="recep">Recepção</button>
+        <button type="button" data-cargo="gestor">Gestor</button>
+      </div>
+
+      <label class="fld-l" style="display:block;margin-top:.8rem">Usuário de acesso (email)</label>
+      <input id="fuUser" class="wl-input" placeholder="email@saltysergipe.com" autocomplete="off">
+      <p class="wl-hint" id="fuAcessoHint"></p>
+
+      <div id="fuProfBox">
+        <label class="fld-l" style="display:block;margin-top:.5rem">Modalidades que dá aula</label>
+        <div class="chiprow" id="fuMods">
+          <label class="fchk"><input type="checkbox" value="l-bike"> Bike</label>
+          <label class="fchk"><input type="checkbox" value="l-hy"> Hot Yoga/Pilates</label>
+          <label class="fchk"><input type="checkbox" value="l-sc"> Hot Sculpt</label>
+          <label class="fchk"><input type="checkbox" value="l-fn"> Funcional</label>
+        </div>
+
+        <label class="fld-l" style="display:block;margin-top:.9rem">Regra de remuneração</label>
+        <div class="seg3 seg-2" id="fuParam">
+          <button type="button" data-param="1" class="on">Base + por presente</button>
+          <button type="button" data-param="2">Base + % de lotação</button>
+        </div>
+
+        <div id="fuP1" class="pay-fields">
+          <div class="pf-row"><span>Valor base por aula</span><div class="pf-in">R$ <input type="number" id="fuBase1" value="40" min="0"></div></div>
+          <div class="pf-row"><span>Adicional por aluno presente</span><div class="pf-in">R$ <input type="number" id="fuPorPres" value="1" min="0" step="0.5"></div></div>
+          <p class="wl-hint">Ex.: base R$ 40 + R$ 1 × presentes. Aula com 8 presentes = R$ 48.</p>
+        </div>
+
+        <div id="fuP2" class="pay-fields" hidden>
+          <div class="pf-row"><span>Valor base por aula</span><div class="pf-in">R$ <input type="number" id="fuBase2" value="40" min="0"></div></div>
+          <label class="fld-l" style="display:block;margin-top:.5rem">Faixas de bônus por % de lotação <small style="color:var(--muted)">· prevalece a mais alta</small></label>
+          <div id="fuFaixas"></div>
+          <button type="button" class="wl-add" id="fuAddFaixa">+ Adicionar faixa</button>
+          <p class="wl-hint">Ex.: ≥70% → +R$ 20 · ≥90% → +R$ 30. Lotação medida pelos presentes.</p>
+        </div>
+      </div>
+
+      <label class="fchk" style="margin-top:1rem"><input type="checkbox" id="fuAtivo" checked> Funcionário ativo</label>
+
+      <div class="xf-actions" style="margin-top:1.1rem">
+        <button class="fa" id="funcCancel" type="button">Cancelar</button>
+        <button class="fa fa-primary" id="funcSave" type="button">Salvar funcionário</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal-ov" id="xfModal" role="dialog" aria-modal="true" aria-label="Transferir crédito">
   <div class="modal-card">
     <div class="modal-checker"></div>
@@ -1999,30 +2137,38 @@
     var LMOD={'l-bike':{sala:'Rooftop',dur:'30 min'},'l-hy':{sala:'Sala Quente 1',dur:'50 min'},'l-sc':{sala:'Sala Quente 2',dur:'50 min'},'l-fn':{sala:'Studio Funcional',dur:'50 min'}};
     var AGN={G:'Gympass',T:'TotalPass',C:'ClassPass'};
     var agenda={
-      seg:[{t:'06:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:24,booked:18,agg:['G','T']},
-           {t:'09:00',mod:'l-hy',name:'Hot Yoga',prof:'Marina',cap:24,booked:24,agg:['G']},
-           {t:'18:00',mod:'l-sc',name:'Hot Sculpt',prof:'Bia',cap:24,booked:15,agg:[]},
-           {t:'19:00',mod:'l-fn',name:'Funcional',prof:'Rafa',cap:24,booked:12,agg:['G','T','C']}],
-      ter:[{t:'07:00',mod:'l-hy',name:'Hot Yoga',prof:'Marina',cap:24,booked:20,agg:['G']},
-           {t:'12:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:24,booked:14,agg:['G','T']},
-           {t:'19:00',mod:'l-sc',name:'Hot Sculpt',prof:'Bia',cap:24,booked:22,agg:[]}],
-      qua:[{t:'06:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:24,booked:17,agg:['G','T']},
-           {t:'09:00',mod:'l-hy',name:'Hot Pilates',prof:'Marina',cap:24,booked:19,agg:[]},
-           {t:'18:00',mod:'l-fn',name:'Funcional',prof:'Rafa',cap:24,booked:10,agg:['G']}],
-      qui:[{t:'07:00',mod:'l-sc',name:'Hot Sculpt',prof:'Bia',cap:24,booked:16,agg:[]},
-           {t:'12:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:24,booked:13,agg:['G','T']},
-           {t:'19:00',mod:'l-hy',name:'Hot Yoga',prof:'Marina',cap:24,booked:21,agg:['G']}],
-      sex:[{t:'06:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:24,booked:18,agg:['G','T']},
-           {t:'18:00',mod:'l-fn',name:'Funcional',prof:'Rafa',cap:24,booked:14,agg:['G','T','C']}],
-      sab:[{t:'09:00',mod:'l-hy',name:'Hot Yoga',prof:'Marina',cap:24,booked:23,agg:['G']},
-           {t:'10:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:24,booked:20,agg:['G','T']}],
-      dom:[{t:'09:00',mod:'l-hy',name:'Hot Yoga',prof:'Marina',cap:24,booked:11,agg:[]}]
+      seg:[{t:'06:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:9,booked:8,agg:['G','T']},
+           {t:'09:00',mod:'l-hy',name:'Hot Yoga',prof:'Marina',cap:7,booked:7,agg:['G']},
+           {t:'18:00',mod:'l-sc',name:'Hot Sculpt',prof:'Bia',cap:7,booked:5,agg:[]},
+           {t:'19:00',mod:'l-fn',name:'Funcional',prof:'Rafa',cap:7,booked:5,agg:['G','T','C']}],
+      ter:[{t:'07:00',mod:'l-hy',name:'Hot Yoga',prof:'Marina',cap:7,booked:6,agg:['G']},
+           {t:'12:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:9,booked:6,agg:['G','T']},
+           {t:'19:00',mod:'l-sc',name:'Hot Sculpt',prof:'Bia',cap:7,booked:7,agg:[]}],
+      qua:[{t:'06:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:9,booked:9,agg:['G','T']},
+           {t:'09:00',mod:'l-hy',name:'Hot Pilates',prof:'Marina',cap:7,booked:5,agg:[]},
+           {t:'18:00',mod:'l-fn',name:'Funcional',prof:'Rafa',cap:7,booked:4,agg:['G']}],
+      qui:[{t:'07:00',mod:'l-sc',name:'Hot Sculpt',prof:'Bia',cap:7,booked:6,agg:[]},
+           {t:'12:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:9,booked:5,agg:['G','T']},
+           {t:'19:00',mod:'l-hy',name:'Hot Yoga',prof:'Marina',cap:7,booked:7,agg:['G']}],
+      sex:[{t:'06:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:9,booked:8,agg:['G','T']},
+           {t:'18:00',mod:'l-fn',name:'Funcional',prof:'Rafa',cap:7,booked:6,agg:['G','T','C']}],
+      sab:[{t:'09:00',mod:'l-hy',name:'Hot Yoga',prof:'Marina',cap:7,booked:7,agg:['G']},
+           {t:'10:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:9,booked:9,agg:['G','T']}],
+      dom:[{t:'09:00',mod:'l-hy',name:'Hot Yoga',prof:'Marina',cap:7,booked:3,agg:[]}]
     };
     var NAMES=['Ana Beatriz','Carlos Menezes','Juliana Prado','Rafael Lima','Marina Fontes','Pedro Alves','Camila Rocha','Lucas Ferreira','Beatriz Nunes','Thiago Costa','Larissa Melo','Gustavo Dias','Fernanda Reis','Bruno Cardoso','Patrícia Gomes','Rodrigo Sanches','Isabela Martins','Felipe Barros','Natália Cunha','Vinícius Teixeira','Mariana Faro','André Pires','Letícia Ramos','Diego Moura','Sofia Andrade'];
-    var PLANS=['Clube Salty','12 créditos','8 créditos'];
+    var PLANS=['Clube Salty','10 por mês','5 por mês'];
     // aniversário fixo por pessoa {d,m} — alguns em fim de agosto pra demonstrar o bolo na data padrão
     var BDAYS=[{d:10,m:3},{d:15,m:7},{d:3,m:11},{d:28,m:1},{d:22,m:8},{d:5,m:5},{d:30,m:9},{d:24,m:8},{d:26,m:8},{d:12,m:12},{d:1,m:6},{d:20,m:8},{d:27,m:8},{d:14,m:2},{d:9,m:9},{d:21,m:8},{d:3,m:4},{d:18,m:10},{d:25,m:12},{d:7,m:7},{d:11,m:11},{d:2,m:2},{d:16,m:6},{d:29,m:8},{d:23,m:8}];
     var MODNAME={'l-bike':'Bike','l-hy':'Hot Yoga','l-sc':'Sculpt','l-fn':'Funcional'};
+    // config do mapa de posições por modalidade (adaptado do modelo da Bike)
+    var MAPCFG={
+      'l-bike':{label:'Bike',icon:'i-bike',stage:'Palco · Instrutor',shoe:true,mascot:'data:image/png;base64,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'},
+      'l-hy':{label:'Tapete',icon:'i-flame',stage:'Frente · Instrutor',shoe:false,mascot:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAABYCAYAAABxlTA0AAAQhElEQVR42u1caZQc1XV+t3qfTTOyNmRAsiVLcAQOiM1iNQaDAQEONlsCdjAm4MR2gg0YmwPCMUQQghVESNgNRiwWnGCRgABDxiyyAh6QgBH4SIgREoo0maW7q6vq3XtfV938oIpT6czSmhkt41PfOX2mu5a33Lrvu9urUSpBggQJEiRIkCBBggQJEiRIkCBBggQJEiRIMGpAIoKhISIAACIillLKCg/7ACDx8390kxYR2Ml9pAb6Hj8WCn3I8aTHkVAjDfLjGhNNHgACpZSMVV8A4IffcwBAzHyYiJwZBMFW27YfAgBHKaW6urryAIDjWVutSFNixzIiUhhEq2AMHqRyXfdMZn4bEdcw8yNEtIGIljLzfyLiS57nfYOI2hGxAxF/Uy6X54gILFq0yBpPwv1kaTLzYUR0OxGtQsS3EfEdROwgoicQ8euD3TdC4R5OREVjzBm2bR8tImKM6dJaX6aUUkT0ijFmi+d555bL5TOYmVzXPVMppdrb29PjwsiJSAoA/HK5/LlCoXCrUmp/EXm+Wq0+l0ql3hcRFpGplmUdCQDnAEAuCIJHtNZ3trW1lSJN3hEDJCJpAKgS0eO+73c0NDTczMxrfd9fEQTBmmw2+2SpVPp0S0vLQ9Vq9bZ0On2CZVnnAECvMeatQqFwQUgvwbigBGb+jjFmGxHd0NPT0zzUfYh4KjM/xczvI+Lf1mrljmgwEb2itT6ht7e3BRE3ENEzIV1cKSIZ27Ynaa1vMMZs8DzvGkR8GBFf3tH+drVXkIovbSL6F2NMFxEdHNewyHrHPuk473qet8AY8xozt2/evHmiUkotX748Va8Ghw/rPkS8Symluru7m4joHET8XHRdpVKZiogPIeIaInqVme92XXf6rvBuRsWzSinlOM58Y8zLRPTKxo0bJ8SMGgzXTs0DWsrMmx3HOSguvDpWDxSLxZnMvJmI7nBd99PR+fb29rTW+gRjzEfMfJfneUeLSH6PN2IdHR0ZIjqfmZ9l5g2IeM1IDdby5cs/8U89z/uR53n/WiqVJta7fKMH2d/fvy8zP8DM2xzHOTkaBxH9LjJ2Y+m97DThaq2/xczrQu/g+8VisXUMggkQkYxSSpXL5blEtNV13UMHsvJDCTl8SN9ExDfD4wWt9TrP8/YJhZoetWBjDaXDJRT9tkbRZjrUhiXMvFFr/eWxcLMG6CcTCukCIrIdx/mTetuP5tnf378vInaKCDDzUYj49php7HBCHImQo8kh4jVE1NXb29sS59CxXmpRf6EmFrXWM+ucW1pErNDA/S5s4z7P85bWy+l1CVdrfRIz/5KZ7+vr65untT4JEa90XffwUUz2SCIqRgZk1IOtX5OvIKLNItIsItZgUVdIT5lQEVZrrS8VkTwibi+Xy3NG7Y7F/MHrmXkLIv4QEe8QEdFar0PEX4bG6MGYUYF62l20aJFFRKsjQ7EzhRsXQiQwZr6LiF6JaSmEn0/oL+ZbX0tE74Xf70TEh0dNYRHfIuL+RLTddd3plUplitb6P4wxyxDx5b6+vgNEpJGIfo+I19YjqGjpO44zTWv9jog07ky/sbbdsK+I+1ch4u2DaWKpVJrIzPcw81bbtid7nnccERUrlcqUgXIjI3rirusegoirwqd+NzNvKJfLC5h5HSLeGTn1Wuu1kf9YT4rRcZxptm1/fSAhjDL6S8eCj8hDmR3vIxpnqVRqI6LtRHR+e3t7ulQqTSyXy3MQ8WvMfD8zf8DMT3R1deU9z5tBRBXXdU8flfZGA9Faf5GI7kTE34qIuK57meu6ezPzA0S0moiW2rY9WUQsz/P20Vq/tXXr1obhBBYzbvdqrW8ZCT3syANBxB9orTtqV0k0Dtd1v8DMOkwYvUtEfyCiVUR0KxHNi5SMmftc1/1uvS7ecJO/ipnfQcSfOI5zkuu6Z7quu3iw+7TWJ2qt1wy31KNztm1PIqKuYrH4mRHkCWCgoCIcx7eZ+epKpTLP87wFzHwvM39ERPMifh3ETfwpEb1bqVSm1vA1GGNuZOYeIrpwNLYiajTKOJ0pIk/6vv9eOp1ekM1mvwQA60Lyz4d/M2E8PsWyrPuVUv8cZqys4frJ5XInicimtra2rqGyTvEcQ5SnAADp7OzMikg2uu7ss8+W8PwGETkmk8kssyzrDhGp9vX1zc/lcutiyfg4fBFJrVix4u9ExGQymaNt257ted55zHyPMWa9iByMiMfkcrmHoizbWPiK5xljbM/zfoGI1yDiFY7jXDjA5JsQcY3Wekm9PmW4QpZqrf8hbnDqRaVSmUJE71UqlXmD9VnLj0ONKzam71erVULEN4joJSJa4rruYWMV9Fg1eeF9RaQHAF4PggCUUjOy2eypRPS8MeZuz/NmAECAiEcAQK5QKFwePt3h8p9RgXC2iLwVarwMQVWnEtFNxWJxZqlUmoiIZ+Xz+Y4gCP6tubn53VrtjwxbrMyTDouRQR20k61Wq0+uXr36iFwud1wul7u8sbHx95HBjNocKSIt8pVSyvf9B1KpVDMAHKGU6lNKfVitVl9XShEAnGZZ1q+UUguMMW9ls9m84zinAcDTIW0ESqlgoAQ3APgiAkQ0NQiC98OJycBzFiCijUqpS/L5/NMA4KdSKQ6C4KpCofDYQIIDgCCiEwCQOpezAIBorY9RSq08/vjjqyH9RPPY9UlzIvoDIi4M/dmFzFyuVqtnD5LbjfIXGRFJOY6zl9b67chY1eMR9Pb2tvT09EyvWfJQb363HpcUEX/ruu7p0bh3ReI7XfNJiUg2jMvPQ8RNkaHTWp/AzOuJ6BlE/GqpVGobyuMgonXlcnlhuVz+1FBCrp3sQJOPP6jQv95rhNm8FVrri8YyyTSimlzEcYj4CAB8KpfLnayUUj09Pc3Nzc1/DQBfU0o1iUifiGwDgLJSqioiTQAwCQBmAUC+Wq2+T0QXtba2fvjx6h58KcbratHy7+/vn5BOpw9oaWlZFZXUHcf5SiqVWlQoFBbUWxOLaA0R7w+CYG1jY+OSUXsLQxi5ehCISGrx4sUXKKVSzPxiqVRqmzx5ciWfz9+Uy+UO01qf7vv+zUEQvBQEwRbf9/8HAN4JguDRarV64fbt2+c0NDQc39bWtinkyiEFEV7zf7g6m802ZLPZX7uuuzcAkOu60zOZzL1KqXt3RGkAwIQGbIJSCveIhHk8oGDmu40xG5n50ijlOBxKpdJE13UPGelkYlWF68Pi5n3MvFVrfeOOVixs256EiGcR0bru7u5p8YTQbqGIgZat1vrLlmVdCwBTfN9/U0TeEJFNlmWVwmsmKKX2BoAZQRDMSafTBxpjXmhoaPj2SPd0Rfe5rvvVdDp9cLVaXdnY2PhfO0ANVmik98/lcssAYGYQBMuMMTc2NTVtj7t7u0XAtZwcDvZgy7JOtizr8wCwl4gURERZlsUi8t+pVGqm7/tKRM4vFApdY7GSarZPjXgvQqVSmZfL5a5USp0oIj8ek8htrBDmgod9SLZtH4eI7aNOVA9cytrhfEaYIbu4XC7PjdXejmXmrfWmX3c1N1s1dTuI73WoVCpTELHL87x9B0q+7OJxQqVSOcAY87YxxiWi9ig07unpmY6I27XWl+4st21nTCoKfx8jolt2t3bEfPjvaa0f0lr/pTGm6LruWRFlEFF/uVyeuzuVYYe1xrbt/bTW/aVSaVY8Kb4bvKAogntea/29UNhfiledtdY3aq1XjCcthjCB/aelUml2PdmunVhCAma+gog2lUqltij9iYhXE9HLSilVLBZbEfEDrfXsXT3O0UwwHRqTc5l5ZX9//4SdPfhYMdNSSqnOzs6sbduTEXFlfI+EiKQ6Ozuz4R7g+aEWP46IV+1xBm+YyWZKpVIbM99njNmMiPvVLsOx4r3apd3f3z8BEddWKpUDB8hnpEOhPoKIPxERcF33cq31E6MV8C5T/TDsNa2trcVsNnux7/tLAODZ9vb2NAD4Ub2rnhC6Ht4HAH/btm2Nruse6jjOtIaGhn9USq1ramp6N8zwWTW+NARB0BUGRpJKpT4AgClRmmC0+eBdzcdpAFiCiPOPOuqo3xCRHQTB7SLyolKqUCqV5rS2tr4z0OSGiv7CtlMAUGXmywDgahFxgiAoZLPZz9q2PSufz/uDBSapVGqCiLjhT1b/v6Q2PhDfOUNEy4noo+7u7qbw988R8ZVhAoxUzf7gdM2Wg9OZuZeIDgoDnclEdIsx5kPHceZH7lrs/ijH8Z7jOKeICHie902t9dPjxpMYLCdARC94nvdnIQfOJqKtzLyOmR90XfcL27Zta1y/fn3Otu1JXV1dQ+7F1VrPZuZDiehFz/POdV33UGPMP0VbtIjoEma2tdZfrL2XiJYi4qsxv/0XRHTDaDk4vbuECwCBbdv7KaU+UygUnhIRQMRvicgLRPTDXC63KJPJ3NPW1gatra2+ZVnp6dOnAxF9EATBUyLSWa1WU9ls9kgAaFBK7Q8A80Wk17Ksz4tINyJel81mWzOZTAczL85ms0td1+3PZDK/ZubrjDGvAcDsdDp9kVJqkjHmlHw+79u2PQkAviIix46Wg3drdOd53oVEtDI6zswrtNaXRL8XLVpkaa1nlcvluY7jTKtUKvMQ8QdE9O9E9Hq4detRItLM/Jht25OUUlAul+cw8xpmfjDUzgOYucfzvB+H/S4wxrwcbjppR8Sr46sj3IBy23imh8gt+q7W+rFYdPWw1vr68JrGetoKX1RZU0s9XV1deWZ+npnXdnd3N7muO52IbEQ8a7C2PM+bEb6+8FxsMyCMRwFHPHcGIr4aGb5oW2tknKLjHR0dmdAoZUUkF/4FpT7ezkRE6xHxtMiHjhdFjTE/Z+Zt4Sa+YxGx0tfXt08owMaQsy9h5kfDl25ujRni8fkudyzb1kJEW6IXVcLlebExZrsx5u+jQGQw15qIDjTG/IyZK1rrm6MqdqyPyDv4GTO/Ga6axYi4RkRSiLiwWq0SET1jjLk+FhqPX+HWarHW+jvMvNVxnGnROcdxDmLmx0PNfDOsWi9DxHsQcRkRPcvMa5l5PTM/4XneggFcOYjvIELEzuhtTERcpbX+qzA8fq+joyMzWAT4RyHkUMO2ENGfq1iVRUTynucdRUR/gYhXeZ53HSL+yPO8bzDzoTUu2kxjzG1xjg1pIBfy69nGGO153pHR+UqlcgARbS6VShNH+97JoMtsTxByuB3gFMuyblBKWb7vrxSR5wqFwhvRW+0DARHnisiJlmUttCxrroi8KSKHW5b1iOd5t0yYMKEvDDymZ7PZX4lIdxAEc1OpVL/v+9styzo2CIKb8vn8bWNdi9tjBBwXcii0hZZlnaeUOlBEckEQOABQFhGtPt7uVFBKNQNAc7hfYgsAPGeMebyxsfEjrfVnLcu6HQDmBEGwCQB8y7L2C4JgRS6X+5ve3t6W5ubmk4MgmOr7/qtNTU1rd+Y/1YA9iS5qNahYLM7M5XIzUqnUVKVUCwBY1WrVsyyrj5k/bG5u/iD+vxribWitZ4nIIalUKhMEwWuFQuH9gfrY2S9vwx7Ky1BvVTe6XoX/qCPi0VqhRcINvYPopZ1gj34zfle4c2HlOtXe3h7fK5ca7r2QWKCQGhcViQQJEiRIkCBBggQJEiRIkCBBggQJEiRIkCBBgt2G/wXj6ajl/JWiPQAAAABJRU5ErkJggg=='},
+      'l-sc':{label:'Tapete',icon:'i-flame',stage:'Frente · Instrutor',shoe:false,mascot:'data:image/png;base64,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'},
+      'l-fn':{label:'Estação',icon:'i-dumbbell',stage:'Frente · Instrutor',shoe:false,mascot:'data:image/png;base64,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'}
+    };
+    function mapCfg(mod){ return MAPCFG[mod]||{label:'Posição',icon:'i-bike',stage:'Frente · Instrutor',shoe:false}; }
     var MODORDER=['l-bike','l-hy','l-sc','l-fn'];
     function initials(n){var p=n.split(' ');return (p[0][0]+(p[1]?p[1][0]:'')).toUpperCase();}
     function attendees(ev,off){
@@ -2044,7 +2190,7 @@
         // marco = total OU modalidade caiu num número configurado (Controle de aulas)
         var marco={geral:(MARCOS.indexOf(tot)>=0?tot:0),mod:(MARCOS.indexOf(modc)>=0?modc:0)};
         // créditos disponíveis do plano (só planos de crédito têm saldo)
-        var credTotal=meta==='8 créditos'?8:(meta==='12 créditos'?12:0), credLeft=null;
+        var credTotal=meta==='5 por mês'?5:(meta==='10 por mês'?10:(meta==='Clube Salty'?15:0)), credLeft=null;
         if(credTotal){ credLeft=credTotal-((idx*3+2)%(credTotal+1)); }
         arr.push({n:nm,tag:tag,meta:meta,tot:tot,modc:modc,first:first,bd:BDAYS[idx],shoe:34+((idx*3+5)%9),credTotal:credTotal,credLeft:credLeft,marco:marco});
       }
@@ -2163,21 +2309,23 @@
     var DAYFULL={seg:'Segunda',ter:'Terça',qua:'Quarta',qui:'Quinta',sex:'Sexta',sab:'Sábado',dom:'Domingo'};
     // monta o mapa da sala de Bike a partir dos SLOTS (posição = número da bike)
     function buildBikeMap(ev,slots,blocked){
+      var cfg=mapCfg(ev.mod);
       var cells='', hasBlock=false, hasDone=false, hasMarco=false, hasBday=false, hasFirst=false;
       for(var n=1;n<=ev.cap;n++){
         var si=n-1, a=slots[si];
-        if(blocked&&blocked.has(si)){ hasBlock=true; cells+='<div class="bike blocked" data-slot="'+si+'" title="Bike '+n+' · bloqueada"><span class="bm-num">'+n+'</span><span class="bm-ini"><svg><use href="#i-lock"/></svg>bloq</span></div>'; }
+        if(blocked&&blocked.has(si)){ hasBlock=true; cells+='<div class="bike blocked" data-slot="'+si+'" title="'+cfg.label+' '+n+' · bloqueada"><span class="bm-num">'+n+'</span><span class="bm-ini"><svg><use href="#i-lock"/></svg>bloq</span></div>'; }
         else if(a){
           if(a.state==='done')hasDone=true;
           // contorno por segmento (prioridade: marco > aniversário > 1ª aula)
           var cd=cakeDiff(a.bd,agState.day), isBd=Math.abs(cd)<=3, isMk=(a.marco&&(a.marco.geral||a.marco.mod));
           var flag=isMk?' flag-marco':isBd?' flag-bday':a.first?' flag-first':'';
           if(isMk)hasMarco=true; else if(isBd)hasBday=true; else if(a.first)hasFirst=true;
-          cells+='<div class="bike occ'+(a.state==='done'?' done':'')+flag+'" data-slot="'+si+'" title="Bike '+n+' · '+a.n+(a.state==='done'?' · presente':'')+'"><span class="bm-num">'+n+'</span><svg class="bm-bi"><use href="#i-bike"/></svg><span class="bm-name">'+a.n+'</span></div>';
+          var np=a.n.split(' '), bmFn=np[0], bmSn=np.slice(1).join(' ');
+          cells+='<div class="bike occ'+(a.state==='done'?' done':'')+flag+'" data-slot="'+si+'" title="'+cfg.label+' '+n+' · '+a.n+(a.state==='done'?' · presente':'')+'"><span class="bm-num">'+n+'</span><img class="bm-bi" src="'+cfg.mascot+'" alt="" draggable="false"><span class="bm-name"><span class="bm-fn">'+bmFn+'</span>'+(bmSn?'<span class="bm-sn">'+bmSn+'</span>':'')+'</span></div>';
         }
-        else { cells+='<div class="bike free" data-slot="'+si+'"><span class="bm-num">'+n+'</span><span class="bm-ini"><svg><use href="#i-bike"/></svg>livre</span></div>'; }
+        else { cells+='<div class="bike free" data-slot="'+si+'"><span class="bm-num">'+n+'</span><span class="bm-ini"><svg><use href="#'+cfg.icon+'"/></svg>livre</span></div>'; }
       }
-      return '<div class="bm-stage"><svg><use href="#i-music"/></svg>Palco · Instrutor '+ev.prof+'</div>'
+      return '<div class="bm-stage"><svg><use href="#i-music"/></svg>'+cfg.stage+' '+ev.prof+'</div>'
         +'<div class="bm-room"><div class="bm-grid">'+cells+'</div>'
         +'<div class="bm-legend"><span><i class="occ"></i>Ocupada</span>'+(hasDone?'<span><i class="done"></i>Presente</span>':'')+'<span><i class="free"></i>Livre</span>'+(hasBlock?'<span><i class="blocked"></i>Bloqueada</span>':'')
           +(hasMarco?'<span><i class="ring marco"></i>Marco</span>':'')+(hasBday?'<span><i class="ring bday"></i>Aniversário</span>':'')+(hasFirst?'<span><i class="ring first"></i>1ª aula</span>':'')+'</div></div>';
@@ -2225,6 +2373,26 @@
     document.getElementById('cxX').addEventListener('click',closeCx);
     cxModal.addEventListener('click',function(e){if(e.target===cxModal)closeCx();});
     document.addEventListener('keydown',function(e){if(e.key==='Escape'&&cxModal.classList.contains('open'))closeCx();});
+    // ---- modal: entrar na lista de espera ----
+    var wlModal=document.getElementById('wlModal'), wlBuf=15;
+    function openWlModal(){ if(!agState) return; wlBuf=15;
+      document.querySelectorAll('#wlBuffers button').forEach(function(b){b.classList.toggle('on',b.dataset.buf==='15');});
+      document.getElementById('wlName').value=''; document.getElementById('wlCal').href=calLink();
+      wlModal.classList.add('open'); document.body.style.overflow='hidden';
+      setTimeout(function(){var el=document.getElementById('wlName'); if(el)el.focus();},50); }
+    function closeWlModal(){ wlModal.classList.remove('open'); document.body.style.overflow=''; }
+    document.getElementById('wlX').addEventListener('click',closeWlModal);
+    document.getElementById('wlCancel').addEventListener('click',closeWlModal);
+    wlModal.addEventListener('click',function(e){ if(e.target===wlModal) closeWlModal(); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&wlModal.classList.contains('open'))closeWlModal(); });
+    document.getElementById('wlBuffers').addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b)return;
+      document.querySelectorAll('#wlBuffers button').forEach(function(x){x.classList.remove('on');}); b.classList.add('on'); wlBuf=+b.dataset.buf; });
+    document.getElementById('wlConfirm').addEventListener('click',function(){ if(!agState) return;
+      var nm=document.getElementById('wlName').value.trim(); if(!nm){ document.getElementById('wlName').focus(); return; }
+      var seed=(NAMES.indexOf(nm)+1)||nm.length;
+      agState.waits.push({n:nm,meta:'avulso',when:'agora',buffer:wlBuf,tel:telOf(seed).replace(/\D/g,''),telFmt:telOf(seed)});
+      closeWlModal(); if(agState.tab!=='espera'){ /* garante que a aba mostre */ }
+      renderTab(); refreshAgStats(); toast(nm.split(' ')[0]+' entrou na lista de espera · prazo '+wlBuf+' min'); });
     // ---- modal RESUMO do aluno (clique na foto/iniciais ou na bike) ----
     var alModal=document.getElementById('alModal'), alSlot=null;
     function renderAlActions(){
@@ -2232,7 +2400,7 @@
       document.getElementById('alActions').innerHTML=
         '<button class="al-act primary'+(a.state==='done'?' on':'')+'" data-aa="checkin"><svg><use href="#i-check"/></svg>'+(a.state==='done'?'Desfazer check-in':'Check-in')+'</button>'
         +'<button class="al-act danger" data-aa="noshow"><svg><use href="#i-x"/></svg>'+(a.state==='miss'?'Desfazer no-show':'No-show')+'</button>'
-        +(agState.isBike?'<button class="al-act" data-aa="trocar"><svg><use href="#i-bike"/></svg>Trocar posição</button>':'')
+        +'<button class="al-act" data-aa="trocar"><svg><use href="#i-bike"/></svg>Trocar posição</button>'
         +'<button class="al-act" data-aa="reagendar"><svg><use href="#i-cal"/></svg>Reagendar</button>'
         +'<button class="al-act" data-aa="cancelar"><svg><use href="#i-x"/></svg>Cancelar reserva</button>';
     }
@@ -2247,7 +2415,7 @@
       else if(a.tag==='plano'){ var rc=new Date(NOW); rc.setDate(rc.getDate()+((seed*3)%20)+5); renewInfo=pad(rc.getDate())+'/'+pad(rc.getMonth()+1)+'/'+rc.getFullYear()+'<small>próxima cobrança · Clube Salty</small>'; }
       else if(a.tag==='avulso'){ renewInfo='—<small>sem assinatura (aula avulsa)</small>'; }
       else { renewInfo='—<small>gerido pela parceria</small>'; }
-      var planTxt=a.tag==='plano'?(a.credTotal?('Plano '+a.meta+' · '+a.credLeft+' de '+a.credTotal+' disponíveis'):'Clube Salty · ilimitado'):(a.tag==='avulso'?'Crédito avulso':a.meta+' (parceria)');
+      var planTxt=a.tag==='plano'?(a.meta+' · '+a.credLeft+' de '+a.credTotal+' disponíveis'):(a.tag==='avulso'?'Crédito avulso':a.meta+' (parceria)');
       document.getElementById('alAv').textContent=a.n.charAt(0);
       document.getElementById('alTitle').textContent=a.n;
       var rows=[
@@ -2275,7 +2443,7 @@
           +'<p>'+fn(a)+' está completando <b>'+mv+' '+mtipo+'</b> 🎉 Um contato pra parabenizar (mensagem, cartinha, brinde) fideliza muito.</p>'
           +'<a class="alh-cta" href="https://wa.me/55'+telOf(seed).replace(/\D/g,'')+'" target="_blank" rel="noopener"><svg style="width:15px;height:15px;fill:none;stroke:#fff;stroke-width:1.8"><use href="#i-trophy"/></svg>Parabenizar no WhatsApp</a>';
       } else { mk.hidden=true; mk.innerHTML=''; }
-      document.getElementById('alSub').textContent='Resumo do aluno'+(agState.isBike&&alSlot>=0?' · Bike '+(alSlot+1):'');
+      document.getElementById('alSub').textContent='Resumo do aluno'+(alSlot>=0?' · '+mapCfg(agState.ev.mod).label+' '+(alSlot+1):'');
       renderAlActions();
       alModal.classList.add('open'); document.body.style.overflow='hidden';
     }
@@ -2291,7 +2459,7 @@
         if(a.state==='miss') toast(fn(a)+' marcado como no-show', function(){ a.state=wasM; renderAlActions(); renderAgList(); renderAgMap(); refreshAgStats(); toast('No-show desfeito'); });
         else toast('No-show desfeito'); }
       else if(act==='cancelar'){ var sd=(NAMES.indexOf(a.n)+1)||a.n.length; agState.slots[alSlot]=null; agState.cancels.unshift(cancelEntry(a.n,'agora',true,sd,a.tag,a.tag==='plano'?a.meta:(a.tag==='parc'?'Gympass':''))); closeAl(); renderAgMap(); renderTab(); refreshAgStats(); toast('Reserva de '+fn(a)+' cancelada · 1 crédito devolvido'); }
-      else if(act==='trocar'){ if(!agState.isBike){ toast('Trocar posição só vale para aulas de Bike'); return; } closeAl(); startPick(alSlot); }
+      else if(act==='trocar'){ closeAl(); startPick(alSlot); }
       else if(act==='reagendar'){ toast('Reagendar '+fn(a)+' — escolha nova data/aula (protótipo)'); }
     });
     function closeAl(){ alModal.classList.remove('open'); document.body.style.overflow=''; }
@@ -2302,7 +2470,7 @@
     var agState=null;
     function fn(a){return a.n.split(' ')[0];}
     function countBooked(){ var c=0; agState.slots.forEach(function(s){if(s)c++;}); return c; }
-    function blockedCount(){ return agState.isBike?agState.blocked.size:agState.blockedN; }
+    function blockedCount(){ return agState.blocked.size; }
     var MODAVG={'l-bike':72,'l-hy':80,'l-sc':66,'l-fn':60};
     function refreshAgStats(){
       var s=agState, ev=s.ev, cap=ev.cap;
@@ -2357,7 +2525,7 @@
         var seed=(NAMES.indexOf(a.n)+1)||a.n.length, tel=telOf(seed).replace(/\D/g,''), telFmt=telOf(seed);
         if(a.marco&&(a.marco.geral||a.marco.mod)){ var mv=a.marco.geral||a.marco.mod; segs.marco.push({n:a.n,info:mv+(a.marco.geral?' aulas na unidade':' aulas de '+MODNAME[s.ev.mod]),tel:tel,telFmt:telFmt}); }
         if(a.tag==='plano'&&a.credTotal){ if(a.credLeft===0)segs.semCred.push({n:a.n,info:'Plano '+a.meta+' · 0 restantes',tel:tel,telFmt:telFmt}); else if(a.credLeft<=2)segs.quaseCred.push({n:a.n,info:a.credLeft+' de '+a.credTotal+' restantes',tel:tel,telFmt:telFmt}); }
-        if(a.state!=='done'&&a.state!=='miss')segs.pend.push({n:a.n,info:s.isBike?('Bike '+(si+1)):'aguardando check-in',si:si});
+        if(a.state!=='done'&&a.state!=='miss')segs.pend.push({n:a.n,info:mapCfg(s.ev.mod).label+' '+(si+1),si:si});
         if(a.first)segs.novos.push({n:a.n,info:'1ª aula de '+MODNAME[s.ev.mod],tel:tel,telFmt:telFmt});
         var cd=cakeDiff(a.bd,s.day); if(Math.abs(cd)<=3)segs.bday.push({n:a.n,info:cd===0?'aniversário HOJE 🎂':(cd>0?('faz em '+cd+' dia'+(cd>1?'s':'')):('fez há '+(-cd)+' dia'+((-cd)>1?'s':''))),tel:tel,telFmt:telFmt});
       });
@@ -2383,12 +2551,12 @@
     }
     // exportação da lista (CSV / Excel-.xls)
     function exportRows(){
-      var s=agState, rows=[]; var posLbl=s.isBike?'Bike':'Posição';
+      var s=agState, rows=[]; var posLbl=mapCfg(s.ev.mod).label;
       s.slots.forEach(function(a,si){ if(!a) return;
         var seed=(NAMES.indexOf(a.n)+1)||a.n.length;
         var cred=a.tag!=='plano'?'—':(a.credTotal?(a.credLeft+'/'+a.credTotal):'ilimitado');
         var st=a.state==='done'?'Presente':a.state==='miss'?'No-show':'Agendado';
-        rows.push([si+1,a.n,cpfOf(seed),telOf(seed),(a.tag==='plano'?a.meta:a.tag==='avulso'?'Avulso':a.meta+' (parceria)'),cred,(s.isBike?a.shoe:'—'),st]);
+        rows.push([si+1,a.n,cpfOf(seed),telOf(seed),(a.tag==='plano'?a.meta:a.tag==='avulso'?'Avulso':a.meta+' (parceria)'),cred,(mapCfg(s.ev.mod).shoe?a.shoe:'—'),st]);
       });
       return {head:[posLbl,'Nome','CPF','Telefone','Plano','Créditos','Sapatilha','Status'],rows:rows};
     }
@@ -2461,11 +2629,10 @@
     }
     function renderAgMap(){
       var mapEl=document.getElementById('agMap');
-      if(agState.isBike){ mapEl.innerHTML=buildBikeMap(agState.ev,agState.slots,agState.blocked); mapEl.hidden=false; }
-      else { mapEl.hidden=true; mapEl.innerHTML=''; }
+      mapEl.innerHTML=buildBikeMap(agState.ev,agState.slots,agState.blocked); mapEl.hidden=false;
     }
     function renderAgList(){
-      var ab=document.getElementById('agBody'); ab.innerHTML=''; var isBike=agState.isBike;
+      var ab=document.getElementById('agBody'); ab.innerHTML=''; var isBike=agState.isBike, cfg=mapCfg(agState.ev.mod);
       // monta lista {si, aluno}, aplica ordenação escolhida
       var entries=[]; agState.slots.forEach(function(a,si){ if(a) entries.push({si:si,a:a}); });
       var by=agState.sortBy||'nome', dir=agState.sortDir||1;
@@ -2477,8 +2644,8 @@
         var a=en.a, si=en.si;
         var r=document.createElement('div'); r.className='att-row'+(a.state==='done'?' done':a.state==='miss'?' miss':'');
         r.dataset.slot=si;
-        var bikeChip=isBike?'<span class="att-bike" title="Bike '+(si+1)+'"><svg><use href="#i-bike"/></svg>'+(si+1)+'</span>':'';
-        var shoe=isBike?'<span class="att-shoe" title="Sapatilha nº '+a.shoe+' (fornecida pela recepção)"><svg><use href="#i-shoe"/></svg>'+a.shoe+'</span>':'';
+        var bikeChip='<span class="att-bike" title="'+cfg.label+' '+(si+1)+'"><svg><use href="#'+cfg.icon+'"/></svg>'+(si+1)+'</span>';
+        var shoe=cfg.shoe?'<span class="att-shoe" title="Sapatilha nº '+a.shoe+' (fornecida pela recepção)"><svg><use href="#i-shoe"/></svg>'+a.shoe+'</span>':'';
         r.innerHTML='<span class="att-av">'+initials(a.n)+'</span>'
           +'<div><div class="att-nm">'+a.n+cakeHTML(a)+firstStar(a)+marcoBadge(a)+stateBadge(a)+'</div><div class="att-meta">'+a.meta+creditsBadge(a)+' · '+ckHTML(a)+'</div></div>'
           +bikeChip+shoe
@@ -2487,12 +2654,10 @@
           +'<span class="att-act"><button class="att-actbtn" data-slot="'+si+'" aria-label="Ações do aluno"><svg><use href="#i-dots"/></svg></button></span>';
         ab.appendChild(r);
       });
-      if(isBike){
-        ab.querySelectorAll('.att-row').forEach(function(r){
-          r.addEventListener('mouseenter',function(){var bk=document.querySelector('#agMap .bike[data-slot="'+r.dataset.slot+'"]'); if(bk)bk.classList.add('hl');});
-          r.addEventListener('mouseleave',function(){var bk=document.querySelector('#agMap .bike[data-slot="'+r.dataset.slot+'"]'); if(bk)bk.classList.remove('hl');});
-        });
-      }
+      ab.querySelectorAll('.att-row').forEach(function(r){
+        r.addEventListener('mouseenter',function(){var bk=document.querySelector('#agMap .bike[data-slot="'+r.dataset.slot+'"]'); if(bk)bk.classList.add('hl');});
+        r.addEventListener('mouseleave',function(){var bk=document.querySelector('#agMap .bike[data-slot="'+r.dataset.slot+'"]'); if(bk)bk.classList.remove('hl');});
+      });
     }
     // ---- dados de contato fictícios (determinísticos por pessoa) ----
     var RECEP='recepcao@saltysergipe.com';
@@ -2525,10 +2690,22 @@
       return arr;
     }
     function genWaits(ev,off){
-      var full=ev.booked>=ev.cap-1, n=full?(3+(off%2)):(1+(off%2)), arr=[];
-      for(var i=0;i<n;i++){ var idx=(off*7+i*6+9)%NAMES.length; arr.push({n:NAMES[idx],meta:PLANS[idx%3],when:['há 5 min','há 1h','ontem','há 2 dias'][i%4]}); }
+      var full=ev.booked>=ev.cap-1, n=full?(3+(off%2)):(1+(off%2)), arr=[], bufs=[30,15,45,60];
+      for(var i=0;i<n;i++){ var idx=(off*7+i*6+9)%NAMES.length, seed=idx+1; arr.push({n:NAMES[idx],meta:PLANS[idx%3],when:['há 5 min','há 1h','ontem','há 2 dias'][i%4],buffer:bufs[i%4],tel:telOf(seed).replace(/\D/g,''),telFmt:telOf(seed)}); }
       return arr;
     }
+    // hora-limite = horário da aula menos o tempo que o aluno precisa pra chegar
+    function minusMin(hhmm,mins){ var pp=hhmm.split(':'), t=(+pp[0])*60+(+pp[1])-mins; t=((t%1440)+1440)%1440; return pad(Math.floor(t/60))+':'+pad(t%60); }
+    // link "Adicionar à agenda" (Google Calendar) da aula atual
+    function calLink(){ var ev=agState.ev, d=agState.day, pp=ev.t.split(':'); var start=new Date(d); start.setHours(+pp[0],+pp[1],0,0);
+      var durMin=parseInt(((LMOD[ev.mod]||{}).dur||'45').replace(/\D/g,''),10)||45; var end=new Date(start.getTime()+durMin*60000);
+      function z(dt){ return dt.getFullYear()+pad(dt.getMonth()+1)+pad(dt.getDate())+'T'+pad(dt.getHours())+pad(dt.getMinutes())+'00'; }
+      return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(ev.name+' · Salty')+'&dates='+z(start)+'/'+z(end)+'&details='+encodeURIComponent('Aula na Salty. Chegue com alguns minutos de antecedência.'); }
+    // constrói um aluno mínimo (e válido) a partir de quem estava na lista de espera
+    function waitToAttendee(w){ var seed=(NAMES.indexOf(w.n)+1)||w.n.length; var isPlan=(w.meta==='Clube Salty'||/crédito/.test(w.meta||''));
+      var ct=w.meta==='5 por mês'?5:(w.meta==='10 por mês'?10:(w.meta==='Clube Salty'?15:0)), tot=20+(seed%80), modc=Math.min(5+(seed%20),tot);
+      return {n:w.n,tag:isPlan?'plano':'avulso',meta:isPlan?w.meta:'Crédito avulso',state:null,tot:tot,modc:modc,first:false,
+        bd:new Date(agState.day.getFullYear(),(seed%12),1+(seed%27)),shoe:36+(seed%8),credTotal:ct,credLeft:ct?Math.max(1,ct-2):0,marco:{geral:0,mod:0}}; }
     function updTabCounts(){
       var e;
       e=document.getElementById('tcAg'); if(e)e.textContent=countBooked();
@@ -2548,16 +2725,22 @@
       });
     }
     function renderWaitList(){
-      var ab=document.getElementById('agBody'); ab.innerHTML='';
-      if(!agState.waits.length){ ab.innerHTML='<div class="cx-empty">Ninguém na lista de espera.</div>'; return; }
-      agState.waits.forEach(function(w,i){
-        var r=document.createElement('div'); r.className='att-row';
-        r.innerHTML='<span class="wl-pos">'+(i+1)+'º</span>'
+      var ab=document.getElementById('agBody');
+      var head='<div class="wl-top"><button class="wl-add" id="wlAdd" type="button">+ Adicionar à lista de espera</button>'
+        +'<span class="wl-rule">Ordem de chegada — sem furar fila. Quando abre vaga, o 1º dentro do prazo é encaixado; quem estoura o prazo sai e recebe o crédito de volta. No sistema real isso é automático; aqui use <b>Promover</b> pra demonstrar.</span></div>';
+      if(!agState.waits.length){ ab.innerHTML=head+'<div class="cx-empty">Ninguém na lista de espera.</div>'; return; }
+      var rows=agState.waits.map(function(w,i){
+        var lim=minusMin(agState.ev.t,w.buffer);
+        return '<div class="att-row">'
+          +'<span class="wl-pos">'+(i+1)+'º</span>'
           +'<span class="att-av">'+initials(w.n)+'</span>'
-          +'<div><div class="att-nm">'+w.n+'</div><div class="cx-when">'+w.meta+' · entrou '+w.when+'</div></div>'
-          +'<button class="wl-call" data-wl="'+i+'">Encaixar</button>';
-        ab.appendChild(r);
-      });
+          +'<div class="wl-info"><div class="att-nm">'+w.n+'</div><div class="cx-when">'+w.meta+' · entrou '+w.when+'</div>'
+            +'<div class="wl-prazo">precisa de '+w.buffer+' min · sai da fila às '+lim+'</div></div>'
+          +'<button class="si-copy" type="button" data-copy="'+w.tel+'" title="Copiar telefone"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M6 15V6a2 2 0 0 1 2-2h7"/></svg>'+(w.telFmt||w.tel)+'</button>'
+          +'<button class="wl-call" data-wl="'+i+'">Promover</button>'
+        +'</div>';
+      }).join('');
+      ab.innerHTML=head+rows;
     }
     function renderTab(){
       updTabCounts();
@@ -2573,11 +2756,12 @@
       var ev=evs[idx], isBike=ev.mod==='l-bike', meta=LMOD[ev.mod], dotc=ev.mod.replace('l-','d-');
       var list=attendees(ev,idx+1), slots=new Array(ev.cap);
       for(var n=0;n<ev.cap;n++){ slots[n]=list[n]||null; }
+      var defSort=isBike?'pos':'nome';
       agState={ev:ev,isBike:isBike,slots:slots,day:d,picking:null,mode:null,blocked:new Set(),blockedN:0,
-               tab:'agendados',sortBy:'nome',sortDir:1,cancels:genCancels(ev,idx+1),waits:genWaits(ev,idx+1)};
-      // reseta a barra de ordenação
-      document.querySelectorAll('#agSortBar .sb-opt').forEach(function(o){o.classList.toggle('on',o.dataset.sort==='nome');});
-      var sbd=document.getElementById('sbDir'); sbd.classList.remove('desc'); document.getElementById('sbDirL').textContent='A → Z';
+               tab:'agendados',sortBy:defSort,sortDir:1,cancels:genCancels(ev,idx+1),waits:genWaits(ev,idx+1)};
+      // reseta a barra de ordenação (Bike abre por Posição; demais por Nome)
+      document.querySelectorAll('#agSortBar .sb-opt').forEach(function(o){o.classList.toggle('on',o.dataset.sort===defSort);});
+      var sbd=document.getElementById('sbDir'); sbd.classList.remove('desc'); updDirLabel();
       document.getElementById('agHead').innerHTML=
         '<div class="ag-head-main">'
         +'<div class="ag-title"><span class="dot '+dotc+'"></span>'+ev.name+'</div>'
@@ -2620,19 +2804,12 @@
       if(next){ na.href='#ag='+keyOf(next.date)+'-'+next.idx; na.classList.remove('disabled'); na.title=mod+' seguinte · '+pad(next.date.getDate())+'/'+pad(next.date.getMonth()+1); }
       else { na.href='#'; na.classList.add('disabled'); na.title='Não há '+mod+' seguinte'; }
     }
-    // toolbar: bloquear posições (bike = modo no mapa; outras = contador)
+    // toolbar: bloquear posições (clique no mapa) — vale para todas as modalidades
     function renderAgTools(){
       var t=document.getElementById('agTools');
-      if(agState.isBike){
-        t.innerHTML='<button class="ag-tool" id="btnBlock" type="button"><svg><use href="#i-lock"/></svg>Bloquear posições<span class="tct" id="blkCt" hidden>0</span></button>'
-          +'<span style="font-size:.8rem;color:var(--muted)">Bloqueie bikes que não estão disponíveis — aparecem ocupadas pro aluno.</span>';
-        document.getElementById('btnBlock').addEventListener('click',toggleBlock);
-      } else {
-        t.innerHTML='<span class="ag-blockstep">Posições bloqueadas<span class="xf-step"><button type="button" id="blkMinus">−</button><b id="blkN">0</b><button type="button" id="blkPlus">+</button></span></span>'
-          +'<span style="font-size:.8rem;color:var(--muted)">Reserva vagas que não entram na venda (equipamento, aula fechada, etc).</span>';
-        document.getElementById('blkMinus').addEventListener('click',function(){ if(agState.blockedN>0){agState.blockedN--; syncBlkStep(); refreshAgStats();} });
-        document.getElementById('blkPlus').addEventListener('click',function(){ if(agState.blockedN < agState.ev.cap-countBooked()){agState.blockedN++; syncBlkStep(); refreshAgStats();} });
-      }
+      t.innerHTML='<button class="ag-tool" id="btnBlock" type="button"><svg><use href="#i-lock"/></svg>Bloquear posições<span class="tct" id="blkCt" hidden>0</span></button>'
+        +'<span style="font-size:.8rem;color:var(--muted)">Bloqueie posições que não estão disponíveis (equipamento, aula fechada) — aparecem ocupadas pro aluno.</span>';
+      document.getElementById('btnBlock').addEventListener('click',toggleBlock);
     }
     function syncBlkStep(){ var e=document.getElementById('blkN'); if(e)e.textContent=agState.blockedN; }
     function updBlkCount(){ var c=document.getElementById('blkCt'); if(c){ c.textContent=agState.blocked.size; c.hidden=agState.blocked.size===0; } }
@@ -2651,9 +2828,9 @@
     var menuSlot=null;
     function openRowMenu(slot,anchorEl,floating){
       menuSlot=slot; var a=agState.slots[slot]; if(!a) return;
-      rowMenu.querySelector('.rm-head').textContent=a.n+(agState.isBike?' · Bike '+(slot+1):'');
+      rowMenu.querySelector('.rm-head').textContent=a.n+' · '+mapCfg(agState.ev.mod).label+' '+(slot+1);
       rowMenu.querySelector('[data-act="noshow"] span').textContent=(a.state==='miss'?'Desfazer no-show':'Marcar no-show');
-      rowMenu.querySelector('[data-act="trocar"]').style.display=agState.isBike?'':'none';
+      rowMenu.querySelector('[data-act="trocar"]').style.display='';
       if(floating){
         rowMenu.classList.add('floating'); document.body.appendChild(rowMenu);
         var rect=anchorEl.getBoundingClientRect(), mw=250;
@@ -2677,8 +2854,17 @@
         return; }
       var inf=e.target.closest('.cx-infobtn');
       if(inf){ var ci=+inf.dataset.cx, c=agState.cancels[ci]; if(c) openCx(c); return; }
+      var cpw=e.target.closest('[data-copy]');
+      if(cpw){ copyText(cpw.dataset.copy); cpw.classList.add('copied'); setTimeout(function(){cpw.classList.remove('copied');},1200); toast('Telefone copiado'); return; }
+      if(e.target.closest('#wlAdd')){ openWlModal(); return; }
       var wl=e.target.closest('.wl-call');
-      if(wl){ var wi=+wl.dataset.wl, w=agState.waits[wi]; if(!w) return; agState.waits.splice(wi,1); renderTab(); refreshAgStats(); toast(fn(w)+' encaixado na aula (protótipo)'); return; }
+      if(wl){ var wi=+wl.dataset.wl, w=agState.waits[wi]; if(!w) return;
+        var free=-1; for(var k=0;k<agState.slots.length;k++){ if(!agState.slots[k]){ free=k; break; } }
+        if(free<0){ toast('Sem vaga livre no momento — ninguém para encaixar'); return; }
+        agState.slots[free]=waitToAttendee(w); agState.waits.splice(wi,1);
+        renderAgMap(); renderTab(); refreshAgStats();
+        toast('🎉 '+fn(w)+' encaixado(a) na aula — avise pelo WhatsApp (aparece em "presença pendente")');
+        return; }
       var b=e.target.closest('.att-actbtn'); if(!b) return; e.stopPropagation();
       var bs=+b.dataset.slot;
       if(rowMenu.classList.contains('open')&&menuSlot===bs&&!rowMenu.classList.contains('floating')){ closeRowMenu(); return; }
@@ -2715,7 +2901,7 @@
         if(a.state==='miss') toast(fn(a)+' marcado como no-show', function(){ a.state=wasN; renderAgList(); renderAgMap(); refreshAgStats(); toast('No-show desfeito'); });
         else toast('No-show desfeito'); }
       else if(act==='cancelar'){ agState.slots[si]=null; var sd=(NAMES.indexOf(a.n)+1)||a.n.length; agState.cancels.unshift(cancelEntry(a.n,'agora',true,sd,a.tag,a.tag==='plano'?a.meta:(a.tag==='parc'?'Gympass':''))); renderAgMap(); renderTab(); refreshAgStats(); toast('Reserva de '+fn(a)+' cancelada · 1 crédito devolvido'); }
-      else if(act==='trocar'){ if(!agState.isBike){ toast('Trocar posição só vale para aulas de Bike'); return; } startPick(si); }
+      else if(act==='trocar'){ startPick(si); }
       else if(act==='reagendar'){ toast('Reagendar '+fn(a)+' — escolha nova data/aula (protótipo)'); }
       else if(act==='editar'){ toast('Abrindo cadastro de '+fn(a)+' (protótipo)'); }
       else if(act==='vender'){ toast('Nova venda para '+fn(a)+' (protótipo)'); }
@@ -2862,22 +3048,226 @@
     });
   })();
 
-  // Funcionários — folha de pagamento
-  document.querySelectorAll('.pay-row').forEach(function(row){
-    row.addEventListener('click',function(){
-      var d=document.getElementById(row.dataset.toggle); if(!d)return;
+  // Funcionários — Quadro (cadastro + atribuições + usuários) + Folha calculada
+  (function(){
+    var MODLBL={'l-bike':'Bike','l-hy':'Hot Yoga/Pilates','l-sc':'Hot Sculpt','l-fn':'Funcional'};
+    var CARGOLBL={prof:'Professor',recep:'Recepção',gestor:'Gestor'};
+    var ACESSO={prof:'vê apenas as próprias aulas e números.',recep:'balcão, aulas, check-in e vendas (não vê financeiro/folha).',gestor:'acesso total, incluindo financeiro e folha.'};
+    var staff=[
+      {nome:'Cauã Ribeiro',cargo:'prof',mods:['l-bike'],user:'caua@saltysergipe.com',cor:'#3AA0D0',ativo:true,pay:{param:1,base:40,pp:1}},
+      {nome:'Marina Lopes',cargo:'prof',mods:['l-hy'],user:'marina@saltysergipe.com',cor:'#E73737',ativo:true,pay:{param:1,base:45,pp:0}},
+      {nome:'Bia Santos',cargo:'prof',mods:['l-sc'],user:'bia@saltysergipe.com',cor:'#E0A020',ativo:true,pay:{param:2,base:45,faixas:[{pct:70,bonus:20},{pct:90,bonus:30}]}},
+      {nome:'Rafa Costa',cargo:'prof',mods:['l-fn'],user:'rafa@saltysergipe.com',cor:'#3E9E6E',ativo:true,pay:{param:1,base:42,pp:0}},
+      {nome:'Ana Oliveira',cargo:'recep',mods:[],user:'recepcao@saltysergipe.com',cor:'#37346A',ativo:true},
+      {nome:'Océlio Gomes',cargo:'gestor',mods:[],user:'gestor@saltysergipe.com',cor:'#8A5FB0',ativo:true}
+    ];
+    function ini(n){var p=n.trim().split(' ');return (p[0][0]+(p[1]?p[1][0]:'')).toUpperCase();}
+    function payLabel(f){
+      if(f.cargo!=='prof'||!f.pay) return '';
+      if(f.pay.param===1) return 'R$ '+f.pay.base+' base + R$ '+f.pay.pp+'/presente';
+      var fx=(f.pay.faixas||[]).map(function(x){return '≥'+x.pct+'% +R$'+x.bonus;}).join(' · ');
+      return 'R$ '+f.pay.base+' base + '+(fx||'faixas de lotação');
+    }
+    function renderStaff(){
+      var el=document.getElementById('staffList'); if(!el) return;
+      el.innerHTML=staff.map(function(f,i){
+        var mods=f.mods.map(function(m){return MODLBL[m];}).join(' · ');
+        var sub=f.cargo==='prof'?((mods||'sem modalidade')+' · '+payLabel(f)):('Acesso: '+CARGOLBL[f.cargo]+' · '+f.user);
+        return '<div class="staff-row"><span class="sav" style="background:'+f.cor+'">'+ini(f.nome)+'</span>'
+          +'<div class="sinfo"><div class="sn">'+f.nome+' <span class="scargo '+f.cargo+'">'+CARGOLBL[f.cargo]+'</span></div>'
+          +'<div class="ssub">'+sub+'</div></div>'
+          +'<span class="sstatus '+(f.ativo?'on':'off')+'">'+(f.ativo?'Ativo':'Inativo')+'</span>'
+          +'<button class="staff-edit" data-edit="'+i+'" type="button">Editar</button></div>';
+      }).join('');
+      var tc=document.getElementById('tcQuadro'); if(tc)tc.textContent=staff.length;
+    }
+    renderStaff();
+
+    // ======= Folha de pagamento (calculada a partir das regras do Quadro) =======
+    // Capacidade e nº de aulas no mês por modalidade (Bike=9, salas Hot=7, Funcional=7)
+    var CAP={'l-bike':9,'l-hy':7,'l-sc':7,'l-fn':7};
+    var NCLS={'l-bike':28,'l-hy':24,'l-sc':22,'l-fn':24};
+    // gerador pseudo-aleatório determinístico (mesmos números todo mês, só muda se a regra mudar)
+    function hashStr(s){var h=5381;for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))|0;}return Math.abs(h)||1;}
+    function rng(seed){var s=seed%2147483647;if(s<=0)s+=2147483646;return function(){s=s*16807%2147483647;return (s-1)/2147483646;};}
+    function money(n){return 'R$ '+Math.round(n).toLocaleString('pt-BR');}
+
+    // calcula o pagamento de um professor (opcionalmente só de uma modalidade)
+    function computePay(f,modFilter){
+      var out={n:0,base:0,bonus:0,total:0,cheias:0,pres:0,lines:[]};
+      if(!f||f.cargo!=='prof'||!f.pay) return out;
+      var mods=(f.mods||[]).filter(function(m){return modFilter==='all'||m===modFilter;});
+      mods.forEach(function(m){
+        var cap=CAP[m]||7, n=NCLS[m]||22, r=rng(hashStr(f.nome+'|'+m));
+        var mPres=0,mCheias=0,mBonus=0,tierCount={};
+        for(var i=0;i<n;i++){
+          var pres=Math.max(1,Math.min(cap,Math.round(cap*(0.55+0.45*r()))));
+          mPres+=pres; if(pres===cap)mCheias++;
+          if(f.pay.param===2){
+            var occ=pres/cap*100, tb=0;
+            (f.pay.faixas||[]).forEach(function(fx){ if(occ>=fx.pct) tb=fx.bonus; }); // faixas ordenadas: prevalece a mais alta atingida
+            mBonus+=tb; if(tb>0) tierCount[tb]=(tierCount[tb]||0)+1;
+          }
+        }
+        var mBaseTot=(f.pay.base||0)*n;
+        out.n+=n; out.base+=mBaseTot; out.cheias+=mCheias; out.pres+=mPres;
+        out.lines.push({t:MODLBL[m]+' · '+n+' aulas × '+money(f.pay.base||0),v:money(mBaseTot)});
+        if(f.pay.param===1){
+          var mb=(f.pay.pp||0)*mPres; out.bonus+=mb;
+          if((f.pay.pp||0)>0) out.lines.push({t:'Presença · '+mPres+' presentes × R$ '+f.pay.pp,v:money(mb),bonus:true});
+        } else {
+          out.bonus+=mBonus;
+          Object.keys(tierCount).sort(function(a,b){return a-b;}).forEach(function(tb){
+            out.lines.push({t:'Bônus lotação ≥ faixa · '+tierCount[tb]+' aulas × R$ '+tb,v:money(tierCount[tb]*tb),bonus:true});
+          });
+        }
+      });
+      out.total=out.base+out.bonus;
+      out.lines.push({t:'Total a pagar',v:money(out.total),total:true});
+      return out;
+    }
+
+    var folhaFechada=false, folhaMod='all', folhaProf=new Set();
+    function profList(){ return staff.filter(function(f){return f.cargo==='prof'&&f.pay;}); }
+    function renderFolhaProf(){
+      var el=document.getElementById('folhaProf'); if(!el) return;
+      el.innerHTML='<button class="chip'+(folhaProf.size===0?' on':'')+'" type="button" data-fprof="all">Todos</button>'+
+        profList().map(function(f){var idx=staff.indexOf(f);return '<button class="chip'+(folhaProf.has(idx)?' on':'')+'" type="button" data-fprof="'+idx+'">'+f.nome.split(' ')[0]+'</button>';}).join('');
+    }
+    function renderFolha(){
+      if(!document.getElementById('folhaPay')) return;
+      var profs=profList().filter(function(f){
+        if(folhaMod!=='all' && f.mods.indexOf(folhaMod)<0) return false;
+        if(folhaProf.size>0 && !folhaProf.has(staff.indexOf(f))) return false;
+        return true;
+      });
+      var totFolha=0,totAulas=0,totCheias=0,rows='',shown=0;
+      profs.forEach(function(f){
+        var idx=staff.indexOf(f), c=computePay(f,folhaMod);
+        if(c.n===0) return;
+        shown++; totFolha+=c.total; totAulas+=c.n; totCheias+=c.cheias;
+        var modsLbl=f.mods.filter(function(m){return folhaMod==='all'||m===folhaMod;}).map(function(m){return MODLBL[m];}).join(' · ');
+        rows+='<div class="pay-row" data-fp="'+idx+'">'
+          +'<div class="pl"><span class="pav" style="background:'+f.cor+'">'+ini(f.nome)+'</span><div><b>'+f.nome.split(' ')[0]+'</b><span>'+modsLbl+'</span></div></div>'
+          +'<div class="c">'+c.n+'</div><div class="r mono">'+money(c.base)+'</div>'
+          +'<div class="r mono bonus">'+(c.bonus>0?'+ '+money(c.bonus):'—')+'</div>'
+          +'<div class="r mono tot">'+money(c.total)+'</div>'
+          +'<div class="r"><span class="pstatus'+(folhaFechada?' done':'')+'">'+(folhaFechada?'Fechado':'A revisar')+'</span><button class="calc-btn" type="button">Ver cálculo ▾</button></div></div>'
+          +'<div class="pay-detail" data-fd="'+idx+'">'+c.lines.map(function(l){return '<div class="calc-line'+(l.total?' total':'')+'"><span>'+l.t+'</span><b>'+l.v+'</b></div>';}).join('')+'</div>';
+      });
+      document.getElementById('folhaPay').innerHTML=rows||'<div class="pay-empty">Nenhum professor nesse filtro.</div>';
+      document.getElementById('folhaFootVal').textContent=money(totFolha);
+      document.getElementById('folhaTiles').innerHTML=
+        '<div class="tile"><div class="tl">Total da folha</div><div class="val">'+money(totFolha)+'</div><div class="delta flat">'+shown+' professor'+(shown===1?'':'es')+'</div></div>'
+        +'<div class="tile"><div class="tl">Aulas no mês</div><div class="val">'+totAulas+'</div><div class="delta flat">'+(folhaMod==='all'?'todas as modalidades':MODLBL[folhaMod])+'</div></div>'
+        +'<div class="tile"><div class="tl">Aulas cheias (100%)</div><div class="val">'+totCheias+'</div><div class="delta up">▲ boa ocupação</div></div>'
+        +'<div class="tile"><div class="tl">Status da folha</div><div class="val" id="folhaStatus" style="font-size:1.6rem">'+(folhaFechada?'Fechada ✓':'A revisar')+'</div><div class="delta flat">'+(folhaFechada?'pronta pra pagamento':'fecha quando você revisar')+'</div></div>';
+    }
+    renderFolhaProf(); renderFolha();
+
+    // filtro de modalidade (um por vez)
+    var fMod=document.getElementById('folhaMod');
+    if(fMod)fMod.addEventListener('click',function(e){ var b=e.target.closest('[data-fmod]'); if(!b)return;
+      folhaMod=b.dataset.fmod;
+      fMod.querySelectorAll('.chip').forEach(function(x){x.classList.toggle('on',x.dataset.fmod===folhaMod);});
+      renderFolha();
+    });
+    // filtro de professor (multi; "Todos" limpa)
+    var fProf=document.getElementById('folhaProf');
+    if(fProf)fProf.addEventListener('click',function(e){ var b=e.target.closest('[data-fprof]'); if(!b)return;
+      if(b.dataset.fprof==='all'){ folhaProf.clear(); }
+      else { var idx=+b.dataset.fprof; if(folhaProf.has(idx)) folhaProf.delete(idx); else folhaProf.add(idx); }
+      renderFolhaProf(); renderFolha();
+    });
+    // expandir "Ver cálculo" (delegação, pois as linhas são recriadas)
+    var fPay=document.getElementById('folhaPay');
+    if(fPay)fPay.addEventListener('click',function(e){
+      var row=e.target.closest('.pay-row'); if(!row)return;
+      var d=fPay.querySelector('.pay-detail[data-fd="'+row.dataset.fp+'"]'); if(!d)return;
       var open=d.classList.toggle('open');
       var btn=row.querySelector('.calc-btn'); if(btn)btn.textContent=open?'Ocultar cálculo ▴':'Ver cálculo ▾';
     });
-  });
-  var ff=document.getElementById('fecharFolha');
-  if(ff)ff.addEventListener('click',function(e){
-    e.stopPropagation();
-    document.querySelectorAll('.pstatus').forEach(function(s){s.classList.add('done');s.textContent='Fechado';});
-    var fs=document.getElementById('folhaStatus'); if(fs)fs.textContent='Fechada ✓';
-    ff.innerHTML='<span>✓</span> Folha fechada';
-    alert('Folha de Agosto fechada! (protótipo)\n\nTotal: R$ 4.482 · 4 professores\nPronta pra pagamento.');
-  });
+    // fechar folha
+    var ff=document.getElementById('fecharFolha');
+    if(ff)ff.addEventListener('click',function(e){ e.stopPropagation();
+      folhaFechada=true; renderFolha(); ff.innerHTML='<span>✓</span> Folha fechada';
+      alert('Folha de Agosto fechada! (protótipo)\n\nTotal: '+document.getElementById('folhaFootVal').textContent+' · '+profList().length+' professores\nPronta pra pagamento.');
+    });
+
+    // sub-abas Quadro | Folha
+    document.querySelectorAll('#staffTabs .ag-tab').forEach(function(t){
+      t.addEventListener('click',function(){
+        document.querySelectorAll('#staffTabs .ag-tab').forEach(function(x){x.classList.remove('on');});
+        t.classList.add('on');
+        var q=t.dataset.stab==='quadro';
+        document.getElementById('staffQuadro').hidden=!q;
+        document.getElementById('staffFolha').hidden=q;
+      });
+    });
+
+    // ---- modal de cadastro ----
+    var M=document.getElementById('funcModal'), editIdx=null, curCargo='prof', curParam=1, faixas=[];
+    function setCargo(c){ curCargo=c;
+      document.querySelectorAll('#fuCargo button').forEach(function(b){b.classList.toggle('on',b.dataset.cargo===c);});
+      document.getElementById('fuProfBox').hidden=(c!=='prof');
+      document.getElementById('fuAcessoHint').innerHTML='Acesso de <b>'+CARGOLBL[c]+'</b>: '+ACESSO[c];
+    }
+    function setParam(pn){ curParam=pn;
+      document.querySelectorAll('#fuParam button').forEach(function(b){b.classList.toggle('on',+b.dataset.param===pn);});
+      document.getElementById('fuP1').hidden=(pn!==1);
+      document.getElementById('fuP2').hidden=(pn!==2);
+    }
+    function renderFaixas(){
+      document.getElementById('fuFaixas').innerHTML=faixas.map(function(fx,i){
+        return '<div class="faixa-row">≥ <input type="number" data-fx="pct" data-i="'+i+'" value="'+fx.pct+'" min="1" max="100"> % → + R$ <input type="number" data-fx="bonus" data-i="'+i+'" value="'+fx.bonus+'" min="0"><button type="button" class="fx-rm" data-rm="'+i+'">×</button></div>';
+      }).join('');
+    }
+    function openFunc(idx){
+      editIdx=(idx==null?null:idx);
+      var f=(idx==null?null:staff[idx]);
+      document.getElementById('funcTitle').textContent=f?'Editar funcionário':'Novo funcionário';
+      document.getElementById('fuNome').value=f?f.nome:'';
+      document.getElementById('fuUser').value=f?f.user:'';
+      document.getElementById('fuAtivo').checked=f?f.ativo:true;
+      setCargo(f?f.cargo:'prof');
+      var mods=(f&&f.mods)||[];
+      document.querySelectorAll('#fuMods input').forEach(function(c){c.checked=mods.indexOf(c.value)>=0;});
+      var pay=(f&&f.pay)||{param:1,base:40,pp:1};
+      setParam(pay.param||1);
+      document.getElementById('fuBase1').value=pay.base!=null?pay.base:40;
+      document.getElementById('fuPorPres').value=pay.pp!=null?pay.pp:1;
+      document.getElementById('fuBase2').value=pay.base!=null?pay.base:40;
+      faixas=(pay.faixas?pay.faixas.map(function(x){return {pct:x.pct,bonus:x.bonus};}):[{pct:70,bonus:20},{pct:90,bonus:30}]);
+      renderFaixas();
+      M.classList.add('open'); document.body.style.overflow='hidden';
+    }
+    function closeFunc(){ M.classList.remove('open'); document.body.style.overflow=''; }
+
+    document.getElementById('novoFunc').addEventListener('click',function(){openFunc(null);});
+    document.getElementById('staffList').addEventListener('click',function(e){ var b=e.target.closest('[data-edit]'); if(b) openFunc(+b.dataset.edit); });
+    document.getElementById('funcX').addEventListener('click',closeFunc);
+    document.getElementById('funcCancel').addEventListener('click',closeFunc);
+    M.addEventListener('click',function(e){ if(e.target===M) closeFunc(); });
+    document.getElementById('fuCargo').addEventListener('click',function(e){ var b=e.target.closest('button'); if(b) setCargo(b.dataset.cargo); });
+    document.getElementById('fuParam').addEventListener('click',function(e){ var b=e.target.closest('button'); if(b) setParam(+b.dataset.param); });
+    document.getElementById('fuAddFaixa').addEventListener('click',function(){ faixas.push({pct:80,bonus:25}); renderFaixas(); });
+    document.getElementById('fuFaixas').addEventListener('click',function(e){ var b=e.target.closest('[data-rm]'); if(b){ faixas.splice(+b.dataset.rm,1); renderFaixas(); } });
+    document.getElementById('fuFaixas').addEventListener('input',function(e){ var inp=e.target.closest('[data-fx]'); if(!inp)return; var i=+inp.dataset.i; if(inp.dataset.fx==='pct')faixas[i].pct=+inp.value; else faixas[i].bonus=+inp.value; });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&M.classList.contains('open'))closeFunc(); });
+
+    document.getElementById('funcSave').addEventListener('click',function(){
+      var nome=document.getElementById('fuNome').value.trim(); if(!nome){ document.getElementById('fuNome').focus(); return; }
+      var f={nome:nome,cargo:curCargo,user:document.getElementById('fuUser').value.trim()||'—',ativo:document.getElementById('fuAtivo').checked,
+             cor:(editIdx!=null?staff[editIdx].cor:['#3AA0D0','#E73737','#E0A020','#3E9E6E','#8A5FB0','#37346A'][staff.length%6]),mods:[],pay:null};
+      if(curCargo==='prof'){
+        document.querySelectorAll('#fuMods input:checked').forEach(function(c){f.mods.push(c.value);});
+        if(curParam===1) f.pay={param:1,base:+document.getElementById('fuBase1').value||0,pp:+document.getElementById('fuPorPres').value||0};
+        else f.pay={param:2,base:+document.getElementById('fuBase2').value||0,faixas:faixas.slice().sort(function(a,b){return a.pct-b.pct;})};
+      }
+      if(editIdx!=null) staff[editIdx]=f; else staff.push(f);
+      renderStaff(); renderFolhaProf(); renderFolha(); closeFunc();
+    });
+  })();
 
   // Cupons
   var cm=document.getElementById('cupomModal');
@@ -2927,16 +3317,16 @@
     function slug(x){return x.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
     function email(name){var p=name.split(' ');return slug(p[0])+'.'+slug(p[p.length-1])+'@email.com';}
     var meta={
-      sumidos14:{t:'Sumidos há +14 dias',s:'Ativos que sumiram. Um "senti sua falta" traz muita gente de volta.',n:8,cl:'Sem treinar',cx:function(i){return (14+i)+' dias';},pl:['Ilimitado','20 créditos','10 créditos'],msg:'Oi! Senti sua falta aqui na salty 🌊 bora marcar uma aula essa semana?'},
-      freqcaindo:{t:'Frequência caindo',s:'Treinavam bastante e diminuíram. Falar agora evita o sumiço.',n:6,cl:'Ritmo',cx:function(i){return '3x → 1x/sem';},pl:['Ilimitado','Ilimitado','20 créditos'],msg:'Oi! Vi que você deu uma sumida do pico 👀 tá tudo certo? bora remarcar!'},
+      sumidos14:{t:'Sumidos há +14 dias',s:'Ativos que sumiram. Um "senti sua falta" traz muita gente de volta.',n:8,cl:'Sem treinar',cx:function(i){return (14+i)+' dias';},pl:['Clube Salty','5 por mês','10 por mês'],msg:'Oi! Senti sua falta aqui na salty 🌊 bora marcar uma aula essa semana?'},
+      freqcaindo:{t:'Frequência caindo',s:'Treinavam bastante e diminuíram. Falar agora evita o sumiço.',n:6,cl:'Ritmo',cx:function(i){return '3x → 1x/sem';},pl:['Clube Salty','10 por mês','5 por mês'],msg:'Oi! Vi que você deu uma sumida do pico 👀 tá tudo certo? bora remarcar!'},
       novos:{t:'Alunos novos (1ª semana)',s:'Entraram há pouco. Os primeiros dias decidem se ficam.',n:9,cl:'Entrou há',cx:function(i){return (1+i)+' dias';},pl:['Experimental','5 créditos','10 créditos'],msg:'Oi! Que bom te ter na salty 🌊 já quer marcar sua próxima aula?'},
       credacab:{t:'Créditos acabando',s:'Com 2 créditos ou menos. Melhor hora pra oferecer recompra.',n:12,cl:'Saldo',cx:function(i){return (i%2?'1 crédito':'2 créditos');},pl:['10 créditos','20 créditos','5 créditos'],msg:'Oi! Seus créditos na salty estão acabando — quer já garantir o próximo pacote?'},
       credvenc:{t:'Créditos vencendo',s:'Têm créditos que vencem em até 7 dias. Lembrar de usar.',n:4,cl:'Vence em',cx:function(i){return (2+i)+' dias';},pl:['20 créditos','10 créditos','30 créditos'],msg:'Oi! Você tem créditos na salty que vencem em breve — bora usar antes de perder?'},
       zerou:{t:'Zeraram e não voltaram',s:'Acabaram os créditos e não recompraram. Um empurrãozinho.',n:7,cl:'Zerou há',cx:function(i){return (3+i)+' dias';},pl:['5 créditos','10 créditos','20 créditos'],msg:'Oi! Vi que seus créditos acabaram — quer voltar a treinar com a gente? 🌊'},
       expamanha:{t:'Experimental amanhã',s:'Têm aula experimental marcada. Lembrete reduz falta.',n:5,cl:'Aula',cx:function(i){return 'amanhã '+['07:00','09:00','18:00','19:00','12:00'][i%5];},pl:['Experimental','Experimental','Experimental'],msg:'Oi! Passando pra confirmar sua aula experimental amanhã na salty 🌊 te espero!'},
       expnaocomprou:{t:'Fez experimental, não comprou',s:'Gostaram mas não fecharam. Falar enquanto a memória está fresca.',n:3,cl:'Experimental',cx:function(i){return 'há '+(1+i)+' dias';},pl:['—','—','—'],msg:'Oi! Que bom que veio conhecer a salty 🌊 quer escolher um plano e continuar com a gente?'},
-      aniver:{t:'Aniversariantes da semana',s:'Mandar carinho + um brinde. Relacionamento que fica.',n:5,cl:'Aniversário',cx:function(i){return ['sábado','domingo','segunda','terça','quarta'][i%5];},pl:['Ilimitado','10 créditos','20 créditos'],msg:'Oi! A salty passou aqui pra te desejar um feliz aniversário 🎉🌊 tem um mimo te esperando!'},
-      marco:{t:'Bateram um marco',s:'Chegaram a 50 e 100 aulas. Comemorar (Clube da Salty).',n:2,cl:'Marco',cx:function(i){return (i%2?'50 aulas':'100 aulas');},pl:['Ilimitado','Ilimitado'],msg:'Oi! Você bateu um marco na salty 🏆🌊 parabéns! Preparamos uma surpresa pra você.'}
+      aniver:{t:'Aniversariantes da semana',s:'Mandar carinho + um brinde. Relacionamento que fica.',n:5,cl:'Aniversário',cx:function(i){return ['sábado','domingo','segunda','terça','quarta'][i%5];},pl:['Clube Salty','10 por mês','5 por mês'],msg:'Oi! A salty passou aqui pra te desejar um feliz aniversário 🎉🌊 tem um mimo te esperando!'},
+      marco:{t:'Bateram um marco',s:'Chegaram a 50 e 100 aulas. Comemorar (Clube da Salty).',n:2,cl:'Marco',cx:function(i){return (i%2?'50 aulas':'100 aulas');},pl:['Clube Salty','10 por mês'],msg:'Oi! Você bateu um marco na salty 🏆🌊 parabéns! Preparamos uma surpresa pra você.'}
     };
     function updateDone(){var rows=lm.querySelectorAll('.lp-row'),d=0;rows.forEach(function(r){if(r.classList.contains('done'))d++;});document.getElementById('listDone').textContent=d+' contatados';}
     function openList(key){
@@ -2976,11 +3366,11 @@
     var input=document.getElementById('alunoSearch'); if(!input) return;
     var res=document.getElementById('searchRes'), modal=document.getElementById('alunoModal');
     var alunos=[
-      {nome:'Ana Beatriz Souza',cpf:'107.103.109-10',tel:'(79) 91000-1000',email:'ana.souza@email.com',plano:'Clube Salty',valor:'R$ 249',cred:'Ilimitado',saldo:'—',conviteUsado:false,ult:'há 2 dias',desde:'mar/2026',ok:true,pay:'Clube Salty · em dia · próxima cobrança 05/09',card:{b:'Visa',l4:'4242',v:'12/28'},crm:['Aniversário em setembro'],termo:{ok:true,d:'12/03/2026'}},
-      {nome:'Carlos Menezes',cpf:'138.160.182-13',tel:'(79) 91617-1937',email:'carlos.menezes@email.com',plano:'12 créditos',valor:'R$ 199',cred:'5 de 12 usados',saldo:'7 créditos',saldoN:7,ult:'há 9 dias',desde:'jan/2026',ok:false,pay:'1 fatura em aberto · R$ 199 · venceu 10/08',card:{b:'Mastercard',l4:'8890',v:'06/27'},crm:['Fatura em aberto (R$ 199)','Créditos acabando'],termo:{ok:true,d:'20/01/2026'}},
-      {nome:'Juliana Prado',cpf:'169.217.255-16',tel:'(79) 92234-2874',email:'juliana.prado@email.com',plano:'8 créditos',valor:'R$ 149',cred:'3 de 8 usados',saldo:'5 créditos',saldoN:5,ult:'ontem',desde:'jun/2026',ok:true,pay:'8 créditos · em dia · renova 01/09',card:{b:'Visa',l4:'1547',v:'09/29'},crm:['Frequência caindo'],termo:{ok:true,d:'08/06/2026'}},
+      {nome:'Ana Beatriz Souza',cpf:'107.103.109-10',tel:'(79) 91000-1000',email:'ana.souza@email.com',plano:'Clube Salty',valor:'R$ 679',cred:'15/mês · 6 usados',saldo:'9 créditos',saldoN:9,ult:'há 2 dias',desde:'mar/2026',ok:true,pay:'Clube Salty (15/mês) · em dia · próxima cobrança 05/09',card:{b:'Visa',l4:'4242',v:'12/28'},crm:['Aniversário em setembro'],termo:{ok:true,d:'12/03/2026'}},
+      {nome:'Carlos Menezes',cpf:'138.160.182-13',tel:'(79) 91617-1937',email:'carlos.menezes@email.com',plano:'10 por mês',valor:'R$ 499',cred:'5 de 10 usados',saldo:'5 créditos',saldoN:5,ult:'há 9 dias',desde:'jan/2026',ok:false,pay:'1 fatura em aberto · R$ 499 · venceu 10/08',card:{b:'Mastercard',l4:'8890',v:'06/27'},crm:['Fatura em aberto (R$ 499)','Créditos acabando'],termo:{ok:true,d:'20/01/2026'}},
+      {nome:'Juliana Prado',cpf:'169.217.255-16',tel:'(79) 92234-2874',email:'juliana.prado@email.com',plano:'5 por mês',valor:'R$ 269',cred:'3 de 5 usados',saldo:'2 créditos',saldoN:2,ult:'ontem',desde:'jun/2026',ok:true,pay:'5 por mês · em dia · renova 01/09',card:{b:'Visa',l4:'1547',v:'09/29'},crm:['Frequência caindo'],termo:{ok:true,d:'08/06/2026'}},
       {nome:'Rafael Lima',cpf:'200.274.328-19',tel:'(79) 92851-3811',email:'rafael.lima@email.com',plano:'Avulso',valor:'R$ 45',cred:'1 crédito disponível',saldo:'1 crédito',saldoN:1,ult:'há 3 dias',desde:'ago/2026',ok:true,pay:'Sem assinatura · aulas avulsas',card:null,crm:['Fez experimental · converteu'],termo:{ok:false,d:null}},
-      {nome:'Marina Castro',cpf:'231.331.401-22',tel:'(79) 93468-4748',email:'marina.castro@email.com',plano:'Clube Salty',valor:'R$ 249',cred:'Ilimitado',saldo:'—',conviteUsado:false,ult:'hoje',desde:'fev/2026',ok:true,pay:'Clube Salty · em dia · próxima cobrança 12/09',card:{b:'Elo',l4:'2231',v:'03/28'},crm:['Aluna VIP · alta frequência'],termo:{ok:true,d:'15/02/2026'}}
+      {nome:'Marina Castro',cpf:'231.331.401-22',tel:'(79) 93468-4748',email:'marina.castro@email.com',plano:'Clube Salty',valor:'R$ 679',cred:'15/mês · 3 usados',saldo:'12 créditos',saldoN:12,ult:'hoje',desde:'fev/2026',ok:true,pay:'Clube Salty (15/mês) · em dia · próxima cobrança 12/09',card:{b:'Elo',l4:'2231',v:'03/28'},crm:['Aluna VIP · alta frequência'],termo:{ok:true,d:'15/02/2026'}}
     ];
     function render(q){
       q=(q||'').toLowerCase().trim();
@@ -3027,10 +3417,10 @@
         if(x.from===a.cpf) mov.push({d:x.date,t:'Transferência · enviado a '+firstName(x.toName),q:'−'+x.qty});
         if(x.to===a.cpf) mov.push({d:x.date,t:'Transferência · recebido de '+firstName(x.fromName),q:'+'+x.qty});
       }
-      if(a.plano!=='Clube Salty'){
+      if(a.plano!=='Avulso'){
         mov.push({d:'20/08',t:'Uso · Hot Yoga',q:'−1'});
         mov.push({d:'18/08',t:'Uso · Funcional',q:'−1'});
-        mov.push({d:'05/08',t:'Compra · '+a.plano,q:'+'+(a.plano==='12 créditos'?'12':(a.plano==='8 créditos'?'8':'1'))});
+        mov.push({d:'05/08',t:'Compra · '+a.plano,q:'+'+(a.plano==='5 por mês'?'5':(a.plano==='10 por mês'?'10':(a.plano==='Clube Salty'?'15':'1')))});
       }
       if(!mov.length) return '';
       return '<div class="fmov-h">Movimentações</div>'+mov.map(function(x){return '<div class="frow"><span class="ft-when">'+x.d+'</span><span class="ft-main">'+x.t+'</span><span class="ft-val '+(x.q.charAt(0)==='+'?'pos':'neg')+'">'+x.q+'</span></div>';}).join('');
@@ -3067,17 +3457,7 @@
         if(a.plano==='Avulso'){ h='<div class="fempty">Sem assinatura ativa — aluno de aulas avulsas.</div>'; }
         else { h='<div class="fsub"><div class="fs-top"><b>'+a.plano+'</b><span class="fbadge '+(a.ok?'ok':'ca')+'">'+(a.ok?'Ativa':'Pagamento em aberto')+'</span></div>'+srow('Valor',a.valor+' / mês')+srow('Cliente desde',a.desde)+srow('Próxima cobrança',a.ok?'05/09/2026':'em aberto desde 10/08')+srow('Forma','Cartão de crédito')+'</div>'; }
       } else if(tab==='creditos'){
-        if(a.plano==='Clube Salty'){
-          h='<div class="fcred"><b>∞</b><span>Ilimitado (Clube Salty)</span></div>';
-          h+='<div class="xf-invite '+(a.conviteUsado?'used':'')+'">'
-            +'<div class="xi-top"><span class="xi-lbl">Crédito-convite deste mês</span><span class="xi-st '+(a.conviteUsado?'off':'on')+'">'+(a.conviteUsado?'Já transferido':'Disponível')+'</span></div>'
-            +'<p class="xi-desc">1 convite por mês pra um amigo. <b>Não acumula</b> e <b>não pode ser usado pelo próprio assinante</b> — só transferido.</p>'
-            +(a.conviteUsado
-              ? '<p class="xi-note">Convite deste mês já foi transferido. Renova na próxima cobrança.</p>'
-              : '<button class="fa fa-primary xf-open" data-xf="convite">Transferir convite</button>')
-            +'</div>';
-          h+=credMovesHTML(a);
-        }
+        if(a.plano==='Avulso'){ h='<div class="fempty">Aluno de aulas avulsas — sem saldo de créditos mensais.</div>'; }
         else {
           h='<div class="fcred"><b>'+saldoDisp(a)+'</b><span>disponíveis</span></div>';
           h+='<div class="xf-line"><button class="fa xf-open" data-xf="saldo"'+((a.saldoN||0)<1?' disabled':'')+'>Transferir créditos</button></div>';
@@ -3212,7 +3592,5 @@
   });
 })();
 </script>
-
-
 </body>
 </html>
