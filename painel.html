@@ -168,6 +168,47 @@
   .ficha-secs{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;align-items:start}
   @media(max-width:860px){.ficha-secs{grid-template-columns:1fr}}
   .ficha-sec .panel-b{padding:.9rem 1.15rem 1.1rem}
+  /* ficha por abas */
+  .ficha-tabbar{display:flex;gap:.3rem;overflow-x:auto;border-bottom:1.5px solid var(--line2);margin-bottom:1.1rem;padding-bottom:0}
+  .ficha-tabbar::-webkit-scrollbar{height:5px}
+  .ficha-tabbar::-webkit-scrollbar-thumb{background:var(--line2);border-radius:999px}
+  .fftab{font-family:inherit;font-weight:700;font-size:.84rem;color:var(--muted);background:none;border:none;border-bottom:2.5px solid transparent;padding:.6rem .5rem;margin-bottom:-1.5px;cursor:pointer;white-space:nowrap;transition:.12s}
+  .fftab:hover{color:var(--ink)}
+  .fftab.on{color:var(--ink);border-bottom-color:var(--red)}
+  .fg-copy{display:inline-flex;align-items:center;gap:.4rem}
+  .fcopy{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:1.5px solid var(--line2);border-radius:7px;background:var(--panel);color:var(--muted);cursor:pointer;padding:0;flex:none;transition:.12s}
+  .fcopy svg{width:13px;height:13px}
+  .fcopy:hover{border-color:var(--navy);color:var(--navy)}
+  .fcopy.copied{border-color:var(--good);color:var(--good);background:color-mix(in srgb,var(--good) 12%,transparent)}
+  .fsubtabs{display:flex;flex-wrap:wrap;gap:.4rem;margin:.3rem 0 1rem}
+  .fsub-btn{font-family:inherit;font-weight:600;font-size:.76rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--line2);border-radius:999px;padding:.35rem .8rem;cursor:pointer;transition:.12s}
+  .fsub-btn:hover{border-color:var(--red)}
+  .fsub-btn.on{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+  .faula{display:grid;grid-template-columns:62px 1fr auto;align-items:center;gap:.7rem;padding:.7rem 0;border-bottom:1px dashed var(--line)}
+  .faula:last-child{border-bottom:none}
+  .fa-when b{font-family:var(--f-mono);font-size:.85rem;display:block}
+  .fa-when span{font-family:var(--f-mono);font-size:.68rem;color:var(--muted)}
+  .fa-main b{font-size:.9rem;display:block}
+  .fa-main span{font-size:.74rem;color:var(--muted)}
+  .fcard-item{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding:.6rem 0;border-bottom:1px dashed var(--line)}
+  .fcard-item:last-child{border-bottom:none}
+  .fcard-act{display:flex;flex-direction:column;gap:.45rem;align-items:flex-start}
+  .fcard-form{margin-top:1rem;background:var(--raise);border:1.5px solid var(--line2);border-radius:12px;padding:1rem}
+  .fcard-form h4{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.15rem;margin-bottom:.5rem}
+  .fobs-add{margin-bottom:1rem}
+  .fparq-status{font-size:.86rem;font-weight:600;border-radius:10px;padding:.7rem .85rem;margin-bottom:1rem}
+  .fparq-status.ok{color:var(--good);background:color-mix(in srgb,var(--good) 10%,transparent);border:1.5px solid color-mix(in srgb,var(--good) 32%,transparent)}
+  .fparq-status.pend{color:var(--warn);background:color-mix(in srgb,var(--warn) 10%,transparent);border:1.5px solid color-mix(in srgb,var(--warn) 34%,transparent)}
+  .fparq-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 0;border-bottom:1px dashed var(--line);font-size:.86rem}
+  .fparq-tg{font-family:var(--f-mono);font-weight:700;font-size:.78rem;border:1.5px solid var(--line2);background:var(--panel);color:var(--muted);border-radius:999px;padding:.3rem .9rem;cursor:pointer;flex:none}
+  .fparq-tg.yes{border-color:var(--red);color:var(--red);background:color-mix(in srgb,var(--red) 8%,transparent)}
+  .ftimeline{display:flex;flex-direction:column}
+  .ftl-item{display:flex;gap:.8rem;align-items:flex-start;padding:.1rem 0}
+  .ftl-ic{width:30px;height:30px;border-radius:50%;background:var(--raise);border:1.5px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex:none;z-index:1}
+  .ftl-body{border-left:2px solid var(--line);margin-left:-15px;padding:0 0 1rem 1.3rem;flex:1}
+  .ftl-item:last-child .ftl-body{border-left-color:transparent}
+  .ftl-body b{font-size:.86rem;display:block;line-height:1.3}
+  .ftl-body span{font-family:var(--f-mono);font-size:.68rem;color:var(--muted)}
 
   /* CRM tab */
   .crm-intro{color:var(--muted);font-size:.92rem;max-width:70ch;margin-bottom:1.3rem}
@@ -4032,12 +4073,148 @@
       }
       return h;
     }
-    // ===== Ficha completa (página dedicada) =====
+    // ===== Ficha completa (página dedicada, por abas) =====
     var fichaReturn='dash';
+    var ffState={tab:'resumo',hist:'todos',cred:'todos',addCard:false};
+    var ICON_COPY='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>';
+    var MP=[{lbl:'Bike no Rooftop',prof:'Cauã',cap:9},{lbl:'Hot Yoga',prof:'Marina',cap:7},{lbl:'Pilates',prof:'Marina',cap:7},{lbl:'Hot Sculpt',prof:'Bia',cap:7},{lbl:'Funcional',prof:'Rafa',cap:7}];
+    var HORAS=['06:00','07:00','09:00','12:00','18:00','19:00'];
+    function hashN(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return Math.abs(h)||1;}
+    function rngOf(seed){var x=seed%2147483647;if(x<=0)x+=2147483646;return function(){x=x*16807%2147483647;return(x-1)/2147483646;};}
+    function pad2(n){return(n<10?'0':'')+n;}
+    function dstr(d){return pad2(d.getDate())+'/'+pad2(d.getMonth()+1);}
+    function esc(s){return(''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+    // garante estruturas editáveis (cartões, observações, PAR-Q)
+    function ensureAluno(a){
+      if(!a.cards){ a.cards=a.card?[{b:a.card.b,l4:a.card.l4,v:a.card.v,nome:a.nome,prio:true}]:[]; }
+      if(!a.obs){ a.obs=[{d:a.desde,autor:'Recepção',t:(a.crm&&a.crm[0])?('Observado no cadastro: '+a.crm[0]+'.'):'Cadastro inicial — sem observações.'}]; }
+      if(!a.parq){ a.parq={q1:false,q2:false,q3:false,restr:(a.nome.indexOf('Marina')>=0?'Lesão antiga no joelho direito — evitar impacto alto.':'')}; }
+    }
+    function aulasFull(a){
+      var r=rngOf(hashN(a.nome+'|h')), out=[], base=new Date(2026,9,14), avulso=a.plano==='Avulso';
+      for(var i=0;i<12;i++){ var off=(i<3)?(3-i):-(i-2); var dd=new Date(base); dd.setDate(dd.getDate()+off);
+        var mp=MP[Math.floor(r()*MP.length)], status=(off>0)?'reserva':((r()<0.2)?'cancel':'checkin');
+        out.push({date:dd,h:HORAS[Math.floor(r()*HORAS.length)],lbl:mp.lbl,prof:mp.prof,pos:1+Math.floor(r()*mp.cap),credito:!avulso&&status!=='cancel',status:status}); }
+      out.sort(function(x,y){return y.date-x.date;}); return out;
+    }
+    function pedidosFull(a){
+      var r=rngOf(hashN(a.nome+'|p')), out=[]; var prods=['Barrinha proteica','Garrafa Salty','Água 500ml','Camiseta','Toalha'], precos={'Barrinha proteica':12,'Garrafa Salty':59,'Água 500ml':8,'Camiseta':79,'Toalha':39};
+      for(var m=0;m<6;m++){ out.push({date:new Date(2026,9-m,5),i:(a.plano==='Avulso'?'Aula avulsa':a.plano),v:a.valor,p:'Cartão de crédito',tp:'plano'}); }
+      for(var k=0;k<4;k++){ var pr=prods[Math.floor(r()*prods.length)], q=1+Math.floor(r()*2); out.push({date:new Date(2026,9,2-k*6),i:pr+(q>1?' ×'+q:''),v:'R$ '+(precos[pr]*q),p:(r()<0.5?'Pix':'Dinheiro'),tp:'prod'}); }
+      out.sort(function(x,y){return y.date-x.date;}); return out;
+    }
+    function comuns(a){
+      var r=rngOf(hashN(a.nome+'|c')), base=new Date(2026,9,13), out=[];
+      var msgs=[{c:'wpp',t:'Confirmação de aula'},{c:'email',t:'Recibo de pagamento'},{c:'wpp',t:'Lembrete: créditos acabando'},{c:'wpp',t:'Feliz aniversário 🎉'},{c:'email',t:'Novidades da Salty'},{c:'wpp',t:'Senti sua falta — bora treinar?'}];
+      for(var i=0;i<6;i++){ var dd=new Date(base); dd.setDate(dd.getDate()-i*3-Math.floor(r()*2)); out.push({date:dd,c:msgs[i].c,t:msgs[i].t,st:(i===0?'Entregue':(r()<0.7?'Lida':'Entregue'))}); }
+      return out;
+    }
+    function timelineOf(a){
+      var ev=[];
+      aulasFull(a).slice(0,5).forEach(function(x){ ev.push({dt:x.date,t:(x.status==='reserva'?'Reservou ':x.status==='cancel'?'Cancelou ':'Fez ')+x.lbl+' · '+x.h,ic:(x.status==='cancel'?'✖':x.status==='reserva'?'🗓️':'✅')}); });
+      pedidosFull(a).slice(0,3).forEach(function(x){ ev.push({dt:x.date,t:'Comprou '+x.i+' · '+x.v,ic:'🛒'}); });
+      comuns(a).slice(0,2).forEach(function(x){ ev.push({dt:x.date,t:'Contato '+(x.c==='wpp'?'WhatsApp':'e-mail')+': '+x.t,ic:'💬'}); });
+      ev.sort(function(x,y){return y.dt-x.dt;}); return ev;
+    }
+    // helpers de render
+    function fg2(l,v){return '<div class="fg"><i>'+l+'</i><span>'+v+'</span></div>';}
+    function fgCopy(l,v){return '<div class="fg"><i>'+l+'</i><span class="fg-copy">'+v+'<button class="fcopy" type="button" data-copy="'+esc(v)+'" title="Copiar '+l+'">'+ICON_COPY+'</button></span></div>';}
+    var FTABS=[['resumo','Dados & Resumo'],['assinatura','Assinatura'],['creditos','Créditos'],['historico','Histórico'],['pedidos','Pedidos'],['cartoes','Cartões'],['crm','CRM'],['termos','Contratos'],['obs','Observações'],['saude','Saúde'],['comun','Comunicações'],['timeline','Linha do tempo']];
+    function fullTab(a,tab){
+      ensureAluno(a); var h='';
+      if(tab==='resumo'){
+        h='<div class="ficha-grid">'+fgCopy('Telefone',a.tel)+fgCopy('E-mail',a.email)+fgCopy('CPF',a.cpf)+fg2('Plano ativo',a.plano)+fg2('Créditos / uso',a.cred)+fg2('Última visita',a.ult)+fg2('Cliente desde',a.desde)+fg2('Status',a.ok?'Adimplente':'Pendência')+'</div><div class="ficha-pay '+(a.ok?'ok':'pend')+'">'+(a.ok?'✓ ':'⚠ ')+a.pay+'</div>';
+      } else if(tab==='assinatura'){
+        if(a.plano==='Avulso'){ h='<div class="fempty">Sem assinatura ativa — aluno de aulas avulsas.</div>'; }
+        else { h='<div class="fsub"><div class="fs-top"><b>'+a.plano+'</b><span class="fbadge '+(a.ok?'ok':'ca')+'">'+(a.ok?'Ativa':'Pagamento em aberto')+'</span></div>'+srow('Valor',a.valor+' / mês')+srow('Cliente desde',a.desde)+srow('Próxima cobrança',a.ok?'05/11/2026':'em aberto desde 10/10')+srow('Forma','Cartão de crédito')+'</div>'; }
+      } else if(tab==='creditos'){
+        if(a.plano==='Avulso'){ h='<div class="fempty">Aluno de aulas avulsas — sem saldo de créditos mensais.</div>'; }
+        else {
+          var moves=credMovesArr(a), f=ffState.cred;
+          var shown=moves.filter(function(m){ return f==='todos'?true:(f==='ativos'?m.q.charAt(0)==='+':m.q.charAt(0)==='−'); });
+          h='<div class="fcred"><b>'+saldoDisp(a)+'</b><span>disponíveis</span></div>'
+            +'<div class="xf-line"><button class="fa xf-open" data-xf="saldo"'+((a.saldoN||0)<1?' disabled':'')+'>Transferir créditos</button></div>'
+            +'<div class="fsubtabs">'+['todos','ativos','inativos'].map(function(k){return '<button class="fsub-btn'+(f===(k==='inativos'?'inativos':k)?' on':'')+'" data-credf="'+k+'">'+(k==='todos'?'Todos':k==='ativos'?'Entradas (ativos)':'Usados (inativos)')+'</button>';}).join('')+'</div>'
+            +'<div class="fmov-h">Movimentações</div>'+(shown.length?shown.map(function(x){return '<div class="frow"><span class="ft-when">'+x.d+'</span><span class="ft-main">'+x.t+'</span><span class="ft-val '+(x.q.charAt(0)==='+'?'pos':'neg')+'">'+x.q+'</span></div>';}).join(''):'<div class="fempty">Nada nesse filtro.</div>');
+        }
+      } else if(tab==='historico'){
+        var A=aulasFull(a), sub=ffState.hist;
+        function cnt(s){return A.filter(function(x){return x.status===s;}).length;}
+        var map={reservas:'reserva',checkins:'checkin',cancelamentos:'cancel'};
+        var list=A.filter(function(x){ return sub==='todos'?true:x.status===map[sub]; });
+        var lbl={reserva:['Reserva','ag'],checkin:['Check-in','fe'],cancel:['Cancelada','ca']};
+        h='<div class="fsubtabs">'
+          +'<button class="fsub-btn'+(sub==='todos'?' on':'')+'" data-histf="todos">Todos ('+A.length+')</button>'
+          +'<button class="fsub-btn'+(sub==='reservas'?' on':'')+'" data-histf="reservas">Reservas ('+cnt('reserva')+')</button>'
+          +'<button class="fsub-btn'+(sub==='checkins'?' on':'')+'" data-histf="checkins">Check-ins ('+cnt('checkin')+')</button>'
+          +'<button class="fsub-btn'+(sub==='cancelamentos'?' on':'')+'" data-histf="cancelamentos">Cancelamentos ('+cnt('cancel')+')</button></div>';
+        h+=list.length?list.map(function(x){ var L=lbl[x.status];
+          return '<div class="faula"><div class="fa-when"><b>'+dstr(x.date)+'</b><span>'+x.h+'</span></div>'
+            +'<div class="fa-main"><b>'+x.lbl+'</b><span>Prof. '+x.prof+' · posição '+x.pos+' · '+(x.status==='cancel'?'crédito devolvido':(x.credito?'1 crédito usado':'avulso'))+'</span></div>'
+            +'<span class="fbadge '+L[1]+'">'+L[0]+'</span></div>';
+        }).join(''):'<div class="fempty">Nada nesse filtro.</div>';
+      } else if(tab==='pedidos'){
+        h=pedidosFull(a).map(function(x){return '<div class="frow"><span class="ft-when">'+dstr(x.date)+'</span><span class="ft-main"><b>'+x.i+'</b><span class="ft-sub">'+x.p+' · '+(x.tp==='plano'?'assinatura':'produto')+'</span></span><span class="ft-val">'+x.v+'</span></div>';}).join('');
+      } else if(tab==='cartoes'){
+        h=a.cards.length?a.cards.map(function(c,i){
+          return '<div class="fcard-item"><div class="fcard"><div class="fc-brand">'+c.b+'</div><div class="fc-num">•••• •••• •••• '+c.l4+'</div><div class="fc-row"><span>'+c.nome+'</span><span>val '+c.v+'</span></div></div>'
+            +'<div class="fcard-act">'+(c.prio?'<span class="fbadge ok">Prioritário na cobrança</span>':'<button class="fa" type="button" data-cardprio="'+i+'">Tornar prioritário</button>')+'<button class="pc-mini" type="button" data-cardrm="'+i+'">Remover</button></div></div>';
+        }).join(''):'<div class="fempty">Nenhum cartão cadastrado.</div>';
+        if(ffState.addCard){
+          h+='<div class="fcard-form"><h4>Novo cartão</h4>'
+            +'<label class="fld-l">Número do cartão</label><input class="wl-input" id="ncNum" placeholder="0000 0000 0000 0000" inputmode="numeric">'
+            +'<div class="pd-row"><div><label class="fld-l">Validade</label><input class="wl-input" id="ncVal" placeholder="MM/AA"></div><div><label class="fld-l">CVV</label><input class="wl-input" id="ncCvv" placeholder="123" inputmode="numeric"></div></div>'
+            +'<label class="fld-l">Nome impresso</label><input class="wl-input" id="ncNome" value="'+esc(a.nome)+'">'
+            +'<label class="fld-l">Bandeira</label><select class="wl-input" id="ncBand"><option>Visa</option><option>Mastercard</option><option>Elo</option><option>American Express</option><option>Hipercard</option></select>'
+            +'<label class="fchk" style="margin-top:.6rem"><input type="checkbox" id="ncPrio"> Definir como prioritário na cobrança</label>'
+            +'<div class="xf-actions" style="margin-top:.8rem"><button class="fa" type="button" data-cardadd="cancel">Cancelar</button><button class="fa fa-primary" type="button" data-cardsave="1">Salvar cartão</button></div></div>';
+        } else {
+          h+='<div class="xf-line"><button class="fa fa-primary" type="button" data-cardadd="open">＋ Adicionar cartão</button></div>';
+        }
+      } else if(tab==='crm'){
+        h=(a.crm&&a.crm.length)?a.crm.map(function(c){return '<div class="frow"><span class="ft-main"><b>'+c+'</b></span><a class="fbadge ok" style="cursor:pointer;text-decoration:none">Abrir</a></div>';}).join('')+'<p class="fempty" style="text-align:left;padding-top:.6rem">Situações de relacionamento detectadas para este aluno.</p>':'<div class="fempty">Nenhuma situação de CRM no momento.</div>';
+      } else if(tab==='termos'){
+        var docs=[{n:'Contrato de matrícula',ok:a.termo.ok,d:a.termo.d},{n:'Termo de uso de imagem',ok:a.termo.ok,d:a.termo.d},{n:'Política de cancelamento',ok:a.termo.ok,d:a.termo.d}];
+        if(a.termo.ok){ h=docs.map(function(x){return '<div class="frow"><span class="ft-main"><b>📄 '+x.n+'</b><span class="ft-sub">Assinado em '+x.d+'</span></span><a class="fbadge ok" style="cursor:pointer;text-decoration:none">Ver</a></div>';}).join(''); }
+        else { h='<div class="ftermo"><div class="ft-ic">✍️</div><b>Contratos pendentes</b><p>Este aluno ainda não assinou os termos.</p><button class="fa fa-primary" style="margin:.9rem auto 0">Enviar para assinatura</button></div>'; }
+      } else if(tab==='obs'){
+        h='<div class="fobs-add"><textarea class="wl-input" id="obsText" rows="2" placeholder="Nova observação interna (ex: prefere bike do fundo, cliente VIP, lesão no joelho)"></textarea><button class="fa fa-primary" type="button" data-obsadd="1" style="margin-top:.5rem">Adicionar observação</button></div>';
+        h+=a.obs.slice().reverse().map(function(o){return '<div class="frow"><span class="ft-when">'+o.d+'</span><span class="ft-main"><b>'+esc(o.t)+'</b><span class="ft-sub">'+o.autor+'</span></span></div>';}).join('');
+      } else if(tab==='saude'){
+        var Q=[['q1','Tem alguma condição cardíaca ou pressão alta?'],['q2','Sente dores no peito ou tonturas ao se exercitar?'],['q3','Tem lesão óssea/articular que piora com atividade?']];
+        var anyYes=a.parq.q1||a.parq.q2||a.parq.q3;
+        h='<div class="fparq-status '+(anyYes?'pend':'ok')+'">'+(anyYes?'⚠ Atenção — respostas positivas no PAR-Q. Recomenda-se liberação médica.':'✓ PAR-Q sem restrições declaradas.')+'</div>';
+        h+=Q.map(function(q){return '<div class="fparq-row"><span>'+q[1]+'</span><button class="fparq-tg'+(a.parq[q[0]]?' yes':'')+'" type="button" data-parq="'+q[0]+'">'+(a.parq[q[0]]?'Sim':'Não')+'</button></div>';}).join('');
+        h+='<label class="fld-l" style="display:block;margin-top:.9rem">Restrições / observações de saúde</label><textarea class="wl-input" data-parqrestr="1" rows="2" placeholder="Ex: lesão no joelho, gestante, etc.">'+esc(a.parq.restr||'')+'</textarea>';
+      } else if(tab==='comun'){
+        h=comuns(a).map(function(x){return '<div class="frow"><span class="ft-when">'+dstr(x.date)+'</span><span class="ft-main"><b>'+(x.c==='wpp'?'💬 WhatsApp':'✉️ E-mail')+' · '+x.t+'</b></span><span class="fbadge '+(x.st==='Lida'?'ok':'ag')+'">'+x.st+'</span></div>';}).join('');
+      } else if(tab==='timeline'){
+        h='<div class="ftimeline">'+timelineOf(a).map(function(e){return '<div class="ftl-item"><span class="ftl-ic">'+e.ic+'</span><div class="ftl-body"><b>'+e.t+'</b><span>'+dstr(e.dt)+'</span></div></div>';}).join('')+'</div>';
+      }
+      return h;
+    }
+    function credMovesArr(a){
+      var mov=[];
+      for(var i=xfers.length-1;i>=0;i--){var x=xfers[i];
+        if(x.from===a.cpf) mov.push({d:x.date,t:'Transferência · enviado a '+firstName(x.toName),q:'−'+x.qty});
+        if(x.to===a.cpf) mov.push({d:x.date,t:'Transferência · recebido de '+firstName(x.fromName),q:'+'+x.qty});
+      }
+      if(a.plano!=='Avulso'){
+        mov.push({d:'08/10',t:'Uso · Hot Yoga',q:'−1'});
+        mov.push({d:'05/10',t:'Uso · Funcional',q:'−1'});
+        mov.push({d:'02/10',t:'Uso · Bike no Rooftop',q:'−1'});
+        mov.push({d:'01/10',t:'Compra · '+a.plano,q:'+'+(a.plano==='5 por mês'?'5':(a.plano==='10 por mês'?'10':(a.plano==='Clube Salty'?'15':'1')))});
+      }
+      return mov;
+    }
+    function renderFichaFullTab(tab){
+      if(!fichaAluno) return; ffState.tab=tab;
+      document.querySelectorAll('#fichaFull .fftab').forEach(function(t){t.classList.toggle('on',t.dataset.fftab===tab);});
+      var body=document.getElementById('fichaFullBody'); if(body) body.innerHTML=fullTab(fichaAluno,tab);
+    }
     function openFichaFull(a){
-      if(!a) return; fichaAluno=a; activeAluno=a;
+      if(!a) return; fichaAluno=a; activeAluno=a; ensureAluno(a); ffState={tab:'resumo',hist:'todos',cred:'todos',addCard:false};
       var cur=document.querySelector('.view.on'); fichaReturn=(cur&&cur.dataset.view!=='ficha')?cur.dataset.view:'dash';
-      var secs=[['Dados & resumo','resumo'],['Assinatura','assinatura'],['Créditos','creditos'],['Histórico de aulas','aulas'],['Pedidos & compras','pedidos'],['Cartão salvo','cartao'],['Situações de CRM','crm'],['Contrato / termos','termos']];
       var head='<div class="fichafp-head">'
         +'<button class="ag-back" id="fichaBack"><svg class="ic"><use href="#i-chev"/></svg>Voltar</button>'
         +'<div class="fichafp-id"><span class="al-av">'+a.nome.charAt(0)+'</span>'
@@ -4048,15 +4225,32 @@
           +'<button class="fa" type="button" data-faf="agendar">Agendar</button>'
           +'<button class="fa" type="button" data-faf="vender">Vender</button></div>'
         +'</div>';
-      var grid='<div class="ficha-secs">'+secs.map(function(s){
-        return '<div class="panel ficha-sec"><div class="panel-h"><h2>'+s[0]+'</h2></div><div class="panel-b">'+fichaTabHTML(a,s[1],true)+'</div></div>';
-      }).join('')+'</div>';
-      document.getElementById('fichaFull').innerHTML=head+grid;
+      var tabbar='<div class="ficha-tabbar">'+FTABS.map(function(t){return '<button class="fftab'+(t[0]==='resumo'?' on':'')+'" type="button" data-fftab="'+t[0]+'">'+t[1]+'</button>';}).join('')+'</div>';
+      document.getElementById('fichaFull').innerHTML=head+tabbar+'<div class="panel ficha-sec"><div class="panel-b" id="fichaFullBody"></div></div>';
+      renderFichaFullTab('resumo');
       show('ficha');
     }
     document.getElementById('fichaFull').addEventListener('click',function(e){
       if(e.target.closest('#fichaBack')){ show(fichaReturn||'dash'); return; }
       var fa=e.target.closest('[data-faf]'); if(fa){ var k=fa.dataset.faf; if(k==='agendar')show('lista'); else if(k==='vender')show('planos'); return; }
+      var tb=e.target.closest('[data-fftab]'); if(tb){ renderFichaFullTab(tb.dataset.fftab); return; }
+      var hf=e.target.closest('[data-histf]'); if(hf){ ffState.hist=hf.dataset.histf; renderFichaFullTab('historico'); return; }
+      var cfb=e.target.closest('[data-credf]'); if(cfb){ ffState.cred=cfb.dataset.credf; renderFichaFullTab('creditos'); return; }
+      var cp=e.target.closest('[data-copy]'); if(cp){ var val=cp.dataset.copy; try{navigator.clipboard&&navigator.clipboard.writeText(val);}catch(_){ } cp.classList.add('copied'); setTimeout(function(){cp.classList.remove('copied');},1100); return; }
+      var cpr=e.target.closest('[data-cardprio]'); if(cpr){ var ci=+cpr.dataset.cardprio; fichaAluno.cards.forEach(function(c,i){c.prio=(i===ci);}); renderFichaFullTab('cartoes'); return; }
+      var crm=e.target.closest('[data-cardrm]'); if(crm){ fichaAluno.cards.splice(+crm.dataset.cardrm,1); if(fichaAluno.cards.length&&!fichaAluno.cards.some(function(c){return c.prio;})) fichaAluno.cards[0].prio=true; renderFichaFullTab('cartoes'); return; }
+      var cad=e.target.closest('[data-cardadd]'); if(cad){ ffState.addCard=(cad.dataset.cardadd==='open'); renderFichaFullTab('cartoes'); return; }
+      var csv=e.target.closest('[data-cardsave]'); if(csv){
+        var num=(document.getElementById('ncNum').value||'').replace(/\D/g,''); var l4=num.slice(-4)||'0000';
+        var nc={b:document.getElementById('ncBand').value,l4:l4,v:document.getElementById('ncVal').value||'—',nome:document.getElementById('ncNome').value||fichaAluno.nome,prio:document.getElementById('ncPrio').checked};
+        if(nc.prio) fichaAluno.cards.forEach(function(c){c.prio=false;}); else if(!fichaAluno.cards.length) nc.prio=true;
+        fichaAluno.cards.push(nc); ffState.addCard=false; renderFichaFullTab('cartoes'); return;
+      }
+      var pq=e.target.closest('[data-parq]'); if(pq){ var q=pq.dataset.parq; fichaAluno.parq[q]=!fichaAluno.parq[q]; renderFichaFullTab('saude'); return; }
+      var oa=e.target.closest('[data-obsadd]'); if(oa){ var t=document.getElementById('obsText'); var v=(t.value||'').trim(); if(v){ fichaAluno.obs.push({d:'14/10',autor:'Recepção',t:v}); renderFichaFullTab('obs'); } return; }
+    });
+    document.getElementById('fichaFull').addEventListener('input',function(e){
+      var pr=e.target.closest('[data-parqrestr]'); if(pr&&fichaAluno){ fichaAluno.parq.restr=pr.value; }
     });
     function closeF(){modal.classList.remove('open');document.body.style.overflow='';}
     document.getElementById('fichaFullBtn').addEventListener('click',function(){ var a=fichaAluno; closeF(); openFichaFull(a); });
