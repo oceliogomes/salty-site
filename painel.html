@@ -131,6 +131,9 @@
   @media(max-width:900px){.dash-charts{grid-template-columns:1fr}}
   .ph-note{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
   /* gráfico de receita (barras verticais) */
+  .rev-sel{font-family:inherit;font-size:.76rem;font-weight:700;color:var(--ink);background:var(--raise);border:1.5px solid var(--line2);border-radius:999px;padding:.35rem 1.9rem .35rem .85rem;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238A6B5C' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right .6rem center;background-size:12px}
+  .rev-sel:hover{border-color:var(--red)}
+  .rev-sel:focus{outline:none;border-color:var(--red)}
   .rev-chart{display:flex;align-items:flex-end;justify-content:space-between;gap:.5rem;height:188px;padding-top:1.4rem}
   .rc-bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:.4rem;height:100%;position:relative}
   .rc-track{flex:1;width:100%;max-width:42px;display:flex;align-items:flex-end;justify-content:center}
@@ -1200,7 +1203,7 @@
         <div class="search-res" id="searchRes"></div>
       </div>
       <div style="display:flex;align-items:center;gap:.9rem">
-        <span class="date">Hoje · 20 ago 2026</span>
+        <span class="date">Hoje · 14 out 2026</span>
         <span class="demo">Protótipo · dados de exemplo</span>
       </div>
     </div>
@@ -1212,7 +1215,7 @@
         <div class="dash-hero">
           <div class="dh-left">
             <h2>Bom dia! Aqui está a Salty hoje 👋</h2>
-            <p>Hoje, 20 de agosto · <b>7 aulas</b> na grade · <b>81%</b> de ocupação · <b>R$ 890</b> em vendas até agora</p>
+            <p>Hoje, 14 de outubro · <b>7 aulas</b> na grade · <b>81%</b> de ocupação · <b>R$ 890</b> em vendas até agora</p>
           </div>
           <button class="dh-cta" data-jump="crm">Ver quem precisa de atenção →</button>
         </div>
@@ -1228,16 +1231,14 @@
 
         <div class="dash-charts">
           <div class="panel">
-            <div class="panel-h"><h2>Receita — últimos 6 meses</h2><span class="ph-note">recorrente + avulso</span></div>
+            <div class="panel-h"><h2>Receita</h2>
+              <select id="revRange" class="rev-sel" aria-label="Período da receita">
+                <option value="meses">Últimos 6 meses</option>
+                <option value="dias">Últimos 7 dias</option>
+              </select>
+            </div>
             <div class="panel-b">
-              <div class="rev-chart" role="img" aria-label="Receita dos últimos seis meses: março R$ 15 mil, abril R$ 18 mil, maio R$ 20 mil, junho R$ 21 mil, julho R$ 22 mil, agosto R$ 24 mil — tendência de crescimento.">
-                <div class="rc-bar" data-tip="Março · R$ 15 mil"><span class="rc-val">15k</span><div class="rc-track"><i style="height:62%"></i></div><span class="rc-m">Mar</span></div>
-                <div class="rc-bar" data-tip="Abril · R$ 18 mil"><span class="rc-val">18k</span><div class="rc-track"><i style="height:75%"></i></div><span class="rc-m">Abr</span></div>
-                <div class="rc-bar" data-tip="Maio · R$ 20 mil"><span class="rc-val">20k</span><div class="rc-track"><i style="height:83%"></i></div><span class="rc-m">Mai</span></div>
-                <div class="rc-bar" data-tip="Junho · R$ 21 mil"><span class="rc-val">21k</span><div class="rc-track"><i style="height:88%"></i></div><span class="rc-m">Jun</span></div>
-                <div class="rc-bar" data-tip="Julho · R$ 22 mil"><span class="rc-val">22k</span><div class="rc-track"><i style="height:92%"></i></div><span class="rc-m">Jul</span></div>
-                <div class="rc-bar cur" data-tip="Agosto · R$ 24 mil (mês atual)"><span class="rc-val">24k</span><div class="rc-track"><i style="height:100%"></i></div><span class="rc-m">Ago</span></div>
-              </div>
+              <div class="rev-chart" id="revChart" role="img" aria-label="Gráfico de receita por período"></div>
             </div>
           </div>
 
@@ -1670,7 +1671,7 @@
           <div class="prod"><div class="prod-emoji">🚰</div><div class="prod-name">Garrafa Salty</div><div class="prod-price">R$ 59</div><div class="prod-stock">Estoque: 12</div><button class="prod-edit prod-act">Editar</button></div>
           <div class="prod"><div class="prod-emoji">👕</div><div class="prod-name">Camiseta</div><div class="prod-price">R$ 79</div><div class="prod-stock low">Estoque: 8 · baixo</div><button class="prod-edit prod-act">Editar</button></div>
           <div class="prod"><div class="prod-emoji">🧦</div><div class="prod-name">Meia</div><div class="prod-price">R$ 29</div><div class="prod-stock">Estoque: 40</div><button class="prod-edit prod-act">Editar</button></div>
-          <div class="prod"><div class="prod-emoji">🧺</div><div class="prod-name">Toalha</div><div class="prod-price">R$ 39</div><div class="prod-stock">Estoque: 15</div><button class="prod-edit prod-act">Editar</button></div>
+          <div class="prod"><div class="prod-emoji">🧣</div><div class="prod-name">Toalha</div><div class="prod-price">R$ 39</div><div class="prod-stock">Estoque: 15</div><button class="prod-edit prod-act">Editar</button></div>
         </div>
         <p class="week-note">Dados de exemplo. Aqui você cadastra o que vende no balcão e edita os planos que aparecem na venda.</p>
       </section>
@@ -2224,6 +2225,39 @@
   if(navAulas){navAulas.querySelector('.navi-parent').addEventListener('click',function(){navAulas.classList.toggle('open');});}
   if(navProd){navProd.querySelector('.navi-parent').addEventListener('click',function(){navProd.classList.toggle('open');});}
   document.querySelectorAll('[data-jump]').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.jump);});});
+
+  // Dashboard — gráfico de receita (6 meses / 7 dias)
+  (function(){
+    var sel=document.getElementById('revRange'), host=document.getElementById('revChart'); if(!host) return;
+    var DATA={
+      meses:{bars:[
+        {l:'Mai',disp:'15k',v:15,tip:'Maio · R$ 15 mil'},
+        {l:'Jun',disp:'18k',v:18,tip:'Junho · R$ 18 mil'},
+        {l:'Jul',disp:'20k',v:20,tip:'Julho · R$ 20 mil'},
+        {l:'Ago',disp:'21k',v:21,tip:'Agosto · R$ 21 mil'},
+        {l:'Set',disp:'22k',v:22,tip:'Setembro · R$ 22 mil'},
+        {l:'Out',disp:'24k',v:24,cur:true,tip:'Outubro · R$ 24 mil (mês atual)'}
+      ]},
+      dias:{bars:[
+        {l:'08',disp:'1,1k',v:1.1,tip:'08/10 · R$ 1.100'},
+        {l:'09',disp:'0,9k',v:0.9,tip:'09/10 · R$ 900'},
+        {l:'10',disp:'1,3k',v:1.3,tip:'10/10 · R$ 1.300'},
+        {l:'11',disp:'1,5k',v:1.5,tip:'11/10 · R$ 1.500'},
+        {l:'12',disp:'1,2k',v:1.2,tip:'12/10 · R$ 1.200'},
+        {l:'13',disp:'1,0k',v:1.0,tip:'13/10 · R$ 1.000'},
+        {l:'14',disp:'0,9k',v:0.89,cur:true,tip:'14/10 · R$ 890 (hoje)'}
+      ]}
+    };
+    function render(key){
+      var set=DATA[key]||DATA.meses, max=Math.max.apply(null,set.bars.map(function(b){return b.v;}));
+      host.innerHTML=set.bars.map(function(b){
+        var h=Math.max(4,Math.round(b.v/max*100));
+        return '<div class="rc-bar'+(b.cur?' cur':'')+'" data-tip="'+b.tip+'"><span class="rc-val">'+b.disp+'</span><div class="rc-track"><i style="height:'+h+'%"></i></div><span class="rc-m">'+b.l+'</span></div>';
+      }).join('');
+    }
+    render('meses');
+    if(sel) sel.addEventListener('change',function(){render(sel.value);});
+  })();
   // ---- configuração de marcos de aulas ----
   var marcoChips=document.getElementById('marcoChips');
   function renderMarcoChips(){
@@ -3687,7 +3721,7 @@
     }
     document.getElementById('fichaFull').addEventListener('click',function(e){
       if(e.target.closest('#fichaBack')){ show(fichaReturn||'dash'); return; }
-      var fa=e.target.closest('[data-faf]'); if(fa){ var k=fa.dataset.faf; if(k==='agendar')show('aulas'); else if(k==='vender')show('planos'); return; }
+      var fa=e.target.closest('[data-faf]'); if(fa){ var k=fa.dataset.faf; if(k==='agendar')show('lista'); else if(k==='vender')show('planos'); return; }
     });
     function closeF(){modal.classList.remove('open');document.body.style.overflow='';}
     document.getElementById('fichaFullBtn').addEventListener('click',function(){ var a=fichaAluno; closeF(); openFichaFull(a); });
@@ -3696,7 +3730,7 @@
     modal.querySelectorAll('[data-fa]').forEach(function(b){
       b.addEventListener('click',function(){
         var a=b.dataset.fa;
-        if(a==='agendar'){closeF();show('aulas');}
+        if(a==='agendar'){closeF();show('lista');}
         else if(a==='vender'){closeF();show('planos');}
         else if(a==='pgto'){closeF();show('fin');}
       });
