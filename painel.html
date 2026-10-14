@@ -863,6 +863,32 @@
   .cmeta-cell .cmeta-mini i{display:block;height:100%;border-radius:999px;background:var(--good)}
   .cmeta-cell .cmeta-mini.hit i{background:var(--good)}
   .comiss-tipo{font-family:var(--f-mono);font-size:.52rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--muted);border:1px solid var(--line2);border-radius:5px;padding:.06rem .32rem;margin-left:.3rem}
+  /* engajamento (pontos do recepcionista) */
+  .eng-note{font-size:.84rem;color:var(--muted);line-height:1.45;background:var(--raise);border:1.5px solid var(--line2);border-radius:11px;padding:.8rem .95rem;margin-bottom:1.2rem}
+  .eng-note b{color:var(--ink)}
+  .eng-rank{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem}
+  .eng-card{background:var(--panel);border:1.5px solid var(--line2);border-radius:14px;padding:1.1rem 1.15rem;position:relative;overflow:hidden}
+  .eng-card.top{border-color:color-mix(in srgb,#C79A2E 55%,transparent);box-shadow:0 0 0 2px color-mix(in srgb,#C79A2E 16%,transparent)}
+  .eng-card .ec-pos{position:absolute;top:.8rem;right:1rem;font-family:var(--f-disp);font-style:italic;font-size:1.4rem;color:var(--faint)}
+  .eng-card .ec-who{display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem}
+  .eng-card .pav{width:34px;height:34px}
+  .eng-card .ec-nm{font-weight:800;font-size:.98rem}
+  .eng-card .ec-rl{font-size:.72rem;color:var(--muted)}
+  .eng-card .ec-pts{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:2.3rem;line-height:1;color:var(--ink)}
+  .eng-card .ec-pts small{font-size:.9rem;color:var(--muted);font-style:normal}
+  .eng-card .ec-bar{height:7px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:.6rem}
+  .eng-card .ec-bar i{display:block;height:100%;border-radius:999px;background:#C79A2E}
+  .eng-card .ec-sub{font-family:var(--f-mono);font-size:.68rem;color:var(--muted);margin-top:.5rem}
+  .eng-loghead{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin:1.4rem 0 .3rem}
+  .eng-log{border:1.5px solid var(--line2);border-radius:13px;overflow:hidden;background:var(--panel)}
+  .eng-logrow{display:grid;grid-template-columns:76px 1fr 1.2fr auto;align-items:center;gap:.8rem;padding:.7rem 1.1rem;border-bottom:1px dashed var(--line);font-size:.86rem}
+  .eng-logrow:last-child{border-bottom:none}
+  .eng-logrow .el-when{font-family:var(--f-mono);font-size:.74rem;color:var(--muted)}
+  .eng-logrow .el-recep{display:flex;align-items:center;gap:.5rem;font-weight:700}
+  .eng-logrow .el-recep .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .eng-logrow .el-what b{font-weight:600}.eng-logrow .el-what span{color:var(--muted);font-size:.76rem}
+  .eng-logrow .el-tag{font-family:var(--f-mono);font-size:.54rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--muted);border:1px solid var(--line2);border-radius:6px;padding:.12rem .4rem;justify-self:end}
+  @media(max-width:700px){.eng-logrow{grid-template-columns:1fr auto}.eng-logrow .el-what{grid-column:1/-1}}
   .comiss-head{background:var(--raise);border-bottom:1.5px solid var(--line2);font-family:var(--f-mono);font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
   .comiss-head .r,.comiss-row .r{text-align:right;justify-self:end}
   .comiss-head .c,.comiss-row .c{text-align:center;justify-self:center}
@@ -1965,6 +1991,7 @@
           <button class="ag-tab on" type="button" data-stab="quadro">Quadro<span class="tcount" id="tcQuadro">0</span></button>
           <button class="ag-tab" type="button" data-stab="folha">Folha de pagamento</button>
           <button class="ag-tab" type="button" data-stab="comissao">Comissão de vendas</button>
+          <button class="ag-tab" type="button" data-stab="engaja">Engajamento</button>
         </div>
 
         <div class="staff-sub" id="staffQuadro">
@@ -2033,6 +2060,20 @@
             <div class="pay-foot"><span>Total de comissões · Outubro 2026</span><b id="comissFootVal">R$ 0</b></div>
           </div>
           <p class="week-note">Cada recepcionista tem uma <b>meta individual</b> e a loja tem a <b>meta da empresa</b> (ambas definidas pelo gestor). A comissão de cada um pode ser <b>% sobre o que vendeu</b> ou um <b>valor fixo</b> — configurado no cadastro, no <b>Quadro</b>.</p>
+        </div>
+
+        <div class="staff-sub" id="staffEngaja" hidden>
+          <div class="rep-period">
+            <span class="fl-lbl">Período:</span>
+            <button class="chip on" type="button" data-eper="mes">Este mês</button>
+            <button class="chip" type="button" data-eper="tri">Trimestre</button>
+            <button class="chip" type="button" data-eper="sem">Semestre</button>
+          </div>
+          <div class="eng-note">🏆 <b>Pontos de engajamento</b>: cada contato com aluno (pelo mini-CRM de cada aula) vale <b>1 ponto</b>. Zera todo mês; o acumulado trimestral/semestral fica à parte. O <b>log</b> abaixo é a prova pro gestor auditar — se os pontos não baterem com os contatos registrados, acende o alerta.</div>
+          <div class="eng-rank" id="engRank"></div>
+          <div class="eng-loghead"><h3 class="blk-h">Log de contatos <span>· auditoria do gestor</span></h3><span class="fl-lbl" id="engLogCount"></span></div>
+          <div class="eng-log" id="engLog"></div>
+          <p class="week-note">Próximo passo: o <b>mini-CRM dentro de cada aula</b> (o checklist de contato) é o que vai gerar esses pontos e alimentar este log automaticamente.</p>
         </div>
       </section>
 
@@ -3827,6 +3868,40 @@
     renderComissao();
     (function(){ var me=document.getElementById('metaEmpresa'); if(me) me.addEventListener('input',renderComissao); })();
 
+    // ======= Engajamento (pontos do recepcionista + log do gestor) =======
+    var engPeriod='mes';
+    var ENG_AL=['Ana Beatriz Souza','Carlos Menezes','Juliana Prado','Rafael Lima','Marina Castro','Beatriz Nunes','Thiago Ramos','Larissa Melo','Gustavo Dias','Fernanda Bicalho'];
+    var ENG_AU=['Bike no Rooftop','Hot Yoga','Hot Sculpt','Funcional'];
+    function engPts(f,per){ var r=rng(hashStr(f.nome+'|eng')); var base=70+Math.round(r()*80); if(per==='mes')return base; if(per==='tri')return base*2+Math.round(r()*140); return base*5+Math.round(r()*320); }
+    function engLogData(){ var out=[], reps=recepList(); if(!reps.length) return out;
+      for(var i=0;i<18;i++){ var r=rng(hashStr('englog'+i)); var f=reps[(i+Math.floor(r()*reps.length))%reps.length];
+        var day=Math.max(1,14-Math.floor(i*0.7)), hh=7+Math.floor(r()*13), mm=Math.floor(r()*60);
+        out.push({recep:f.nome.split(' ')[0],cor:f.cor,aluno:ENG_AL[Math.floor(r()*ENG_AL.length)],aula:ENG_AU[Math.floor(r()*ENG_AU.length)],d:('0'+day).slice(-2)+'/10',h:('0'+hh).slice(-2)+':'+('0'+mm).slice(-2)}); }
+      return out;
+    }
+    function renderEngaja(){
+      if(!document.getElementById('engRank')) return;
+      var reps=recepList().map(function(f){return {f:f,pts:engPts(f,engPeriod)};}).sort(function(a,b){return b.pts-a.pts;});
+      var top=reps.length?reps[0].pts:1;
+      document.getElementById('engRank').innerHTML=reps.length?reps.map(function(o,i){ var f=o.f;
+        return '<div class="eng-card'+(i===0?' top':'')+'"><div class="ec-pos">'+(i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1))+'</div>'
+          +'<div class="ec-who"><span class="pav" style="background:'+f.cor+'">'+ini(f.nome)+'</span><div><div class="ec-nm">'+f.nome.split(' ')[0]+'</div><div class="ec-rl">Recepção</div></div></div>'
+          +'<div class="ec-pts">'+o.pts+' <small>pts</small></div>'
+          +'<div class="ec-bar"><i style="width:'+Math.round(o.pts/top*100)+'%"></i></div>'
+          +'<div class="ec-sub">'+(engPeriod==='mes'?'contatos este mês':engPeriod==='tri'?'acumulado no trimestre':'acumulado no semestre')+'</div></div>';
+      }).join(''):'<div class="pay-empty">Nenhuma recepção cadastrada.</div>';
+      var log=engLogData();
+      document.getElementById('engLog').innerHTML=log.map(function(x){
+        return '<div class="eng-logrow"><span class="el-when">'+x.d+'<br>'+x.h+'</span>'
+          +'<span class="el-recep"><i class="dot" style="background:'+x.cor+'"></i>'+x.recep+'</span>'
+          +'<span class="el-what"><b>'+x.aluno+'</b><span> · '+x.aula+'</span></span>'
+          +'<span class="el-tag">check manual</span></div>';
+      }).join('');
+      var lc=document.getElementById('engLogCount'); if(lc)lc.textContent=log.length+' contatos registrados';
+    }
+    renderEngaja();
+    (function(){ var el=document.getElementById('staffEngaja'); if(!el)return; el.querySelector('.rep-period').addEventListener('click',function(e){ var b=e.target.closest('[data-eper]'); if(!b)return; engPeriod=b.dataset.eper; el.querySelectorAll('[data-eper]').forEach(function(x){x.classList.toggle('on',x.dataset.eper===engPeriod);}); renderEngaja(); }); })();
+
     // filtro de modalidade (um por vez)
     var fMod=document.getElementById('folhaMod');
     if(fMod)fMod.addEventListener('click',function(e){ var b=e.target.closest('[data-fmod]'); if(!b)return;
@@ -3857,7 +3932,7 @@
     });
 
     // sub-abas Quadro | Folha | Comissão
-    var subMap={quadro:'staffQuadro',folha:'staffFolha',comissao:'staffComissao'};
+    var subMap={quadro:'staffQuadro',folha:'staffFolha',comissao:'staffComissao',engaja:'staffEngaja'};
     document.querySelectorAll('#staffTabs .ag-tab').forEach(function(t){
       t.addEventListener('click',function(){
         document.querySelectorAll('#staffTabs .ag-tab').forEach(function(x){x.classList.remove('on');});
@@ -3866,6 +3941,7 @@
         Object.keys(subMap).forEach(function(k){ var el=document.getElementById(subMap[k]); if(el)el.hidden=(k!==sel); });
         if(sel==='folha') renderFolha();
         if(sel==='comissao') renderComissao();
+        if(sel==='engaja') renderEngaja();
       });
     });
 
