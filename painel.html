@@ -848,7 +848,21 @@
   .pay-foot span{font-weight:700;font-size:.9rem}
   .pay-foot b{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.9rem;color:var(--red);font-variant-numeric:tabular-nums}
   .pay-empty{padding:1.6rem 1.2rem;text-align:center;color:var(--muted);font-size:.88rem}
-  .comiss-head,.comiss-row{display:grid;grid-template-columns:1.8fr 1fr 64px 1.1fr;align-items:center;gap:.8rem;padding:.85rem 1.2rem}
+  .comiss-head,.comiss-row{display:grid;grid-template-columns:1.5fr 1fr 1.5fr 1fr;align-items:center;gap:.8rem;padding:.85rem 1.2rem}
+  .comiss-meta-emp{background:var(--panel);border:1.5px solid var(--line2);border-radius:13px;padding:.9rem 1.1rem;margin-bottom:1.2rem}
+  .comiss-meta-emp .cme-row{display:flex;align-items:center;gap:.9rem;margin-top:.5rem;flex-wrap:wrap}
+  .comiss-meta-emp .pf-in{flex:none}
+  .cmeta-bar{flex:1;min-width:120px;height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+  .cmeta-bar i{display:block;height:100%;border-radius:999px;background:var(--good);transition:width .3s}
+  .cmeta-bar.over i{background:var(--warn)}
+  .cme-row b,.cmeta-pct{font-family:var(--f-mono);font-weight:700;font-size:.85rem;color:var(--ink)}
+  .cmeta-cell{display:flex;flex-direction:column;gap:.25rem;align-items:flex-end}
+  .cmeta-cell .cmeta-top{font-family:var(--f-mono);font-size:.8rem}
+  .cmeta-cell .cmeta-top b{font-weight:700}
+  .cmeta-cell .cmeta-mini{width:100%;max-width:150px;height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+  .cmeta-cell .cmeta-mini i{display:block;height:100%;border-radius:999px;background:var(--good)}
+  .cmeta-cell .cmeta-mini.hit i{background:var(--good)}
+  .comiss-tipo{font-family:var(--f-mono);font-size:.52rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--muted);border:1px solid var(--line2);border-radius:5px;padding:.06rem .32rem;margin-left:.3rem}
   .comiss-head{background:var(--raise);border-bottom:1.5px solid var(--line2);font-family:var(--f-mono);font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
   .comiss-head .r,.comiss-row .r{text-align:right;justify-self:end}
   .comiss-head .c,.comiss-row .c{text-align:center;justify-self:center}
@@ -2006,15 +2020,19 @@
             <button class="chip">Setembro</button>
             <button class="chip on">Outubro 2026</button>
           </div>
+          <div class="comiss-meta-emp">
+            <span class="fl-lbl">Meta da empresa (mês) <small style="text-transform:none;letter-spacing:0">· só o gestor edita</small></span>
+            <div class="cme-row"><div class="pf-in">R$ <input type="number" id="metaEmpresa" value="40000" min="0" step="1000"></div><div class="cmeta-bar" id="cmeBar"><i></i></div><b id="cmePct">0%</b></div>
+          </div>
           <div class="tiles" id="comissTiles"></div>
           <div class="pay">
             <div class="comiss-head">
-              <div>Recepção</div><div class="r">Vendas no mês</div><div class="c">%</div><div class="r">Comissão</div>
+              <div>Recepção</div><div class="r">Vendas no mês</div><div class="r">Meta individual</div><div class="r">Comissão</div>
             </div>
             <div id="comissPay"></div>
             <div class="pay-foot"><span>Total de comissões · Outubro 2026</span><b id="comissFootVal">R$ 0</b></div>
           </div>
-          <p class="week-note">A comissão é <b>% sobre o que cada recepcionista vendeu no mês</b> (planos e produtos no PDV). A porcentagem de cada um é definida no cadastro, no <b>Quadro</b>.</p>
+          <p class="week-note">Cada recepcionista tem uma <b>meta individual</b> e a loja tem a <b>meta da empresa</b> (ambas definidas pelo gestor). A comissão de cada um pode ser <b>% sobre o que vendeu</b> ou um <b>valor fixo</b> — configurado no cadastro, no <b>Quadro</b>.</p>
         </div>
       </section>
 
@@ -2318,9 +2336,15 @@
       </div>
 
       <div id="fuRecepBox" hidden>
-        <label class="fld-l" style="display:block;margin-top:.5rem">Comissão sobre vendas</label>
-        <div class="pf-row"><span>% sobre o que vender no mês (PDV)</span><div class="pf-in"><input type="number" id="fuComiss" value="3" min="0" step="0.5"> %</div></div>
-        <p class="wl-hint">Ex.: 3% sobre R$ 12.000 vendidos no mês = R$ 360 de comissão. Aparece na aba <b>Comissão de vendas</b>.</p>
+        <label class="fld-l" style="display:block;margin-top:.5rem">Tipo de comissão</label>
+        <div class="seg3 seg-2" id="fuComissTipo">
+          <button type="button" data-ct="pct" class="on">% sobre vendas</button>
+          <button type="button" data-ct="fixo">Valor fixo (R$)</button>
+        </div>
+        <div class="pf-row"><span id="fuComissLbl">% sobre o que vender no mês</span><div class="pf-in"><span id="fuComissPre" hidden>R$ </span><input type="number" id="fuComiss" value="3" min="0" step="0.5"><span id="fuComissSuf"> %</span></div></div>
+        <label class="fld-l" style="display:block;margin-top:.7rem">Meta individual de vendas (R$ no mês)</label>
+        <div class="pf-row"><span>Quanto essa pessoa deve vender no mês</span><div class="pf-in">R$ <input type="number" id="fuMeta" value="12000" min="0" step="500"></div></div>
+        <p class="wl-hint">As metas são definidas pelo <b>gestor</b>. A comissão pode ser <b>% sobre o que vendeu</b> ou um <b>valor fixo</b> no mês. Tudo aparece na aba <b>Comissão de vendas</b>.</p>
       </div>
 
       <label class="fchk" style="margin-top:1rem"><input type="checkbox" id="fuAtivo" checked> Funcionário ativo</label>
@@ -3660,9 +3684,9 @@
       {nome:'Marina Lopes',cargo:'prof',mods:['l-hy'],user:'marina@saltysergipe.com',cor:'#E73737',ativo:true,pay:{param:1,base:45,pp:0}},
       {nome:'Bia Santos',cargo:'prof',mods:['l-sc'],user:'bia@saltysergipe.com',cor:'#E0A020',ativo:true,pay:{param:2,base:45,faixas:[{pct:70,bonus:20},{pct:90,bonus:30}]}},
       {nome:'Rafa Costa',cargo:'prof',mods:['l-fn'],user:'rafa@saltysergipe.com',cor:'#3E9E6E',ativo:true,pay:{param:1,base:42,pp:0}},
-      {nome:'Ana Oliveira',cargo:'recep',mods:[],user:'recepcao@saltysergipe.com',cor:'#37346A',ativo:true,comiss:3},
-      {nome:'Pedro Alves',cargo:'recep',mods:[],user:'pedro@saltysergipe.com',cor:'#2A6C8C',ativo:true,comiss:2.5},
-      {nome:'Camila Rocha',cargo:'recep',mods:[],user:'camila@saltysergipe.com',cor:'#C0791A',ativo:true,comiss:3},
+      {nome:'Ana Oliveira',cargo:'recep',mods:[],user:'recepcao@saltysergipe.com',cor:'#37346A',ativo:true,comiss:3,comissTipo:'pct',meta:15000},
+      {nome:'Pedro Alves',cargo:'recep',mods:[],user:'pedro@saltysergipe.com',cor:'#2A6C8C',ativo:true,comiss:400,comissTipo:'fixo',meta:10000},
+      {nome:'Camila Rocha',cargo:'recep',mods:[],user:'camila@saltysergipe.com',cor:'#C0791A',ativo:true,comiss:3,comissTipo:'pct',meta:12000},
       {nome:'Océlio Gomes',cargo:'gestor',mods:[],user:'gestor@saltysergipe.com',cor:'#8A5FB0',ativo:true}
     ];
     function ini(n){var p=n.trim().split(' ');return (p[0][0]+(p[1]?p[1][0]:'')).toUpperCase();}
@@ -3676,7 +3700,8 @@
       var el=document.getElementById('staffList'); if(!el) return;
       el.innerHTML=staff.map(function(f,i){
         var mods=f.mods.map(function(m){return MODLBL[m];}).join(' · ');
-        var sub=f.cargo==='prof'?((mods||'sem modalidade')+' · '+payLabel(f)):(f.cargo==='recep'?('Recepção · comissão '+(f.comiss||0)+'% · '+f.user):('Acesso: '+CARGOLBL[f.cargo]+' · '+f.user));
+        var comL=(f.comissTipo==='fixo')?('R$ '+(f.comiss||0)+' fixo'):((f.comiss||0)+'%');
+        var sub=f.cargo==='prof'?((mods||'sem modalidade')+' · '+payLabel(f)):(f.cargo==='recep'?('Recepção · comissão '+comL+' · meta '+(f.meta?('R$ '+f.meta):'—')):('Acesso: '+CARGOLBL[f.cargo]+' · '+f.user));
         return '<div class="staff-row"><span class="sav" style="background:'+f.cor+'">'+ini(f.nome)+'</span>'
           +'<div class="sinfo"><div class="sn">'+f.nome+' <span class="scargo '+f.cargo+'">'+CARGOLBL[f.cargo]+'</span></div>'
           +'<div class="ssub">'+sub+'</div></div>'
@@ -3775,24 +3800,32 @@
     function vendasMes(f){ var r=rng(hashStr(f.nome+'|vendas')); return 6000+Math.round(r()*16000); }
     function renderComissao(){
       if(!document.getElementById('comissPay')) return;
-      var reps=recepList(), rows='', total=0, totVendas=0;
+      var reps=recepList(), rows='', total=0, totVendas=0, bateram=0;
       reps.forEach(function(f){
-        var vd=vendasMes(f), pct=(f.comiss||0), com=vd*pct/100;
-        total+=com; totVendas+=vd;
+        var vd=vendasMes(f), fixo=(f.comissTipo==='fixo'), com=fixo?(f.comiss||0):vd*(f.comiss||0)/100;
+        var meta=f.meta||0, pm=meta?Math.min(200,Math.round(vd/meta*100)):0, hit=meta&&vd>=meta;
+        if(hit) bateram++; total+=com; totVendas+=vd;
+        var comLbl=fixo?('<span class="comiss-tipo">fixo</span>'):('<span class="comiss-tipo">'+f.comiss+'%</span>');
         rows+='<div class="comiss-row">'
           +'<div class="pl"><span class="pav" style="background:'+f.cor+'">'+ini(f.nome)+'</span><div><b>'+f.nome.split(' ')[0]+'</b><span>Recepção'+(f.ativo?'':' · inativo')+'</span></div></div>'
           +'<div class="r mono">'+money(vd)+'</div>'
-          +'<div class="c comiss-pct">'+pct+'%</div>'
-          +'<div class="r mono tot">'+money(com)+'</div></div>';
+          +'<div class="cmeta-cell"><div class="cmeta-top">'+money(vd)+' / '+money(meta)+' <b style="color:'+(hit?'var(--good)':'var(--muted)')+'">'+pm+'%</b></div><div class="cmeta-mini'+(hit?' hit':'')+'"><i style="width:'+Math.min(100,pm)+'%"></i></div></div>'
+          +'<div class="r mono tot">'+money(com)+comLbl+'</div></div>';
       });
       document.getElementById('comissPay').innerHTML=rows||'<div class="pay-empty">Nenhuma recepção cadastrada no Quadro.</div>';
       document.getElementById('comissFootVal').textContent=money(total);
+      // meta da empresa
+      var metaEmp=+document.getElementById('metaEmpresa').value||0;
+      var empPct=metaEmp?Math.round(totVendas/metaEmp*100):0;
+      var bar=document.getElementById('cmeBar'); if(bar){ bar.querySelector('i').style.width=Math.min(100,empPct)+'%'; bar.classList.toggle('over',empPct>100); }
+      var cp=document.getElementById('cmePct'); if(cp) cp.textContent=money(totVendas)+' · '+empPct+'%';
       document.getElementById('comissTiles').innerHTML=
         '<div class="tile"><div class="tl">Total de comissões</div><div class="val">'+money(total)+'</div><div class="delta flat">'+reps.length+' na recepção</div></div>'
-        +'<div class="tile"><div class="tl">Vendas da recepção</div><div class="val">'+money(totVendas)+'</div><div class="delta flat">no mês</div></div>'
-        +'<div class="tile"><div class="tl">Comissão média</div><div class="val">'+(reps.length?money(total/reps.length):'R$ 0')+'</div><div class="delta flat">por pessoa</div></div>';
+        +'<div class="tile"><div class="tl">Vendas da recepção</div><div class="val">'+money(totVendas)+'</div><div class="delta '+(empPct>=100?'up':'flat')+'">'+empPct+'% da meta da empresa</div></div>'
+        +'<div class="tile"><div class="tl">Bateram a meta</div><div class="val">'+bateram+'<small style="font-size:1rem"> / '+reps.length+'</small></div><div class="delta flat">meta individual</div></div>';
     }
     renderComissao();
+    (function(){ var me=document.getElementById('metaEmpresa'); if(me) me.addEventListener('input',renderComissao); })();
 
     // filtro de modalidade (um por vez)
     var fMod=document.getElementById('folhaMod');
@@ -3837,7 +3870,14 @@
     });
 
     // ---- modal de cadastro ----
-    var M=document.getElementById('funcModal'), editIdx=null, curCargo='prof', curParam=1, faixas=[];
+    var M=document.getElementById('funcModal'), editIdx=null, curCargo='prof', curParam=1, faixas=[], curComissTipo='pct';
+    function setComissTipo(t){ curComissTipo=t;
+      document.querySelectorAll('#fuComissTipo button').forEach(function(b){b.classList.toggle('on',b.dataset.ct===t);});
+      var pct=(t==='pct');
+      document.getElementById('fuComissPre').hidden=pct;
+      document.getElementById('fuComissSuf').hidden=!pct;
+      document.getElementById('fuComissLbl').textContent=pct?'% sobre o que vender no mês':'Valor fixo de comissão no mês';
+    }
     function setCargo(c){ curCargo=c;
       document.querySelectorAll('#fuCargo button').forEach(function(b){b.classList.toggle('on',b.dataset.cargo===c);});
       document.getElementById('fuProfBox').hidden=(c!=='prof');
@@ -3871,7 +3911,9 @@
       document.getElementById('fuBase2').value=pay.base!=null?pay.base:40;
       faixas=(pay.faixas?pay.faixas.map(function(x){return {pct:x.pct,bonus:x.bonus};}):[{pct:70,bonus:20},{pct:90,bonus:30}]);
       renderFaixas();
-      document.getElementById('fuComiss').value=(f&&f.comiss!=null)?f.comiss:3;
+      setComissTipo((f&&f.comissTipo)||'pct');
+      document.getElementById('fuComiss').value=(f&&f.comiss!=null)?f.comiss:(f&&f.comissTipo==='fixo'?400:3);
+      document.getElementById('fuMeta').value=(f&&f.meta!=null)?f.meta:12000;
       M.classList.add('open'); document.body.style.overflow='hidden';
     }
     function closeFunc(){ M.classList.remove('open'); document.body.style.overflow=''; }
@@ -3883,6 +3925,7 @@
     M.addEventListener('click',function(e){ if(e.target===M) closeFunc(); });
     document.getElementById('fuCargo').addEventListener('click',function(e){ var b=e.target.closest('button'); if(b) setCargo(b.dataset.cargo); });
     document.getElementById('fuParam').addEventListener('click',function(e){ var b=e.target.closest('button'); if(b) setParam(+b.dataset.param); });
+    document.getElementById('fuComissTipo').addEventListener('click',function(e){ var b=e.target.closest('button'); if(b) setComissTipo(b.dataset.ct); });
     document.getElementById('fuAddFaixa').addEventListener('click',function(){ faixas.push({pct:80,bonus:25}); renderFaixas(); });
     document.getElementById('fuFaixas').addEventListener('click',function(e){ var b=e.target.closest('[data-rm]'); if(b){ faixas.splice(+b.dataset.rm,1); renderFaixas(); } });
     document.getElementById('fuFaixas').addEventListener('input',function(e){ var inp=e.target.closest('[data-fx]'); if(!inp)return; var i=+inp.dataset.i; if(inp.dataset.fx==='pct')faixas[i].pct=+inp.value; else faixas[i].bonus=+inp.value; });
@@ -3897,7 +3940,7 @@
         if(curParam===1) f.pay={param:1,base:+document.getElementById('fuBase1').value||0,pp:+document.getElementById('fuPorPres').value||0};
         else f.pay={param:2,base:+document.getElementById('fuBase2').value||0,faixas:faixas.slice().sort(function(a,b){return a.pct-b.pct;})};
       }
-      if(curCargo==='recep'){ f.comiss=+document.getElementById('fuComiss').value||0; }
+      if(curCargo==='recep'){ f.comissTipo=curComissTipo; f.comiss=+document.getElementById('fuComiss').value||0; f.meta=+document.getElementById('fuMeta').value||0; }
       if(editIdx!=null) staff[editIdx]=f; else staff.push(f);
       renderStaff(); renderFolhaProf(); renderFolha(); renderComissao(); closeFunc();
     });
