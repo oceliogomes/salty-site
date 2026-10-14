@@ -1196,6 +1196,7 @@
   .cupom-row input,.desc-row input,.pay{width:100%;font-family:inherit;font-size:.88rem;color:var(--ink);background:var(--raise);border:1.5px solid var(--line2);border-radius:9px;padding:.55rem .75rem}
   .cupom-row input:focus,.desc-row input:focus,.pay:focus{outline:none;border-color:var(--red)}
   #parcBlock[hidden]{display:none}
+  #qtdBlock[hidden]{display:none}
   .parc-hint{font-size:.74rem;color:var(--muted);line-height:1.4;margin-top:.4rem}
   .parc-hint b{color:var(--ink)}
   .btn-mini{flex:none;background:var(--ink);color:var(--panel);border:none;font-family:inherit;font-weight:700;font-size:.82rem;padding:.55rem 1rem;border-radius:9px;cursor:pointer}
@@ -1271,9 +1272,9 @@
       </div>
       <button class="navi" data-v="planos"><svg class="ic"><use href="#i-plan"/></svg>PDV</button>
       <div class="nav-group" id="navProd">
-        <button class="navi navi-parent"><svg class="ic"><use href="#i-prod"/></svg>Produtos<svg class="chev"><use href="#i-chev"/></svg></button>
+        <button class="navi navi-parent"><svg class="ic"><use href="#i-prod"/></svg>Catálogo<svg class="chev"><use href="#i-chev"/></svg></button>
         <div class="nav-sub">
-          <button class="navi navi-child" data-v="produtos"><svg class="ic"><use href="#i-prod"/></svg>Catálogo</button>
+          <button class="navi navi-child" data-v="produtos"><svg class="ic"><use href="#i-prod"/></svg>Produtos</button>
           <button class="navi navi-child" data-v="cupons"><svg class="ic"><use href="#i-coup"/></svg>Cupons</button>
         </div>
       </div>
@@ -1675,6 +1676,15 @@
                 <span class="pc-desc">Uma aula, qualquer modalidade · validade 7 dias</span>
               </button>
             </div>
+            <h3 class="blk-h">Bônus <span>· cortesia / retenção</span></h3>
+            <div class="pcards">
+              <button class="pcard" data-price="0" data-name="Crédito bônus" data-unit="" data-credit="1" data-sub="Créditos gratuitos (cortesia) — você escolhe a quantidade">
+                <span class="pc-tag">Grátis</span>
+                <span class="pc-name">Crédito bônus</span>
+                <span class="pc-price">R$ 0</span>
+                <span class="pc-desc">Lance créditos de cortesia pro aluno — digite quantos quiser</span>
+              </button>
+            </div>
             <p class="week-note">Valores oficiais da Salty.</p>
             </div>
             <div id="pdvProdutos" hidden>
@@ -1697,6 +1707,12 @@
               <h3>Nova venda</h3>
               <div class="v-cliente" id="vCliente"><i>Cliente</i> nenhum aluno selecionado</div>
               <div class="v-item"><div><b id="vName">10 por mês</b><span id="vSub">10 aulas/mês · resultados e consistência</span></div><span class="v-base" id="vBase">R$ 499</span></div>
+
+              <div id="qtdBlock" hidden>
+                <label class="fld-l2">Quantidade de créditos</label>
+                <div class="desc-row"><input type="number" id="vQtd" min="1" value="1" placeholder="1"></div>
+                <p class="parc-hint">Digite quantos créditos lançar de uma vez (ex: <b>50</b>) — não precisa adicionar um por um.</p>
+              </div>
 
               <label class="fld-l2">Cupom de desconto</label>
               <div class="cupom-row">
@@ -2376,7 +2392,7 @@
 
 <script>
 (function(){
-  var titles={dash:['Painel','Dashboard'],lista:['Aulas','Lista de aulas'],agendados:['Aulas','Agendados'],aulas:['Aulas','Controle de aulas'],planos:['Vendas','PDV · Ponto de venda'],produtos:['Produtos','Catálogo'],cupons:['Produtos','Cupons'],crm:['Relacionamento','CRM'],fin:['Gestão','Financeiro / NF'],staff:['Gestão','Funcionários'],rel:['Análise','Relatórios'],ficha:['Relacionamento','Ficha completa']};
+  var titles={dash:['Painel','Dashboard'],lista:['Aulas','Lista de aulas'],agendados:['Aulas','Agendados'],aulas:['Aulas','Controle de aulas'],planos:['Vendas','PDV · Ponto de venda'],produtos:['Catálogo','Produtos'],cupons:['Catálogo','Cupons'],crm:['Relacionamento','CRM'],fin:['Gestão','Financeiro / NF'],staff:['Gestão','Funcionários'],rel:['Análise','Relatórios'],ficha:['Relacionamento','Ficha completa']};
   var navis=document.querySelectorAll('.navi[data-v]'), views=document.querySelectorAll('.view');
   var side=document.getElementById('side'), scrim=document.getElementById('scrim');
   // marcos de aulas (parabéns) — configuráveis em Controle de aulas; lidos pela página da aula
@@ -2757,6 +2773,7 @@
       var a=agState.slots[alSlot]; if(!a) return;
       document.getElementById('alActions').innerHTML=
         '<button class="al-act primary'+(a.state==='done'?' on':'')+'" data-aa="checkin"><svg><use href="#i-check"/></svg>'+(a.state==='done'?'Desfazer check-in':'Check-in')+'</button>'
+        +'<button class="al-act" data-aa="ficha"><svg><use href="#i-crm"/></svg>Ver ficha</button>'
         +'<button class="al-act danger" data-aa="noshow"><svg><use href="#i-x"/></svg>'+(a.state==='miss'?'Desfazer no-show':'No-show')+'</button>'
         +'<button class="al-act" data-aa="trocar"><svg><use href="#i-bike"/></svg>Trocar posição</button>'
         +'<button class="al-act" data-aa="reagendar"><svg><use href="#i-cal"/></svg>Reagendar</button>'
@@ -2818,6 +2835,7 @@
         else toast('No-show desfeito'); }
       else if(act==='cancelar'){ var sd=(NAMES.indexOf(a.n)+1)||a.n.length; agState.slots[alSlot]=null; agState.cancels.unshift(cancelEntry(a.n,'agora',true,sd,a.tag,a.tag==='plano'?a.meta:(a.tag==='parc'?'Gympass':''))); closeAl(); renderAgMap(); renderTab(); refreshAgStats(); toast('Reserva de '+fn(a)+' cancelada · 1 crédito devolvido'); }
       else if(act==='trocar'){ closeAl(); startPick(alSlot); }
+      else if(act==='ficha'){ closeAl(); if(window.__saltyFicha) window.__saltyFicha(a.n); }
       else if(act==='reagendar'){ toast('Reagendar '+fn(a)+' — escolha nova data/aula (protótipo)'); }
     });
     function closeAl(){ alModal.classList.remove('open'); document.body.style.overflow=''; }
@@ -3181,7 +3199,7 @@
       +'<button data-act="reagendar"><svg><use href="#i-cal"/></svg><span>Reagendar</span></button>'
       +'<button data-act="cancelar"><svg><use href="#i-x"/></svg><span>Cancelar reserva e devolver crédito</span></button>'
       +'<div class="rm-sep"></div>'
-      +'<button data-act="editar"><svg><use href="#i-staff"/></svg><span>Editar usuário</span></button>'
+      +'<button data-act="ficha"><svg><use href="#i-crm"/></svg><span>Ficha do usuário</span></button>'
       +'<button data-act="vender"><svg><use href="#i-plan"/></svg><span>Vendas</span></button>';
     var menuSlot=null;
     function openRowMenu(slot,anchorEl,floating){
@@ -3261,7 +3279,7 @@
       else if(act==='cancelar'){ agState.slots[si]=null; var sd=(NAMES.indexOf(a.n)+1)||a.n.length; agState.cancels.unshift(cancelEntry(a.n,'agora',true,sd,a.tag,a.tag==='plano'?a.meta:(a.tag==='parc'?'Gympass':''))); renderAgMap(); renderTab(); refreshAgStats(); toast('Reserva de '+fn(a)+' cancelada · 1 crédito devolvido'); }
       else if(act==='trocar'){ startPick(si); }
       else if(act==='reagendar'){ toast('Reagendar '+fn(a)+' — escolha nova data/aula (protótipo)'); }
-      else if(act==='editar'){ toast('Abrindo cadastro de '+fn(a)+' (protótipo)'); }
+      else if(act==='ficha'){ if(window.__saltyFicha) window.__saltyFicha(a.n); }
       else if(act==='vender'){ toast('Nova venda para '+fn(a)+' (protótipo)'); }
     });
     // barra de dica reutilizável (trocar posição / bloquear)
@@ -3400,9 +3418,10 @@
   // Planos — venda (PDV)
   (function(){
     var cards=document.querySelectorAll('.pcard'); if(!cards.length) return;
-    var st={base:249,cupom:0,dmode:'pct',dval:0,isSub:false};
+    var st={base:249,cupom:0,dmode:'pct',dval:0,isSub:false,isCredit:false};
     var vName=document.getElementById('vName'),vSub=document.getElementById('vSub'),vBase=document.getElementById('vBase'),vTotal=document.getElementById('vTotal');
     var parcBlock=document.getElementById('parcBlock'),parcIn=document.getElementById('parcIn');
+    var qtdBlock=document.getElementById('qtdBlock'),vQtd=document.getElementById('vQtd');
     function fmt(n){return 'R$ '+Math.round(n).toLocaleString('pt-BR');}
     // o campo de parcelas só aparece ao dar desconto numa ASSINATURA (plano /mês)
     function updateParc(){ if(parcBlock) parcBlock.hidden=!(st.isSub && st.dval>0); }
@@ -3416,7 +3435,8 @@
     cards.forEach(function(c){
       c.addEventListener('click',function(){
         cards.forEach(function(x){x.classList.remove('on');}); c.classList.add('on');
-        st.base=parseFloat(c.dataset.price); st.isSub=(c.dataset.unit==='/mês');
+        st.base=parseFloat(c.dataset.price); st.isSub=(c.dataset.unit==='/mês'); st.isCredit=!!c.dataset.credit;
+        if(qtdBlock) qtdBlock.hidden=!st.isCredit;
         vName.textContent=c.dataset.name; vSub.textContent=c.dataset.sub; vBase.textContent=fmt(st.base);
         recompute();
       });
@@ -3438,6 +3458,7 @@
     document.getElementById('vFinish').addEventListener('click',function(){
       var parcTxt='';
       if(st.isSub && st.dval>0){ var pv=(parcIn.value||'').trim(); parcTxt='\nDesconto nas parcelas: '+((pv===''||pv==='0')?'todas':pv); }
+      if(st.isCredit){ var q=parseInt(vQtd&&vQtd.value,10)||1; alert('Lançado! (protótipo)\n\n'+q+' × '+vName.textContent+' creditados pro aluno\nTotal: '+vTotal.textContent); return; }
       alert('Venda registrada! (protótipo)\n\nItem: '+vName.textContent+'\nPagamento: '+document.getElementById('paySel').value+'\nTotal: '+vTotal.textContent+parcTxt);
     });
   })();
@@ -3476,7 +3497,7 @@
         : '<div class="pc-inactive">Produto inativo</div>';
       return '<div class="pcard prod-pcard'+(p.ativo?'':' off')+'"><div class="pc-top">'+img+'<div><span class="pc-name">'+p.nome+'</span><span class="pc-price">R$ '+p.preco+'</span></div></div>'
         +'<span class="pc-desc">Estoque: '+p.estoque+'</span>'+action
-        +'<div class="pc-links"><button class="pc-mini" type="button" data-pedit="'+p.id+'">Editar</button><button class="pc-mini" type="button" data-ptoggle="'+p.id+'">'+(p.ativo?'Desativar':'Ativar')+'</button></div></div>';
+        +'<div class="pc-links"><button class="pc-mini" type="button" data-pedit="'+p.id+'">Editar</button></div></div>';
     }
     function filteredProd(){ return PRODUTOS.filter(function(p){ return prodFilter==='todos'?true:(prodFilter==='ativos'?p.ativo:!p.ativo); }); }
     function renderPDV(){
@@ -4252,6 +4273,8 @@
     document.getElementById('fichaFull').addEventListener('input',function(e){
       var pr=e.target.closest('[data-parqrestr]'); if(pr&&fichaAluno){ fichaAluno.parq.restr=pr.value; }
     });
+    // ponte: abrir a ficha completa de qualquer lugar (ex: agendados) pelo nome
+    window.__saltyFicha=function(name){ if(!name)return; var a=alunos.filter(function(x){return x.nome===name;})[0]||alunos.filter(function(x){return x.nome.split(' ')[0]===name.split(' ')[0];})[0]||alunos[0]; if(a) openFichaFull(a); };
     function closeF(){modal.classList.remove('open');document.body.style.overflow='';}
     document.getElementById('fichaFullBtn').addEventListener('click',function(){ var a=fichaAluno; closeF(); openFichaFull(a); });
     document.getElementById('alunoX').addEventListener('click',closeF);
