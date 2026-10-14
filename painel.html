@@ -209,6 +209,25 @@
   .ftl-item:last-child .ftl-body{border-left-color:transparent}
   .ftl-body b{font-size:.86rem;display:block;line-height:1.3}
   .ftl-body span{font-family:var(--f-mono);font-size:.68rem;color:var(--muted)}
+  /* 3 pontinhos por linha na ficha */
+  .fa-end{display:flex;align-items:center;gap:.5rem;justify-self:end}
+  .ff-menuwrap{position:relative;flex:none}
+  .ff-dots{width:28px;height:28px;border-radius:7px;border:1.5px solid var(--line2);background:var(--panel);color:var(--muted);font-size:1.1rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0}
+  .ff-dots:hover{border-color:var(--navy);color:var(--navy)}
+  .frow .ff-menuwrap{margin-left:.4rem}
+  .ff-rowmenu{position:absolute;right:0;top:calc(100% + 4px);z-index:30;width:210px;background:var(--panel);border:1.5px solid var(--line2);border-radius:10px;box-shadow:0 20px 45px -16px rgba(72,39,29,.5);padding:.3rem;display:flex;flex-direction:column}
+  .ff-rowmenu[hidden]{display:none}
+  .ff-rowmenu button{text-align:left;font-family:inherit;font-size:.82rem;font-weight:600;color:var(--ink);background:none;border:none;border-radius:7px;padding:.5rem .6rem;cursor:pointer}
+  .ff-rowmenu button:hover{background:var(--raise)}
+  /* lotes de crédito */
+  .fcred-lote{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.75rem .9rem;border:1.5px solid var(--line2);border-radius:11px;margin-bottom:.6rem;background:var(--panel)}
+  .fcred-lote.ativo{border-left:4px solid var(--good)}
+  .fcred-lote.exp{border-left:4px solid var(--muted);opacity:.85}
+  .fl-main b{font-size:.95rem;display:block}
+  .fl-main span{font-size:.76rem;color:var(--muted)}
+  /* avisos (observações / comunicações) */
+  .fobs-note{font-size:.82rem;color:var(--muted);line-height:1.45;background:var(--raise);border:1.5px solid var(--line2);border-radius:10px;padding:.7rem .85rem;margin-bottom:1rem}
+  .fobs-note b{color:var(--ink)}
 
   /* CRM tab */
   .crm-intro{color:var(--muted);font-size:.92rem;max-width:70ch;margin-bottom:1.3rem}
@@ -1345,7 +1364,7 @@
             <div class="panel-b">
               <div class="occ-mod">
                 <div class="om-row"><span class="om-lbl"><i class="dot d-bike"></i>Bike</span><div class="om-track"><i style="width:88%;background:#2E90C4"></i></div><span class="om-val">88%</span></div>
-                <div class="om-row"><span class="om-lbl"><i class="dot d-hy"></i>Hot Yoga/Pilates</span><div class="om-track"><i style="width:82%;background:var(--red)"></i></div><span class="om-val">82%</span></div>
+                <div class="om-row"><span class="om-lbl"><i class="dot d-hy"></i>Hot Yoga</span><div class="om-track"><i style="width:82%;background:var(--red)"></i></div><span class="om-val">82%</span></div>
                 <div class="om-row"><span class="om-lbl"><i class="dot d-sc"></i>Hot Sculpt</span><div class="om-track"><i style="width:79%;background:#C8102E"></i></div><span class="om-val">79%</span></div>
                 <div class="om-row low"><span class="om-lbl"><i class="dot d-fn"></i>Funcional</span><div class="om-track"><i style="width:54%;background:var(--navy)"></i></div><span class="om-val">54%</span></div>
               </div>
@@ -1364,7 +1383,7 @@
               <div class="row"><span class="rt">12:00</span><span class="dot d-sc"></span><div class="rn"><b>Hot Sculpt</b> <span>· Bia</span></div><div class="occ"><b>6</b>/7<div class="bar"><i class="hot" style="width:86%"></i></div></div></div>
               <div class="row"><span class="rt">17:00</span><span class="dot d-fn"></span><div class="rn"><b>Funcional</b> <span>· Rafa</span></div><div class="occ"><b>5</b>/7<div class="bar"><i style="width:71%"></i></div></div></div>
               <div class="row"><span class="rt">18:00</span><span class="dot d-bike"></span><div class="rn"><b>Bike no Rooftop</b> <span>· Cauã</span></div><div class="occ"><b>8</b>/9<div class="bar"><i class="hot" style="width:89%"></i></div></div></div>
-              <div class="row"><span class="rt">19:00</span><span class="dot d-hy"></span><div class="rn"><b>Hot Pilates</b> <span>· Marina</span></div><div class="occ"><b>6</b>/7<div class="bar"><i class="hot" style="width:86%"></i></div></div></div>
+              <div class="row"><span class="rt">19:00</span><span class="dot d-hy"></span><div class="rn"><b>Hot Yoga</b> <span>· Marina</span></div><div class="occ"><b>6</b>/7<div class="bar"><i class="hot" style="width:86%"></i></div></div></div>
             </div>
           </div>
 
@@ -1590,7 +1609,7 @@
             <div class="wcol">
               <div class="wday">QUA</div>
               <div class="acard l-bike"><div class="ac-t">06:00 · 30min</div><div class="ac-n">Bike no Rooftop</div><div class="ac-p">Cauã</div><div class="ac-m"><span class="cap">17/24</span><span class="aggs"><i>G</i><i>T</i></span></div></div>
-              <div class="acard l-hy"><div class="ac-t">09:00 · 50min</div><div class="ac-n">Hot Pilates</div><div class="ac-p">Marina</div><div class="ac-m"><span class="cap">19/24</span></div></div>
+              <div class="acard l-hy"><div class="ac-t">09:00 · 50min</div><div class="ac-n">Hot Yoga</div><div class="ac-p">Marina</div><div class="ac-m"><span class="cap">19/24</span></div></div>
               <div class="acard l-fn"><div class="ac-t">18:00 · 50min</div><div class="ac-n">Funcional</div><div class="ac-p">Rafa</div><div class="ac-m"><span class="cap">10/24</span><span class="aggs"><i>G</i></span></div></div>
             </div>
             <div class="wcol">
@@ -1618,7 +1637,7 @@
         </div>
         <div class="legend">
           <span><span class="dot d-bike"></span>Bike</span>
-          <span><span class="dot d-hy"></span>Hot Yoga / Pilates</span>
+          <span><span class="dot d-hy"></span>Hot Yoga</span>
           <span><span class="dot d-sc"></span>Hot Sculpt</span>
           <span><span class="dot d-fn"></span>Funcional</span>
           <span class="lsep"></span>
@@ -1958,7 +1977,7 @@
             <div class="ff-chips" id="folhaMod">
               <button class="chip on" type="button" data-fmod="all">Todas</button>
               <button class="chip" type="button" data-fmod="l-bike">Bike</button>
-              <button class="chip" type="button" data-fmod="l-hy">Hot Yoga/Pilates</button>
+              <button class="chip" type="button" data-fmod="l-hy">Hot Yoga</button>
               <button class="chip" type="button" data-fmod="l-sc">Hot Sculpt</button>
               <button class="chip" type="button" data-fmod="l-fn">Funcional</button>
             </div>
@@ -2064,7 +2083,7 @@
 
     <label class="fld-l">Modalidade</label>
     <div class="seg" data-seg>
-      <button class="on">Bike</button><button>Hot Yoga</button><button>Pilates</button><button>Sculpt</button><button>Funcional</button>
+      <button class="on">Bike</button><button>Hot Yoga</button><button>Sculpt</button><button>Funcional</button>
     </div>
 
     <div class="frow">
@@ -2272,7 +2291,7 @@
         <label class="fld-l" style="display:block;margin-top:.5rem">Modalidades que dá aula</label>
         <div class="chiprow" id="fuMods">
           <label class="fchk"><input type="checkbox" value="l-bike"> Bike</label>
-          <label class="fchk"><input type="checkbox" value="l-hy"> Hot Yoga/Pilates</label>
+          <label class="fchk"><input type="checkbox" value="l-hy"> Hot Yoga</label>
           <label class="fchk"><input type="checkbox" value="l-sc"> Hot Sculpt</label>
           <label class="fchk"><input type="checkbox" value="l-fn"> Funcional</label>
         </div>
@@ -2517,7 +2536,7 @@
            {t:'12:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:9,booked:6,agg:['G','T']},
            {t:'19:00',mod:'l-sc',name:'Hot Sculpt',prof:'Bia',cap:7,booked:7,agg:[]}],
       qua:[{t:'06:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:9,booked:9,agg:['G','T']},
-           {t:'09:00',mod:'l-hy',name:'Hot Pilates',prof:'Marina',cap:7,booked:5,agg:[]},
+           {t:'09:00',mod:'l-hy',name:'Hot Yoga',prof:'Marina',cap:7,booked:5,agg:[]},
            {t:'18:00',mod:'l-fn',name:'Funcional',prof:'Rafa',cap:7,booked:4,agg:['G']}],
       qui:[{t:'07:00',mod:'l-sc',name:'Hot Sculpt',prof:'Bia',cap:7,booked:6,agg:[]},
            {t:'12:00',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:9,booked:5,agg:['G','T']},
@@ -3633,7 +3652,7 @@
 
   // Funcionários — Quadro (cadastro + atribuições + usuários) + Folha calculada
   (function(){
-    var MODLBL={'l-bike':'Bike','l-hy':'Hot Yoga/Pilates','l-sc':'Hot Sculpt','l-fn':'Funcional'};
+    var MODLBL={'l-bike':'Bike','l-hy':'Hot Yoga','l-sc':'Hot Sculpt','l-fn':'Funcional'};
     var CARGOLBL={prof:'Professor',recep:'Recepção',gestor:'Gestor'};
     var ACESSO={prof:'vê apenas as próprias aulas e números.',recep:'balcão, aulas, check-in e vendas (não vê financeiro/folha).',gestor:'acesso total, incluindo financeiro e folha.'};
     var staff=[
@@ -4098,7 +4117,7 @@
     var fichaReturn='dash';
     var ffState={tab:'resumo',hist:'todos',cred:'todos',addCard:false};
     var ICON_COPY='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>';
-    var MP=[{lbl:'Bike no Rooftop',prof:'Cauã',cap:9},{lbl:'Hot Yoga',prof:'Marina',cap:7},{lbl:'Pilates',prof:'Marina',cap:7},{lbl:'Hot Sculpt',prof:'Bia',cap:7},{lbl:'Funcional',prof:'Rafa',cap:7}];
+    var MP=[{lbl:'Bike no Rooftop',prof:'Cauã',cap:9},{lbl:'Hot Yoga',prof:'Marina',cap:7},{lbl:'Hot Sculpt',prof:'Bia',cap:7},{lbl:'Funcional',prof:'Rafa',cap:7}];
     var HORAS=['06:00','07:00','09:00','12:00','18:00','19:00'];
     function hashN(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return Math.abs(h)||1;}
     function rngOf(seed){var x=seed%2147483647;if(x<=0)x+=2147483646;return function(){x=x*16807%2147483647;return(x-1)/2147483646;};}
@@ -4141,6 +4160,18 @@
     function fg2(l,v){return '<div class="fg"><i>'+l+'</i><span>'+v+'</span></div>';}
     function fgCopy(l,v){return '<div class="fg"><i>'+l+'</i><span class="fg-copy">'+v+'<button class="fcopy" type="button" data-copy="'+esc(v)+'" title="Copiar '+l+'">'+ICON_COPY+'</button></span></div>';}
     var FTABS=[['resumo','Dados & Resumo'],['assinatura','Assinatura'],['creditos','Créditos'],['historico','Histórico'],['pedidos','Pedidos'],['cartoes','Cartões'],['crm','CRM'],['termos','Contratos'],['obs','Observações'],['saude','Saúde'],['comun','Comunicações'],['timeline','Linha do tempo']];
+    function creditosData(a){
+      if(a.plano==='Avulso') return {ativos:[],usados:[],expirados:[]};
+      var qtd=a.plano==='5 por mês'?5:(a.plano==='10 por mês'?10:15);
+      var ativos=[{qtd:qtd,rest:a.saldoN,tipo:a.plano,comprado:'01/10',vence:'31/10'}];
+      var usados=aulasFull(a).filter(function(x){return x.credito&&x.status==='checkin';}).map(function(x){return {d:dstr(x.date),h:x.h,lbl:x.lbl,prof:x.prof,pos:x.pos};});
+      var expirados=(hashN(a.nome)%2===0)?[{qtd:5,tipo:'Pacote avulso',comprado:'05/09',venceu:'05/10'}]:[];
+      return {ativos:ativos,usados:usados,expirados:expirados};
+    }
+    function rowMenu(items){
+      return '<div class="ff-menuwrap"><button class="ff-dots" type="button" data-rowmenu="1" aria-label="Opções">⋯</button><div class="ff-rowmenu" hidden>'
+        +items.map(function(it){return '<button type="button" data-ffact="'+it[0]+'" data-ctx="'+esc(it[1])+'">'+it[2]+'</button>';}).join('')+'</div></div>';
+    }
     function fullTab(a,tab){
       ensureAluno(a); var h='';
       if(tab==='resumo'){
@@ -4151,12 +4182,23 @@
       } else if(tab==='creditos'){
         if(a.plano==='Avulso'){ h='<div class="fempty">Aluno de aulas avulsas — sem saldo de créditos mensais.</div>'; }
         else {
-          var moves=credMovesArr(a), f=ffState.cred;
-          var shown=moves.filter(function(m){ return f==='todos'?true:(f==='ativos'?m.q.charAt(0)==='+':m.q.charAt(0)==='−'); });
-          h='<div class="fcred"><b>'+saldoDisp(a)+'</b><span>disponíveis</span></div>'
+          var cd=creditosData(a), f=ffState.cred;
+          h='<div class="fcred"><b>'+saldoDisp(a)+'</b><span>créditos ativos agora</span></div>'
             +'<div class="xf-line"><button class="fa xf-open" data-xf="saldo"'+((a.saldoN||0)<1?' disabled':'')+'>Transferir créditos</button></div>'
-            +'<div class="fsubtabs">'+['todos','ativos','inativos'].map(function(k){return '<button class="fsub-btn'+(f===(k==='inativos'?'inativos':k)?' on':'')+'" data-credf="'+k+'">'+(k==='todos'?'Todos':k==='ativos'?'Entradas (ativos)':'Usados (inativos)')+'</button>';}).join('')+'</div>'
-            +'<div class="fmov-h">Movimentações</div>'+(shown.length?shown.map(function(x){return '<div class="frow"><span class="ft-when">'+x.d+'</span><span class="ft-main">'+x.t+'</span><span class="ft-val '+(x.q.charAt(0)==='+'?'pos':'neg')+'">'+x.q+'</span></div>';}).join(''):'<div class="fempty">Nada nesse filtro.</div>');
+            +'<div class="fsubtabs">'+[['ativos','Ativos'],['usados','Usados'],['expirados','Expirados'],['todos','Todos']].map(function(k){return '<button class="fsub-btn'+(f===k[0]?' on':'')+'" data-credf="'+k[0]+'">'+k[1]+'</button>';}).join('')+'</div>';
+          var parts='';
+          if(f==='ativos'||f==='todos'){
+            parts+='<div class="fmov-h">Créditos ativos</div>'+(cd.ativos.length?cd.ativos.map(function(l){return '<div class="fcred-lote ativo"><div class="fl-main"><b>'+l.rest+' de '+l.qtd+' créditos</b><span>'+l.tipo+' · comprado '+l.comprado+' · vence '+l.vence+'</span></div><span class="fbadge ok">Ativo</span></div>';}).join(''):'<div class="fempty">Sem créditos ativos.</div>');
+          }
+          if(f==='usados'||f==='todos'){
+            parts+='<div class="fmov-h">Créditos usados</div>'+(cd.usados.length?cd.usados.map(function(u){ var ctx=u.lbl+' · '+u.d+' '+u.h+' · Prof. '+u.prof+' · posição '+u.pos;
+              return '<div class="faula"><div class="fa-when"><b>'+u.d+'</b><span>'+u.h+'</span></div><div class="fa-main"><b>'+u.lbl+'</b><span>Prof. '+u.prof+' · posição '+u.pos+' · 1 crédito usado</span></div>'+rowMenu([['evento',ctx,'Ir pro evento'],['detalhes',ctx,'Ver detalhes'],['devolver',ctx,'Devolver crédito']])+'</div>';
+            }).join(''):'<div class="fempty">Nenhum crédito usado ainda.</div>');
+          }
+          if(f==='expirados'||f==='todos'){
+            parts+='<div class="fmov-h">Créditos expirados</div>'+(cd.expirados.length?cd.expirados.map(function(l){return '<div class="fcred-lote exp"><div class="fl-main"><b>'+l.qtd+' créditos não usados</b><span>'+l.tipo+' · comprado '+l.comprado+' · venceu '+l.venceu+'</span></div><span class="fbadge ca">Expirado</span></div>';}).join(''):'<div class="fempty">Nenhum crédito expirado.</div>');
+          }
+          h+=parts;
         }
       } else if(tab==='historico'){
         var A=aulasFull(a), sub=ffState.hist;
@@ -4169,13 +4211,14 @@
           +'<button class="fsub-btn'+(sub==='reservas'?' on':'')+'" data-histf="reservas">Reservas ('+cnt('reserva')+')</button>'
           +'<button class="fsub-btn'+(sub==='checkins'?' on':'')+'" data-histf="checkins">Check-ins ('+cnt('checkin')+')</button>'
           +'<button class="fsub-btn'+(sub==='cancelamentos'?' on':'')+'" data-histf="cancelamentos">Cancelamentos ('+cnt('cancel')+')</button></div>';
-        h+=list.length?list.map(function(x){ var L=lbl[x.status];
+        h+=list.length?list.map(function(x){ var L=lbl[x.status]; var ctx=x.lbl+' · '+dstr(x.date)+' '+x.h+' · Prof. '+x.prof+' · posição '+x.pos;
           return '<div class="faula"><div class="fa-when"><b>'+dstr(x.date)+'</b><span>'+x.h+'</span></div>'
             +'<div class="fa-main"><b>'+x.lbl+'</b><span>Prof. '+x.prof+' · posição '+x.pos+' · '+(x.status==='cancel'?'crédito devolvido':(x.credito?'1 crédito usado':'avulso'))+'</span></div>'
-            +'<span class="fbadge '+L[1]+'">'+L[0]+'</span></div>';
+            +'<div class="fa-end"><span class="fbadge '+L[1]+'">'+L[0]+'</span>'+rowMenu([['evento',ctx,'Ir pro evento'],['reserva',ctx,'Informações da reserva'],['comprovante',ctx,'Reenviar comprovante']])+'</div></div>';
         }).join(''):'<div class="fempty">Nada nesse filtro.</div>';
       } else if(tab==='pedidos'){
-        h=pedidosFull(a).map(function(x){return '<div class="frow"><span class="ft-when">'+dstr(x.date)+'</span><span class="ft-main"><b>'+x.i+'</b><span class="ft-sub">'+x.p+' · '+(x.tp==='plano'?'assinatura':'produto')+'</span></span><span class="ft-val">'+x.v+'</span></div>';}).join('');
+        h=pedidosFull(a).map(function(x){ var ctx=x.i+' · '+x.v+' · '+dstr(x.date)+' · '+x.p;
+          return '<div class="frow"><span class="ft-when">'+dstr(x.date)+'</span><span class="ft-main"><b>'+x.i+'</b><span class="ft-sub">'+x.p+' · '+(x.tp==='plano'?'assinatura':'produto')+'</span></span><span class="ft-val">'+x.v+'</span>'+rowMenu([['vendedor',ctx,'Alterar vendedor'],['estorno',ctx,'Cancelar e estornar'],['semestorno',ctx,'Cancelar sem estorno']])+'</div>';}).join('');
       } else if(tab==='cartoes'){
         h=a.cards.length?a.cards.map(function(c,i){
           return '<div class="fcard-item"><div class="fcard"><div class="fc-brand">'+c.b+'</div><div class="fc-num">•••• •••• •••• '+c.l4+'</div><div class="fc-row"><span>'+c.nome+'</span><span>val '+c.v+'</span></div></div>'
@@ -4199,7 +4242,8 @@
         if(a.termo.ok){ h=docs.map(function(x){return '<div class="frow"><span class="ft-main"><b>📄 '+x.n+'</b><span class="ft-sub">Assinado em '+x.d+'</span></span><a class="fbadge ok" style="cursor:pointer;text-decoration:none">Ver</a></div>';}).join(''); }
         else { h='<div class="ftermo"><div class="ft-ic">✍️</div><b>Contratos pendentes</b><p>Este aluno ainda não assinou os termos.</p><button class="fa fa-primary" style="margin:.9rem auto 0">Enviar para assinatura</button></div>'; }
       } else if(tab==='obs'){
-        h='<div class="fobs-add"><textarea class="wl-input" id="obsText" rows="2" placeholder="Nova observação interna (ex: prefere bike do fundo, cliente VIP, lesão no joelho)"></textarea><button class="fa fa-primary" type="button" data-obsadd="1" style="margin-top:.5rem">Adicionar observação</button></div>';
+        h='<div class="fobs-note">🔒 Notas <b>internas da recepção</b> — escritas à mão aqui (o sistema não preenche sozinho). O <b>cliente não tem acesso</b> a elas, então pode ser franco.</div>';
+        h+='<div class="fobs-add"><textarea class="wl-input" id="obsText" rows="2" placeholder="Nova observação interna (ex: prefere bike do fundo, cliente VIP, lesão no joelho)"></textarea><button class="fa fa-primary" type="button" data-obsadd="1" style="margin-top:.5rem">Adicionar observação</button></div>';
         h+=a.obs.slice().reverse().map(function(o){return '<div class="frow"><span class="ft-when">'+o.d+'</span><span class="ft-main"><b>'+esc(o.t)+'</b><span class="ft-sub">'+o.autor+'</span></span></div>';}).join('');
       } else if(tab==='saude'){
         var Q=[['q1','Tem alguma condição cardíaca ou pressão alta?'],['q2','Sente dores no peito ou tonturas ao se exercitar?'],['q3','Tem lesão óssea/articular que piora com atividade?']];
@@ -4208,7 +4252,8 @@
         h+=Q.map(function(q){return '<div class="fparq-row"><span>'+q[1]+'</span><button class="fparq-tg'+(a.parq[q[0]]?' yes':'')+'" type="button" data-parq="'+q[0]+'">'+(a.parq[q[0]]?'Sim':'Não')+'</button></div>';}).join('');
         h+='<label class="fld-l" style="display:block;margin-top:.9rem">Restrições / observações de saúde</label><textarea class="wl-input" data-parqrestr="1" rows="2" placeholder="Ex: lesão no joelho, gestante, etc.">'+esc(a.parq.restr||'')+'</textarea>';
       } else if(tab==='comun'){
-        h=comuns(a).map(function(x){return '<div class="frow"><span class="ft-when">'+dstr(x.date)+'</span><span class="ft-main"><b>'+(x.c==='wpp'?'💬 WhatsApp':'✉️ E-mail')+' · '+x.t+'</b></span><span class="fbadge '+(x.st==='Lida'?'ok':'ag')+'">'+x.st+'</span></div>';}).join('');
+        h='<div class="fobs-note">📨 Registra o que é enviado <b>pelo sistema</b> — disparos do CRM, confirmação de aula e recibos (via WhatsApp oficial e e-mail integrados). Mensagem mandada do celular pessoal da recepção <b>não</b> entra aqui; por isso o ideal é disparar pelo próprio painel.</div>';
+        h+=comuns(a).map(function(x){return '<div class="frow"><span class="ft-when">'+dstr(x.date)+'</span><span class="ft-main"><b>'+(x.c==='wpp'?'💬 WhatsApp':'✉️ E-mail')+' · '+x.t+'</b></span><span class="fbadge '+(x.st==='Lida'?'ok':'ag')+'">'+x.st+'</span></div>';}).join('');
       } else if(tab==='timeline'){
         h='<div class="ftimeline">'+timelineOf(a).map(function(e){return '<div class="ftl-item"><span class="ftl-ic">'+e.ic+'</span><div class="ftl-body"><b>'+e.t+'</b><span>'+dstr(e.dt)+'</span></div></div>';}).join('')+'</div>';
       }
@@ -4234,7 +4279,7 @@
       var body=document.getElementById('fichaFullBody'); if(body) body.innerHTML=fullTab(fichaAluno,tab);
     }
     function openFichaFull(a){
-      if(!a) return; fichaAluno=a; activeAluno=a; ensureAluno(a); ffState={tab:'resumo',hist:'todos',cred:'todos',addCard:false};
+      if(!a) return; fichaAluno=a; activeAluno=a; ensureAluno(a); ffState={tab:'resumo',hist:'todos',cred:'ativos',addCard:false};
       var cur=document.querySelector('.view.on'); fichaReturn=(cur&&cur.dataset.view!=='ficha')?cur.dataset.view:'dash';
       var head='<div class="fichafp-head">'
         +'<button class="ag-back" id="fichaBack"><svg class="ic"><use href="#i-chev"/></svg>Voltar</button>'
@@ -4251,7 +4296,22 @@
       renderFichaFullTab('resumo');
       show('ficha');
     }
+    function closeFFMenus(){ document.querySelectorAll('#fichaFull .ff-rowmenu').forEach(function(m){m.hidden=true;}); }
+    function handleFFAct(act,ctx){
+      if(act==='evento'){ show('lista'); return; }
+      if(act==='detalhes'){ alert('Detalhes do uso (protótipo)\n\n'+ctx); return; }
+      if(act==='devolver'){ alert('Crédito devolvido ao aluno (protótipo)\n\n'+ctx); return; }
+      if(act==='reserva'){ alert('Informações da reserva (protótipo)\n\n'+ctx); return; }
+      if(act==='comprovante'){ alert('Comprovante reenviado por WhatsApp (protótipo)\n\n'+ctx); return; }
+      if(act==='vendedor'){ alert('Alterar vendedor do pedido (protótipo)\n\n'+ctx); return; }
+      if(act==='estorno'){ alert('Pedido cancelado e ESTORNADO (protótipo)\n\n'+ctx); return; }
+      if(act==='semestorno'){ alert('Pedido cancelado SEM estorno (protótipo)\n\n'+ctx); return; }
+    }
     document.getElementById('fichaFull').addEventListener('click',function(e){
+      var dots=e.target.closest('[data-rowmenu]');
+      if(dots){ e.stopPropagation(); var menu=dots.parentNode.querySelector('.ff-rowmenu'); var wasOpen=menu&&!menu.hidden; closeFFMenus(); if(menu)menu.hidden=wasOpen; return; }
+      var ffa=e.target.closest('[data-ffact]'); if(ffa){ handleFFAct(ffa.dataset.ffact, ffa.dataset.ctx||''); closeFFMenus(); return; }
+      if(!e.target.closest('.ff-rowmenu')) closeFFMenus();
       if(e.target.closest('#fichaBack')){ show(fichaReturn||'dash'); return; }
       var fa=e.target.closest('[data-faf]'); if(fa){ var k=fa.dataset.faf; if(k==='agendar')show('lista'); else if(k==='vender')show('planos'); return; }
       var tb=e.target.closest('[data-fftab]'); if(tb){ renderFichaFullTab(tb.dataset.fftab); return; }
