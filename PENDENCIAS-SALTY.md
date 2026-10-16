@@ -11,7 +11,8 @@
 ## 💬 Comunicação (fase futura — quando fizer sentido pagar)
 - [ ] **WhatsApp API oficial** — hoje NÃO usamos (reduzir custo). Disparo é pelo botão wa.me do painel (recepção envia manual). Sem recibo de entregue/lida.
   - Quando crescer: migrar pra API oficial pra ter recibos automáticos de entregue/lida.
-- [ ] **E-mail com rastreio** (enviado/entregue/aberto/clicado) via integrador tipo Brevo. Fica pra depois.
+- [ ] **E-mail marketing + rastreio** (enviado/entregue/aberto/clicado). **Ferramenta escolhida: Brevo** (ex-Sendinblue) — plano gratuito (contatos ilimitados, limite por e-mails/dia), API + webhooks, integra com n8n, tem WhatsApp/SMS na mesma plataforma, suporte PT. Alternativa mais simples: MailerLite (grátis até 1.000 contatos / 12.000 e-mails/mês). Integrar quando for a hora.
+  - OBS: Salty é um negócio independente — sem relação com Hit Haus, Angular ou qualquer outro sistema. Zero integrações herdadas.
 
 ## 🗓️ Em construção / próximo
 - [ ] **Escala da recepção v2**: visão mensal + semanal, turnos editáveis (ex: sábado abre 8h, não 6h), só gestor edita (recepção só vê), auto-preenchimento por regra de rodízio (as duas opções: por pessoa e por vaga) + override manual.
