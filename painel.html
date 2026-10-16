@@ -219,6 +219,13 @@
   .ff-rowmenu[hidden]{display:none}
   .ff-rowmenu button{text-align:left;font-family:inherit;font-size:.82rem;font-weight:600;color:var(--ink);background:none;border:none;border-radius:7px;padding:.5rem .6rem;cursor:pointer}
   .ff-rowmenu button:hover{background:var(--raise)}
+  .slot-menu{position:fixed;z-index:200;background:var(--panel);border:1.5px solid var(--line2);border-radius:11px;box-shadow:0 20px 45px -16px rgba(72,39,29,.5);padding:.3rem;min-width:214px;display:none}
+  .slot-menu.on{display:block}
+  .slot-menu .sm-head{font-family:var(--f-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:.42rem .55rem .3rem}
+  .slot-menu button{display:flex;align-items:center;gap:.5rem;width:100%;text-align:left;font-family:inherit;font-weight:600;font-size:.84rem;color:var(--ink);background:none;border:none;border-radius:7px;padding:.52rem .6rem;cursor:pointer}
+  .slot-menu button:hover{background:var(--raise)}
+  .slot-menu button.sm-primary{color:var(--navy)}
+  .slot-menu .sm-hint{font-size:.78rem;color:var(--muted);padding:.4rem .55rem;line-height:1.4;max-width:220px}
   /* lotes de crédito */
   .fcred-lote{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.75rem .9rem;border:1.5px solid var(--line2);border-radius:11px;margin-bottom:.6rem;background:var(--panel)}
   .fcred-lote.ativo{border-left:4px solid var(--good)}
@@ -227,6 +234,13 @@
   .fl-main span{font-size:.76rem;color:var(--muted)}
   /* avisos (observações / comunicações) */
   .fobs-note{font-size:.82rem;color:var(--muted);line-height:1.45;background:var(--raise);border:1.5px solid var(--line2);border-radius:10px;padding:.7rem .85rem;margin-bottom:1rem}
+  .ficha-obsflag{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;font-size:.88rem;line-height:1.4;color:#7a5a10;background:color-mix(in srgb,var(--warn) 16%,var(--panel));border:1.5px solid color-mix(in srgb,var(--warn) 45%,transparent);border-radius:12px;padding:.7rem .95rem;margin:1rem 0;cursor:pointer}
+  .ficha-obsflag b{color:#6a4e0a}
+  .ficha-obsflag .fof-more{margin-left:auto;font-family:var(--f-mono);font-size:.68rem;font-weight:700;color:var(--red);white-space:nowrap}
+  .fdoc-up{display:flex;flex-direction:column;gap:.3rem;margin-top:1rem;padding:.9rem;border:1.5px dashed var(--line2);border-radius:12px;cursor:pointer;text-align:center}
+  .fdoc-up:hover{border-color:var(--red)}
+  .fdoc-upb{font-weight:700;font-size:.85rem;color:var(--ink)}
+  .fdoc-upn{font-size:.75rem;color:var(--muted)}
   .fobs-note b{color:var(--ink)}
 
   /* CRM tab */
@@ -458,6 +472,10 @@
   .marco-empty{color:var(--faint);font-style:italic;font-size:.85rem}
   .att-nm{font-weight:600;font-size:.88rem}
   .att-meta{font-size:.68rem;color:var(--muted);margin-top:.05rem}
+  .att-id{min-width:0;flex:1}
+  .att-right{display:flex;align-items:center;gap:.5rem;margin-left:auto;flex:none}
+  .att-right .att-tag{margin-left:0}
+  .att-shoe-t{white-space:nowrap}
   .att-tag{margin-left:auto;font-family:var(--f-mono);font-size:.54rem;letter-spacing:.04em;text-transform:uppercase;padding:.12rem .4rem;border-radius:5px}
   .att-tag.plano{background:var(--sky);color:var(--sky-ink)}
   .att-tag.avulso{background:color-mix(in srgb,var(--warn) 15%,transparent);color:var(--warn)}
@@ -735,6 +753,9 @@
   .crm-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-radius:11px;padding:.55rem .85rem;margin-bottom:.7rem;border:1.5px solid var(--line2)}
   .crm-bar.pend{background:color-mix(in srgb,#C79A2E 9%,transparent);border-color:color-mix(in srgb,#C79A2E 32%,transparent)}
   .crm-bar.ok{background:color-mix(in srgb,var(--good) 9%,transparent);border-color:color-mix(in srgb,var(--good) 30%,transparent)}
+  .crm-bar.none{background:var(--raise)}
+  .att-crmcase{font-weight:700;color:#8a6a13}
+  .att-crmok{font-weight:700;color:var(--good)}
   .crm-bar-l b{font-weight:800;font-size:.9rem}
   .crm-bar-l span{display:block;font-size:.78rem;color:var(--muted)}
   .crm-bar-pts{font-family:var(--f-mono);font-size:.64rem;font-weight:700;color:#8a6a13;background:color-mix(in srgb,#C79A2E 16%,transparent);border-radius:999px;padding:.25rem .6rem;white-space:nowrap}
@@ -746,6 +767,20 @@
   .ag-tool.on{background:var(--navy);color:#fff;border-color:var(--navy)}
   .ag-tool .tct{font-family:var(--f-mono);font-size:.62rem;background:color-mix(in srgb,var(--navy) 14%,transparent);color:var(--navy);border-radius:999px;padding:.05rem .4rem}
   .ag-tool.on .tct{background:rgba(255,255,255,.25);color:#fff}
+  .ag-tool.danger{color:var(--red);border-color:color-mix(in srgb,var(--red) 35%,transparent)}
+  .ag-tool.danger:hover{border-color:var(--red);background:color-mix(in srgb,var(--red) 7%,transparent)}
+  .ag-tools .exp-wrap{position:relative;margin-bottom:0}
+  .ag-tools .exp-menu{position:absolute;z-index:30;top:calc(100% + .35rem);left:0;min-width:210px;box-shadow:0 10px 26px -12px rgba(0,0,0,.3)}
+  .ag-tools .exp-chev{width:13px;height:13px;margin-left:.1rem}
+  /* cabeçalho do card lateral + cadeado */
+  .aside-cardhd{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-bottom:.7rem}
+  .aside-cardhd h4{margin-bottom:0}
+  .aside-lock{display:inline-flex;align-items:center;gap:.3rem;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.03em;text-transform:uppercase;font-weight:700;color:var(--muted);background:var(--raise);border:1.5px solid var(--line2);border-radius:999px;padding:.26rem .55rem;cursor:pointer;transition:.12s;white-space:nowrap}
+  .aside-lock:hover{border-color:var(--navy);color:var(--navy)}
+  .aside-lock.on{color:var(--navy);border-color:color-mix(in srgb,var(--navy) 40%,transparent);background:color-mix(in srgb,var(--navy) 9%,transparent)}
+  /* cadeado aberto: lista ocupa a tela toda, card de atenção desce e rola junto */
+  .ag-cols.ag-unlocked{grid-template-columns:1fr}
+  .ag-cols.ag-unlocked .ag-aside{position:static}
   .ag-blockstep{display:inline-flex;align-items:center;gap:.7rem;font-size:.84rem;font-weight:600;color:var(--ink);background:var(--panel);border:1.5px solid var(--line2);border-radius:999px;padding:.35rem .5rem .35rem .9rem}
   .ag-blockstep .xf-step{border-radius:999px}
   /* bike bloqueada no mapa */
@@ -901,14 +936,29 @@
   .eng-card .ec-sub{font-family:var(--f-mono);font-size:.68rem;color:var(--muted);margin-top:.5rem}
   .eng-loghead{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin:1.4rem 0 .3rem}
   .eng-log{border:1.5px solid var(--line2);border-radius:13px;overflow:hidden;background:var(--panel)}
-  .eng-logrow{display:grid;grid-template-columns:76px 1fr 1.2fr auto;align-items:center;gap:.8rem;padding:.7rem 1.1rem;border-bottom:1px dashed var(--line);font-size:.86rem}
+  .eng-logrow{display:grid;grid-template-columns:auto minmax(0,1.5fr) auto auto auto;align-items:center;gap:1rem;padding:.72rem 1.1rem;border-bottom:1px solid var(--line);font-size:.86rem}
   .eng-logrow:last-child{border-bottom:none}
-  .eng-logrow .el-when{font-family:var(--f-mono);font-size:.74rem;color:var(--muted)}
-  .eng-logrow .el-recep{display:flex;align-items:center;gap:.5rem;font-weight:700}
-  .eng-logrow .el-recep .dot{width:9px;height:9px;border-radius:50%;flex:none}
-  .eng-logrow .el-what b{font-weight:600}.eng-logrow .el-what span{color:var(--muted);font-size:.76rem}
-  .eng-logrow .el-tag{font-family:var(--f-mono);font-size:.54rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--muted);border:1px solid var(--line2);border-radius:6px;padding:.12rem .4rem;justify-self:end}
-  @media(max-width:700px){.eng-logrow{grid-template-columns:1fr auto}.eng-logrow .el-what{grid-column:1/-1}}
+  .eng-logrow:hover{background:var(--raise)}
+  .eng-logrow .el-av{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#FFFBF4;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;flex:none}
+  .eng-logrow .el-main{min-width:0}
+  .eng-logrow .el-al{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .eng-logrow .el-motivo{font-size:.77rem;color:var(--muted);display:flex;align-items:center;gap:.42rem;margin-top:.12rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .eng-logrow .el-motivo .dot{width:8px;height:8px;border-radius:50%;flex:none}
+  .eng-logrow .el-motivo b{color:var(--ink);font-weight:600}
+  .el-fone{display:inline-flex;align-items:center;gap:.42rem;font-family:var(--f-mono);font-size:.76rem;font-weight:600;color:var(--ink);background:var(--raise);border:1.5px solid var(--line2);border-radius:999px;padding:.32rem .72rem;cursor:pointer;white-space:nowrap}
+  .el-fone:hover{border-color:var(--red);color:var(--red)}
+  .el-fone svg{width:13px;height:13px;flex:none}
+  .el-fone.ok{border-color:var(--good);color:var(--good)}
+  .eng-logrow .el-by{font-family:var(--f-mono);font-size:.72rem;color:var(--muted);display:flex;align-items:center;gap:.42rem;white-space:nowrap}
+  .eng-logrow .el-by .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .el-ver{flex:none;text-decoration:none;background:none;border:1.5px solid var(--line2);color:var(--ink);font-family:inherit;font-weight:600;font-size:.76rem;padding:.3rem .7rem;border-radius:8px;white-space:nowrap}
+  .el-ver:hover{border-color:var(--red);color:var(--red)}
+  @media(max-width:760px){
+    .eng-logrow{grid-template-columns:auto 1fr auto;row-gap:.5rem}
+    .eng-logrow .el-by{grid-column:2;justify-self:start}
+    .el-fone{grid-column:2}
+    .el-ver{grid-row:1;grid-column:3}
+  }
   .comiss-head{background:var(--raise);border-bottom:1.5px solid var(--line2);font-family:var(--f-mono);font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
   .comiss-head .r,.comiss-row .r{text-align:right;justify-self:end}
   .comiss-head .c,.comiss-row .c{text-align:center;justify-self:center}
@@ -974,6 +1024,7 @@
   .lp-main{min-width:0}
   .lp-name{font-weight:700;font-size:.92rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
   .lp-plan{font-family:var(--f-mono);font-size:.55rem;letter-spacing:.05em;text-transform:uppercase;font-weight:600;color:var(--navy);background:color-mix(in srgb,var(--navy) 13%,transparent);border-radius:5px;padding:.12rem .42rem}
+  .lp-doneflag{font-family:var(--f-mono);font-size:.55rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--good);background:color-mix(in srgb,var(--good) 14%,transparent);border-radius:5px;padding:.12rem .42rem}
   .lp-fields{display:flex;flex-wrap:wrap;gap:.15rem 1.1rem;margin-top:.28rem}
   .lp-fields span{font-size:.76rem;color:var(--ink);font-variant-numeric:tabular-nums}
   .lp-fields i{font-family:var(--f-mono);font-style:normal;font-size:.55rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-right:.32rem}
@@ -993,6 +1044,71 @@
   .pr-price small{font-size:.75rem;font-family:var(--f-body);color:var(--muted)}
   .pr-status{font-family:var(--f-mono);font-size:.55rem;letter-spacing:.05em;text-transform:uppercase;font-weight:700;padding:.2rem .5rem;border-radius:999px}
   .pr-status.ativo{color:var(--good);border:1.5px solid var(--good)}
+  .pr-status.inativo{color:var(--muted);border:1.5px solid var(--line2)}
+  .planrow.off{opacity:.62}
+  .pl-explain{margin-top:.8rem;background:color-mix(in srgb,var(--navy) 7%,transparent);border:1.5px solid color-mix(in srgb,var(--navy) 20%,transparent);border-radius:11px;padding:.72rem .85rem;font-size:.82rem;line-height:1.5;color:var(--ink)}
+  .pl-explain b{font-weight:700;color:var(--navy)}
+  .pl-explain::before{content:"🧾 Em resumo";display:block;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:var(--navy);margin-bottom:.35rem}
+  /* escala da recepção */
+  .esc-wrap{overflow-x:auto;margin-top:.4rem}
+  .esc-grid{display:grid;grid-template-columns:96px repeat(7,minmax(104px,1fr));gap:6px;min-width:780px}
+  .esc-corner{border:none;background:none}
+  .esc-hd{text-align:center;font-weight:800;font-size:.82rem;padding:.4rem .2rem}
+  .esc-hd .ehd-d{display:block;font-family:var(--f-mono);font-size:.6rem;color:var(--muted);font-weight:600;margin-top:.1rem}
+  .esc-hd.wk{color:var(--red)}
+  .esc-rowlbl{display:flex;flex-direction:column;justify-content:center;font-weight:800;font-size:.82rem;padding:.3rem .2rem}
+  .esc-rowlbl small{color:var(--muted);font-weight:600;font-size:.62rem;font-family:var(--f-mono);margin-top:.1rem}
+  .esc-cell{background:var(--panel);border:1.5px solid var(--line2);border-radius:10px;padding:.4rem}
+  .esc-cell.nocov{border-color:var(--red);background:color-mix(in srgb,var(--red) 7%,transparent)}
+  .esc-sel{width:100%;font-family:inherit;font-weight:700;font-size:.74rem;border:1.5px solid var(--line2);border-left-width:4px;border-radius:7px;padding:.32rem;background:var(--raise);color:var(--ink);cursor:pointer}
+  .esc-sel:hover{border-color:var(--red)}
+  .esc-closed{text-align:center;color:var(--muted);font-size:.72rem;font-weight:600;padding:.4rem 0}
+  .esc-ctrl{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+  .esc-ctrl-l,.esc-ctrl-r{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+  .seg-toggle{display:inline-flex;background:var(--raise);border:1.5px solid var(--line2);border-radius:999px;padding:.15rem}
+  .seg-toggle button{font-family:inherit;font-weight:700;font-size:.78rem;color:var(--muted);background:none;border:none;border-radius:999px;padding:.34rem .85rem;cursor:pointer}
+  .seg-toggle button.on{background:var(--navy);color:#FFFBF4}
+  .esc-nav{font-family:inherit;font-weight:700;background:var(--raise);border:1.5px solid var(--line2);color:var(--ink);border-radius:8px;padding:.3rem .55rem;cursor:pointer}
+  .esc-nav:hover{border-color:var(--navy)}
+  .esc-cell.hoje{box-shadow:0 0 0 2px color-mix(in srgb,var(--navy) 45%,transparent)}
+  .esc-hd.hoje{color:var(--navy)}
+  /* grade mensal */
+  .esc-month{overflow-x:auto}
+  .esc-mgrid{display:grid;grid-template-columns:repeat(7,minmax(94px,1fr));gap:6px;min-width:700px}
+  .esc-mhd{text-align:center;font-weight:800;font-size:.78rem;color:var(--muted);padding:.3rem 0}
+  .esc-mhd.wk{color:var(--red)}
+  .esc-mday{background:var(--panel);border:1.5px solid var(--line2);border-radius:10px;padding:.4rem .45rem;min-height:72px}
+  .esc-mday.out{opacity:.4}
+  .esc-mday.hoje{box-shadow:0 0 0 2px var(--navy)}
+  .esc-mday .emd-n{font-family:var(--f-mono);font-size:.68rem;font-weight:700;color:var(--muted)}
+  .esc-mday.wk .emd-n{color:var(--red)}
+  .esc-mslot{display:flex;align-items:center;gap:.3rem;font-size:.68rem;font-weight:600;margin-top:.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .esc-mslot i{width:7px;height:7px;border-radius:50%;flex:none}
+  .esc-mslot.none{color:var(--red)}
+  /* configurar turnos */
+  .esc-turno{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:.8rem;padding:.7rem 0;border-bottom:1px dashed var(--line)}
+  .esc-turno:last-child{border-bottom:none}
+  .esc-turno .et-nm{font-weight:700;font-size:.88rem}
+  .esc-turno .et-nm small{display:block;color:var(--muted);font-weight:500;font-size:.72rem}
+  .esc-turno .et-hrs{display:inline-flex;align-items:center;gap:.3rem}
+  .esc-turno .et-hrs input{width:84px;font-family:var(--f-mono);font-size:.8rem;border:1.5px solid var(--line2);border-radius:8px;padding:.32rem .4rem;background:var(--raise);color:var(--ink)}
+  .esc-turno.off .et-hrs{opacity:.4;pointer-events:none}
+  /* escolha de regra */
+  .esc-rulepick{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1rem}
+  .esc-ruleopt{text-align:left;font-family:inherit;background:var(--raise);border:1.5px solid var(--line2);border-radius:12px;padding:.7rem .8rem;cursor:pointer}
+  .esc-ruleopt b{display:block;font-size:.86rem}
+  .esc-ruleopt span{display:block;color:var(--muted);font-size:.74rem;margin-top:.2rem;line-height:1.35}
+  .esc-ruleopt.on{border-color:var(--navy);background:color-mix(in srgb,var(--navy) 8%,transparent)}
+  @media(max-width:560px){.esc-rulepick{grid-template-columns:1fr}}
+  .esc-rrow{padding:.6rem 0;border-bottom:1px dashed var(--line)}
+  .esc-rrow:last-child{border-bottom:none}
+  .esc-rrow .err-lbl{font-weight:700;font-size:.82rem;margin-bottom:.4rem;display:block}
+  .esc-chips{display:flex;flex-wrap:wrap;gap:.4rem}
+  .esc-chip{font-family:inherit;font-weight:700;font-size:.76rem;color:var(--ink);background:var(--raise);border:1.5px solid var(--line2);border-radius:999px;padding:.3rem .7rem;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem}
+  .esc-chip .ec-dot{width:9px;height:9px;border-radius:50%;flex:none;opacity:.35}
+  .esc-chip.on{border-color:var(--navy);background:color-mix(in srgb,var(--navy) 10%,transparent)}
+  .esc-chip.on .ec-dot{opacity:1}
+  .esc-chip .ec-ord{font-family:var(--f-mono);font-size:.6rem;color:var(--navy)}
   .prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:.9rem;margin-top:.6rem}
   .prod{background:var(--panel);border:1.5px solid var(--line2);border-radius:13px;padding:1.1rem;display:flex;flex-direction:column;align-items:flex-start;gap:.15rem}
   .prod-emoji{font-size:1.9rem;margin-bottom:.25rem;line-height:1}
@@ -1461,10 +1577,13 @@
 
       <!-- ===== CRM ===== -->
       <section class="view" data-view="crm">
-        <p class="crm-intro">Cada card é um <b>grupo de alunos que precisa de um contato</b>. O sistema monta os grupos sozinho — a recepção clica em <b>Ver lista</b>, vê os alunos com telefone e dados prontos, e chama cada um pelo WhatsApp. Nada de configurar filtro; é só olhar e agir.</p>
+        <div class="prod-head prod-head-flex">
+          <p class="crm-intro" style="margin-bottom:0">Cada card é um <b>grupo de alunos que precisa de um contato</b>. O sistema monta os grupos sozinho — a recepção clica em <b>Ver lista</b>, vê os alunos com telefone e dados prontos, e chama cada um pelo WhatsApp. O CRM <b>conversa com o mini-CRM da aula</b>: se o aluno for contatado lá dentro do evento, aqui ele já aparece como <b>✓ contatado</b> — e vice-versa.</p>
+          <button class="btn-new" id="novaRegua" title="Ação do gestor"><span>＋</span> Nova régua</button>
+        </div>
         <div class="crm-groups">
 
-          <div class="crm-g">
+          <div class="crm-g" data-group="sumir" data-gg="var(--red)">
             <h3><span class="gd" style="background:var(--red)"></span>Não deixar sumir</h3>
             <div class="cards">
               <div class="ccard" style="--gg:var(--red)"><div class="ch"><span class="cn">Sumidos há +14 dias</span><span class="cc">8</span></div><p class="cd">Ativos que não aparecem há mais de duas semanas. Um "senti sua falta" traz muita gente de volta.</p><button class="cb" data-list="sumidos14">Ver lista</button></div>
@@ -1473,7 +1592,7 @@
             </div>
           </div>
 
-          <div class="crm-g">
+          <div class="crm-g" data-group="recompra" data-gg="var(--good)">
             <h3><span class="gd" style="background:var(--good)"></span>Vender recompra</h3>
             <div class="cards">
               <div class="ccard" style="--gg:var(--good)"><div class="ch"><span class="cn">Créditos acabando</span><span class="cc">12</span></div><p class="cd">Estão com 2 créditos ou menos. Melhor hora pra oferecer o próximo pacote.</p><button class="cb" data-list="credacab">Ver lista</button></div>
@@ -1482,7 +1601,7 @@
             </div>
           </div>
 
-          <div class="crm-g">
+          <div class="crm-g" data-group="converter" data-gg="var(--navy)">
             <h3><span class="gd" style="background:var(--navy)"></span>Converter interessados</h3>
             <div class="cards">
               <div class="ccard" style="--gg:var(--navy)"><div class="ch"><span class="cn">Experimental amanhã</span><span class="cc">5</span></div><p class="cd">Têm aula experimental marcada. Lembrete reduz falta.</p><button class="cb" data-list="expamanha">Ver lista</button></div>
@@ -1490,7 +1609,7 @@
             </div>
           </div>
 
-          <div class="crm-g">
+          <div class="crm-g" data-group="fidelizar" data-gg="var(--warn)">
             <h3><span class="gd" style="background:var(--warn)"></span>Fidelizar &amp; celebrar</h3>
             <div class="cards">
               <div class="ccard" style="--gg:var(--warn)"><div class="ch"><span class="cn">Aniversariantes da semana</span><span class="cc">5</span></div><p class="cd">Mandar carinho + um brinde. Relacionamento que fica.</p><button class="cb" data-list="aniver">Ver lista</button></div>
@@ -1854,39 +1973,11 @@
           <div class="tile"><div class="tl">Planos ativos</div><div class="val">5</div><div class="delta flat">3 mensais + experimental + avulsa</div></div>
         </div>
 
-        <div class="prod-head"><h3 class="blk-h">Planos &amp; assinaturas <span>· o que o aluno compra</span></h3></div>
-        <div class="planlist">
-          <div class="planrow">
-            <div class="pr-main"><b>5 por mês</b><span>Mensal · 5 aulas por mês · R$ 53,80 por presença</span></div>
-            <div class="pr-price">R$ 269<small>/mês</small></div>
-            <span class="pr-status ativo">Ativo</span>
-            <button class="prod-act">Editar</button>
-          </div>
-          <div class="planrow">
-            <div class="pr-main"><b>10 por mês</b><span>Mensal · 10 aulas/mês · R$ 49,90 por presença · recomendado</span></div>
-            <div class="pr-price">R$ 499<small>/mês</small></div>
-            <span class="pr-status ativo">Ativo</span>
-            <button class="prod-act">Editar</button>
-          </div>
-          <div class="planrow">
-            <div class="pr-main"><b>Clube Salty — 15 por mês</b><span>Mensal · 15 aulas/mês · R$ 45,27 por presença · aula adicional R$ 35</span></div>
-            <div class="pr-price">R$ 679<small>/mês</small></div>
-            <span class="pr-status ativo">Ativo</span>
-            <button class="prod-act">Editar</button>
-          </div>
-          <div class="planrow">
-            <div class="pr-main"><b>Experimental</b><span>Entrada · 1 a 3 modalidades (R$ 35 / 50 / 90) · validade 10 dias</span></div>
-            <div class="pr-price">R$ 35<small> a 90</small></div>
-            <span class="pr-status ativo">Ativo</span>
-            <button class="prod-act">Editar</button>
-          </div>
-          <div class="planrow">
-            <div class="pr-main"><b>Avulsa</b><span>1 aula, qualquer modalidade · validade 7 dias</span></div>
-            <div class="pr-price">R$ 69</div>
-            <span class="pr-status ativo">Ativo</span>
-            <button class="prod-act">Editar</button>
-          </div>
+        <div class="prod-head prod-head-flex">
+          <h3 class="blk-h">Planos &amp; assinaturas <span>· o que o aluno compra</span></h3>
+          <button class="btn-new" id="novoPlano"><span>＋</span> Novo plano</button>
         </div>
+        <div class="planlist" id="planList"></div>
 
         <div class="prod-head prod-head-flex">
           <h3 class="blk-h">Produtos do balcão <span>· venda avulsa na recepção</span></h3>
@@ -2012,6 +2103,7 @@
           <button class="ag-tab" type="button" data-stab="folha">Folha de pagamento</button>
           <button class="ag-tab" type="button" data-stab="comissao">Comissão de vendas</button>
           <button class="ag-tab" type="button" data-stab="engaja">Engajamento</button>
+          <button class="ag-tab" type="button" data-stab="escala">Escala da recepção</button>
         </div>
 
         <div class="staff-sub" id="staffQuadro">
@@ -2102,6 +2194,35 @@
           <div class="eng-loghead"><h3 class="blk-h">Log de contatos <span>· auditoria do gestor</span></h3><span class="fl-lbl" id="engLogCount"></span></div>
           <div class="eng-log" id="engLog"></div>
           <p class="week-note">Próximo passo: o <b>mini-CRM dentro de cada aula</b> (o checklist de contato) é o que vai gerar esses pontos e alimentar este log automaticamente.</p>
+        </div>
+
+        <div class="staff-sub" id="staffEscala" hidden>
+          <div class="esc-ctrl">
+            <div class="esc-ctrl-l">
+              <div class="seg-toggle" id="escViewSeg">
+                <button class="on" type="button" data-ev="semana">Semana</button>
+                <button type="button" data-ev="mes">Mês</button>
+              </div>
+              <button class="esc-nav" type="button" id="escPrev">◀</button>
+              <span class="fl-lbl" id="escWeekLbl">Semana de 12–18 out 2026</span>
+              <button class="esc-nav" type="button" id="escNext">▶</button>
+            </div>
+            <div class="esc-ctrl-r">
+              <span class="fl-lbl">Ver como:</span>
+              <select id="escView" class="rev-sel" aria-label="Ver como">
+                <option value="gestor">Gestor (edita)</option>
+                <option value="recep">Recepção (só vê)</option>
+              </select>
+              <button class="ag-tool" type="button" id="escConfig"><svg><use href="#i-cal"/></svg>Turnos</button>
+              <button class="ag-tool" type="button" id="escAuto"><svg><use href="#i-sort"/></svg>Auto-preencher</button>
+              <button class="btn-new" id="escPublicar"><span>✓</span> Publicar</button>
+            </div>
+          </div>
+          <div class="ver-banner" id="escBanner" hidden></div>
+          <div class="tiles" id="escTiles"></div>
+          <div class="esc-wrap" id="escWeekWrap"><div class="esc-grid" id="escGrid"></div></div>
+          <div class="esc-month" id="escMonth" hidden></div>
+          <p class="week-note" id="escNote">Clique em cada célula pra escolher <b>quem</b> cobre o turno (ou <b>Folga</b>). A grade soma as horas de cada um e avisa se algum turno ficou <b>sem cobertura</b>. Use <b>Turnos</b> pra mudar os horários (ex: sábado abrir 8h), <b>Auto-preencher</b> pra aplicar uma regra de rodízio, e <b>Ver como</b> pra simular o acesso da recepção (só leitura). No protótipo nada é salvo ao recarregar.</p>
         </div>
       </section>
 
@@ -2244,6 +2365,47 @@
     <div class="modal-actions">
       <button class="btn-ghost" id="cupomCancel">Cancelar</button>
       <button class="btn-new" id="cupomSave">Criar cupom</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="reguaModal" role="dialog" aria-modal="true" aria-label="Nova régua de CRM">
+  <div class="modal-card">
+    <div class="modal-checker"></div>
+    <button class="modal-x" id="reguaX" aria-label="Fechar">×</button>
+    <h3>Nova régua de CRM</h3>
+    <p class="modal-sub">Ação do gestor. Crie um novo grupo automático — o sistema monta a lista sozinho pela condição.</p>
+    <div style="padding:0 1.5rem 1.2rem">
+      <label class="fld-l">Nome da régua</label>
+      <input id="rgNome" class="wl-input" placeholder="Ex: Parou de vir às segundas" autocomplete="off">
+      <div class="pd-row">
+        <div><label class="fld-l">Coluna (objetivo)</label>
+          <select id="rgGrupo" class="wl-input">
+            <option value="sumir">Não deixar sumir</option>
+            <option value="recompra">Vender recompra</option>
+            <option value="converter">Converter interessados</option>
+            <option value="fidelizar">Fidelizar &amp; celebrar</option>
+          </select></div>
+        <div><label class="fld-l">Nº estimado de alunos</label><input id="rgN" type="number" min="1" max="40" class="wl-input" value="6"></div>
+      </div>
+      <label class="fld-l" style="display:block;margin-top:.9rem">Condição que entra na régua <span style="color:var(--muted);font-weight:400">(o gatilho)</span></label>
+      <select id="rgCond" class="wl-input">
+        <option value="semtreino">Sem treinar há N dias</option>
+        <option value="credmenos">Créditos restantes ≤ N</option>
+        <option value="credvence">Créditos vencem em N dias</option>
+        <option value="freq">Frequência caindo (treinava X, caiu)</option>
+        <option value="aniver">Aniversário nos próximos N dias</option>
+        <option value="experimental">Fez experimental e não comprou</option>
+        <option value="marco">Bateu marco de N aulas</option>
+      </select>
+      <div id="rgParamWrap" style="margin-top:.7rem"><label class="fld-l">Valor de N</label><input id="rgParam" type="number" min="1" class="wl-input" value="14"></div>
+      <label class="fld-l" style="display:block;margin-top:.9rem">Mensagem padrão (WhatsApp)</label>
+      <textarea id="rgMsg" class="wl-input" rows="2" placeholder="Oi! A salty passou aqui pra…"></textarea>
+      <div class="pl-explain" id="rgExplain"></div>
+      <div class="xf-actions" style="margin-top:1.1rem">
+        <button class="fa" id="reguaCancel" type="button">Cancelar</button>
+        <button class="fa fa-primary" id="reguaSave" type="button">Criar régua</button>
+      </div>
     </div>
   </div>
 </div>
@@ -2457,6 +2619,74 @@
   </div>
 </div>
 
+<div class="modal-ov" id="planModal" role="dialog" aria-modal="true" aria-label="Cadastro de plano">
+  <div class="modal-card">
+    <div class="modal-checker"></div>
+    <button class="modal-x" id="planX" aria-label="Fechar">×</button>
+    <h3 id="planTitle">Novo plano</h3>
+    <p class="modal-sub">Plano ou assinatura que o aluno compra.</p>
+    <div style="padding:0 1.5rem 1.2rem">
+      <label class="fld-l">Nome</label>
+      <input id="plNome" class="wl-input" placeholder="Ex: 8 por mês" autocomplete="off">
+      <div class="pd-row">
+        <div><label class="fld-l">Tipo</label>
+          <select id="plTipo" class="wl-input">
+            <option>Mensal</option><option>Trimestral</option><option>Semestral</option><option>Anual</option><option>Entrada</option><option>Avulsa</option><option>Pacote</option>
+          </select></div>
+        <div><label class="fld-l">Preço (R$)</label><input id="plPreco" type="number" min="0" step="1" class="wl-input" placeholder="0"></div>
+      </div>
+      <div class="pd-row">
+        <div><label class="fld-l">Créditos / aulas</label><input id="plCred" type="number" min="0" step="1" class="wl-input" placeholder="0"></div>
+        <div><label class="fld-l">Validade</label><input id="plVal" class="wl-input" placeholder="Ex: 30 dias" autocomplete="off"></div>
+      </div>
+      <label class="fld-l" style="display:block;margin-top:.9rem">Descrição <span style="color:var(--muted);font-weight:400">(o texto que o aluno vê)</span></label>
+      <input id="plDesc" class="wl-input" placeholder="Ex: Mensal · 8 aulas/mês" autocomplete="off">
+      <div class="pl-explain" id="plExplain"></div>
+      <label class="fchk" style="margin-top:1rem"><input type="checkbox" id="plAtivo" checked> Plano ativo <span style="color:var(--muted);font-weight:400">(disponível pra venda no PDV)</span></label>
+      <div class="xf-actions" style="margin-top:1.1rem">
+        <button class="fa" id="planCancel" type="button">Cancelar</button>
+        <button class="fa fa-primary" id="planSave" type="button">Salvar plano</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="escTurnosModal" role="dialog" aria-modal="true" aria-label="Configurar turnos">
+  <div class="modal-card">
+    <div class="modal-checker"></div>
+    <button class="modal-x" id="escTurnosX" aria-label="Fechar">×</button>
+    <h3>Configurar turnos</h3>
+    <p class="modal-sub">Defina os horários de cada turno. Mudou aqui, a grade da escala se ajusta.</p>
+    <div style="padding:0 1.5rem 1.2rem">
+      <div id="escTurnosBody"></div>
+      <div class="xf-actions" style="margin-top:1.1rem">
+        <button class="fa" id="escTurnosCancel" type="button">Cancelar</button>
+        <button class="fa fa-primary" id="escTurnosSave" type="button">Salvar turnos</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="escAutoModal" role="dialog" aria-modal="true" aria-label="Auto-preencher escala">
+  <div class="modal-card">
+    <div class="modal-checker"></div>
+    <button class="modal-x" id="escAutoX" aria-label="Fechar">×</button>
+    <h3>Auto-preencher a escala</h3>
+    <p class="modal-sub">Escolha a regra. O sistema preenche sozinho — e você ainda ajusta na mão depois.</p>
+    <div style="padding:0 1.5rem 1.2rem">
+      <div class="esc-rulepick" id="escRulePick">
+        <button class="esc-ruleopt on" type="button" data-rule="vaga"><b>Por vaga (rodízio)</b><span>O plantão reveza entre pessoas. Ex: um sábado é a Ana, no outro é a Camila.</span></button>
+        <button class="esc-ruleopt" type="button" data-rule="pessoa"><b>Por pessoa (escala fixa)</b><span>Cada pessoa tem dias/turnos fixos toda semana.</span></button>
+      </div>
+      <div id="escRuleBody"></div>
+      <div class="xf-actions" style="margin-top:1.1rem">
+        <button class="fa" id="escAutoCancel" type="button">Cancelar</button>
+        <button class="fa fa-primary" id="escAutoApply" type="button">Aplicar regra</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal-ov" id="blkNoteModal" role="dialog" aria-modal="true" aria-label="Observação da posição bloqueada">
   <div class="modal-card" style="max-width:430px">
     <div class="modal-checker"></div>
@@ -2526,6 +2756,9 @@
     if(v!=='agendados' && /^#ag=/.test(location.hash)){ try{history.replaceState(null,'',location.pathname+location.search);}catch(_){ } }
     side.classList.remove('open'); scrim.classList.remove('on');
   }
+  window.__saltyGo=function(v){ try{show(v);}catch(_){ } }; // ponte de navegação p/ outras IIFEs
+  // registro COMPARTILHADO de casos de CRM já contatados (por nome) — liga o mini-CRM da aula ao CRM geral
+  window.__saltyCRM=window.__saltyCRM||{ done:{}, is:function(n){return !!this.done[n];}, mark:function(n,on){ if(on)this.done[n]=true; else delete this.done[n]; } };
   navis.forEach(function(n){n.addEventListener('click',function(){show(n.dataset.v);});});
   if(navAulas){navAulas.querySelector('.navi-parent').addEventListener('click',function(){navAulas.classList.toggle('open');});}
   if(navProd){navProd.querySelector('.navi-parent').addEventListener('click',function(){navProd.classList.toggle('open');});}
@@ -2820,6 +3053,7 @@
     }
     // toast leve de feedback
     var toastEl=null, toastT=null;
+    window.__saltyToast=function(m){ try{toast(m);}catch(_){} }; // ponte p/ outras IIFEs (ex: escala)
     function toast(msg,undoFn){
       if(!toastEl){ toastEl=document.createElement('div'); toastEl.className='toast'; document.body.appendChild(toastEl); }
       toastEl.innerHTML='';
@@ -3005,7 +3239,7 @@
       updTabCounts(); renderAside();
     }
     // coluna lateral: ações da aula + o que precisa de atenção (accordion)
-    var asideOpen=null, expOpen=false;
+    var asideOpen=null, expOpen=false, asideLocked=true;
     function renderAside(){
       var el=document.getElementById('agAside'); if(!el||!agState) return;
       var s=agState, present=0,noshow=0,booked=0;
@@ -3031,13 +3265,9 @@
         return '<div class="att-line '+o[1]+(op?' open':'')+'" data-seg="'+o[0]+'"><button class="att-head" type="button"><span class="al-n">'+arr.length+'</span><span class="al-t">'+o[2]+'</span><svg class="al-chev"><use href="#i-chev"/></svg></button><div class="seg-panel">'+panel+'</div></div>';
       }).join('');
       el.innerHTML=
-        '<div class="aside-card"><h4>Ações da aula</h4>'
-          +'<button class="aside-act" data-sa="msg"><svg><use href="#i-crm"/></svg>Mensagem aos inscritos</button>'
-          +'<div class="exp-wrap'+(expOpen?' open':'')+'"><button class="aside-act" id="expBtn" type="button"><svg><use href="#i-list"/></svg>Exportar lista<svg class="exp-chev"><use href="#i-chev"/></svg></button>'
-            +'<div class="exp-menu"><button type="button" data-exp="excel"><svg><use href="#i-list"/></svg>Excel BR (.csv, ;)</button><button type="button" data-exp="csv"><svg><use href="#i-list"/></svg>CSV padrão (.csv, ,)</button></div></div>'
-          +'<button class="aside-act danger" data-sa="close"><svg><use href="#i-check"/></svg>Encerrar sessão</button>'
-        +'</div>'
-        +'<div class="aside-card"><h4>Precisa de atenção</h4>'+(lines||'<div class="aside-ok">Tudo tranquilo por aqui 👌</div>')+'</div>';
+        '<div class="aside-card"><div class="aside-cardhd"><h4>Precisa de atenção</h4>'
+          +'<button class="aside-lock'+(asideLocked?' on':'')+'" id="asideLock" type="button" title="'+(asideLocked?'Fixo ao lado do mapa. Clique pra soltar — aí a lista de nomes ocupa a tela toda.':'Rolando junto com a página. Clique pra fixar ao lado do mapa.')+'">'+(asideLocked?'🔒 Fixo':'🔓 Solto')+'</button></div>'
+          +(lines||'<div class="aside-ok">Tudo tranquilo por aqui 👌</div>')+'</div>';
     }
     // exportação da lista (CSV / Excel-.xls)
     function exportRows(){
@@ -3076,21 +3306,16 @@
     }
     document.getElementById('agAside').addEventListener('click',function(e){
       if(!agState) return;
+      var lk=e.target.closest('#asideLock');
+      if(lk){ asideLocked=!asideLocked; var cols=document.querySelector('.view[data-view="agendados"] .ag-cols'); if(cols)cols.classList.toggle('ag-unlocked',!asideLocked); renderAside(); toast(asideLocked?'Painel fixo ao lado do mapa':'Painel solto — lista ocupa a tela toda'); return; }
       var cp=e.target.closest('[data-copy]');
       if(cp){ copyText(cp.dataset.copy); cp.classList.add('copied'); setTimeout(function(){cp.classList.remove('copied');},1200); toast('Telefone copiado'); return; }
       var jump=e.target.closest('[data-jump]');
       if(jump){ var jsi=+jump.dataset.jump, ja=agState.slots[jsi]; if(ja) openAlResumo(ja,jsi); return; }
       var head=e.target.closest('.att-head');
       if(head){ var key=head.parentNode.dataset.seg; asideOpen=(asideOpen===key?null:key); renderAside(); return; }
-      if(e.target.closest('#expBtn')){ expOpen=!expOpen; renderAside(); return; }
-      var exp=e.target.closest('[data-exp]');
-      if(exp){ expOpen=false; exportList(exp.dataset.exp); renderAside(); return; }
-      var b=e.target.closest('.aside-act[data-sa]'); if(!b) return;
-      var sa=b.dataset.sa;
-      if(sa==='msg') toast('Mensagem aos '+countBooked()+' inscritos — fluxo em construção (pendência)');
-      else if(sa==='close') toast('Sessão encerrada (protótipo)');
     });
-    document.addEventListener('click',function(e){ if(expOpen&&!e.target.closest('.exp-wrap')){ expOpen=false; renderAside(); } });
+    document.addEventListener('click',function(e){ if(expOpen&&!e.target.closest('.exp-wrap')){ expOpen=false; renderAgTools(); } });
     function stateBadge(s){ return s.state==='done'?'<span class="att-state done">Presente</span>':s.state==='miss'?'<span class="att-state miss">No-show</span>':''; }
     function cakeHTML(a){
       var diff=cakeDiff(a.bd,agState.day);
@@ -3121,14 +3346,17 @@
       var mapEl=document.getElementById('agMap');
       mapEl.innerHTML=buildBikeMap(agState.ev,agState.slots,agState.blocked,agState.blockNotes); mapEl.hidden=false;
     }
+    var CRM_CASES=['Créditos acabando','Sumido +14 dias','Aniversariante','Frequência caindo','Fez experimental','Bateu um marco'];
+    function crmCaseOf(n){ var h=0; for(var i=0;i<n.length;i++)h=(h*31+n.charCodeAt(i))|0; h=Math.abs(h); return (h%3===0)?CRM_CASES[h%CRM_CASES.length]:null; }
     function renderAgList(){
       var ab=document.getElementById('agBody'); ab.innerHTML=''; var isBike=agState.isBike, cfg=mapCfg(agState.ev.mod);
-      // monta lista {si, aluno}, aplica ordenação escolhida
-      var entries=[]; agState.slots.forEach(function(a,si){ if(a) entries.push({si:si,a:a}); });
-      // mini-CRM da aula: resumo de contatos
-      var totC=entries.length, feitosC=entries.filter(function(en){return agState.contatos[en.si];}).length, faltamC=totC-feitosC;
-      var crmBar=document.createElement('div'); crmBar.className='crm-bar'+(faltamC>0?' pend':' ok');
-      crmBar.innerHTML='<div class="crm-bar-l"><b>🗂️ Mini-CRM da aula</b><span>'+feitosC+' de '+totC+' contatados'+(faltamC>0?(' · faltam '+faltamC):' · tudo em dia!')+'</span></div><span class="crm-bar-pts">+1 ponto por contato</span>';
+      // monta lista {si, aluno, crm}, aplica ordenação escolhida
+      var entries=[]; agState.slots.forEach(function(a,si){ if(a) entries.push({si:si,a:a,crm:crmCaseOf(a.n)}); });
+      // mini-CRM da aula: só os alunos com um CASO de CRM precisam de contato
+      var comCaso=entries.filter(function(en){return en.crm;}), totC=comCaso.length;
+      var feitosC=comCaso.filter(function(en){return window.__saltyCRM.is(en.a.n);}).length, faltamC=totC-feitosC;
+      var crmBar=document.createElement('div'); crmBar.className='crm-bar'+(totC===0?' none':faltamC>0?' pend':' ok');
+      crmBar.innerHTML='<div class="crm-bar-l"><b>🗂️ Mini-CRM da aula</b><span>'+(totC===0?'Nenhum aluno com caso de CRM nesta aula.':(feitosC+' de '+totC+' com caso de CRM contatados'+(faltamC>0?(' · faltam '+faltamC):' · tudo em dia!')))+'</span></div>'+(totC>0?'<span class="crm-bar-pts">+1 ponto por contato</span>':'');
       ab.appendChild(crmBar);
       var by=agState.sortBy||'nome', dir=agState.sortDir||1;
       entries.sort(function(x,y){
@@ -3140,14 +3368,18 @@
         var r=document.createElement('div'); r.className='att-row'+(a.state==='done'?' done':a.state==='miss'?' miss':'');
         r.dataset.slot=si;
         var bikeChip='<span class="att-bike" title="'+cfg.label+' '+(si+1)+'"><svg><use href="#'+cfg.icon+'"/></svg>'+(si+1)+'</span>';
-        var shoe=cfg.shoe?'<span class="att-shoe" title="Sapatilha nº '+a.shoe+' (fornecida pela recepção)"><svg><use href="#i-shoe"/></svg>'+a.shoe+'</span>':'';
+        var shoeMeta=cfg.shoe?(' · <span class="att-shoe-t" title="Sapatilha fornecida pela recepção">sapatilha '+a.shoe+'</span>'):'';
+        var cCase=en.crm, cDone=window.__saltyCRM.is(a.n);
+        var caseBadge=cCase?(' · <span class="att-crmcase">⚠ '+cCase+'</span>'+(cDone?' <span class="att-crmok" title="Caso já contatado — aparece contatado no CRM também">✓ contatado</span>':'')):'';
+        var crmBtn=cCase?('<button class="att-crm'+(cDone?' on':'')+'" data-crm="'+si+'" title="'+(cDone?('Contatado ✓ ('+cCase+') — clique pra desfazer'):('Contatar — motivo: '+cCase+' (+1 ponto)'))+'"><svg><use href="#i-crm"/></svg></button>'):'';
         r.innerHTML='<span class="att-av">'+initials(a.n)+'</span>'
-          +'<div><div class="att-nm">'+a.n+cakeHTML(a)+firstStar(a)+marcoBadge(a)+stateBadge(a)+'</div><div class="att-meta">'+a.meta+creditsBadge(a)+' · '+ckHTML(a)+'</div></div>'
-          +bikeChip+shoe
+          +'<div class="att-id"><div class="att-nm">'+a.n+cakeHTML(a)+firstStar(a)+marcoBadge(a)+stateBadge(a)+'</div>'
+            +'<div class="att-meta">'+a.meta+creditsBadge(a)+' · '+ckHTML(a)+shoeMeta+caseBadge+'</div></div>'
+          +'<span class="att-right">'+bikeChip
           +'<span class="att-tag '+a.tag+'">'+(a.tag==='plano'?'Plano':a.tag==='avulso'?'Avulso':'Parceria')+'</span>'
-          +'<button class="att-crm'+(agState.contatos[si]?' on':'')+'" data-crm="'+si+'" title="'+(agState.contatos[si]?'Contatado ✓ — clique pra desfazer':'Marcar contato com o aluno (+1 ponto)')+'"><svg><use href="#i-crm"/></svg></button>'
+          +crmBtn
           +'<button class="att-check'+(a.state==='done'?' on':'')+'" data-slot="'+si+'" title="'+(a.state==='done'?'Desfazer check-in':'Check-in / presença')+'"><svg><use href="#i-check"/></svg></button>'
-          +'<span class="att-act"><button class="att-actbtn" data-slot="'+si+'" aria-label="Ações do aluno"><svg><use href="#i-dots"/></svg></button></span>';
+          +'<span class="att-act"><button class="att-actbtn" data-slot="'+si+'" aria-label="Ações do aluno"><svg><use href="#i-dots"/></svg></button></span></span>';
         ab.appendChild(r);
       });
       ab.querySelectorAll('.att-row').forEach(function(r){
@@ -3272,6 +3504,16 @@
       show('agendados');
       document.getElementById('ptitle').textContent=ev.name+' · '+ev.t;
     }
+    // expõe as aulas reais da semana (chave+idx válidos) p/ outras IIFEs — ex: log de engajamento
+    window.__saltyWeekAulas=function(){
+      var out=[], base=new Date(2026,9,12); // segunda 12/10/2026 (14/10 é quarta)
+      for(var dd=0;dd<7;dd++){ var d=new Date(base); d.setDate(base.getDate()+dd);
+        var evs=agenda[WDAY[d.getDay()]]||[];
+        for(var i=0;i<evs.length;i++){ var e=evs[i];
+          out.push({hash:'#ag='+keyOf(d)+'-'+i,name:e.name,t:e.t,mod:e.mod,prof:e.prof,wd:WDFULL[d.getDay()],dm:pad(d.getDate())+'/'+pad(d.getMonth()+1)}); }
+      }
+      return out;
+    };
     // acha a aula anterior/seguinte da mesma modalidade (percorre dias)
     function adjacentSameMod(curDate,curTime,mod,dir){
       var wk=WDAY[curDate.getDay()], evs=agenda[wk]||[];
@@ -3304,9 +3546,22 @@
     function renderAgTools(){
       var t=document.getElementById('agTools');
       t.innerHTML='<button class="ag-tool" id="btnBlock" type="button"><svg><use href="#i-lock"/></svg>Bloquear posições<span class="tct" id="blkCt" hidden>0</span></button>'
-        +'<span style="font-size:.8rem;color:var(--muted)">Bloqueie posições que não estão disponíveis (equipamento, aula fechada) — aparecem ocupadas pro aluno.</span>';
+        +'<button class="ag-tool" id="btnMsg" type="button" data-sa="msg"><svg><use href="#i-crm"/></svg>Mensagem aos inscritos</button>'
+        +'<div class="exp-wrap'+(expOpen?' open':'')+'"><button class="ag-tool" id="expBtn" type="button"><svg><use href="#i-list"/></svg>Exportar lista<svg class="exp-chev"><use href="#i-chev"/></svg></button>'
+          +'<div class="exp-menu"><button type="button" data-exp="excel"><svg><use href="#i-list"/></svg>Excel BR (.csv, ;)</button><button type="button" data-exp="csv"><svg><use href="#i-list"/></svg>CSV padrão (.csv, ,)</button></div></div>'
+        +'<button class="ag-tool danger" id="btnClose" type="button" data-sa="close"><svg><use href="#i-check"/></svg>Encerrar sessão</button>';
       document.getElementById('btnBlock').addEventListener('click',toggleBlock);
+      updBlkCount();
     }
+    // handlers das ações da aula (agora na barra horizontal, ao lado de Bloquear posições)
+    document.getElementById('agTools').addEventListener('click',function(e){
+      if(!agState) return;
+      if(e.target.closest('#btnBlock')) return; // tratado pelo próprio botão
+      var exp=e.target.closest('[data-exp]'); if(exp){ expOpen=false; exportList(exp.dataset.exp); renderAgTools(); return; }
+      if(e.target.closest('#expBtn')){ expOpen=!expOpen; renderAgTools(); return; }
+      var sa=e.target.closest('[data-sa]');
+      if(sa){ var k=sa.dataset.sa; if(k==='msg') toast('Mensagem aos '+countBooked()+' inscritos — fluxo em construção (pendência)'); else if(k==='close') toast('Sessão encerrada (protótipo)'); return; }
+    });
     function syncBlkStep(){ var e=document.getElementById('blkN'); if(e)e.textContent=agState.blockedN; }
     function updBlkCount(){ var c=document.getElementById('blkCt'); if(c){ c.textContent=agState.blocked.size; c.hidden=agState.blocked.size===0; } }
     // ===== menu de ações por aluno (⋯) =====
@@ -3344,9 +3599,9 @@
       var av=e.target.closest('.att-av');
       if(av && agState.tab==='agendados'){ var rr=av.closest('.att-row'); if(rr&&rr.dataset.slot!==undefined){ var sl=+rr.dataset.slot, sa=agState.slots[sl]; if(sa){ openAlResumo(sa,sl); return; } } }
       var crmb=e.target.closest('.att-crm');
-      if(crmb){ e.stopPropagation(); var cs=+crmb.dataset.crm, ca=agState.slots[cs]; if(!ca) return; var wasC=!!agState.contatos[cs];
-        if(wasC) delete agState.contatos[cs]; else agState.contatos[cs]=true; renderAgList();
-        toast(wasC?('Contato com '+fn(ca)+' desmarcado'):('Contato com '+fn(ca)+' registrado · +1 ponto 🏆')); return; }
+      if(crmb){ e.stopPropagation(); var cs=+crmb.dataset.crm, ca=agState.slots[cs]; if(!ca) return; var wasC=window.__saltyCRM.is(ca.n);
+        window.__saltyCRM.mark(ca.n,!wasC); renderAgList();
+        toast(wasC?('Contato com '+fn(ca)+' desmarcado'):('Contato com '+fn(ca)+' registrado · +1 ponto 🏆 · consta no CRM')); return; }
       var chk=e.target.closest('.att-check');
       if(chk){ e.stopPropagation(); var si=+chk.dataset.slot, a=agState.slots[si]; if(!a) return; var was=a.state; a.state=(a.state==='done'?null:'done'); renderAgList(); renderAgMap(); refreshAgStats();
         if(a.state==='done') toast('Check-in de '+fn(a)+' confirmado', function(){ a.state=was; renderAgList(); renderAgMap(); refreshAgStats(); toast('Check-in desfeito'); });
@@ -3448,6 +3703,8 @@
       } else {
         // sem modo: clicar numa bike BLOQUEADA abre a observação (motivo do bloqueio)
         var blk=e.target.closest('.bike.blocked'); if(blk){ e.stopPropagation(); openBlockNote(+blk.dataset.slot); return; }
+        // clicar numa vaga LIVRE: se há aluno na busca, oferece Agendar / Agendar + check-in
+        var free=e.target.closest('.bike.free'); if(free){ e.stopPropagation(); openSlotMenu(+free.dataset.slot, e.clientX, e.clientY); return; }
         // clicar numa bike com aluno agendado abre o resumo + ações
         var occ=e.target.closest('.bike.occ'); if(!occ) return;
         var si2=+occ.dataset.slot, a2=agState.slots[si2]; if(!a2) return;
@@ -3455,6 +3712,36 @@
         openAlResumo(a2,si2);
       }
     });
+    // ---- menu de vaga vazia: agendar o aluno da busca ----
+    var slotMenu=null;
+    function closeSlotMenu(){ if(slotMenu)slotMenu.classList.remove('on'); }
+    function openSlotMenu(si,x,y){
+      var a=window.__saltyActive&&window.__saltyActive();
+      if(!slotMenu){ slotMenu=document.createElement('div'); slotMenu.className='slot-menu'; document.body.appendChild(slotMenu);
+        slotMenu.addEventListener('click',function(e){ var b=e.target.closest('[data-sm]'); if(!b)return; var si=+slotMenu.dataset.si; scheduleActive(si, b.dataset.sm==='agc'); closeSlotMenu(); });
+      }
+      var pos=mapCfg(agState.ev.mod).label+' '+(si+1);
+      slotMenu.innerHTML=a
+        ? '<div class="sm-head">'+pos+' · '+a.nome+'</div><button type="button" class="sm-primary" data-sm="ag"><svg style="width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8"><use href="#i-cal"/></svg>Agendar</button><button type="button" data-sm="agc"><svg style="width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8"><use href="#i-check"/></svg>Agendar e fazer check-in</button>'
+        : '<div class="sm-head">'+pos+' · vaga livre</div><div class="sm-hint">Busque um aluno na barra de cima pra agendar nesta vaga.</div>';
+      slotMenu.dataset.si=si;
+      slotMenu.style.visibility='hidden'; slotMenu.classList.add('on');
+      var w=slotMenu.offsetWidth||220, h=slotMenu.offsetHeight||90;
+      slotMenu.style.left=Math.min(x,window.innerWidth-w-10)+'px';
+      slotMenu.style.top=Math.min(y,window.innerHeight-h-10)+'px';
+      slotMenu.style.visibility='';
+    }
+    function scheduleActive(si,checkin){
+      var a=window.__saltyActive&&window.__saltyActive(); if(!a){ toast('Busque um aluno na barra de cima primeiro'); return; }
+      if(agState.slots[si]) return;
+      var pl=a.plano||'Avulso';
+      var ct=pl==='5 por mês'?5:pl==='10 por mês'?10:pl==='Clube Salty'?0:(pl==='Avulso'?0:5);
+      agState.slots[si]={ n:a.nome, meta:pl, tag:(pl==='Avulso'?'avulso':'plano'), credTotal:ct, credLeft:(a.saldoN!=null?a.saldoN:ct), bd:{d:1,m:1}, shoe:36+(si%6), marco:null, first:false, state:(checkin?'done':null), modc:1, tot:1 };
+      renderAgMap(); renderAgList(); refreshAgStats();
+      toast(a.nome+(checkin?' agendado + check-in feito':' agendado')+' · '+mapCfg(agState.ev.mod).label+' '+(si+1));
+    }
+    document.addEventListener('click',function(e){ if(slotMenu&&slotMenu.classList.contains('on')&&!e.target.closest('.slot-menu')&&!e.target.closest('.bike.free'))closeSlotMenu(); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape')closeSlotMenu(); });
     // ---- observação da posição bloqueada (tipo comentário do Excel) ----
     var blkNoteSi=null, blkM=document.getElementById('blkNoteModal');
     function openBlockNote(si){
@@ -3936,11 +4223,17 @@
     var engPeriod='mes';
     var ENG_AL=['Ana Beatriz Souza','Carlos Menezes','Juliana Prado','Rafael Lima','Marina Castro','Beatriz Nunes','Thiago Ramos','Larissa Melo','Gustavo Dias','Fernanda Bicalho'];
     var ENG_AU=['Bike no Rooftop','Hot Yoga','Hot Sculpt','Funcional'];
+    var MOTIVOS=['Marco 400 aulas','Marco 100 aulas','Aniversário','Créditos acabando','Voltou depois de sumir','1ª aula (experimental)','Frequência caindo'];
+    function foneObj(nm){ var h=Math.abs(hashStr(nm+'|f')); var p1=('0000'+(h%10000)).slice(-4); var p2=('0000'+(Math.floor(h/9973)%10000)).slice(-4); return {disp:'(79) 9'+p1+'-'+p2, dig:'5579'+'9'+p1+p2}; }
     function engPts(f,per){ var r=rng(hashStr(f.nome+'|eng')); var base=70+Math.round(r()*80); if(per==='mes')return base; if(per==='tri')return base*2+Math.round(r()*140); return base*5+Math.round(r()*320); }
     function engLogData(){ var out=[], reps=recepList(); if(!reps.length) return out;
-      for(var i=0;i<18;i++){ var r=rng(hashStr('englog'+i)); var f=reps[(i+Math.floor(r()*reps.length))%reps.length];
+      var aulas=(window.__saltyWeekAulas?window.__saltyWeekAulas():[]);
+      for(var i=0;i<16;i++){ var r=rng(hashStr('englog'+i)); var f=reps[(i+Math.floor(r()*reps.length))%reps.length];
+        var al=ENG_AL[Math.floor(r()*ENG_AL.length)], fo=foneObj(al);
+        var au=aulas.length?aulas[Math.floor(r()*aulas.length)]:{name:ENG_AU[Math.floor(r()*ENG_AU.length)],hash:'#lista',mod:'l-bike'};
+        var mot=MOTIVOS[Math.floor(r()*MOTIVOS.length)];
         var day=Math.max(1,14-Math.floor(i*0.7)), hh=7+Math.floor(r()*13), mm=Math.floor(r()*60);
-        out.push({recep:f.nome.split(' ')[0],cor:f.cor,aluno:ENG_AL[Math.floor(r()*ENG_AL.length)],aula:ENG_AU[Math.floor(r()*ENG_AU.length)],d:('0'+day).slice(-2)+'/10',h:('0'+hh).slice(-2)+':'+('0'+mm).slice(-2)}); }
+        out.push({recep:f.nome.split(' ')[0],cor:f.cor,aluno:al,fdisp:fo.disp,fdig:fo.dig,mot:mot,aula:au.name,mod:au.mod,hash:au.hash,d:('0'+day).slice(-2)+'/10',h:('0'+hh).slice(-2)+':'+('0'+mm).slice(-2)}); }
       return out;
     }
     function renderEngaja(){
@@ -3956,13 +4249,25 @@
       }).join(''):'<div class="pay-empty">Nenhuma recepção cadastrada.</div>';
       var log=engLogData();
       document.getElementById('engLog').innerHTML=log.map(function(x){
-        return '<div class="eng-logrow"><span class="el-when">'+x.d+'<br>'+x.h+'</span>'
-          +'<span class="el-recep"><i class="dot" style="background:'+x.cor+'"></i>'+x.recep+'</span>'
-          +'<span class="el-what"><b>'+x.aluno+'</b><span> · '+x.aula+'</span></span>'
-          +'<span class="el-tag">check manual</span></div>';
+        return '<div class="eng-logrow">'
+          +'<span class="el-av">'+ini(x.aluno)+'</span>'
+          +'<div class="el-main"><div class="el-al">'+x.aluno+'</div>'
+            +'<div class="el-motivo"><span class="dot '+x.mod.replace('l-','d-')+'"></span>'+x.aula+' · <b>'+x.mot+'</b></div></div>'
+          +'<button class="el-fone" type="button" data-copy="'+x.fdig+'" title="Copiar telefone pra conferir no WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg><span class="elf-num">'+x.fdisp+'</span></button>'
+          +'<div class="el-by"><i class="dot" style="background:'+x.cor+'"></i>'+x.recep+' · '+x.d+' '+x.h+'</div>'
+          +'<a class="el-ver" href="'+x.hash+'" title="Abrir a aula onde o contato aconteceu">Ver aula</a>'
+          +'</div>';
       }).join('');
       var lc=document.getElementById('engLogCount'); if(lc)lc.textContent=log.length+' contatos registrados';
     }
+    (function(){ var el=document.getElementById('engLog'); if(!el)return;
+      el.addEventListener('click',function(e){ var c=e.target.closest('[data-copy]'); if(!c)return;
+        var num=c.dataset.copy;
+        try{ if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(num); }catch(_){}
+        var old=c.innerHTML; c.classList.add('ok'); c.innerHTML='<span class="elf-num">✓ copiado</span>';
+        setTimeout(function(){ c.classList.remove('ok'); c.innerHTML=old; },1200);
+      });
+    })();
     renderEngaja();
     (function(){ var el=document.getElementById('staffEngaja'); if(!el)return; el.querySelector('.rep-period').addEventListener('click',function(e){ var b=e.target.closest('[data-eper]'); if(!b)return; engPeriod=b.dataset.eper; el.querySelectorAll('[data-eper]').forEach(function(x){x.classList.toggle('on',x.dataset.eper===engPeriod);}); renderEngaja(); }); })();
 
@@ -3996,7 +4301,7 @@
     });
 
     // sub-abas Quadro | Folha | Comissão
-    var subMap={quadro:'staffQuadro',folha:'staffFolha',comissao:'staffComissao',engaja:'staffEngaja'};
+    var subMap={quadro:'staffQuadro',folha:'staffFolha',comissao:'staffComissao',engaja:'staffEngaja',escala:'staffEscala'};
     document.querySelectorAll('#staffTabs .ag-tab').forEach(function(t){
       t.addEventListener('click',function(){
         document.querySelectorAll('#staffTabs .ag-tab').forEach(function(x){x.classList.remove('on');});
@@ -4155,9 +4460,10 @@
       for(var i=0;i<m.n;i++){
         var name=NAMES[i%NAMES.length], plano=m.pl[i%m.pl.length], phone=tel(i);
         var wa='https://wa.me/55'+phone.replace(/\D/g,'')+'?text='+encodeURIComponent(m.msg);
-        var row=document.createElement('div'); row.className='lp-row';
-        row.innerHTML='<label class="lp-check"><input type="checkbox" aria-label="Marcar contatado"></label>'
-          +'<div class="lp-main"><div class="lp-name">'+name+' <span class="lp-plan">'+plano+'</span></div>'
+        var done=window.__saltyCRM.is(name);
+        var row=document.createElement('div'); row.className='lp-row'+(done?' done':''); row.dataset.name=name;
+        row.innerHTML='<label class="lp-check"><input type="checkbox" aria-label="Marcar contatado"'+(done?' checked':'')+'></label>'
+          +'<div class="lp-main"><div class="lp-name">'+name+' <span class="lp-plan">'+plano+'</span>'+(done?' <span class="lp-doneflag">✓ já contatado na aula</span>':'')+'</div>'
           +'<div class="lp-fields"><span><i>Tel</i>'+phone+'</span><span><i>Email</i>'+email(name)+'</span><span><i>CPF</i>'+cpf(i)+'</span><span class="lp-ctx"><i>'+m.cl+'</i><b>'+m.cx(i)+'</b></span></div></div>'
           +'<a class="lp-wpp" href="'+wa+'" target="_blank" rel="noopener">WhatsApp</a>';
         body.appendChild(row);
@@ -4165,16 +4471,349 @@
       updateDone(); lm.classList.add('open'); document.body.style.overflow='hidden';
     }
     lm.querySelector('#listBody').addEventListener('change',function(e){
-      if(e.target.type==='checkbox'){e.target.closest('.lp-row').classList.toggle('done',e.target.checked);updateDone();}
+      if(e.target.type==='checkbox'){ var row=e.target.closest('.lp-row'); row.classList.toggle('done',e.target.checked);
+        if(row.dataset.name) window.__saltyCRM.mark(row.dataset.name,e.target.checked); // reflete no mini-CRM da aula
+        updateDone();
+      }
     });
     document.querySelectorAll('[data-list]').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();openList(b.dataset.list);});});
+    window.__saltyCRMList=function(key){ try{openList(key);}catch(_){ } }; // ponte: abrir uma lista do CRM de outra IIFE (ex: ficha)
     function closeList(){lm.classList.remove('open');document.body.style.overflow='';}
     document.getElementById('listX').addEventListener('click',closeList);
     lm.addEventListener('click',function(e){if(e.target===lm)closeList();});
+
+    // ===== Nova régua de CRM (gestor) — cria um grupo automático e funcional =====
+    var RM=document.getElementById('reguaModal');
+    if(RM){
+      var custN=0;
+      var CONDS={
+        semtreino:{cl:'Sem treinar',needN:true,cx:function(n,i){return (n+i)+' dias';}},
+        credmenos:{cl:'Saldo',needN:true,cx:function(n,i){return Math.max(0,n-(i%2))+' créditos';}},
+        credvence:{cl:'Vence em',needN:true,cx:function(n,i){return (1+i%Math.max(1,n))+' dias';}},
+        freq:{cl:'Ritmo',needN:false,cx:function(n,i){return '3x → 1x/sem';}},
+        aniver:{cl:'Aniversário',needN:true,cx:function(n,i){return ['sábado','domingo','segunda','terça','quarta'][i%5];}},
+        experimental:{cl:'Experimental',needN:false,cx:function(n,i){return 'há '+(1+i)+' dias';}},
+        marco:{cl:'Marco',needN:true,cx:function(n,i){return n+' aulas';}}
+      };
+      var CONDLBL={semtreino:'Sem treinar há {N} dias',credmenos:'Créditos restantes ≤ {N}',credvence:'Créditos vencem em {N} dias',freq:'Frequência caindo',aniver:'Aniversário nos próximos {N} dias',experimental:'Fez experimental e não comprou',marco:'Bateu marco de {N} aulas'};
+      function updExplain(){ var box=document.getElementById('rgExplain'); if(!box)return; var nome=document.getElementById('rgNome').value.trim()||'[nome]'; var c=document.getElementById('rgCond').value; var n=document.getElementById('rgParam').value||'N'; var cnt=document.getElementById('rgN').value||'?'; var lbl=CONDLBL[c].replace('{N}',n);
+        box.innerHTML='A régua <b>'+nome+'</b> vai juntar sozinha todo aluno que se encaixa em <b>'+lbl.toLowerCase()+'</b>. Hoje isso daria cerca de <b>'+cnt+' alunos</b>. A recepção abre <b>Ver lista</b> e dispara a mensagem padrão no WhatsApp.'; }
+      function updParam(){ var c=document.getElementById('rgCond').value; document.getElementById('rgParamWrap').style.display=CONDS[c].needN?'':'none'; updExplain(); }
+      ['rgNome','rgN','rgParam'].forEach(function(id){var e=document.getElementById(id); if(e)e.addEventListener('input',updExplain);});
+      document.getElementById('rgCond').addEventListener('change',updParam);
+      function openRegua(){ document.getElementById('rgNome').value=''; document.getElementById('rgGrupo').value='sumir'; document.getElementById('rgCond').value='semtreino'; document.getElementById('rgParam').value='14'; document.getElementById('rgN').value='6'; document.getElementById('rgMsg').value=''; updParam(); RM.classList.add('open'); document.body.style.overflow='hidden'; }
+      function closeRegua(){ RM.classList.remove('open'); document.body.style.overflow=''; }
+      var nb=document.getElementById('novaRegua'); if(nb)nb.addEventListener('click',openRegua);
+      document.getElementById('reguaX').addEventListener('click',closeRegua);
+      document.getElementById('reguaCancel').addEventListener('click',closeRegua);
+      RM.addEventListener('click',function(e){if(e.target===RM)closeRegua();});
+      document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&RM.classList.contains('open'))closeRegua(); });
+      document.getElementById('reguaSave').addEventListener('click',function(){
+        var nome=document.getElementById('rgNome').value.trim(); if(!nome){document.getElementById('rgNome').focus();return;}
+        var grupo=document.getElementById('rgGrupo').value, c=document.getElementById('rgCond').value, n=+document.getElementById('rgParam').value||7, cnt=Math.max(1,+document.getElementById('rgN').value||6), msg=document.getElementById('rgMsg').value.trim()||'Oi! A salty passou aqui pra falar com você 🌊';
+        var key='custom'+(++custN), cond=CONDS[c];
+        meta[key]={t:nome,s:CONDLBL[c].replace('{N}',n),n:cnt,cl:cond.cl,cx:function(i){return cond.cx(n,i);},pl:['Clube Salty','10 por mês','5 por mês'],msg:msg};
+        var g=document.querySelector('.crm-g[data-group="'+grupo+'"]');
+        if(g){ var gg=g.getAttribute('data-gg')||'var(--navy)';
+          var card=document.createElement('div'); card.className='ccard'; card.style.setProperty('--gg',gg);
+          card.innerHTML='<div class="ch"><span class="cn">'+nome+'</span><span class="cc">'+cnt+'</span></div><p class="cd">'+CONDLBL[c].replace('{N}',n)+' · régua criada pelo gestor.</p><button class="cb" data-list="'+key+'">Ver lista</button>';
+          card.querySelector('.cb').addEventListener('click',function(e){e.stopPropagation();openList(key);});
+          g.querySelector('.cards').appendChild(card);
+        }
+        closeRegua(); if(window.__saltyToast)window.__saltyToast('Régua "'+nome+'" criada');
+      });
+    }
   })();
 
-  // Produtos & Financeiro (protótipo)
-  document.querySelectorAll('.prod-act').forEach(function(b){b.addEventListener('click',function(){alert('Abriria o formulário pra criar/editar. (protótipo)');});});
+  // Planos & assinaturas — cadastro e edição (Catálogo > Produtos)
+  (function(){
+    var list=document.getElementById('planList'); if(!list) return;
+    var PLANOS=[
+      {id:1,nome:'5 por mês',tipo:'Mensal',preco:269,suf:'/mês',cred:5,val:'Mês vigente',desc:'Mensal · 5 aulas por mês · R$ 53,80 por presença',ativo:true},
+      {id:2,nome:'10 por mês',tipo:'Mensal',preco:499,suf:'/mês',cred:10,val:'Mês vigente',desc:'Mensal · 10 aulas/mês · R$ 49,90 por presença · recomendado',ativo:true},
+      {id:3,nome:'Clube Salty — 15 por mês',tipo:'Mensal',preco:679,suf:'/mês',cred:15,val:'Mês vigente',desc:'Mensal · 15 aulas/mês · R$ 45,27 por presença · aula adicional R$ 35',ativo:true},
+      {id:4,nome:'Experimental',tipo:'Entrada',preco:35,suf:' a 90',cred:1,val:'10 dias',desc:'Entrada · 1 a 3 modalidades (R$ 35 / 50 / 90) · validade 10 dias',ativo:true},
+      {id:5,nome:'Avulsa',tipo:'Avulsa',preco:69,suf:'',cred:1,val:'7 dias',desc:'1 aula, qualquer modalidade · validade 7 dias',ativo:true}
+    ];
+    var nextId=6;
+    function planById(id){ return PLANOS.filter(function(x){return x.id===id;})[0]; }
+    function row(p){
+      return '<div class="planrow'+(p.ativo?'':' off')+'">'
+        +'<div class="pr-main"><b>'+p.nome+'</b><span>'+(p.desc||(p.tipo+' · '+p.cred+' aula(s) · validade '+p.val))+'</span></div>'
+        +'<div class="pr-price">R$ '+p.preco+(p.suf?'<small>'+p.suf+'</small>':'')+'</div>'
+        +'<span class="pr-status '+(p.ativo?'ativo">Ativo':'inativo">Inativo')+'</span>'
+        +'<button class="prod-act" type="button" data-pledit="'+p.id+'">Editar</button></div>';
+    }
+    function renderPlanos(){ list.innerHTML=PLANOS.map(row).join(''); }
+    renderPlanos();
+
+    var M=document.getElementById('planModal'), editId=null;
+    // tipos recorrentes: a cobrança é SEMPRE mensal; o tipo define a PERMANÊNCIA mínima (fidelidade)
+    var PERMAN={Mensal:'',Trimestral:', com permanência mínima de 3 meses',Semestral:', com permanência mínima de 6 meses',Anual:', com permanência mínima de 12 meses'};
+    function planExplain(){
+      var box=document.getElementById('plExplain'); if(!box) return;
+      var nome=document.getElementById('plNome').value.trim()||'[nome]';
+      var tipo=document.getElementById('plTipo').value;
+      var pv=document.getElementById('plPreco').value, preco=pv?('R$ '+pv):'[preço]';
+      var cred=document.getElementById('plCred').value||'[nº]';
+      var val=document.getElementById('plVal').value.trim()||'[validade]';
+      if(PERMAN[tipo]!==undefined){
+        box.innerHTML='O <b>'+nome+'</b> é um pacote <b>'+tipo.toLowerCase()+'</b>: uma <b>assinatura</b> cobrada <b>'+preco+' por mês</b> no cartão do aluno'+PERMAN[tipo]+'. A cada cobrança mensal, o sistema lança <b>'+cred+' crédito(s)/aula(s)</b> na conta dele — créditos que valem <b>'+val+'</b>.';
+      } else {
+        box.innerHTML='O <b>'+nome+'</b> é do tipo <b>'+tipo.toLowerCase()+'</b>: uma <b>compra única</b> de <b>'+preco+'</b> que libera <b>'+cred+' crédito(s)/aula(s)</b>, com validade de <b>'+val+'</b>. Não há cobrança recorrente no cartão.';
+      }
+    }
+    function openPlan(id){
+      editId=(id==null?null:id);
+      var p=(id==null?null:planById(id));
+      document.getElementById('planTitle').textContent=p?'Editar plano':'Novo plano';
+      document.getElementById('plNome').value=p?p.nome:'';
+      document.getElementById('plTipo').value=p?p.tipo:'Mensal';
+      document.getElementById('plPreco').value=p?p.preco:'';
+      document.getElementById('plCred').value=p?p.cred:'';
+      document.getElementById('plVal').value=p?p.val:'';
+      document.getElementById('plDesc').value=p?p.desc:'';
+      document.getElementById('plAtivo').checked=p?p.ativo:true;
+      planExplain();
+      M.classList.add('open'); document.body.style.overflow='hidden';
+    }
+    ['plNome','plTipo','plPreco','plCred','plVal'].forEach(function(id){ var e=document.getElementById(id); if(e){ e.addEventListener('input',planExplain); e.addEventListener('change',planExplain); } });
+    function closePlan(){ M.classList.remove('open'); document.body.style.overflow=''; }
+    document.getElementById('novoPlano').addEventListener('click',function(){openPlan(null);});
+    list.addEventListener('click',function(e){ var b=e.target.closest('[data-pledit]'); if(b) openPlan(+b.dataset.pledit); });
+    document.getElementById('planX').addEventListener('click',closePlan);
+    document.getElementById('planCancel').addEventListener('click',closePlan);
+    M.addEventListener('click',function(e){ if(e.target===M) closePlan(); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&M.classList.contains('open'))closePlan(); });
+    document.getElementById('planSave').addEventListener('click',function(){
+      var nome=document.getElementById('plNome').value.trim(); if(!nome){ document.getElementById('plNome').focus(); return; }
+      var p={ id:(editId!=null?editId:nextId++), nome:nome, tipo:document.getElementById('plTipo').value,
+              preco:+document.getElementById('plPreco').value||0, suf:(editId!=null&&planById(editId))?planById(editId).suf:'/mês',
+              cred:+document.getElementById('plCred').value||0, val:document.getElementById('plVal').value.trim(),
+              desc:document.getElementById('plDesc').value.trim(), ativo:document.getElementById('plAtivo').checked };
+      if(p.tipo==='Avulsa'||p.tipo==='Entrada'||p.tipo==='Pacote') p.suf=(editId!=null&&planById(editId))?planById(editId).suf:'';
+      if(editId!=null){ for(var i=0;i<PLANOS.length;i++){ if(PLANOS[i].id===editId){ PLANOS[i]=p; break; } } }
+      else PLANOS.push(p);
+      renderPlanos(); closePlan();
+    });
+  })();
+
+  // Escala da recepção v2 — semana + mês, turnos editáveis, permissão gestor/recepção, auto-preencher por regra
+  (function(){
+    var grid=document.getElementById('escGrid'); if(!grid) return;
+    function toast(m){ if(window.__saltyToast)window.__saltyToast(m); }
+    var DAYS=[
+      {l:'Seg',wk:false},{l:'Ter',wk:false},{l:'Qua',wk:false},
+      {l:'Qui',wk:false},{l:'Sex',wk:false},{l:'Sáb',wk:true},{l:'Dom',wk:true}
+    ];
+    var PEOPLE=['Ana','Pedro','Camila'];
+    var FULL={Ana:'Ana Oliveira',Pedro:'Pedro Alves',Camila:'Camila Rocha'};
+    var COLORS={Ana:'#37346A',Pedro:'#2A6C8C',Camila:'#C0791A'};
+    var MES3=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+    var MESFULL=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+    var BASE=new Date(2026,9,12); // segunda 12/10/2026 (semana 0)
+    function p2(n){return (n<10?'0':'')+n;}
+    function ph(s){var p=(''+s).split(':');return (+p[0])+((+p[1]||0)/60);}
+    // config de turnos editável
+    var turnos={ semM:{on:true,ini:'06:00',fim:'14:00'}, semT:{on:true,ini:'14:00',fim:'22:00'}, sab:{on:true,ini:'08:00',fim:'14:00'}, dom:{on:false,ini:'08:00',fim:'12:00'} };
+    function tcfg(i,sh){ var d=DAYS[i]; if(d.l==='Sáb') return sh==='m'?turnos.sab:null; if(d.l==='Dom') return sh==='m'?turnos.dom:null; return sh==='m'?turnos.semM:turnos.semT; }
+    function active(i,sh){ var c=tcfg(i,sh); return !!(c&&c.on); }
+    function tHours(c){ return Math.max(0,ph(c.fim)-ph(c.ini)); }
+    // estado da semana atual
+    var esc=[ {m:'Ana',t:'Pedro'},{m:'Pedro',t:'Camila'},{m:'Ana',t:'Camila'},{m:'Camila',t:'Pedro'},{m:'Ana',t:'Pedro'},{m:'Camila',t:'folga'},{m:'folga',t:'folga'} ];
+    var weekOffset=0, monthOffset=0, viewMode='gestor', viewKind='semana';
+    var ruleVaga=null, rulePessoa=null;
+    // ---------- datas ----------
+    function dDate(i){ var dt=new Date(BASE); dt.setDate(BASE.getDate()+weekOffset*7+i); return dt; }
+    function dLabel(i){ var dt=dDate(i); return p2(dt.getDate())+'/'+p2(dt.getMonth()+1); }
+    function isHoje(dt){ return dt.getFullYear()===2026&&dt.getMonth()===9&&dt.getDate()===14; }
+    function mondayOf(dt){ var x=new Date(dt); var dow=(x.getDay()+6)%7; x.setDate(x.getDate()-dow); x.setHours(0,0,0,0); return x; }
+    function weekIndexOf(dt){ return Math.round((mondayOf(dt)-mondayOf(BASE))/(7*86400000)); }
+    // ---------- cobertura / horas ----------
+    function hoursOf(p){ var h=0; DAYS.forEach(function(d,i){ ['m','t'].forEach(function(sh){ if(active(i,sh)&&esc[i][sh]===p) h+=tHours(tcfg(i,sh)); }); }); return h; }
+    function covGaps(){ var nc=0; DAYS.forEach(function(d,i){ ['m','t'].forEach(function(sh){ if(active(i,sh)&&(esc[i][sh]||'folga')==='folga')nc++; }); }); return nc; }
+    // ---------- grade semanal ----------
+    function cell(i,sh){
+      if(!active(i,sh)) return '<div class="esc-cell"><div class="esc-closed">Fechado</div></div>';
+      var c=tcfg(i,sh), val=esc[i][sh]||'folga', nocov=(val==='folga'), col=COLORS[val]||'var(--line2)';
+      var wh=DAYS[i].wk?('<div style="font-family:var(--f-mono);font-size:.58rem;color:var(--muted);text-align:center;margin-bottom:.2rem">'+c.ini+'–'+c.fim+'</div>'):'';
+      var dis=(viewMode==='recep')?' disabled':'';
+      var opts='<option value="folga"'+(nocov?' selected':'')+'>Folga</option>'+PEOPLE.map(function(p){return '<option value="'+p+'"'+(p===val?' selected':'')+'>'+p+'</option>';}).join('');
+      return '<div class="esc-cell'+(nocov?' nocov':'')+'">'+wh+'<select class="esc-sel" data-d="'+i+'" data-sh="'+sh+'" style="border-left-color:'+col+'"'+dis+'>'+opts+'</select></div>';
+    }
+    function renderTiles(){
+      var tl=document.getElementById('escTiles'); if(!tl) return;
+      if(viewKind==='mes'){ tl.innerHTML=''; return; }
+      var cards=PEOPLE.map(function(p){ return '<div class="tile"><div class="tl">'+FULL[p]+'</div><div class="val">'+hoursOf(p)+'h</div><div class="delta flat">na semana</div></div>'; });
+      var nc=covGaps();
+      cards.push('<div class="tile"><div class="tl">Turnos sem cobertura</div><div class="val">'+nc+'</div><div class="delta '+(nc?'down':'up')+'">'+(nc?'⚠ revisar':'✓ tudo coberto')+'</div></div>');
+      tl.innerHTML=cards.join('');
+    }
+    function renderWeek(){
+      var html='<div class="esc-corner"></div>';
+      DAYS.forEach(function(d,i){ var hj=isHoje(dDate(i)); html+='<div class="esc-hd'+(d.wk?' wk':'')+(hj?' hoje':'')+'">'+d.l+'<span class="ehd-d">'+dLabel(i)+'</span></div>'; });
+      html+='<div class="esc-rowlbl">Manhã<small>'+turnos.semM.ini+'–'+turnos.semM.fim+'</small></div>';
+      DAYS.forEach(function(d,i){ html+=cell(i,'m'); });
+      html+='<div class="esc-rowlbl">Tarde<small>'+turnos.semT.ini+'–'+turnos.semT.fim+'</small></div>';
+      DAYS.forEach(function(d,i){ html+=cell(i,'t'); });
+      grid.innerHTML=html; renderTiles();
+    }
+    // ---------- visão mensal ----------
+    function slotPerson(slot,dayIdx,wi){
+      var p=null;
+      if(ruleVaga){
+        var rot=(slot==='sab')?ruleVaga.sab:(slot==='dom')?ruleVaga.dom:(slot==='m')?ruleVaga.m:ruleVaga.t;
+        if(rot&&rot.length){ var n=rot.length, idx=(slot==='sab'||slot==='dom')?(((wi%n)+n)%n):(((dayIdx+wi)%n+n)%n); p=rot[idx]; }
+      } else if(rulePessoa){ p=rulePessoa[slot]||null; }
+      else {
+        if(slot==='sab'){ p=(esc[5]&&esc[5].m!=='folga')?esc[5].m:null; }
+        else if(slot==='dom'){ p=(esc[6]&&esc[6].m!=='folga')?esc[6].m:null; }
+        else { var v=esc[dayIdx]&&esc[dayIdx][slot]; p=(v&&v!=='folga')?v:null; }
+      }
+      return p;
+    }
+    function coverageFor(dt){
+      var dow=(dt.getDay()+6)%7, wi=weekIndexOf(dt);
+      if(dow<=4) return [{lbl:'M',p:slotPerson('m',dow,wi)},{lbl:'T',p:slotPerson('t',dow,wi)}];
+      if(dow===5) return turnos.sab.on?[{lbl:'Sáb',p:slotPerson('sab',5,wi)}]:[];
+      return turnos.dom.on?[{lbl:'Dom',p:slotPerson('dom',6,wi)}]:[];
+    }
+    function renderMonth(){
+      var host=document.getElementById('escMonth');
+      var mb=new Date(2026,9+monthOffset,1), y=mb.getFullYear(), mo=mb.getMonth();
+      var startDow=(new Date(y,mo,1).getDay()+6)%7, dim=new Date(y,mo+1,0).getDate();
+      var html='<div class="esc-mgrid">';
+      ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'].forEach(function(w,wi){ html+='<div class="esc-mhd'+(wi>=5?' wk':'')+'">'+w+'</div>'; });
+      for(var b=0;b<startDow;b++) html+='<div class="esc-mday out"></div>';
+      for(var dn=1;dn<=dim;dn++){
+        var dt=new Date(y,mo,dn), dow=(dt.getDay()+6)%7, wk=dow>=5, hj=isHoje(dt), cov=coverageFor(dt);
+        var slots=cov.map(function(s){ return '<div class="esc-mslot'+(s.p?'':' none')+'"><i style="background:'+(s.p?COLORS[s.p]:'var(--red)')+'"></i>'+s.lbl+': '+(s.p||'—')+'</div>'; }).join('');
+        html+='<div class="esc-mday'+(wk?' wk':'')+(hj?' hoje':'')+'"><div class="emd-n">'+dn+'</div>'+slots+'</div>';
+      }
+      html+='</div>'; host.innerHTML=html;
+    }
+    function updLabel(){ var el=document.getElementById('escWeekLbl');
+      if(viewKind==='mes'){ var mb=new Date(2026,9+monthOffset,1); el.textContent=MESFULL[mb.getMonth()]+' '+mb.getFullYear(); }
+      else { var a=dDate(0),b=dDate(6); el.textContent='Semana de '+a.getDate()+'–'+b.getDate()+' '+MES3[a.getMonth()]+' '+b.getFullYear(); }
+    }
+    function renderAll(){ if(viewKind==='mes') renderMonth(); else renderWeek(); updLabel(); }
+    // ---------- permissão gestor / recepção ----------
+    function applyPerm(){
+      var recep=(viewMode==='recep');
+      ['escConfig','escAuto','escPublicar'].forEach(function(id){ var b=document.getElementById(id); if(b)b.style.display=recep?'none':''; });
+      var bn=document.getElementById('escBanner'); if(bn){ bn.hidden=!recep; if(recep) bn.innerHTML='👁️ Você está vendo <b>como recepção</b>: a escala fica <b>somente leitura</b>. Só o login de <b>gestor</b> edita turnos, aplica rodízio e publica.'; }
+      renderAll();
+    }
+    // ---------- editar célula (override manual) ----------
+    grid.addEventListener('change',function(e){ var s=e.target.closest('.esc-sel'); if(!s||viewMode==='recep')return;
+      esc[+s.dataset.d][s.dataset.sh]=s.value; renderWeek();
+    });
+    // ---------- toggle semana/mês ----------
+    document.getElementById('escViewSeg').addEventListener('click',function(e){ var b=e.target.closest('[data-ev]'); if(!b)return;
+      viewKind=b.dataset.ev;
+      this.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x.dataset.ev===viewKind);});
+      document.getElementById('escWeekWrap').hidden=(viewKind==='mes');
+      document.getElementById('escMonth').hidden=(viewKind!=='mes');
+      renderAll();
+    });
+    // ---------- navegação ----------
+    document.getElementById('escPrev').addEventListener('click',function(){ if(viewKind==='mes'){monthOffset--;} else {weekOffset--; if(ruleVaga)applyVaga();} renderAll(); });
+    document.getElementById('escNext').addEventListener('click',function(){ if(viewKind==='mes'){monthOffset++;} else {weekOffset++; if(ruleVaga)applyVaga();} renderAll(); });
+    // ---------- ver como ----------
+    document.getElementById('escView').addEventListener('change',function(){ viewMode=this.value; applyPerm(); });
+    // ---------- publicar ----------
+    document.getElementById('escPublicar').addEventListener('click',function(){
+      var nc=covGaps(), a=dDate(0),b=dDate(6);
+      alert('Escala publicada! (protótipo)\n\nSemana de '+a.getDate()+'–'+b.getDate()+' '+MES3[a.getMonth()]+' '+b.getFullYear()+'\n'+(nc?('⚠ Atenção: '+nc+' turno(s) sem cobertura.'):'✓ Todos os turnos cobertos.')+'\n\nNo sistema real, cada recepcionista receberia a própria escala por WhatsApp/e-mail.');
+    });
+    // ========== MODAL: configurar turnos ==========
+    var TM=document.getElementById('escTurnosModal');
+    function turnoRow(key,nm,sub){ var t=turnos[key];
+      return '<div class="esc-turno'+(t.on?'':' off')+'" data-tk="'+key+'"><div class="et-nm">'+nm+'<small>'+sub+'</small></div>'
+        +'<label class="fchk"><input type="checkbox" class="et-on" data-tk="'+key+'"'+(t.on?' checked':'')+'> aberto</label>'
+        +'<div class="et-hrs"><input class="et-ini" data-tk="'+key+'" type="time" value="'+t.ini+'"><span>até</span><input class="et-fim" data-tk="'+key+'" type="time" value="'+t.fim+'"></div></div>';
+    }
+    function renderTurnos(){ document.getElementById('escTurnosBody').innerHTML=
+      turnoRow('semM','Manhã (seg a sex)','turno da manhã nos dias de semana')
+      +turnoRow('semT','Tarde (seg a sex)','turno da tarde nos dias de semana')
+      +turnoRow('sab','Sábado','plantão único de sábado')
+      +turnoRow('dom','Domingo','plantão único de domingo (desligado = fechado)');
+    }
+    document.getElementById('escTurnosBody').addEventListener('change',function(e){ var on=e.target.closest('.et-on'); if(on){ var row=on.closest('.esc-turno'); row.classList.toggle('off',!on.checked); } });
+    function openTurnos(){ renderTurnos(); TM.classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeTurnos(){ TM.classList.remove('open'); document.body.style.overflow=''; }
+    document.getElementById('escConfig').addEventListener('click',openTurnos);
+    document.getElementById('escTurnosX').addEventListener('click',closeTurnos);
+    document.getElementById('escTurnosCancel').addEventListener('click',closeTurnos);
+    TM.addEventListener('click',function(e){ if(e.target===TM)closeTurnos(); });
+    document.getElementById('escTurnosSave').addEventListener('click',function(){
+      ['semM','semT','sab','dom'].forEach(function(k){
+        var on=document.querySelector('.et-on[data-tk="'+k+'"]'), ini=document.querySelector('.et-ini[data-tk="'+k+'"]'), fim=document.querySelector('.et-fim[data-tk="'+k+'"]');
+        turnos[k].on=on.checked; turnos[k].ini=ini.value||turnos[k].ini; turnos[k].fim=fim.value||turnos[k].fim;
+      });
+      renderAll(); closeTurnos(); toast('Turnos atualizados');
+    });
+    // ========== MODAL: auto-preencher ==========
+    var AM=document.getElementById('escAutoModal'), curRule='vaga';
+    var tmpVaga={m:['Ana','Pedro'],t:['Pedro','Camila'],sab:['Ana','Camila'],dom:[]};
+    var tmpPessoa={m:'Ana',t:'Pedro',sab:'Camila',dom:null};
+    function chip(slot,p,mode){
+      var arr=(mode==='vaga')?tmpVaga[slot]:null, on, ord='';
+      if(mode==='vaga'){ var ix=arr.indexOf(p); on=ix>=0; if(on)ord='<span class="ec-ord">'+(ix+1)+'º</span>'; }
+      else { on=(tmpPessoa[slot]===p); }
+      return '<button class="esc-chip'+(on?' on':'')+'" type="button" data-slot="'+slot+'" data-p="'+p+'"><i class="ec-dot" style="background:'+COLORS[p]+'"></i>'+p+ord+'</button>';
+    }
+    function ruleRow(slot,lbl,mode){ return '<div class="esc-rrow"><span class="err-lbl">'+lbl+'</span><div class="esc-chips">'+PEOPLE.map(function(p){return chip(slot,p,mode);}).join('')+'</div></div>'; }
+    function renderRuleBody(){
+      var body=document.getElementById('escRuleBody'), h='';
+      if(curRule==='vaga'){
+        h+='<p class="wl-hint" style="margin-bottom:.6rem">Clique nas pessoas que entram no rodízio de cada turno — a ordem (1º, 2º…) é a ordem do revezamento. Nos fins de semana, alterna <b>uma semana cada</b>.</p>';
+        h+=ruleRow('m','Manhã (seg a sex)','vaga')+ruleRow('t','Tarde (seg a sex)','vaga');
+        if(turnos.sab.on)h+=ruleRow('sab','Sábado','vaga');
+        if(turnos.dom.on)h+=ruleRow('dom','Domingo','vaga');
+      } else {
+        h+='<p class="wl-hint" style="margin-bottom:.6rem">Escolha <b>uma pessoa fixa</b> por turno — ela cobre aquele turno toda semana.</p>';
+        h+=ruleRow('m','Manhãs de semana','pessoa')+ruleRow('t','Tardes de semana','pessoa');
+        if(turnos.sab.on)h+=ruleRow('sab','Sábado','pessoa');
+        if(turnos.dom.on)h+=ruleRow('dom','Domingo','pessoa');
+      }
+      body.innerHTML=h;
+    }
+    document.getElementById('escRulePick').addEventListener('click',function(e){ var b=e.target.closest('[data-rule]'); if(!b)return;
+      curRule=b.dataset.rule; this.querySelectorAll('.esc-ruleopt').forEach(function(x){x.classList.toggle('on',x.dataset.rule===curRule);}); renderRuleBody();
+    });
+    document.getElementById('escRuleBody').addEventListener('click',function(e){ var c=e.target.closest('.esc-chip'); if(!c)return;
+      var slot=c.dataset.slot, p=c.dataset.p;
+      if(curRule==='vaga'){ var arr=tmpVaga[slot], ix=arr.indexOf(p); if(ix>=0)arr.splice(ix,1); else arr.push(p); }
+      else { tmpPessoa[slot]=(tmpPessoa[slot]===p)?null:p; }
+      renderRuleBody();
+    });
+    function openAuto(){ renderRuleBody(); AM.classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeAuto(){ AM.classList.remove('open'); document.body.style.overflow=''; }
+    document.getElementById('escAuto').addEventListener('click',openAuto);
+    document.getElementById('escAutoX').addEventListener('click',closeAuto);
+    document.getElementById('escAutoCancel').addEventListener('click',closeAuto);
+    AM.addEventListener('click',function(e){ if(e.target===AM)closeAuto(); });
+    function applyVaga(){ if(!ruleVaga)return;
+      for(var i=0;i<5;i++){ if(ruleVaga.m.length) esc[i].m=ruleVaga.m[((i+weekOffset)%ruleVaga.m.length+ruleVaga.m.length)%ruleVaga.m.length]; if(ruleVaga.t.length) esc[i].t=ruleVaga.t[((i+weekOffset)%ruleVaga.t.length+ruleVaga.t.length)%ruleVaga.t.length]; }
+      if(ruleVaga.sab.length) esc[5].m=ruleVaga.sab[((weekOffset%ruleVaga.sab.length)+ruleVaga.sab.length)%ruleVaga.sab.length];
+      if(ruleVaga.dom.length) esc[6].m=ruleVaga.dom[((weekOffset%ruleVaga.dom.length)+ruleVaga.dom.length)%ruleVaga.dom.length];
+    }
+    function applyPessoa(){ for(var i=0;i<7;i++)esc[i]={m:'folga',t:'folga'};
+      for(var j=0;j<5;j++){ esc[j].m=rulePessoa.m||'folga'; esc[j].t=rulePessoa.t||'folga'; }
+      esc[5].m=rulePessoa.sab||'folga'; esc[6].m=rulePessoa.dom||'folga';
+    }
+    document.getElementById('escAutoApply').addEventListener('click',function(){
+      if(curRule==='vaga'){ ruleVaga={m:tmpVaga.m.slice(),t:tmpVaga.t.slice(),sab:tmpVaga.sab.slice(),dom:tmpVaga.dom.slice()}; rulePessoa=null; applyVaga(); }
+      else { rulePessoa={m:tmpPessoa.m,t:tmpPessoa.t,sab:tmpPessoa.sab,dom:tmpPessoa.dom}; ruleVaga=null; applyPessoa(); }
+      renderAll(); closeAuto(); toast(curRule==='vaga'?'Rodízio aplicado — fins de semana alternam a cada semana':'Escala fixa aplicada');
+    });
+    document.addEventListener('keydown',function(e){ if(e.key!=='Escape')return; if(TM.classList.contains('open'))closeTurnos(); if(AM.classList.contains('open'))closeAuto(); });
+    // init
+    applyPerm();
+  })();
+
+  // Financeiro (protótipo)
   document.querySelectorAll('.fin-act').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.nf.pend').forEach(function(n){n.className='nf ok';n.textContent='Emitida';});alert('Notas fiscais pendentes emitidas! (protótipo)');});});
   document.querySelectorAll('.nf.pend').forEach(function(b){b.addEventListener('click',function(){b.className='nf ok';b.textContent='Emitida';});});
 
@@ -4214,6 +4853,7 @@
     }
     function setActive(a){ activeAluno=a; input.value=a.nome; box.classList.add('has-al'); resumoBtn.hidden=false; clearBtn.hidden=false; res.classList.remove('open'); input.blur(); updateCtx(); }
     function clearActive(){ activeAluno=null; input.value=''; box.classList.remove('has-al'); resumoBtn.hidden=true; clearBtn.hidden=true; updateCtx(); }
+    window.__saltyActive=function(){ return activeAluno; }; // ponte p/ a tela da aula (agendar em vaga vazia)
     input.addEventListener('input',function(){render(input.value);});
     input.addEventListener('focus',function(){ if(activeAluno) input.select(); else if(input.value) render(input.value); });
     document.addEventListener('click',function(e){if(!e.target.closest('.searchbox'))res.classList.remove('open');});
@@ -4288,7 +4928,7 @@
         if(a.card){ h='<div class="fcard"><div class="fc-brand">'+a.card.b+'</div><div class="fc-num">•••• •••• •••• '+a.card.l4+'</div><div class="fc-row"><span>'+a.nome+'</span><span>val '+a.card.v+'</span></div></div><p class="fempty" style="text-align:left;padding-top:.8rem">Cartão salvo para a cobrança da assinatura.</p>'; }
         else { h='<div class="fempty">Nenhum cartão cadastrado. Aluno paga avulso na recepção.</div>'; }
       } else if(tab==='crm'){
-        if(a.crm&&a.crm.length){ h=a.crm.map(function(c){return '<div class="frow"><span class="ft-main"><b>'+c+'</b></span><a class="fbadge ok" style="cursor:pointer;text-decoration:none">Abrir</a></div>';}).join('')+'<p class="fempty" style="text-align:left;padding-top:.6rem">Situações de relacionamento detectadas para este aluno.</p>'; }
+        if(a.crm&&a.crm.length){ h=a.crm.map(function(c){return '<div class="frow"><span class="ft-main"><b>'+c+'</b></span><button class="fbadge ok" type="button" data-crmopen="'+esc(c)+'" style="cursor:pointer;border:none;font:inherit">Abrir</button></div>';}).join('')+'<p class="fempty" style="text-align:left;padding-top:.6rem">Situações de relacionamento detectadas para este aluno. <b>Abrir</b> leva pro grupo do CRM.</p>'; }
         else { h='<div class="fempty">Nenhuma situação de CRM no momento.</div>'; }
       } else if(tab==='termos'){
         if(a.termo.ok){ h='<div class="ftermo"><div class="ft-ic">📄</div><b>Contrato assinado digitalmente</b><p>Assinado em '+a.termo.d+'</p><button class="fa" style="margin:.9rem auto 0">Ver documento</button></div>'; }
@@ -4343,17 +4983,19 @@
     function fg2(l,v){return '<div class="fg"><i>'+l+'</i><span>'+v+'</span></div>';}
     function fgCopy(l,v){return '<div class="fg"><i>'+l+'</i><span class="fg-copy">'+v+'<button class="fcopy" type="button" data-copy="'+esc(v)+'" title="Copiar '+l+'">'+ICON_COPY+'</button></span></div>';}
     var FTABS=[['resumo','Dados & Resumo'],['assinatura','Assinatura'],['creditos','Créditos'],['historico','Histórico'],['pedidos','Pedidos'],['cartoes','Cartões'],['crm','CRM'],['termos','Contratos'],['obs','Observações'],['saude','Saúde'],['comun','Comunicações'],['timeline','Linha do tempo']];
+    // acha a aula real da semana (chave+idx válidos) da mesma modalidade, p/ "Ir pro evento" abrir o evento certo
+    function aulaHashFor(name){ var aulas=(window.__saltyWeekAulas?window.__saltyWeekAulas():[]); var m=aulas.filter(function(x){return x.name===name;}); return m.length?m[0].hash:'#lista'; }
     function creditosData(a){
       if(a.plano==='Avulso') return {ativos:[],usados:[],expirados:[]};
       var qtd=a.plano==='5 por mês'?5:(a.plano==='10 por mês'?10:15);
       var ativos=[{qtd:qtd,rest:a.saldoN,tipo:a.plano,comprado:'01/10',vence:'31/10'}];
-      var usados=aulasFull(a).filter(function(x){return x.credito&&x.status==='checkin';}).map(function(x){return {d:dstr(x.date),h:x.h,lbl:x.lbl,prof:x.prof,pos:x.pos};});
+      var usados=aulasFull(a).filter(function(x){return x.credito&&x.status==='checkin';}).map(function(x){return {d:dstr(x.date),h:x.h,lbl:x.lbl,prof:x.prof,pos:x.pos,hash:aulaHashFor(x.lbl)};});
       var expirados=(hashN(a.nome)%2===0)?[{qtd:5,tipo:'Pacote avulso',comprado:'05/09',venceu:'05/10'}]:[];
       return {ativos:ativos,usados:usados,expirados:expirados};
     }
     function rowMenu(items){
       return '<div class="ff-menuwrap"><button class="ff-dots" type="button" data-rowmenu="1" aria-label="Opções">⋯</button><div class="ff-rowmenu" hidden>'
-        +items.map(function(it){return '<button type="button" data-ffact="'+it[0]+'" data-ctx="'+esc(it[1])+'">'+it[2]+'</button>';}).join('')+'</div></div>';
+        +items.map(function(it){return '<button type="button" data-ffact="'+it[0]+'" data-ctx="'+esc(it[1])+'"'+(it[3]?' data-hash="'+it[3]+'"':'')+'>'+it[2]+'</button>';}).join('')+'</div></div>';
     }
     function fullTab(a,tab){
       ensureAluno(a); var h='';
@@ -4375,7 +5017,7 @@
           }
           if(f==='usados'||f==='todos'){
             parts+='<div class="fmov-h">Créditos usados</div>'+(cd.usados.length?cd.usados.map(function(u){ var ctx=u.lbl+' · '+u.d+' '+u.h+' · Prof. '+u.prof+' · posição '+u.pos;
-              return '<div class="faula"><div class="fa-when"><b>'+u.d+'</b><span>'+u.h+'</span></div><div class="fa-main"><b>'+u.lbl+'</b><span>Prof. '+u.prof+' · posição '+u.pos+' · 1 crédito usado</span></div>'+rowMenu([['evento',ctx,'Ir pro evento'],['detalhes',ctx,'Ver detalhes'],['devolver',ctx,'Devolver crédito']])+'</div>';
+              return '<div class="faula"><div class="fa-when"><b>'+u.d+'</b><span>'+u.h+'</span></div><div class="fa-main"><b>'+u.lbl+'</b><span>Prof. '+u.prof+' · posição '+u.pos+' · 1 crédito usado</span></div>'+rowMenu([['evento',ctx,'Ir pro evento',u.hash],['detalhes',ctx,'Ver detalhes'],['devolver',ctx,'Devolver crédito']])+'</div>';
             }).join(''):'<div class="fempty">Nenhum crédito usado ainda.</div>');
           }
           if(f==='expirados'||f==='todos'){
@@ -4397,7 +5039,7 @@
         h+=list.length?list.map(function(x){ var L=lbl[x.status]; var ctx=x.lbl+' · '+dstr(x.date)+' '+x.h+' · Prof. '+x.prof+' · posição '+x.pos;
           return '<div class="faula"><div class="fa-when"><b>'+dstr(x.date)+'</b><span>'+x.h+'</span></div>'
             +'<div class="fa-main"><b>'+x.lbl+'</b><span>Prof. '+x.prof+' · posição '+x.pos+' · '+(x.status==='cancel'?'crédito devolvido':(x.credito?'1 crédito usado':'avulso'))+'</span></div>'
-            +'<div class="fa-end"><span class="fbadge '+L[1]+'">'+L[0]+'</span>'+rowMenu([['evento',ctx,'Ir pro evento'],['reserva',ctx,'Informações da reserva'],['comprovante',ctx,'Reenviar comprovante']])+'</div></div>';
+            +'<div class="fa-end"><span class="fbadge '+L[1]+'">'+L[0]+'</span>'+rowMenu([['evento',ctx,'Ir pro evento',aulaHashFor(x.lbl)],['reserva',ctx,'Informações da reserva'],['comprovante',ctx,'Reenviar comprovante']])+'</div></div>';
         }).join(''):'<div class="fempty">Nada nesse filtro.</div>';
       } else if(tab==='pedidos'){
         h=pedidosFull(a).map(function(x){ var ctx=x.i+' · '+x.v+' · '+dstr(x.date)+' · '+x.p;
@@ -4419,11 +5061,13 @@
           h+='<div class="xf-line"><button class="fa fa-primary" type="button" data-cardadd="open">＋ Adicionar cartão</button></div>';
         }
       } else if(tab==='crm'){
-        h=(a.crm&&a.crm.length)?a.crm.map(function(c){return '<div class="frow"><span class="ft-main"><b>'+c+'</b></span><a class="fbadge ok" style="cursor:pointer;text-decoration:none">Abrir</a></div>';}).join('')+'<p class="fempty" style="text-align:left;padding-top:.6rem">Situações de relacionamento detectadas para este aluno.</p>':'<div class="fempty">Nenhuma situação de CRM no momento.</div>';
+        h=(a.crm&&a.crm.length)?a.crm.map(function(c){return '<div class="frow"><span class="ft-main"><b>'+c+'</b></span><button class="fbadge ok" type="button" data-crmopen="'+esc(c)+'" style="cursor:pointer;border:none;font:inherit">Abrir</button></div>';}).join('')+'<p class="fempty" style="text-align:left;padding-top:.6rem">Situações de relacionamento detectadas para este aluno. <b>Abrir</b> leva pro grupo do CRM pra chamar pelo WhatsApp.</p>':'<div class="fempty">Nenhuma situação de CRM no momento.</div>';
       } else if(tab==='termos'){
-        var docs=[{n:'Contrato de matrícula',ok:a.termo.ok,d:a.termo.d},{n:'Termo de uso de imagem',ok:a.termo.ok,d:a.termo.d},{n:'Política de cancelamento',ok:a.termo.ok,d:a.termo.d}];
-        if(a.termo.ok){ h=docs.map(function(x){return '<div class="frow"><span class="ft-main"><b>📄 '+x.n+'</b><span class="ft-sub">Assinado em '+x.d+'</span></span><a class="fbadge ok" style="cursor:pointer;text-decoration:none">Ver</a></div>';}).join(''); }
-        else { h='<div class="ftermo"><div class="ft-ic">✍️</div><b>Contratos pendentes</b><p>Este aluno ainda não assinou os termos.</p><button class="fa fa-primary" style="margin:.9rem auto 0">Enviar para assinatura</button></div>'; }
+        var docs=[{n:'Contrato de matrícula',ok:a.termo.ok,d:a.termo.d},{n:'PAR-Q (prontidão física)',ok:a.termo.ok,d:a.termo.d},{n:'Termo de uso de imagem',ok:a.termo.ok,d:a.termo.d}];
+        h='<div class="fobs-note">✍️ O aluno assina <b>contrato + PAR-Q</b> ao <b>baixar o app</b> ou na <b>1ª reserva pelo site</b>: aparece pra ler e assinar <b>antes de confirmar</b>. Aqui a recepção acompanha o status e pode subir um contrato específico.</div>';
+        if(a.termo.ok){ h+=docs.map(function(x){return '<div class="frow"><span class="ft-main"><b>📄 '+x.n+'</b><span class="ft-sub">Assinado em '+x.d+'</span></span><a class="fbadge ok" style="cursor:pointer;text-decoration:none">Ver</a></div>';}).join(''); }
+        else { h+='<div class="ftermo"><div class="ft-ic">✍️</div><b>Contratos pendentes</b><p>Este aluno ainda não assinou os termos.</p><button class="fa fa-primary" type="button" data-sendsign="1" style="margin:.9rem auto 0">Enviar link de assinatura</button></div>'; }
+        h+='<label class="fdoc-up"><input type="file" accept="application/pdf,image/*" hidden data-contractup="1"><span class="fdoc-upb">⬆ Subir contrato (PDF) pra este aluno assinar</span><span class="fdoc-upn" id="contractName">Nenhum arquivo selecionado</span></label>';
       } else if(tab==='obs'){
         h='<div class="fobs-note">🔒 Notas <b>internas da recepção</b> — escritas à mão aqui (o sistema não preenche sozinho). O <b>cliente não tem acesso</b> a elas, então pode ser franco.</div>';
         h+='<div class="fobs-add"><textarea class="wl-input" id="obsText" rows="2" placeholder="Nova observação interna (ex: prefere bike do fundo, cliente VIP, lesão no joelho)"></textarea><button class="fa fa-primary" type="button" data-obsadd="1" style="margin-top:.5rem">Adicionar observação</button></div>';
@@ -4435,8 +5079,9 @@
         h+=Q.map(function(q){return '<div class="fparq-row"><span>'+q[1]+'</span><button class="fparq-tg'+(a.parq[q[0]]?' yes':'')+'" type="button" data-parq="'+q[0]+'">'+(a.parq[q[0]]?'Sim':'Não')+'</button></div>';}).join('');
         h+='<label class="fld-l" style="display:block;margin-top:.9rem">Restrições / observações de saúde</label><textarea class="wl-input" data-parqrestr="1" rows="2" placeholder="Ex: lesão no joelho, gestante, etc.">'+esc(a.parq.restr||'')+'</textarea>';
       } else if(tab==='comun'){
-        h='<div class="fobs-note">📨 Registra o que é enviado <b>pelo sistema</b> — disparos do CRM, confirmação de aula e recibos (via WhatsApp oficial e e-mail integrados). Mensagem mandada do celular pessoal da recepção <b>não</b> entra aqui; por isso o ideal é disparar pelo próprio painel.</div>';
-        h+=comuns(a).map(function(x){return '<div class="frow"><span class="ft-when">'+dstr(x.date)+'</span><span class="ft-main"><b>'+(x.c==='wpp'?'💬 WhatsApp':'✉️ E-mail')+' · '+x.t+'</b></span><span class="fbadge '+(x.st==='Lida'?'ok':'ag')+'">'+x.st+'</span></div>';}).join('');
+        h='<div class="fobs-note">📨 <b>Como o sistema sabe que foi contatado?</b> Pelo <b>botão de WhatsApp do painel</b>. No começo a Salty <b>não</b> usa a API oficial (que tem custo mensal): a recepção clica no botão, o painel <b>abre o WhatsApp já com a mensagem pronta</b> e <b>registra que o contato foi iniciado</b> com aquele aluno (data + quem). Sem API não há recibo de "entregue/lida" — mas o importante pro CRM já funciona: fica registrado porque <b>saiu do painel</b>. Se mandar do WhatsApp pessoal, o sistema não vê. <br><span style="color:var(--muted)">Rastreio de entrega/leitura (WhatsApp API) e e-mail com abertura/clique ficam pra uma <b>fase futura</b>, quando fizer sentido pagar.</span></div>';
+        h+=comuns(a).map(function(x){ var isW=x.c==='wpp'; var badge=isW?['Registrado','ok']:['E-mail (futuro)','ag'];
+          return '<div class="frow"><span class="ft-when">'+dstr(x.date)+'</span><span class="ft-main"><b>'+(isW?'💬 WhatsApp':'✉️ E-mail')+' · '+x.t+'</b></span><span class="fbadge '+badge[1]+'">'+badge[0]+'</span></div>';}).join('');
       } else if(tab==='timeline'){
         h='<div class="ftimeline">'+timelineOf(a).map(function(e){return '<div class="ftl-item"><span class="ftl-ic">'+e.ic+'</span><div class="ftl-body"><b>'+e.t+'</b><span>'+dstr(e.dt)+'</span></div></div>';}).join('')+'</div>';
       }
@@ -4475,13 +5120,15 @@
           +'<button class="fa" type="button" data-faf="vender">Vender</button></div>'
         +'</div>';
       var tabbar='<div class="ficha-tabbar">'+FTABS.map(function(t){return '<button class="fftab'+(t[0]==='resumo'?' on':'')+'" type="button" data-fftab="'+t[0]+'">'+t[1]+'</button>';}).join('')+'</div>';
-      document.getElementById('fichaFull').innerHTML=head+tabbar+'<div class="panel ficha-sec"><div class="panel-b" id="fichaFullBody"></div></div>';
+      // bandeira de observação (container fixo; atualiza sozinho quando adiciona nota nova)
+      document.getElementById('fichaFull').innerHTML=head+'<div id="fichaObsFlag"></div>'+tabbar+'<div class="panel ficha-sec"><div class="panel-b" id="fichaFullBody"></div></div>';
+      renderObsFlag();
       renderFichaFullTab('resumo');
       show('ficha');
     }
     function closeFFMenus(){ document.querySelectorAll('#fichaFull .ff-rowmenu').forEach(function(m){m.hidden=true;}); }
-    function handleFFAct(act,ctx){
-      if(act==='evento'){ show('lista'); return; }
+    function handleFFAct(act,ctx,hash){
+      if(act==='evento'){ if(hash&&hash!=='#lista'){ location.hash=hash; } else show('lista'); return; }
       if(act==='detalhes'){ alert('Detalhes do uso (protótipo)\n\n'+ctx); return; }
       if(act==='devolver'){ alert('Crédito devolvido ao aluno (protótipo)\n\n'+ctx); return; }
       if(act==='reserva'){ alert('Informações da reserva (protótipo)\n\n'+ctx); return; }
@@ -4493,10 +5140,14 @@
     document.getElementById('fichaFull').addEventListener('click',function(e){
       var dots=e.target.closest('[data-rowmenu]');
       if(dots){ e.stopPropagation(); var menu=dots.parentNode.querySelector('.ff-rowmenu'); var wasOpen=menu&&!menu.hidden; closeFFMenus(); if(menu)menu.hidden=wasOpen; return; }
-      var ffa=e.target.closest('[data-ffact]'); if(ffa){ handleFFAct(ffa.dataset.ffact, ffa.dataset.ctx||''); closeFFMenus(); return; }
+      var ffa=e.target.closest('[data-ffact]'); if(ffa){ handleFFAct(ffa.dataset.ffact, ffa.dataset.ctx||'', ffa.dataset.hash||''); closeFFMenus(); return; }
       if(!e.target.closest('.ff-rowmenu')) closeFFMenus();
       if(e.target.closest('#fichaBack')){ show(fichaReturn||'dash'); return; }
       var fa=e.target.closest('[data-faf]'); if(fa){ var k=fa.dataset.faf; if(k==='agendar')show('lista'); else if(k==='vender')show('planos'); return; }
+      var xo=e.target.closest('.xf-open'); if(xo){ if(!xo.disabled) openXfer(xo.dataset.xf); return; }
+      var co=e.target.closest('[data-crmopen]'); if(co){ openCrmCase(co.dataset.crmopen); return; }
+      var ss=e.target.closest('[data-sendsign]'); if(ss){ if(window.__saltyToast)window.__saltyToast('Link de assinatura (contrato + PAR-Q) enviado por WhatsApp/e-mail (protótipo)'); return; }
+      var fog=e.target.closest('[data-fftab-go]'); if(fog){ renderFichaFullTab(fog.dataset.fftabGo); return; }
       var tb=e.target.closest('[data-fftab]'); if(tb){ renderFichaFullTab(tb.dataset.fftab); return; }
       var hf=e.target.closest('[data-histf]'); if(hf){ ffState.hist=hf.dataset.histf; renderFichaFullTab('historico'); return; }
       var cfb=e.target.closest('[data-credf]'); if(cfb){ ffState.cred=cfb.dataset.credf; renderFichaFullTab('creditos'); return; }
@@ -4511,11 +5162,40 @@
         fichaAluno.cards.push(nc); ffState.addCard=false; renderFichaFullTab('cartoes'); return;
       }
       var pq=e.target.closest('[data-parq]'); if(pq){ var q=pq.dataset.parq; fichaAluno.parq[q]=!fichaAluno.parq[q]; renderFichaFullTab('saude'); return; }
-      var oa=e.target.closest('[data-obsadd]'); if(oa){ var t=document.getElementById('obsText'); var v=(t.value||'').trim(); if(v){ fichaAluno.obs.push({d:'14/10',autor:'Recepção',t:v}); renderFichaFullTab('obs'); } return; }
+      var oa=e.target.closest('[data-obsadd]'); if(oa){ var t=document.getElementById('obsText'); var v=(t.value||'').trim(); if(v){ fichaAluno.obs.push({d:'16/10',autor:'Recepção',t:v}); renderFichaFullTab('obs'); renderObsFlag(); } return; }
     });
     document.getElementById('fichaFull').addEventListener('input',function(e){
       var pr=e.target.closest('[data-parqrestr]'); if(pr&&fichaAluno){ fichaAluno.parq.restr=pr.value; }
     });
+    // upload de contrato (protótipo: só confirma o anexo)
+    document.getElementById('fichaFull').addEventListener('change',function(e){
+      var up=e.target.closest('[data-contractup]'); if(up){ var f=up.files&&up.files[0], nm=document.getElementById('contractName');
+        if(nm)nm.textContent=f?('✓ '+f.name+' — pronto pra enviar ao aluno assinar'):'Nenhum arquivo selecionado';
+        if(f&&window.__saltyToast)window.__saltyToast('Contrato "'+f.name+'" anexado — envie o link de assinatura (protótipo)');
+      }
+    });
+    // bandeira de observação: sempre a MAIS RECENTE + "Ver mais (+N)" se houver outras
+    function obsFlagHTML(a){
+      var r=(a.obs||[]).filter(function(o){return o.t && o.t.indexOf('sem observações')<0;});
+      if(!r.length) return '';
+      var last=r[r.length-1], more=r.length-1;
+      return '<div class="ficha-obsflag" data-fftab-go="obs">📌 <b>Observação da recepção:</b> '+esc(last.t)+' <span class="fof-more">'+(more>0?('Ver mais (+'+more+') →'):'ver todas →')+'</span></div>';
+    }
+    function renderObsFlag(){ var el=document.getElementById('fichaObsFlag'); if(el&&fichaAluno) el.innerHTML=obsFlagHTML(fichaAluno); }
+    // "Abrir" num caso de CRM na ficha → leva pro grupo do CRM
+    function openCrmCase(txt){
+      var t=(txt||'').toLowerCase(), key=null;
+      if(/anivers/.test(t)) key='aniver';
+      else if(/sumid/.test(t)) key='sumidos14';
+      else if(/frequ/.test(t)) key='freqcaindo';
+      else if(/experiment/.test(t)) key='expnaocomprou';
+      else if(/marco/.test(t)) key='marco';
+      else if(/vencend|vencen/.test(t)) key='credvenc';
+      else if(/acab|cr[eé]dito/.test(t)) key='credacab';
+      show('crm');
+      if(key && window.__saltyCRMList){ setTimeout(function(){ window.__saltyCRMList(key); },60); }
+      else if(window.__saltyToast){ window.__saltyToast('Abri o CRM — escolha o grupo pra ver a lista'); }
+    }
     // ponte: abrir a ficha completa de qualquer lugar (ex: agendados) pelo nome
     window.__saltyFicha=function(name){ if(!name)return; var a=alunos.filter(function(x){return x.nome===name;})[0]||alunos.filter(function(x){return x.nome.split(' ')[0]===name.split(' ')[0];})[0]||alunos[0]; if(a) openFichaFull(a); };
     function closeF(){modal.classList.remove('open');document.body.style.overflow='';}
@@ -4601,12 +5281,13 @@
         +'<div class="xd-sum"><div><span>De</span><b>'+firstName(s.from.nome)+'</b></div><div><span>Para</span><b>'+firstName(s.dest.nome)+'</b></div><div><span>Quantidade</span><b>'+(s.kind==='convite'?'1 convite':qty)+'</b></div><div><span>Data</span><b>'+dnow()+'</b></div></div>'
         +'<button class="fa fa-primary" id="xfDoneClose" style="margin:0 auto">Fechar</button>';
       done.hidden=false;
-      document.getElementById('xfDoneClose').addEventListener('click',function(){ closeXfer(); if(fichaAluno===s.from) renderFichaTab('creditos'); });
+      document.getElementById('xfDoneClose').addEventListener('click',function(){ closeXfer(); if(fichaAluno===s.from){ renderFichaTab('creditos'); var fv=document.querySelector('.view[data-view="ficha"]'); if(fv&&fv.classList.contains('on')) renderFichaFullTab('creditos'); } });
     });
     document.getElementById('xfX').addEventListener('click',closeXfer);
     document.getElementById('xfCancel').addEventListener('click',closeXfer);
     xfM.addEventListener('click',function(e){if(e.target===xfM)closeXfer();});
     document.getElementById('fBody').addEventListener('click',function(e){
+      var co=e.target.closest('[data-crmopen]'); if(co){ closeF(); openCrmCase(co.dataset.crmopen); return; }
       var b=e.target.closest('.xf-open'); if(!b||b.disabled) return;
       openXfer(b.dataset.xf);
     });
