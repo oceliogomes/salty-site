@@ -245,6 +245,7 @@
   .pulso-hd{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.9rem}
   .pulso-t{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.35rem;margin-right:.6rem}
   .pulso-dt{font-size:.8rem;color:var(--muted)}
+  .pulso-copywrap{display:flex;justify-content:flex-end;margin-bottom:.9rem}
   .pulso-copy{font-family:inherit;font-weight:700;font-size:.82rem;color:var(--navy);background:color-mix(in srgb,var(--navy) 10%,transparent);border:1.5px solid color-mix(in srgb,var(--navy) 35%,transparent);border-radius:999px;padding:.45rem .9rem;cursor:pointer;white-space:nowrap}
   .pulso-copy:hover{background:color-mix(in srgb,var(--navy) 18%,transparent)}
   .pulso-copy.ok{color:var(--good);border-color:color-mix(in srgb,var(--good) 45%,transparent);background:color-mix(in srgb,var(--good) 12%,transparent)}
@@ -267,6 +268,68 @@
   .pulso-summary b{color:var(--navy)}
   .dash-charts{display:grid;grid-template-columns:1.25fr 1fr;gap:1.1rem;margin-bottom:1.1rem}
   @media(max-width:900px){.dash-charts{grid-template-columns:1fr}}
+  /* Acordeões do dashboard (janelas expansivas por assunto) */
+  .dash-accordions{display:flex;flex-direction:column;gap:.8rem}
+  .dacc{background:var(--panel);border:1.5px solid var(--line2);border-radius:14px;overflow:hidden}
+  .dacc-hd{display:flex;align-items:center;gap:.7rem;width:100%;font-family:inherit;text-align:left;background:none;border:none;padding:.95rem 1.1rem;cursor:pointer;color:inherit}
+  .dacc-hd:hover{background:var(--raise)}
+  .dacc-ic{font-size:1.15rem;flex:none}
+  .dacc-ti{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.18rem;flex:1;min-width:0}
+  .dacc-ti small{font-family:var(--f);font-style:normal;font-weight:600;font-size:.72rem;color:var(--muted)}
+  .dacc-sum{font-size:.76rem;color:var(--muted);white-space:nowrap;margin-right:.3rem}
+  .dacc-chev{width:18px;height:18px;flex:none;color:var(--muted);transition:transform .18s}
+  .dacc.open .dacc-chev{transform:rotate(180deg)}
+  .dacc-bd{display:none;padding:0 1.1rem 1.1rem}
+  .dacc.open .dacc-bd{display:block}
+  @media(max-width:560px){.dacc-sum{display:none}}
+  /* painel "nu" dentro do acordeão (reaproveita markup dos painéis) */
+  .panel.plain{border:none;background:none;border-radius:0}
+  .panel.plain .panel-h{padding-left:0;padding-right:0}
+  .panel.plain .panel-b{padding-left:0;padding-right:0}
+  .dacc-bd .dash-charts{margin-bottom:0}
+  /* Aulas com folga nas próximas 48h */
+  .folga-intro{font-size:.86rem;line-height:1.5;color:var(--muted);margin:.3rem 0 .9rem}
+  .folga-intro b{color:var(--ink)}
+  .folga-list{display:flex;flex-direction:column;gap:.6rem}
+  .folga-row{display:flex;align-items:center;gap:.8rem;background:var(--raise);border:1.5px solid var(--line2);border-radius:12px;padding:.7rem .85rem;flex-wrap:wrap}
+  .fg-when{flex:none;min-width:58px;line-height:1.15}
+  .fg-when b{display:block;font-size:.82rem}
+  .fg-when span{font-size:.74rem;color:var(--muted)}
+  .fg-dot{flex:none}
+  .fg-cls{flex:1;min-width:120px;line-height:1.2}
+  .fg-cls b{display:block;font-size:.9rem}
+  .fg-cls span{font-size:.74rem;color:var(--muted)}
+  .fg-occ{flex:none;text-align:right;line-height:1.2}
+  .fg-occ b{display:block;font-size:.95rem}
+  .fg-vagas{font-size:.72rem;font-weight:800;color:var(--warn)}
+  .fg-acts{display:flex;gap:.4rem;flex-wrap:wrap}
+  .fg-act{font-family:inherit;font-weight:700;font-size:.76rem;color:var(--navy);background:color-mix(in srgb,var(--navy) 9%,transparent);border:1.5px solid color-mix(in srgb,var(--navy) 30%,transparent);border-radius:999px;padding:.4rem .75rem;cursor:pointer;white-space:nowrap}
+  .fg-act:hover{background:color-mix(in srgb,var(--navy) 18%,transparent)}
+  @media(max-width:560px){.fg-occ{text-align:left}.fg-acts{width:100%}}
+  /* Esteira de renovação (pipeline de receita) */
+  .esteira{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem}
+  @media(max-width:820px){.esteira{grid-template-columns:1fr}}
+  .est-col{background:var(--raise);border:1.5px solid var(--line2);border-radius:12px;padding:.8rem .85rem;display:flex;flex-direction:column;gap:.5rem}
+  .est-hd{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}
+  .est-hd b{font-size:.86rem;flex:1;min-width:0}
+  .est-dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .est-val{font-family:var(--f-mono);font-weight:800;font-size:.82rem;color:var(--ink)}
+  .est-item{display:flex;align-items:center;gap:.6rem;padding:.5rem 0;border-bottom:1px dashed var(--line)}
+  .est-tx{flex:1;min-width:0;line-height:1.2}
+  .est-tx b{display:block;font-size:.84rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .est-tx span{font-size:.72rem;color:var(--muted)}
+  .est-r{font-family:var(--f-mono);font-weight:700;font-size:.78rem;color:var(--ink);flex:none}
+  .est-go{margin-top:.1rem;font-family:inherit;font-weight:700;font-size:.78rem;color:var(--navy);background:var(--panel);border:1.5px solid var(--line2);border-radius:999px;padding:.45rem .7rem;cursor:pointer;transition:.12s}
+  .est-go:hover{border-color:var(--navy);background:color-mix(in srgb,var(--navy) 8%,transparent)}
+  .est-do{flex:none;font-family:inherit;font-weight:700;font-size:.72rem;color:var(--good);background:color-mix(in srgb,var(--good) 10%,transparent);border:1.5px solid color-mix(in srgb,var(--good) 38%,transparent);border-radius:999px;padding:.3rem .6rem;cursor:pointer;white-space:nowrap}
+  .est-do:hover{background:color-mix(in srgb,var(--good) 18%,transparent)}
+  .est-item.done .est-do{background:var(--good);color:#FFFBF4;pointer-events:none}
+  .est-item.done .est-tx b{color:var(--good)}
+  /* placar de pontos (topo) */
+  .pts-chip{display:inline-flex;align-items:center;gap:.3rem;font-family:var(--f-mono);font-size:.74rem;font-weight:700;color:#8a6a13;background:color-mix(in srgb,#C79A2E 15%,transparent);border:1.5px solid color-mix(in srgb,#C79A2E 35%,transparent);border-radius:999px;padding:.3rem .7rem;white-space:nowrap}
+  .pts-chip b{font-size:.86rem;transition:transform .15s}
+  .pts-chip b.pulse{animation:ptspulse .5s ease}
+  @keyframes ptspulse{0%{transform:scale(1)}35%{transform:scale(1.5);color:var(--good)}100%{transform:scale(1)}}
   .ph-note{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
   /* gráfico de receita (barras verticais) */
   .rev-sel{font-family:inherit;font-size:.76rem;font-weight:700;color:var(--ink);background:var(--raise);border:1.5px solid var(--line2);border-radius:999px;padding:.35rem 1.9rem .35rem .85rem;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238A6B5C' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right .6rem center;background-size:12px}
@@ -951,6 +1014,78 @@
   .rec-card .rl{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem}
   .rec-card select,.rec-card input{width:100%;font-family:inherit;font-size:.9rem;font-weight:600;color:var(--ink);background:var(--raise);border:1.5px solid var(--line2);border-radius:8px;padding:.5rem .6rem}
   .rec-card .rh{font-size:.72rem;color:var(--faint);margin-top:.4rem}
+  /* Bloqueio inteligente de vagas (config) */
+  .sb-cfg{background:var(--panel);border:1.5px solid var(--line2);border-radius:13px;padding:.4rem 1.1rem 1.1rem;margin-bottom:1.3rem}
+  .sb-cfg .tg-row{margin-left:0;margin-right:0}
+  .sb-body{margin-top:.9rem;transition:opacity .15s}
+  .sb-cfg.off .sb-body{opacity:.4;pointer-events:none}
+  .sb-cfg .rec-set{margin-bottom:1rem}
+  .sb-mods{border-top:1.5px dashed var(--line2);padding-top:.9rem}
+  .sb-modhd{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+  .sb-mrow{display:flex;align-items:center;gap:.8rem;padding:.55rem 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+  .sb-mrow:last-child{border-bottom:none}
+  .sb-mname{flex:1;min-width:120px;display:flex;align-items:center;gap:.5rem;font-weight:700;font-size:.9rem}
+  .sb-mname .dot{width:10px;height:10px;border-radius:50%;flex:none}
+  .sb-mname small{font-family:var(--f-mono);font-weight:600;font-size:.68rem;color:var(--muted)}
+  .sb-mval{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--muted)}
+  .sb-mval select{font-family:inherit;font-size:.82rem;font-weight:600;color:var(--ink);background:var(--raise);border:1.5px solid var(--line2);border-radius:8px;padding:.35rem .5rem}
+  .sb-note{font-size:.78rem;color:var(--muted);line-height:1.45;margin-top:.9rem;background:color-mix(in srgb,var(--good) 8%,transparent);border:1.5px solid color-mix(in srgb,var(--good) 28%,transparent);border-radius:10px;padding:.7rem .85rem}
+  .sb-note b{color:var(--ink)}
+  /* versão por-evento (dentro do modal) */
+  .sb-evbody{transition:opacity .15s}
+  .agg-block.off .sb-evbody{opacity:.4;pointer-events:none}
+  /* botão "Aluno novo" no topo da tela Agora */
+  .agora-top{display:flex;justify-content:flex-end;margin-bottom:1rem}
+  /* ===== Fluxo guiado: Aluno novo (wizard) ===== */
+  .wiz-card{max-width:560px}
+  .wiz-steps{display:flex;gap:.3rem;padding:0 1.5rem;margin:.3rem 0 .8rem}
+  .wiz-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:.3rem;text-align:center}
+  .wiz-step .wn{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;background:var(--raise);border:1.5px solid var(--line2);color:var(--muted);transition:.15s}
+  .wiz-step .wl{font-size:.63rem;color:var(--muted);font-weight:600;line-height:1.1}
+  .wiz-step.on .wn{background:var(--navy);color:#FFFBF4;border-color:var(--navy)}
+  .wiz-step.on .wl{color:var(--ink);font-weight:800}
+  .wiz-step.done .wn{background:var(--good);color:#FFFBF4;border-color:var(--good)}
+  .wiz-bar{height:3px;background:var(--line);border-radius:999px;margin:0 1.5rem 1rem;overflow:hidden}
+  .wiz-bar i{display:block;height:100%;background:var(--navy);border-radius:999px;transition:width .2s}
+  .wiz-pane{display:none;padding:0 1.5rem}
+  .wiz-pane.on{display:block;animation:fade .2s}
+  .wiz-pane .fld-l{padding-left:0;padding-right:0}
+  .wiz-frow{margin:0;padding:0;border:none}
+  .wiz-field{margin-bottom:.2rem}
+  .wiz-hint{font-size:.76rem;color:var(--muted);line-height:1.45;margin-top:.9rem;background:var(--raise);border:1.5px solid var(--line2);border-radius:10px;padding:.6rem .8rem}
+  .wiz-hint b{color:var(--ink)}
+  .wiz-lead{font-size:.88rem;color:var(--ink);margin-bottom:.9rem}
+  .req{font-weight:700;font-size:.58rem;color:var(--red);background:color-mix(in srgb,var(--red) 10%,transparent);border-radius:5px;padding:.08rem .35rem;margin-left:.35rem;letter-spacing:.02em;text-transform:uppercase;vertical-align:middle}
+  .wiz-task{display:flex;flex-direction:column;gap:.6rem;background:var(--raise);border:1.5px solid var(--line2);border-radius:12px;padding:.7rem .85rem;margin-bottom:.6rem}
+  .wt-head{display:flex;align-items:center;gap:.8rem}
+  .wiz-task .wt-ic{font-size:1.3rem;flex:none}
+  .wiz-task .wt-tx{flex:1;min-width:0;line-height:1.25}
+  .wiz-task .wt-tx b{display:block;font-size:.9rem}
+  .wiz-task .wt-tx span{font-size:.76rem;color:var(--muted)}
+  .wt-actions{display:flex;gap:.4rem;flex-wrap:wrap}
+  .wt-btn{flex:1;min-width:92px;font-family:inherit;font-weight:700;font-size:.8rem;color:var(--navy);background:color-mix(in srgb,var(--navy) 10%,transparent);border:1.5px solid color-mix(in srgb,var(--navy) 35%,transparent);border-radius:999px;padding:.45rem .7rem;cursor:pointer;white-space:nowrap}
+  .wt-btn:hover{background:color-mix(in srgb,var(--navy) 18%,transparent)}
+  .wiz-task.done{border-color:color-mix(in srgb,var(--good) 40%,transparent);background:color-mix(in srgb,var(--good) 8%,transparent)}
+  .wiz-task.done .wt-btn{color:var(--good);border-color:color-mix(in srgb,var(--good) 45%,transparent);background:color-mix(in srgb,var(--good) 12%,transparent);pointer-events:none}
+  .wiz-plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:.6rem}
+  .wiz-plan{position:relative;display:flex;flex-direction:column;gap:.15rem;text-align:left;font-family:inherit;background:var(--panel);border:1.5px solid var(--line2);border-radius:12px;padding:.8rem .85rem;cursor:pointer;transition:.12s}
+  .wiz-plan:hover{border-color:var(--navy);transform:translateY(-1px)}
+  .wiz-plan.sel{border-color:var(--navy);background:color-mix(in srgb,var(--navy) 7%,var(--panel));box-shadow:inset 0 0 0 1.5px var(--navy)}
+  .wiz-plan.rec{border-color:color-mix(in srgb,var(--red) 40%,transparent)}
+  .wiz-plan b{font-size:.92rem}
+  .wiz-plan .wp-price{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.25rem;line-height:1}
+  .wiz-plan .wp-note{font-size:.72rem;color:var(--muted)}
+  .wiz-plan .wp-tag{position:absolute;top:-9px;right:.6rem;font-family:var(--f-mono);font-size:.54rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;background:var(--red);color:#FFFBF4;padding:.1rem .4rem;border-radius:6px}
+  .wiz-actions{justify-content:space-between}
+  /* configs dentro dos acordeões de Controle de aulas — sem card-dentro-de-card */
+  .aulas-accordions .sb-cfg,.aulas-accordions .marco-cfg{background:none;border:none;border-radius:0;padding:0;margin:0}
+  .aulas-accordions .rec-set{margin-bottom:0}
+  .ns-minrow{display:flex;align-items:center;gap:.4rem}
+  .ns-minrow input{flex:1;min-width:0}
+  .ns-minrow span{font-size:.8rem;color:var(--muted);white-space:nowrap}
+  .aulas-accordions .folga-intro{margin:.2rem 0 1rem}
+  .aulas-accordions .mini-stats{margin-top:.2rem}
+  .aulas-accordions .week-note{margin-bottom:0}
 
   /* ===== modal nova aula ===== */
   .modal-ov{position:fixed;inset:0;background:rgba(30,20,14,.55);backdrop-filter:blur(3px);z-index:60;display:none;align-items:flex-start;justify-content:center;padding:4vh 1rem;overflow-y:auto}
@@ -1354,6 +1489,8 @@
   .searchbox .si{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);width:16px;height:16px;fill:none;stroke:var(--muted);stroke-width:1.8;stroke-linecap:round}
   .search-res{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--panel);border:1.5px solid var(--line2);border-radius:12px;box-shadow:0 18px 40px -14px rgba(72,39,29,.4);z-index:30;overflow:hidden;display:none}
   .search-res.open{display:block}
+  .sr-cad{display:block;width:100%;text-align:center;font-family:inherit;font-weight:700;font-size:.84rem;color:var(--navy);background:var(--raise);border:none;border-top:1.5px solid var(--line);padding:.75rem;cursor:pointer}
+  .sr-cad:hover{background:color-mix(in srgb,var(--navy) 9%,transparent)}
   .sr-item{display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;cursor:pointer;border:none;border-bottom:1px solid var(--line);width:100%;text-align:left;background:none;font-family:inherit}
   .sr-item:last-child{border-bottom:none}
   .sr-item:hover{background:var(--raise)}
@@ -1582,7 +1719,7 @@
   <symbol id="i-fin" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
   <symbol id="i-staff" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="12" cy="10" r="2.5"/><path d="M8 17c0-2 1.8-3 4-3s4 1 4 3"/></symbol>
   <symbol id="i-rep" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/></symbol>
-  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1l2.1-2.1M17 7l2.1-2.1"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
   <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h5"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
@@ -1649,6 +1786,7 @@
         <div class="search-res" id="searchRes"></div>
       </div>
       <div style="display:flex;align-items:center;gap:.9rem">
+        <span class="pts-chip" id="ptsChip" title="Pontos de contato do recepcionista — mini-CRM da aula, listas do CRM e esteira de renovação somam todos aqui">🏆 <b data-saltypts>0</b> pts</span>
         <span class="date">Hoje · 14 out 2026</span>
         <span class="demo">Protótipo · dados de exemplo</span>
       </div>
@@ -1659,6 +1797,9 @@
       <!-- ===== DASHBOARD ===== -->
       <section class="view on" data-view="agora">
         <div class="agora-wrap">
+          <div class="agora-top">
+            <button class="btn-new" id="btnNovoAluno"><span>＋</span> Aluno novo (experimental)</button>
+          </div>
           <div class="agora-pulse" id="agoraPulse"></div>
           <div class="agora-cols" id="agoraCols">
             <div class="agora-focus" id="agoraFocus"></div>
@@ -1682,31 +1823,6 @@
           <button class="dh-cta" data-jump="crm">Ver quem precisa de atenção →</button>
         </div>
 
-        <div class="pulso">
-          <div class="pulso-hd">
-            <div><span class="pulso-t">📊 Pulso do dia</span><span class="pulso-dt">quarta, 14/10 · seu resumo em 10 segundos</span></div>
-            <button class="pulso-copy" id="pulsoCopy" type="button" title="Copia o resumo em texto pra colar no grupo dos sócios">📋 Copiar resumo</button>
-          </div>
-          <div class="pulso-ontem">
-            <div class="po-lbl">Ontem (terça, 13/10)</div>
-            <div class="po-grid">
-              <div class="po-cell"><b>R$ 2.340</b><span>vendas · 8 pedidos</span></div>
-              <div class="po-cell"><b>54</b><span>check-ins</span></div>
-              <div class="po-cell"><b>6</b><span>no-shows</span></div>
-              <div class="po-cell"><b>78%</b><span>ocupação média</span></div>
-            </div>
-          </div>
-          <div class="pulso-watch">
-            <div class="po-lbl">De olho</div>
-            <button class="pw-item" data-jump="crm"><span class="pw-ic">💳</span><div><b>5 assinaturas renovam esta semana</b><span>R$ 2.195 — garantir a renovação</span></div><span class="pw-go">→</span></button>
-            <button class="pw-item" data-jump="fin"><span class="pw-ic">⚠️</span><div><b>7 faturas em aberto</b><span>R$ 1.490 — cobrar (flag já aparece no check-in)</span></div><span class="pw-go">→</span></button>
-            <button class="pw-item" data-jump="crm"><span class="pw-ic">📉</span><div><b>4 alunos sumidos +14 dias</b><span>risco de churn — mandar um “senti sua falta”</span></div><span class="pw-go">→</span></button>
-            <button class="pw-item" data-jump="produtos"><span class="pw-ic">📦</span><div><b>1 produto pra repor</b><span>Camiseta no estoque mínimo</span></div><span class="pw-go">→</span></button>
-            <button class="pw-item" data-jump="crm"><span class="pw-ic">🎂</span><div><b>3 aniversariantes esta semana</b><span>mandar carinho + brinde</span></div><span class="pw-go">→</span></button>
-          </div>
-          <div class="pulso-summary">🧠 <b>Resumo:</b> ontem foi um dia sólido (acima da média de terça). O foco de hoje é <b>cobrar as 7 faturas em aberto</b> e <b>garantir as 5 renovações</b> da semana — juntas, somam ~R$ 3,7 mil que não podem escapar.</div>
-        </div>
-
         <div class="tiles">
           <div class="tile"><div class="tl"><svg class="ic"><use href="#i-crm"/></svg>Alunos ativos</div><div class="val">128</div><div class="delta up">▲ 6 esta semana</div></div>
           <div class="tile"><div class="tl"><svg class="ic"><use href="#i-fin"/></svg>Receita recorrente</div><div class="val">R$ 24k</div><div class="delta up">▲ 4% no mês</div></div>
@@ -1716,55 +1832,157 @@
           <div class="tile"><div class="tl"><svg class="ic"><use href="#i-prod"/></svg>Vendas hoje</div><div class="val">R$ 890</div><div class="delta flat">planos + produtos</div></div>
         </div>
 
-        <div class="dash-charts">
-          <div class="panel">
-            <div class="panel-h"><h2>Receita</h2>
-              <select id="revRange" class="rev-sel" aria-label="Período da receita">
-                <option value="meses">Últimos 6 meses</option>
-                <option value="dias">Últimos 7 dias</option>
-              </select>
-            </div>
-            <div class="panel-b">
-              <div class="rev-chart" id="revChart" role="img" aria-label="Gráfico de receita por período"></div>
-            </div>
-          </div>
+        <div class="dash-accordions">
 
-          <div class="panel">
-            <div class="panel-h"><h2>Ocupação por modalidade</h2><span class="ph-note">média do mês</span></div>
-            <div class="panel-b">
-              <div class="occ-mod">
-                <div class="om-row"><span class="om-lbl"><i class="dot d-bike"></i>Bike</span><div class="om-track"><i style="width:88%;background:#2E90C4"></i></div><span class="om-val">88%</span></div>
-                <div class="om-row"><span class="om-lbl"><i class="dot d-hy"></i>Hot Yoga</span><div class="om-track"><i style="width:82%;background:var(--red)"></i></div><span class="om-val">82%</span></div>
-                <div class="om-row"><span class="om-lbl"><i class="dot d-sc"></i>Hot Sculpt</span><div class="om-track"><i style="width:79%;background:#C8102E"></i></div><span class="om-val">79%</span></div>
+          <div class="dacc open" data-acc>
+            <button class="dacc-hd" type="button"><span class="dacc-ic">📊</span><span class="dacc-ti">Pulso do dia <small>· resumo em 10 segundos</small></span><span class="dacc-sum">quarta, 14/10</span><svg class="dacc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dacc-bd">
+              <div class="pulso-copywrap"><button class="pulso-copy" id="pulsoCopy" type="button" title="Copia o resumo em texto pra colar no grupo dos sócios">📋 Copiar resumo</button></div>
+              <div class="pulso-ontem">
+                <div class="po-lbl">Ontem (terça, 13/10)</div>
+                <div class="po-grid">
+                  <div class="po-cell"><b>R$ 2.340</b><span>vendas · 8 pedidos</span></div>
+                  <div class="po-cell"><b>54</b><span>check-ins</span></div>
+                  <div class="po-cell"><b>6</b><span>no-shows</span></div>
+                  <div class="po-cell"><b>78%</b><span>ocupação média</span></div>
+                </div>
               </div>
-              <p class="occ-insight"><b>Bike e Hot Yoga enchem fácil.</b> O <b>Hot Sculpt ainda tem folga</b> — vale testar outro horário ou reforçar a divulgação pra não deixar vaga (e receita) na mesa.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="cols">
-          <div class="panel">
-            <div class="panel-h"><h2>Aulas de hoje</h2><button class="lnk" data-jump="lista">Abrir grade →</button></div>
-            <div class="panel-b">
-              <div class="row"><span class="rt">06:00</span><span class="dot d-bike"></span><div class="rn"><b>Bike no Rooftop</b> <span>· Cauã</span></div><div class="occ"><b>7</b>/9<div class="bar"><i style="width:78%"></i></div></div></div>
-              <div class="row"><span class="rt">07:00</span><span class="dot d-sc"></span><div class="rn"><b>Hot Sculpt</b> <span>· Bia</span></div><div class="occ"><b>4</b>/7<div class="bar"><i style="width:57%"></i></div></div></div>
-              <div class="row"><span class="rt">09:00</span><span class="dot d-hy"></span><div class="rn"><b>Hot Yoga</b> <span>· Marina</span></div><div class="occ"><b>7</b>/7<div class="bar"><i class="full" style="width:100%"></i></div></div></div>
-              <div class="row"><span class="rt">12:00</span><span class="dot d-sc"></span><div class="rn"><b>Hot Sculpt</b> <span>· Bia</span></div><div class="occ"><b>6</b>/7<div class="bar"><i class="hot" style="width:86%"></i></div></div></div>
-              <div class="row"><span class="rt">17:00</span><span class="dot d-sc"></span><div class="rn"><b>Hot Sculpt</b> <span>· Bia</span></div><div class="occ"><b>5</b>/7<div class="bar"><i style="width:71%"></i></div></div></div>
-              <div class="row"><span class="rt">18:00</span><span class="dot d-bike"></span><div class="rn"><b>Bike no Rooftop</b> <span>· Cauã</span></div><div class="occ"><b>8</b>/9<div class="bar"><i class="hot" style="width:89%"></i></div></div></div>
-              <div class="row"><span class="rt">19:00</span><span class="dot d-hy"></span><div class="rn"><b>Hot Yoga</b> <span>· Marina</span></div><div class="occ"><b>6</b>/7<div class="bar"><i class="hot" style="width:86%"></i></div></div></div>
+              <div class="pulso-watch">
+                <div class="po-lbl">De olho</div>
+                <button class="pw-item" data-jump="crm"><span class="pw-ic">💳</span><div><b>5 assinaturas renovam esta semana</b><span>R$ 2.195 — garantir a renovação</span></div><span class="pw-go">→</span></button>
+                <button class="pw-item" data-jump="fin"><span class="pw-ic">⚠️</span><div><b>7 faturas em aberto</b><span>R$ 1.490 — cobrar (flag já aparece no check-in)</span></div><span class="pw-go">→</span></button>
+                <button class="pw-item" data-jump="crm"><span class="pw-ic">📉</span><div><b>4 alunos sumidos +14 dias</b><span>risco de churn — mandar um “senti sua falta”</span></div><span class="pw-go">→</span></button>
+                <button class="pw-item" data-jump="produtos"><span class="pw-ic">📦</span><div><b>1 produto pra repor</b><span>Camiseta no estoque mínimo</span></div><span class="pw-go">→</span></button>
+                <button class="pw-item" data-jump="crm"><span class="pw-ic">🎂</span><div><b>3 aniversariantes esta semana</b><span>mandar carinho + brinde</span></div><span class="pw-go">→</span></button>
+              </div>
+              <div class="pulso-summary">🧠 <b>Resumo:</b> ontem foi um dia sólido (acima da média de terça). O foco de hoje é <b>cobrar as 7 faturas em aberto</b> e <b>garantir as 5 renovações</b> da semana — juntas, somam ~R$ 3,7 mil que não podem escapar.</div>
             </div>
           </div>
 
-          <div class="panel">
-            <div class="panel-h"><h2>Precisa de atenção</h2><button class="lnk" data-jump="crm">Ver CRM →</button></div>
-            <div class="panel-b">
-              <div class="att" data-list="sumidos14"><span class="abadge" style="background:var(--red)">8</span><div class="atx"><b>Sumidos há +14 dias</b><span>risco de perder — mandar um oi</span></div><button class="go">Ver lista</button></div>
-              <div class="att" data-list="credacab"><span class="abadge" style="background:var(--good)">12</span><div class="atx"><b>Créditos acabando</b><span>hora de oferecer recompra</span></div><button class="go">Ver lista</button></div>
-              <div class="att" data-list="expnaocomprou"><span class="abadge" style="background:var(--navy)">3</span><div class="atx"><b>Experimental sem resposta</b><span>fizeram aula, não compraram</span></div><button class="go">Ver lista</button></div>
-              <div class="att" data-list="aniver"><span class="abadge" style="background:var(--warn)">5</span><div class="atx"><b>Aniversariantes da semana</b><span>enviar carinho + brinde</span></div><button class="go">Ver lista</button></div>
+          <div class="dacc open" data-acc>
+            <button class="dacc-hd" type="button"><span class="dacc-ic">🪑</span><span class="dacc-ti">Aulas com folga <small>· próximas 48h</small></span><span class="dacc-sum">3 aulas · 10 vagas ~R$ 280</span><svg class="dacc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dacc-bd">
+              <p class="folga-intro">Vaga vazia é <b>receita que não volta</b> — a aula roda do mesmo jeito, só com gente de menos. Encha <b>antes de começar</b>:</p>
+              <div class="folga-list">
+                <div class="folga-row">
+                  <div class="fg-when"><b>Hoje</b><span>17:00</span></div>
+                  <span class="dot d-sc fg-dot"></span>
+                  <div class="fg-cls"><b>Hot Sculpt</b><span>Prof. Bia · Sala Quente 2</span></div>
+                  <div class="fg-occ"><b>5/7</b><span class="fg-vagas">2 vagas</span></div>
+                  <div class="fg-acts"><button class="fg-act" data-folga="convidar">Convidar</button><button class="fg-act" data-folga="apps">Liberar apps</button><button class="fg-act" data-folga="stories">Stories</button></div>
+                </div>
+                <div class="folga-row">
+                  <div class="fg-when"><b>Amanhã</b><span>07:00</span></div>
+                  <span class="dot d-sc fg-dot"></span>
+                  <div class="fg-cls"><b>Hot Sculpt</b><span>Prof. Bia · Sala Quente 2</span></div>
+                  <div class="fg-occ"><b>3/7</b><span class="fg-vagas">4 vagas</span></div>
+                  <div class="fg-acts"><button class="fg-act" data-folga="convidar">Convidar</button><button class="fg-act" data-folga="apps">Liberar apps</button><button class="fg-act" data-folga="stories">Stories</button></div>
+                </div>
+                <div class="folga-row">
+                  <div class="fg-when"><b>Amanhã</b><span>12:00</span></div>
+                  <span class="dot d-bike fg-dot"></span>
+                  <div class="fg-cls"><b>Bike no Rooftop</b><span>Prof. Cauã · Rooftop</span></div>
+                  <div class="fg-occ"><b>5/9</b><span class="fg-vagas">4 vagas</span></div>
+                  <div class="fg-acts"><button class="fg-act" data-folga="convidar">Convidar</button><button class="fg-act" data-folga="apps">Liberar apps</button><button class="fg-act" data-folga="stories">Stories</button></div>
+                </div>
+              </div>
+              <p class="week-note" style="margin-top:.8rem">💡 <b>Convidar</b> puxa quem está no CRM (sumidos, experimentais, aniversariantes); <b>Liberar apps</b> abre mais vagas pro Gympass/TotalPass; <b>Stories</b> gera o card de "últimas vagas".</p>
             </div>
           </div>
+
+          <div class="dacc open" data-acc>
+            <button class="dacc-hd" type="button"><span class="dacc-ic">💸</span><span class="dacc-ti">Esteira de renovação <small>· próximas ações de receita</small></span><span class="dacc-sum">R$ 5.375 em jogo esta semana</span><svg class="dacc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dacc-bd">
+              <p class="folga-intro">A janela <b>antes do pacote acabar</b> é a melhor hora de vender a renovação. Estas são as pessoas pra falar agora — em ordem de urgência, com a receita em jogo:</p>
+              <div class="esteira">
+                <div class="est-col">
+                  <div class="est-hd"><span class="est-dot" style="background:var(--warn)"></span><b>Renova em até 7 dias</b><span class="est-val">R$ 2.195</span></div>
+                  <div class="est-item" data-estname="Marina Castro"><div class="est-tx"><b>Marina Castro</b><span>Clube Salty renova em 2 dias</span></div><span class="est-r">R$ 679</span><button class="est-do" type="button">Falar</button></div>
+                  <div class="est-item" data-estname="Ana Beatriz Souza"><div class="est-tx"><b>Ana Beatriz Souza</b><span>Clube Salty renova em 5 dias</span></div><span class="est-r">R$ 679</span><button class="est-do" type="button">Falar</button></div>
+                  <div class="est-item" data-estname="Juliana Prado"><div class="est-tx"><b>Juliana Prado</b><span>5 por mês renova em 6 dias</span></div><span class="est-r">R$ 269</span><button class="est-do" type="button">Falar</button></div>
+                  <button class="est-go" data-estjump="crm">Ver os 5 no CRM →</button>
+                </div>
+                <div class="est-col">
+                  <div class="est-hd"><span class="est-dot" style="background:var(--good)"></span><b>Zerou / zerando créditos</b><span class="est-val">R$ 1.690</span></div>
+                  <div class="est-item" data-estname="Carlos Menezes"><div class="est-tx"><b>Carlos Menezes</b><span>restam 0 créditos · recompra</span></div><span class="est-r">R$ 499</span><button class="est-do" type="button">Falar</button></div>
+                  <div class="est-item" data-estname="Rafael Lima"><div class="est-tx"><b>Rafael Lima</b><span>1 crédito · quase zerando</span></div><span class="est-r">R$ 196</span><button class="est-do" type="button">Falar</button></div>
+                  <div class="est-item"><div class="est-tx"><b>+10 alunos</b><span>créditos acabando esta semana</span></div><span class="est-r">R$ 995</span></div>
+                  <button class="est-go" data-estjump="crm">Ver os 12 no CRM →</button>
+                </div>
+                <div class="est-col">
+                  <div class="est-hd"><span class="est-dot" style="background:var(--red)"></span><b>Fatura vencendo / vencida</b><span class="est-val">R$ 1.490</span></div>
+                  <div class="est-item" data-estname="Carlos Menezes"><div class="est-tx"><b>Carlos Menezes</b><span>venceu 10/10 · cobrar</span></div><span class="est-r">R$ 499</span><button class="est-do" type="button">Falar</button></div>
+                  <div class="est-item" data-estname="Pedro Alves"><div class="est-tx"><b>Pedro Alves</b><span>vence amanhã</span></div><span class="est-r">R$ 356</span><button class="est-do" type="button">Falar</button></div>
+                  <div class="est-item"><div class="est-tx"><b>+5 faturas</b><span>em aberto esta semana</span></div><span class="est-r">R$ 635</span></div>
+                  <button class="est-go" data-estjump="fin">Ver no Financeiro →</button>
+                </div>
+              </div>
+              <p class="week-note" style="margin-top:.8rem">💡 Partes disso já vivem no <b>CRM</b> e no <b>Financeiro</b> — aqui elas viram <b>uma fila de receita</b>: fale primeiro com quem vence antes. Total da semana: <b>R$ 5.375</b>.</p>
+            </div>
+          </div>
+
+          <div class="dacc" data-acc>
+            <button class="dacc-hd" type="button"><span class="dacc-ic">📈</span><span class="dacc-ti">Receita &amp; ocupação</span><span class="dacc-sum">R$ 24k recorrente · Bike 88%</span><svg class="dacc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dacc-bd">
+              <div class="dash-charts">
+                <div class="panel">
+                  <div class="panel-h"><h2>Receita</h2>
+                    <select id="revRange" class="rev-sel" aria-label="Período da receita">
+                      <option value="meses">Últimos 6 meses</option>
+                      <option value="dias">Últimos 7 dias</option>
+                    </select>
+                  </div>
+                  <div class="panel-b"><div class="rev-chart" id="revChart" role="img" aria-label="Gráfico de receita por período"></div></div>
+                </div>
+                <div class="panel">
+                  <div class="panel-h"><h2>Ocupação por modalidade</h2><span class="ph-note">média do mês</span></div>
+                  <div class="panel-b">
+                    <div class="occ-mod">
+                      <div class="om-row"><span class="om-lbl"><i class="dot d-bike"></i>Bike</span><div class="om-track"><i style="width:88%;background:#2E90C4"></i></div><span class="om-val">88%</span></div>
+                      <div class="om-row"><span class="om-lbl"><i class="dot d-hy"></i>Hot Yoga</span><div class="om-track"><i style="width:82%;background:var(--red)"></i></div><span class="om-val">82%</span></div>
+                      <div class="om-row"><span class="om-lbl"><i class="dot d-sc"></i>Hot Sculpt</span><div class="om-track"><i style="width:79%;background:#C8102E"></i></div><span class="om-val">79%</span></div>
+                    </div>
+                    <p class="occ-insight"><b>Bike e Hot Yoga enchem fácil.</b> O <b>Hot Sculpt ainda tem folga</b> — vale testar outro horário ou reforçar a divulgação pra não deixar vaga (e receita) na mesa.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dacc" data-acc>
+            <button class="dacc-hd" type="button"><span class="dacc-ic">🗓️</span><span class="dacc-ti">Aulas de hoje</span><span class="dacc-sum">7 aulas · 1 lotada · 3 quase</span><svg class="dacc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dacc-bd">
+              <div class="panel plain">
+                <div class="panel-h"><h2>Aulas de hoje</h2><button class="lnk" data-jump="lista">Abrir grade →</button></div>
+                <div class="panel-b">
+                  <div class="row"><span class="rt">06:00</span><span class="dot d-bike"></span><div class="rn"><b>Bike no Rooftop</b> <span>· Cauã</span></div><div class="occ"><b>7</b>/9<div class="bar"><i style="width:78%"></i></div></div></div>
+                  <div class="row"><span class="rt">07:00</span><span class="dot d-sc"></span><div class="rn"><b>Hot Sculpt</b> <span>· Bia</span></div><div class="occ"><b>4</b>/7<div class="bar"><i style="width:57%"></i></div></div></div>
+                  <div class="row"><span class="rt">09:00</span><span class="dot d-hy"></span><div class="rn"><b>Hot Yoga</b> <span>· Marina</span></div><div class="occ"><b>7</b>/7<div class="bar"><i class="full" style="width:100%"></i></div></div></div>
+                  <div class="row"><span class="rt">12:00</span><span class="dot d-sc"></span><div class="rn"><b>Hot Sculpt</b> <span>· Bia</span></div><div class="occ"><b>6</b>/7<div class="bar"><i class="hot" style="width:86%"></i></div></div></div>
+                  <div class="row"><span class="rt">17:00</span><span class="dot d-sc"></span><div class="rn"><b>Hot Sculpt</b> <span>· Bia</span></div><div class="occ"><b>5</b>/7<div class="bar"><i style="width:71%"></i></div></div></div>
+                  <div class="row"><span class="rt">18:00</span><span class="dot d-bike"></span><div class="rn"><b>Bike no Rooftop</b> <span>· Cauã</span></div><div class="occ"><b>8</b>/9<div class="bar"><i class="hot" style="width:89%"></i></div></div></div>
+                  <div class="row"><span class="rt">19:00</span><span class="dot d-hy"></span><div class="rn"><b>Hot Yoga</b> <span>· Marina</span></div><div class="occ"><b>6</b>/7<div class="bar"><i class="hot" style="width:86%"></i></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dacc open" data-acc>
+            <button class="dacc-hd" type="button"><span class="dacc-ic">📉</span><span class="dacc-ti">Precisa de atenção</span><span class="dacc-sum">5 grupos de CRM</span><svg class="dacc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dacc-bd">
+              <div class="panel plain">
+                <div class="panel-h"><h2>Precisa de atenção</h2><button class="lnk" data-jump="crm">Ver CRM →</button></div>
+                <div class="panel-b">
+                  <div class="att" data-list="noshow2x"><span class="abadge" style="background:var(--red)">4</span><div class="atx"><b>Faltaram 2x seguidas</b><span>sinal forte de churn — acender a luz e falar</span></div><button class="go">Ver lista</button></div>
+                  <div class="att" data-list="sumidos14"><span class="abadge" style="background:var(--red)">8</span><div class="atx"><b>Sumidos há +14 dias</b><span>risco de perder — mandar um oi</span></div><button class="go">Ver lista</button></div>
+                  <div class="att" data-list="credacab"><span class="abadge" style="background:var(--good)">12</span><div class="atx"><b>Créditos acabando</b><span>hora de oferecer recompra</span></div><button class="go">Ver lista</button></div>
+                  <div class="att" data-list="expnaocomprou"><span class="abadge" style="background:var(--navy)">3</span><div class="atx"><b>Experimental sem resposta</b><span>fizeram aula, não compraram</span></div><button class="go">Ver lista</button></div>
+                  <div class="att" data-list="aniver"><span class="abadge" style="background:var(--warn)">5</span><div class="atx"><b>Aniversariantes da semana</b><span>enviar carinho + brinde</span></div><button class="go">Ver lista</button></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -1779,6 +1997,7 @@
           <div class="crm-g" data-group="sumir" data-gg="var(--red)">
             <h3><span class="gd" style="background:var(--red)"></span>Não deixar sumir</h3>
             <div class="cards">
+              <div class="ccard" style="--gg:var(--red)"><div class="ch"><span class="cn">Faltaram 2x seguidas</span><span class="cc">4</span></div><p class="cd">Dois no-shows seguidos é o sinal mais forte de que a pessoa está indo embora. O sistema acende a luz sozinho — falar agora reverte.</p><button class="cb" data-list="noshow2x">Ver lista</button></div>
               <div class="ccard" style="--gg:var(--red)"><div class="ch"><span class="cn">Sumidos há +14 dias</span><span class="cc">8</span></div><p class="cd">Ativos que não aparecem há mais de duas semanas. Um "senti sua falta" traz muita gente de volta.</p><button class="cb" data-list="sumidos14">Ver lista</button></div>
               <div class="ccard" style="--gg:var(--red)"><div class="ch"><span class="cn">Frequência caindo</span><span class="cc">6</span></div><p class="cd">Treinavam bastante e diminuíram o ritmo. Falar agora evita o sumiço.</p><button class="cb" data-list="freqcaindo">Ver lista</button></div>
               <div class="ccard" style="--gg:var(--red)"><div class="ch"><span class="cn">Alunos novos (1ª semana)</span><span class="cc">9</span></div><p class="cd">Entraram há pouco. Os primeiros dias decidem se ficam — dar as boas-vindas certas.</p><button class="cb" data-list="novos">Ver lista</button></div>
@@ -1915,32 +2134,104 @@
 
       <section class="view" data-view="aulas">
         <div class="al-ctx" id="alCtx" hidden></div>
-        <div class="rec-banner">
-          <div class="ri"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-7.5 4M3 4v4h4"/></svg></div>
-          <div>
-            <h4>Configuração de recorrência</h4>
-            <p>Aqui você define a <b>grade-modelo</b> que se repete toda semana. O sistema publica essas aulas <b>automaticamente</b> na agenda do aluno, sem ninguém lançar manualmente. A operação do dia a dia fica em <b>Aulas → Lista de aulas</b>.</p>
-          </div>
-        </div>
-        <div class="rec-set">
-          <div class="rec-card"><div class="rl">Publicar com antecedência</div><select><option>2 semanas à frente</option><option selected>4 semanas à frente</option><option>8 semanas à frente</option></select><div class="rh">Quanto tempo antes as aulas aparecem pro aluno agendar.</div></div>
-          <div class="rec-card"><div class="rl">Abre agendamento</div><select><option>7 dias antes</option><option selected>3 dias antes</option><option>24h antes</option></select><div class="rh">Quando o aluno pode começar a reservar a vaga.</div></div>
-          <div class="rec-card"><div class="rl">Cancelamento sem multa até</div><select><option>2h antes</option><option selected>4h antes</option><option>6h antes</option></select><div class="rh">Depois disso, cancelar consome o crédito.</div></div>
-          <div class="rec-card"><div class="rl">Capacidade padrão</div><input value="24 alunos"><div class="rh">Vagas por aula (pode ser ajustado por modalidade).</div></div>
-        </div>
+        <div class="dash-accordions aulas-accordions">
 
-        <div class="rec-banner" style="background:color-mix(in srgb,#C79A2E 8%,transparent);border-color:color-mix(in srgb,#C79A2E 30%,transparent)">
-          <div class="ri" style="background:#C79A2E"><svg viewBox="0 0 24 24"><use href="#i-trophy"/></svg></div>
-          <div>
-            <h4>Marcos de aulas (parabéns)</h4>
-            <p>Números de aulas que viram <b>marco</b> pra comemorar com o aluno — vale o total na unidade <b>ou</b> por modalidade. Quando alguém agendado bate um marco, ele aparece na coluna <b>Precisa de atenção</b> da aula, pra recepção parabenizar (mensagem, cartinha, brinde).</p>
+          <div class="dacc" data-acc>
+            <button class="dacc-hd" type="button"><span class="dacc-ic">🔁</span><span class="dacc-ti">Recorrência &amp; publicação</span><span class="dacc-sum">grade-modelo semanal</span><svg class="dacc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dacc-bd">
+              <p class="folga-intro">Define a <b>grade-modelo</b> que se repete toda semana — o sistema publica as aulas na agenda do aluno <b>automaticamente</b>, sem ninguém lançar à mão. O dia a dia fica em <b>Aulas → Lista de aulas</b>.</p>
+              <div class="rec-set">
+                <div class="rec-card"><div class="rl">Grade visível com antecedência</div><select><option>2 semanas à frente</option><option>3 semanas à frente</option><option selected>4 semanas à frente</option><option>6 semanas à frente</option><option>8 semanas à frente</option></select><div class="rh">Com quanto tempo a aula já <b>aparece</b> na agenda. O aluno vê que vai ter — ainda não quer dizer que já pode reservar.</div></div>
+                <div class="rec-card"><div class="rl">Reserva abre</div><select><option>Assim que fica visível</option><option>14 dias antes</option><option>7 dias antes</option><option selected>3 dias antes</option><option>1 dia antes</option></select><div class="rh">A partir de quando o aluno pode <b>de fato marcar</b>. Escolha "assim que fica visível" se quiser que ver = poder reservar.</div></div>
+                <div class="rec-card"><div class="rl">Cancelamento sem multa até</div><select><option>2h antes</option><option selected>4h antes</option><option>6h antes</option></select><div class="rh">Depois disso, cancelar consome o crédito.</div></div>
+                <div class="rec-card"><div class="rl">Capacidade padrão</div><input value="24 alunos"><div class="rh">Vagas por aula (pode ser ajustado por modalidade).</div></div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="marco-cfg">
-          <span class="rl" style="display:block;margin-bottom:.5rem">Marcos ativos</span>
-          <div class="marco-chips" id="marcoChips"></div>
-          <div class="marco-add"><input type="number" id="marcoInput" placeholder="ex: 150" min="1"><button class="btn-new" id="marcoAdd" type="button"><span>＋</span> Adicionar marco</button></div>
-        </div>
+
+          <div class="dacc" data-acc>
+            <button class="dacc-hd" type="button"><span class="dacc-ic">🏆</span><span class="dacc-ti">Marcos de aulas <small>· parabéns</small></span><span class="dacc-sum">comemorar frequência</span><svg class="dacc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dacc-bd">
+              <p class="folga-intro">Números de aulas que viram <b>marco</b> — vale o total na unidade <b>ou</b> por modalidade. Quando alguém agendado bate um marco, ele aparece na coluna <b>Precisa de atenção</b> da aula, pra recepção parabenizar.</p>
+              <div class="marco-cfg">
+                <span class="rl" style="display:block;margin-bottom:.5rem">Marcos ativos</span>
+                <div class="marco-chips" id="marcoChips"></div>
+                <div class="marco-add"><input type="number" id="marcoInput" placeholder="ex: 150" min="1"><button class="btn-new" id="marcoAdd" type="button"><span>＋</span> Adicionar marco</button></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dacc" data-acc>
+            <button class="dacc-hd" type="button"><span class="dacc-ic">🔒</span><span class="dacc-ti">Bloqueio inteligente de vagas</span><span class="dacc-sum">enche mais rápido, sem espera</span><svg class="dacc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dacc-bd">
+              <p class="folga-intro">Aula que abre com <b>0 agendados parece fraca e espanta</b>; aula que mostra <b>7 de 9</b> gera urgência e enche mais rápido ("cheia atrai cheia"). O sistema <b>esconde parte das vagas</b> pra aula parecer com procura — e vai <b>liberando sozinho conforme os alunos agendam</b>, de modo que <b>ninguém fica preso na lista de espera</b>. Longe da data mostra tudo real (bloquear com 10 dias de antecedência pareceria forçado); o efeito só entra <b>poucos dias antes</b> da aula.</p>
+              <div class="sb-cfg" id="sbCfg">
+                <div class="tg-row">
+                  <div class="tg-txt"><b>Ativar bloqueio inteligente</b><span>Liga a liberação gota-a-gota como padrão da unidade. Dá pra ajustar por modalidade e sobrescrever numa aula específica.</span></div>
+                  <button class="switch on" id="sbMaster" aria-pressed="true"></button>
+                </div>
+                <div class="sb-body" id="sbBody">
+                  <div class="tg-row" style="margin-top:.7rem">
+                    <div class="tg-txt"><b>Nunca deixar ninguém na espera</b><span>Cada novo agendamento libera na hora uma vaga que estava escondida — quem quer entrar, entra. A lista de espera só existe quando a capacidade real acaba.</span></div>
+                    <button class="switch on" data-sw aria-pressed="true"></button>
+                  </div>
+                  <div class="rec-set">
+                    <div class="rec-card"><div class="rl">Começa a aparentar cheia</div><select><option>2 dias antes</option><option>3 dias antes</option><option selected>4 dias antes</option><option>5 dias antes</option><option>7 dias antes</option></select><div class="rh">Antes disso mostra disponibilidade real. Perto da data é que entra o efeito de "procura".</div></div>
+                    <div class="rec-card"><div class="rl">Ocupação aparente nesse início</div><select><option>40% cheia</option><option selected>60% cheia</option><option>70% cheia</option><option>80% cheia</option></select><div class="rh">Como a aula aparece quando o efeito entra — já com cara de procurada.</div></div>
+                    <div class="rec-card"><div class="rl">Folga visível máxima</div><select><option>1 vaga</option><option selected>2 vagas</option><option>3 vagas</option></select><div class="rh">Nunca exibir mais que isso de vagas livres até a aula quase encher.</div></div>
+                    <div class="rec-card"><div class="rl">Destrava tudo</div><select><option>6h antes</option><option selected>12h antes</option><option>1 dia antes</option></select><div class="rh">Reta final: abre todas as vagas reais pra encher de vez (inclusive apps parceiros).</div></div>
+                  </div>
+                  <div class="sb-mods">
+                    <div class="sb-modhd">Ajuste por modalidade</div>
+                    <div class="sb-mrow"><span class="sb-mname"><i class="dot d-bike"></i>Bike <small>cap. 9</small></span><button class="switch on" data-sw aria-pressed="true"></button><div class="sb-mval"><span>aparenta</span><select><option>40% cheia</option><option selected>60% cheia</option><option>70% cheia</option></select></div></div>
+                    <div class="sb-mrow"><span class="sb-mname"><i class="dot d-hy"></i>Hot Yoga <small>cap. 7</small></span><button class="switch on" data-sw aria-pressed="true"></button><div class="sb-mval"><span>aparenta</span><select><option>40% cheia</option><option>60% cheia</option><option selected>70% cheia</option></select></div></div>
+                    <div class="sb-mrow"><span class="sb-mname"><i class="dot d-sc"></i>Hot Sculpt <small>cap. 7</small></span><button class="switch" data-sw aria-pressed="false"></button><div class="sb-mval"><span>aparenta</span><select><option selected>40% cheia</option><option>60% cheia</option><option>70% cheia</option></select></div></div>
+                  </div>
+                  <p class="sb-note">🔒 <b>Escassez real, não lotação falsa:</b> as vagas existem — só são reveladas aos poucos. O sistema <b>nunca</b> mostra mais ocupação do que a capacidade comporta e <b>nunca</b> impede um agendamento de verdade: se chega gente, a vaga escondida abre na hora. É yield management honesto.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dacc" data-acc>
+            <button class="dacc-hd" type="button"><span class="dacc-ic">⏱️</span><span class="dacc-ti">No-show &amp; lista de espera <small>· automáticos</small></span><span class="dacc-sum">menos decisão manual</span><svg class="dacc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dacc-bd">
+              <p class="folga-intro">Quem reservou e <b>não apareceu</b> vira <b>no-show sozinho</b> alguns minutos depois do início — e a vaga <b>promove automaticamente o 1º da lista de espera</b>, já avisando a pessoa. Os dados já existem; aqui liga o <b>automatismo</b>, pra recepção não ter que decidir isso aula por aula.</p>
+              <div class="sb-cfg" id="nsCfg">
+                <div class="tg-row">
+                  <div class="tg-txt"><b>Marcar no-show automático</b><span>Depois do tempo abaixo, quem não deu check-in é marcado como falta — sem ninguém clicar.</span></div>
+                  <button class="switch on" id="nsMaster" aria-pressed="true"></button>
+                </div>
+                <div class="sb-body" id="nsBody">
+                  <div class="rec-set">
+                    <div class="rec-card"><div class="rl">Marca no-show após</div><div class="ns-minrow"><input type="number" class="wl-input" id="nsMin" value="10" min="0" step="1"><span>min do início</span></div><div class="rh">Tempo sem check-in depois do início. Digite os minutos que quiser — dá uma folga pra quem atrasou.</div></div>
+                    <div class="rec-card"><div class="rl">Devolve o crédito?</div><select><option>Não devolve (no-show)</option><option>Devolve se avisou antes</option></select><div class="rh">No-show normalmente consome o crédito — regra da recorrência.</div></div>
+                  </div>
+                  <div class="tg-row" style="margin-top:.2rem">
+                    <div class="tg-txt"><b>Promover 1º da lista de espera</b><span>Ao abrir a vaga do no-show, encaixa automaticamente quem está esperando.</span></div>
+                    <button class="switch on" data-sw aria-pressed="true"></button>
+                  </div>
+                  <div class="tg-row">
+                    <div class="tg-txt"><b>Avisar o aluno promovido</b><span>Mensagem automática: "abriu sua vaga na aula das HH:MM, confirma?" (WhatsApp/push).</span></div>
+                    <button class="switch on" data-sw aria-pressed="true"></button>
+                  </div>
+                  <div class="sb-modhd" style="margin-top:.9rem">No-show de agregadores · Gympass · ClassPass · TotalPass</div>
+                  <div class="tg-row" style="margin-top:0">
+                    <div class="tg-txt"><b>Reportar no-show pro agregador</b><span>Agregador tem rito próprio: o no-show vira <b>multa/penalidade pro app</b> (não pro aluno Salty). O sistema reporta pela API de cada um, no prazo que exigem.</span></div>
+                    <button class="switch on" data-sw aria-pressed="true"></button>
+                  </div>
+                  <div class="rec-set">
+                    <div class="rec-card"><div class="rl">Reporta no-show do agregador após</div><div class="ns-minrow"><input type="number" class="wl-input" id="nsMinAgg" value="15" min="0" step="1"><span>min do início</span></div><div class="rh">Alguns apps exigem janela mínima antes de marcar falta — ajuste conforme a regra de cada um.</div></div>
+                  </div>
+                  <p class="sb-note">⏱️ <b>Já funciona na prática na tela "Agora":</b> quando a recepção marca uma falta, o 1º da espera é encaixado na hora. Esta config deixa isso <b>100% automático</b> no motor (Supabase) — inclusive o report de no-show pros agregadores, que seguem regra própria.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dacc open" data-acc>
+            <button class="dacc-hd" type="button"><span class="dacc-ic">🗓️</span><span class="dacc-ti">Grade semanal</span><span class="dacc-sum">19 aulas · 4 profs · 74%</span><svg class="dacc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="dacc-bd">
 
         <div class="mini-stats">
           <div><b>19</b><span>aulas na grade-modelo</span></div>
@@ -1956,6 +2247,13 @@
             <button class="chip" data-mod="l-bike"><span class="dot d-bike"></span>Bike</button>
             <button class="chip" data-mod="l-hy"><span class="dot d-hy"></span>Hot Yoga</button>
             <button class="chip" data-mod="l-sc"><span class="dot d-sc"></span>Sculpt</button>
+            <span class="fl-lbl" style="margin-left:.6rem">Professor:</span>
+            <select id="profFilter" class="rev-sel" aria-label="Filtrar por professor">
+              <option value="all">Todos</option>
+              <option value="Cauã">Cauã</option>
+              <option value="Marina">Marina</option>
+              <option value="Bia">Bia</option>
+            </select>
           </div>
           <button class="btn-new" id="btnNova"><span>＋</span> Nova aula</button>
         </div>
@@ -2011,6 +2309,10 @@
           <span class="agkey"><i>C</i> ClassPass</span>
         </div>
         <p class="week-note">Grade semanal que se repete automaticamente. Clique numa aula pra editar, ou em <b>Nova aula</b> pra criar uma nova.</p>
+            </div>
+          </div>
+
+        </div>
       </section>
 
       <section class="view" data-view="planos">
@@ -2375,7 +2677,7 @@
             <button class="chip" type="button" data-eper="tri">Trimestre</button>
             <button class="chip" type="button" data-eper="sem">Semestre</button>
           </div>
-          <div class="eng-note">🏆 <b>Pontos de engajamento</b>: cada contato com aluno (pelo mini-CRM de cada aula) vale <b>1 ponto</b>. Zera todo mês; o acumulado trimestral/semestral fica à parte. O <b>log</b> abaixo é a prova pro gestor auditar — se os pontos não baterem com os contatos registrados, acende o alerta.</div>
+          <div class="eng-note">🏆 <b>Pontos de engajamento</b>: cada contato com aluno vale <b>1 ponto</b>, não importa de onde — <b>mini-CRM da aula</b>, <b>listas do CRM</b> ou <b>esteira de renovação</b> no Dashboard somam todos no <b>mesmo placar</b> (o 🏆 lá no topo sobe na hora). Zera todo mês; o acumulado trimestral/semestral fica à parte. O <b>log</b> abaixo é a prova pro gestor auditar — se os pontos não baterem com os contatos registrados, acende o alerta.</div>
           <div class="eng-rank" id="engRank"></div>
           <div class="eng-loghead"><h3 class="blk-h">Log de contatos <span>· auditoria do gestor</span></h3><span class="fl-lbl" id="engLogCount"></span></div>
           <div class="eng-log" id="engLog"></div>
@@ -2519,9 +2821,156 @@
       <div class="agg-row"><span class="agg-name"><i class="agp c">C</i> ClassPass</span><button class="switch agg-sw" aria-pressed="false"></button><div class="agg-qtywrap"><input type="number" min="0" class="wl-input agg-qty" value="0" disabled><span class="agg-un">vagas</span></div></div>
     </div>
 
+    <div class="agg-block off" id="evSbBlock">
+      <label class="fld-l">🔒 Bloqueio inteligente nesta aula</label>
+      <p class="hint">Segura parte das vagas e libera conforme enche, pra aula não parecer vazia. Por padrão <b>herda a regra da modalidade</b> — ligue abaixo pra personalizar só esta aula.</p>
+      <div class="tg-row">
+        <div class="tg-txt"><b>Personalizar nesta aula</b><span>Desligado = usa o padrão definido em Controle de aulas.</span></div>
+        <button class="switch" id="evSbMaster" aria-pressed="false"></button>
+      </div>
+      <div class="sb-evbody">
+        <div class="agg-open"><span>Aparenta cheia a partir de</span><select id="evSbDias" class="wl-input"><option>2 dias</option><option>3 dias</option><option selected>4 dias</option><option>5 dias</option></select><span>antes · aparentando</span><select id="evSbInit" class="wl-input"><option>40% cheia</option><option selected>60% cheia</option><option>70% cheia</option><option>80% cheia</option></select></div>
+        <div class="agg-open"><span>Folga visível máxima</span><select id="evSbFolga" class="wl-input"><option>1 vaga</option><option selected>2 vagas</option><option>3 vagas</option></select><span>· destrava tudo</span><select id="evSbAnt" class="wl-input"><option>6h</option><option selected>12h</option><option>1 dia</option></select><span>antes</span></div>
+      </div>
+    </div>
+
+    <div class="agg-block off" id="evNsBlock">
+      <label class="fld-l">⏱️ No-show desta aula</label>
+      <p class="hint">Por padrão usa o tempo global de Controle de aulas. Ligue pra definir um tempo <b>só desta aula</b> — ex: Bike no rush pode ter janela menor.</p>
+      <div class="tg-row">
+        <div class="tg-txt"><b>Tempo próprio nesta aula</b><span>Desligado = usa o padrão global.</span></div>
+        <button class="switch" id="evNsMaster" aria-pressed="false"></button>
+      </div>
+      <div class="sb-evbody">
+        <div class="agg-open"><span>Marca no-show após</span><input type="number" class="wl-input" id="evNsMin" value="10" min="0" step="1"><span>min · agregador após</span><input type="number" class="wl-input" id="evNsAgg" value="15" min="0" step="1"><span>min</span></div>
+      </div>
+    </div>
+
     <div class="modal-actions">
       <button class="btn-ghost" id="novaCancel">Cancelar</button>
       <button class="btn-new">Salvar aula</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Fluxo guiado: Aluno novo (walk-in → aluno ativo) ===== -->
+<div class="modal-ov" id="novoAlunoModal" role="dialog" aria-modal="true" aria-label="Aluno novo">
+  <div class="modal-card wiz-card">
+    <div class="modal-checker"></div>
+    <button class="modal-x" id="naX" aria-label="Fechar">×</button>
+    <h3>Aluno novo · experimental</h3>
+    <p class="modal-sub">Um caminho só, do balcão até virar aluno. A recepção segue os passos sem precisar lembrar de nada.</p>
+
+    <div class="wiz-steps" id="wizSteps">
+      <div class="wiz-step on" data-ws="0"><span class="wn">1</span><span class="wl">Cadastro</span></div>
+      <div class="wiz-step" data-ws="1"><span class="wn">2</span><span class="wl">Contrato + PAR-Q</span></div>
+      <div class="wiz-step" data-ws="2"><span class="wn">3</span><span class="wl">1ª aula</span></div>
+      <div class="wiz-step" data-ws="3"><span class="wn">4</span><span class="wl">Pacote</span></div>
+    </div>
+    <div class="wiz-bar"><i id="wizBar" style="width:25%"></i></div>
+
+    <!-- passo 1 -->
+    <div class="wiz-pane on" data-wp="0">
+      <label class="fld-l">Nome completo <span class="req">obrigatório</span></label>
+      <div class="wiz-field"><input class="wl-input" id="naNome" placeholder="Ex: Marina Souza" autocomplete="off"></div>
+      <div class="frow wiz-frow">
+        <div class="fcell"><label class="fld-l">CPF <span class="req">obrigatório</span></label><input class="wl-input" id="naCpf" placeholder="000.000.000-00" inputmode="numeric" autocomplete="off"></div>
+        <div class="fcell"><label class="fld-l">Data de nascimento <span class="req">obrigatório</span></label><input class="wl-input" id="naNasc" type="date"></div>
+      </div>
+      <div class="frow wiz-frow">
+        <div class="fcell"><label class="fld-l">WhatsApp <span class="req">obrigatório</span></label><input class="wl-input" id="naTel" placeholder="(79) 9 9999-9999" autocomplete="off"></div>
+        <div class="fcell"><label class="fld-l">E-mail <span class="req">obrigatório</span></label><input class="wl-input" id="naEmail" type="email" placeholder="nome@email.com" autocomplete="off"></div>
+      </div>
+      <label class="fld-l">Como conheceu a Salty? <span style="color:var(--muted);font-weight:400">(opcional)</span></label>
+      <div class="wiz-field"><select class="wl-input" id="naOrigem"><option>Indicação de aluno</option><option>Instagram</option><option>Passou na porta</option><option>Gympass / TotalPass</option><option>Google</option><option>Outro</option></select></div>
+      <p class="wiz-hint">📅 A <b>data de nascimento</b> alimenta o aniversário no CRM (carinho + brinde). Nome, CPF, telefone, e-mail e nascimento são obrigatórios.</p>
+    </div>
+
+    <!-- passo 2 -->
+    <div class="wiz-pane" data-wp="1">
+      <p class="wiz-lead">Antes de pisar na sala, duas coisas de segurança. Escolha como mandar cada uma:</p>
+      <div class="wiz-task" data-natask="contrato">
+        <div class="wt-head"><div class="wt-ic">📄</div><div class="wt-tx"><b>Contrato / termo de experimental</b><span>Link de assinatura digital.</span></div></div>
+        <div class="wt-actions"><button class="wt-btn" data-send="wpp" type="button">📲 WhatsApp</button><button class="wt-btn" data-send="email" type="button">✉️ E-mail</button><button class="wt-btn" data-send="baixar" type="button">⬇️ Baixar</button></div>
+      </div>
+      <div class="wiz-task" data-natask="parq">
+        <div class="wt-head"><div class="wt-ic">❤️</div><div class="wt-tx"><b>PAR-Q (prontidão pra atividade física)</b><span>Questionário rápido de saúde.</span></div></div>
+        <div class="wt-actions"><button class="wt-btn" data-send="wpp" type="button">📲 WhatsApp</button><button class="wt-btn" data-send="email" type="button">✉️ E-mail</button><button class="wt-btn" data-send="baixar" type="button">⬇️ Baixar</button></div>
+      </div>
+      <p class="wiz-hint">⚠️ Sem contrato e PAR-Q a pessoa não entra na aula — por isso vem antes do agendamento. <b>Baixar</b> = o PDF cai no computador, aí a recepção manda do jeito que preferir.</p>
+    </div>
+
+    <!-- passo 3 -->
+    <div class="wiz-pane" data-wp="2">
+      <label class="fld-l">Qual aula experimental?</label>
+      <div class="wiz-field"><select class="wl-input" id="naAula">
+        <option>Hoje 17:00 · Hot Sculpt · Bia (2 vagas)</option>
+        <option>Hoje 18:00 · Bike no Rooftop · Cauã (1 vaga)</option>
+        <option>Hoje 19:00 · Hot Yoga · Marina (1 vaga)</option>
+        <option>Amanhã 07:00 · Hot Sculpt · Bia (4 vagas)</option>
+        <option>Amanhã 09:00 · Hot Yoga · Marina (3 vagas)</option>
+        <option>Amanhã 12:00 · Bike no Rooftop · Cauã (4 vagas)</option>
+        <option>Amanhã 18:00 · Hot Sculpt · Bia (5 vagas)</option>
+        <option>Qui 07:00 · Hot Sculpt · Bia (6 vagas)</option>
+        <option>Qui 19:00 · Hot Yoga · Marina (2 vagas)</option>
+      </select></div>
+      <div class="wiz-task" data-natask="agendar">
+        <div class="wt-ic">📅</div>
+        <div class="wt-tx"><b>Agendar a 1ª aula</b><span>Reserva a vaga e manda a confirmação com data, hora e o que levar.</span></div>
+        <button class="wt-btn" type="button">Agendar</button>
+      </div>
+      <p class="wiz-hint">💡 A experimental já entra na agenda da pessoa — e no "Agora" da recepção no dia.</p>
+    </div>
+
+    <!-- passo 4 -->
+    <div class="wiz-pane" data-wp="3">
+      <p class="wiz-lead">Gostou da aula? Esse é o momento de oferecer — com a experiência fresca.</p>
+      <div class="po-lbl" style="margin:0 0 .5rem">Pra começar</div>
+      <div class="wiz-plans">
+        <button class="wiz-plan" data-naplan="cortesia" type="button"><b>Cortesia avulsa</b><span class="wp-price">R$ 0</span><span class="wp-note">1 aula por nossa conta</span></button>
+        <button class="wiz-plan rec" data-naplan="inicial" type="button"><span class="wp-tag">melhor 1ª vez</span><b>Pacote inicial</b><span class="wp-price">R$ 149</span><span class="wp-note">4 aulas de boas-vindas</span></button>
+      </div>
+      <div class="po-lbl" style="margin:1rem 0 .5rem">Planos mensais</div>
+      <div class="wiz-plans">
+        <button class="wiz-plan" data-naplan="4x" type="button"><b>4 aulas / mês</b><span class="wp-price">R$ 196</span><span class="wp-note">1x por semana</span></button>
+        <button class="wiz-plan" data-naplan="8x" type="button"><b>8 aulas / mês</b><span class="wp-price">R$ 356</span><span class="wp-note">2x por semana</span></button>
+        <button class="wiz-plan" data-naplan="livre" type="button"><b>Livre</b><span class="wp-price">R$ 520</span><span class="wp-note">sem limite</span></button>
+      </div>
+      <p class="wiz-hint">🎁 A <b>cortesia avulsa</b> e o <b>pacote inicial</b> são as portas de entrada. Dá pra fechar com cupom de 1ª compra. Se não fechar agora, a pessoa já entra no CRM como <b>experimental</b> pra follow-up.</p>
+    </div>
+
+    <div class="modal-actions wiz-actions">
+      <button class="btn-ghost" id="naBack" style="visibility:hidden">← Voltar</button>
+      <button class="btn-new" id="naNext">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Cadastro de aluno (ficha nova) ===== -->
+<div class="modal-ov" id="cadAlunoModal" role="dialog" aria-modal="true" aria-label="Cadastrar aluno">
+  <div class="modal-card">
+    <div class="modal-checker"></div>
+    <button class="modal-x" id="caX" aria-label="Fechar">×</button>
+    <h3>Cadastrar aluno</h3>
+    <p class="modal-sub">Abre a ficha do aluno no sistema. Os cinco campos abaixo são <b>obrigatórios</b>.</p>
+
+    <label class="fld-l">Nome completo <span class="req">obrigatório</span></label>
+    <div style="padding:0 1.5rem"><input class="wl-input" id="caNome" placeholder="Nome e sobrenome" autocomplete="off"></div>
+    <div class="frow">
+      <div class="fcell"><label class="fld-l">CPF <span class="req">obrigatório</span></label><input class="wl-input" id="caCpf" placeholder="000.000.000-00" inputmode="numeric" autocomplete="off"></div>
+      <div class="fcell"><label class="fld-l">Data de nascimento <span class="req">obrigatório</span></label><input class="wl-input" id="caNasc" type="date"></div>
+    </div>
+    <div class="frow">
+      <div class="fcell"><label class="fld-l">Telefone <span class="req">obrigatório</span></label><input class="wl-input" id="caTel" placeholder="(79) 9 9999-9999" autocomplete="off"></div>
+      <div class="fcell"><label class="fld-l">E-mail <span class="req">obrigatório</span></label><input class="wl-input" id="caEmail" type="email" placeholder="nome@email.com" autocomplete="off"></div>
+    </div>
+    <label class="fld-l">Como conheceu a Salty? <span style="color:var(--muted);font-weight:400">(opcional)</span></label>
+    <div style="padding:0 1.5rem"><select class="wl-input" id="caOrigem"><option>Indicação de aluno</option><option>Instagram</option><option>Passou na porta</option><option>Gympass / TotalPass</option><option>Google</option><option>Outro</option></select></div>
+    <p class="hint" style="padding:0 1.5rem;margin-top:.8rem;font-size:.78rem;color:var(--muted)">📅 A data de nascimento alimenta o aniversário no CRM. Depois dá pra completar endereço, foto, contato de emergência e observações de saúde na ficha.</p>
+
+    <div class="modal-actions">
+      <button class="btn-ghost" id="caCancel">Cancelar</button>
+      <button class="btn-new" id="caSave">Cadastrar aluno</button>
     </div>
   </div>
 </div>
@@ -2958,8 +3407,14 @@
     side.classList.remove('open'); scrim.classList.remove('on');
   }
   window.__saltyGo=function(v){ try{show(v);}catch(_){ } }; // ponte de navegação p/ outras IIFEs
+  // PLACAR ÚNICO de pontos — todos os canais de contato (mini-CRM da aula, listas do CRM, esteira de renovação) somam aqui
+  window.__saltyPoints=window.__saltyPoints||{ n:0,
+    add:function(k){ this.n=Math.max(0,this.n+k); this.render(true); },
+    render:function(flash){ var v=this.n; document.querySelectorAll('[data-saltypts]').forEach(function(el){ el.textContent=v; if(flash){ el.classList.remove('pulse'); void el.offsetWidth; el.classList.add('pulse'); } }); }
+  };
   // registro COMPARTILHADO de casos de CRM já contatados (por nome) — liga o mini-CRM da aula ao CRM geral
-  window.__saltyCRM=window.__saltyCRM||{ done:{}, is:function(n){return !!this.done[n];}, mark:function(n,on){ if(on)this.done[n]=true; else delete this.done[n]; } };
+  // marcar um contato novo = +1 ponto no placar único; desmarcar = -1 (fonte única de pontuação)
+  window.__saltyCRM=window.__saltyCRM||{ done:{}, is:function(n){return !!this.done[n];}, mark:function(n,on){ var was=!!this.done[n]; if(on){ if(!was){ this.done[n]=true; if(window.__saltyPoints)window.__saltyPoints.add(1); } } else { if(was){ delete this.done[n]; if(window.__saltyPoints)window.__saltyPoints.add(-1); } } } };
   navis.forEach(function(n){n.addEventListener('click',function(){show(n.dataset.v);});});
   if(navAulas){navAulas.querySelector('.navi-parent').addEventListener('click',function(){navAulas.classList.toggle('open');});}
   if(navProd){navProd.querySelector('.navi-parent').addEventListener('click',function(){navProd.classList.toggle('open');});}
@@ -2981,6 +3436,110 @@
       if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(done,function(){ if(fallbackCopy(t))done(); }); }
       else if(fallbackCopy(t)) done();
     });
+  })();
+
+  // Acordeões (Dashboard + Controle de aulas) + ações de "Aulas com folga"
+  (function(){
+    document.addEventListener('click',function(ev){
+      var hd=ev.target.closest('.dacc-hd');
+      if(hd){ var acc=hd.closest('.dacc'); if(acc) acc.classList.toggle('open'); return; }
+      var fa=ev.target.closest('[data-folga]'); if(fa){
+        var row=fa.closest('.folga-row'), cls=row?(row.querySelector('.fg-cls b')||{}).textContent:'', when=row?(row.querySelector('.fg-when')||{}).textContent.replace(/([a-zç])(\d)/i,'$1 $2'):'';
+        var act=fa.getAttribute('data-folga'), msg;
+        if(act==='convidar') msg='Convite enviado pros alunos do CRM (sumidos, experimentais, aniversariantes) pra '+cls+' '+when+' — protótipo';
+        else if(act==='apps') msg='Mais vagas liberadas pros apps parceiros (Gympass/TotalPass) em '+cls+' '+when+' — protótipo';
+        else msg='Card de "últimas vagas" de '+cls+' '+when+' pronto pros stories — baixe e poste — protótipo';
+        if(window.__saltyToast) window.__saltyToast(msg); return;
+      }
+      var ed=ev.target.closest('.est-do'); if(ed){ var row=ed.closest('[data-estname]'); if(row){ var nm=row.getAttribute('data-estname'); var already=window.__saltyCRM&&window.__saltyCRM.is(nm); row.classList.add('done'); ed.textContent='✓ Falado'; if(window.__saltyCRM)window.__saltyCRM.mark(nm,true); if(window.__saltyToast)window.__saltyToast(already?(nm.split(' ')[0]+' já estava contatado — consta no CRM'):('Contato com '+nm.split(' ')[0]+' registrado · +1 ponto 🏆 · consta no CRM e no placar')); } return; }
+      var ej=ev.target.closest('[data-estjump]'); if(ej){ var dest=ej.getAttribute('data-estjump'); if(window.__saltyGo)window.__saltyGo(dest); if(window.__saltyToast)window.__saltyToast(dest==='fin'?'Abri o Financeiro — faturas em aberto pra cobrar':'Abri o CRM — listas de renovação e créditos prontas pra contato'); return; }
+    });
+  })();
+
+  // Bloqueio inteligente — liga/desliga (global em Controle de aulas + por-evento no modal)
+  (function(){
+    var m=document.getElementById('sbMaster'), cfg=document.getElementById('sbCfg');
+    if(m&&cfg){ m.addEventListener('click',function(){
+      var on=m.classList.toggle('on'); m.setAttribute('aria-pressed',on?'true':'false'); cfg.classList.toggle('off',!on);
+      if(window.__saltyToast)window.__saltyToast(on?'Bloqueio inteligente ligado — padrão da unidade':'Bloqueio inteligente desligado — todas as vagas aparecem de uma vez');
+    }); }
+    var em=document.getElementById('evSbMaster'), eb=document.getElementById('evSbBlock');
+    if(em&&eb){ em.addEventListener('click',function(){
+      var on=em.classList.toggle('on'); em.setAttribute('aria-pressed',on?'true':'false'); eb.classList.toggle('off',!on);
+    }); }
+    var nm=document.getElementById('nsMaster'), nc=document.getElementById('nsCfg');
+    if(nm&&nc){ nm.addEventListener('click',function(){
+      var on=nm.classList.toggle('on'); nm.setAttribute('aria-pressed',on?'true':'false'); nc.classList.toggle('off',!on);
+      if(window.__saltyToast)window.__saltyToast(on?'No-show automático ligado':'No-show automático desligado — recepção marca na mão');
+    }); }
+    var enm=document.getElementById('evNsMaster'), enb=document.getElementById('evNsBlock');
+    if(enm&&enb){ enm.addEventListener('click',function(){
+      var on=enm.classList.toggle('on'); enm.setAttribute('aria-pressed',on?'true':'false'); enb.classList.toggle('off',!on);
+    }); }
+  })();
+
+  // Fluxo guiado "Aluno novo" (walk-in → aluno ativo)
+  (function(){
+    var M=document.getElementById('novoAlunoModal'); if(!M) return;
+    var openB=document.getElementById('btnNovoAluno');
+    var steps=M.querySelectorAll('.wiz-step'), panes=M.querySelectorAll('.wiz-pane'), bar=document.getElementById('wizBar');
+    var back=document.getElementById('naBack'), next=document.getElementById('naNext');
+    var step=0, N=panes.length;
+    function paint(){
+      steps.forEach(function(s,i){ s.classList.toggle('on',i===step); s.classList.toggle('done',i<step); });
+      panes.forEach(function(p,i){ p.classList.toggle('on',i===step); });
+      if(bar) bar.style.width=Math.round((step+1)/N*100)+'%';
+      back.style.visibility=step===0?'hidden':'visible';
+      next.textContent=step===N-1?'Concluir cadastro ✓':'Próximo →';
+    }
+    function open(){
+      step=0;
+      M.querySelectorAll('.wiz-task').forEach(function(t){t.classList.remove('done');});
+      M.querySelectorAll('.wiz-task .wt-btn').forEach(function(b){ if(b.dataset.lbl)b.textContent=b.dataset.lbl; });
+      M.querySelectorAll('.wiz-plan').forEach(function(p){p.classList.remove('sel');});
+      paint(); M.classList.add('open'); document.body.style.overflow='hidden';
+    }
+    function close(){ M.classList.remove('open'); document.body.style.overflow=''; }
+    if(openB) openB.addEventListener('click',open);
+    document.getElementById('naX').addEventListener('click',close);
+    back.addEventListener('click',function(){ if(step>0){step--;paint();} });
+    next.addEventListener('click',function(){
+      if(step<N-1){ step++; paint(); }
+      else { close(); if(window.__saltyToast)window.__saltyToast('Aluno novo cadastrado · 1ª aula agendada — já aparece no "Agora" e no CRM como experimental 🎉'); }
+    });
+    M.addEventListener('click',function(ev){
+      var tb=ev.target.closest('.wiz-task .wt-btn');
+      if(tb){ var task=tb.closest('.wiz-task'); task.classList.add('done'); if(!tb.dataset.lbl)tb.dataset.lbl=tb.textContent; tb.textContent='✓ Feito';
+        var ch=tb.dataset.send, item=task.querySelector('.wt-tx b').textContent;
+        var msg=ch==='baixar'?(item+' baixado — mande do jeito que preferir (protótipo)'):(item+' enviado por '+(ch==='wpp'?'WhatsApp':'e-mail')+' (protótipo)');
+        if(window.__saltyToast)window.__saltyToast(msg); return; }
+      var pl=ev.target.closest('.wiz-plan');
+      if(pl){ M.querySelectorAll('.wiz-plan').forEach(function(p){p.classList.remove('sel');}); pl.classList.add('sel'); if(window.__saltyToast)window.__saltyToast('Plano escolhido: '+pl.querySelector('b').textContent+' — leva pro PDV pra fechar'); return; }
+    });
+  })();
+
+  // Cadastro de aluno (modal standalone, aberto pela busca)
+  (function(){
+    var M=document.getElementById('cadAlunoModal'); if(!M) return;
+    function val(id){var e=document.getElementById(id);return e?(e.value||'').trim():'';}
+    function open(cpf){
+      ['caNome','caCpf','caNasc','caTel','caEmail'].forEach(function(id){var e=document.getElementById(id); if(e)e.value='';});
+      if(cpf){ var c=document.getElementById('caCpf'); if(c)c.value=cpf; }
+      M.classList.add('open'); document.body.style.overflow='hidden';
+    }
+    function close(){ M.classList.remove('open'); document.body.style.overflow=''; }
+    window.__saltyCadAluno=open;
+    document.getElementById('caX').addEventListener('click',close);
+    document.getElementById('caCancel').addEventListener('click',close);
+    document.getElementById('caSave').addEventListener('click',function(){
+      var nome=val('caNome'),cpf=val('caCpf'),nasc=val('caNasc'),tel=val('caTel'),email=val('caEmail');
+      var falta=[]; if(!nome)falta.push('nome'); if(!cpf)falta.push('CPF'); if(!nasc)falta.push('data de nascimento'); if(!tel)falta.push('telefone'); if(!email)falta.push('e-mail');
+      if(falta.length){ if(window.__saltyToast)window.__saltyToast('Falta preencher: '+falta.join(', ')); return; }
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ if(window.__saltyToast)window.__saltyToast('E-mail parece inválido — confira'); return; }
+      close(); if(window.__saltyToast)window.__saltyToast('Aluno '+nome.split(' ')[0]+' cadastrado — ficha criada ✅');
+    });
+    var res=document.getElementById('searchRes');
+    if(res) res.addEventListener('click',function(ev){ var b=ev.target.closest('.sr-cad'); if(b){ open(b.getAttribute('data-cad')||''); res.classList.remove('open'); } });
   })();
 
   // Dashboard — gráfico de receita (6 meses / 7 dias)
@@ -3077,16 +3636,24 @@
     bs.forEach(function(b){b.addEventListener('click',function(){bs.forEach(function(x){x.classList.remove('on');});b.classList.add('on');});});
   });
   // chips filtro — filtra a grade-modelo (Controle de aulas)
-  document.querySelectorAll('[data-view="aulas"] .filters .chip').forEach(function(c){
-    c.addEventListener('click',function(){
-      document.querySelectorAll('[data-view="aulas"] .filters .chip').forEach(function(x){x.classList.remove('on');});
-      c.classList.add('on');
-      var m=c.dataset.mod;
+  // filtro combinado da grade: modalidade (chips) + professor (dropdown)
+  (function(){
+    var chips=document.querySelectorAll('[data-view="aulas"] .filters .chip');
+    var profSel=document.getElementById('profFilter');
+    function apply(){
+      var on=document.querySelector('[data-view="aulas"] .filters .chip.on');
+      var m=on?on.dataset.mod:'all';
+      var p=profSel?profSel.value:'all';
       document.querySelectorAll('.week .acard').forEach(function(card){
-        card.style.display=(m==='all'||card.classList.contains(m))?'':'none';
+        var okM=(m==='all'||card.classList.contains(m));
+        var prof=((card.querySelector('.ac-p')||{}).textContent||'').trim();
+        var okP=(p==='all'||prof===p);
+        card.style.display=(okM&&okP)?'':'none';
       });
-    });
-  });
+    }
+    chips.forEach(function(c){ c.addEventListener('click',function(){ chips.forEach(function(x){x.classList.remove('on');}); c.classList.add('on'); apply(); }); });
+    if(profSel) profSel.addEventListener('change',apply);
+  })();
 
   // ===== Lista de aulas (visão operacional) =====
   (function(){
@@ -4890,6 +5457,7 @@
     function email(name){var p=name.split(' ');return slug(p[0])+'.'+slug(p[p.length-1])+'@email.com';}
     var meta={
       sumidos14:{t:'Sumidos há +14 dias',s:'Ativos que sumiram. Um "senti sua falta" traz muita gente de volta.',n:8,cl:'Sem treinar',cx:function(i){return (14+i)+' dias';},pl:['Clube Salty','5 por mês','10 por mês'],msg:'Oi! Senti sua falta aqui na salty 🌊 bora marcar uma aula essa semana?'},
+      noshow2x:{t:'Faltaram 2x seguidas',s:'Dois no-shows seguidos é o sinal mais forte de churn. Falar agora reverte muita gente antes de sumir de vez.',n:4,cl:'Faltas',cx:function(i){return '2 seguidas';},pl:['Clube Salty','10 por mês','5 por mês'],msg:'Oi! Senti sua falta nas últimas aulas 🌊 tá tudo bem? bora remarcar uma que funcione melhor pra você?'},
       freqcaindo:{t:'Frequência caindo',s:'Treinavam bastante e diminuíram. Falar agora evita o sumiço.',n:6,cl:'Ritmo',cx:function(i){return '3x → 1x/sem';},pl:['Clube Salty','10 por mês','5 por mês'],msg:'Oi! Vi que você deu uma sumida do pico 👀 tá tudo certo? bora remarcar!'},
       novos:{t:'Alunos novos (1ª semana)',s:'Entraram há pouco. Os primeiros dias decidem se ficam.',n:9,cl:'Entrou há',cx:function(i){return (1+i)+' dias';},pl:['Experimental','5 créditos','10 créditos'],msg:'Oi! Que bom te ter na salty 🌊 já quer marcar sua próxima aula?'},
       credacab:{t:'Créditos acabando',s:'Com 2 créditos ou menos. Melhor hora pra oferecer recompra.',n:12,cl:'Saldo',cx:function(i){return (i%2?'1 crédito':'2 créditos');},pl:['10 créditos','20 créditos','5 créditos'],msg:'Oi! Seus créditos na salty estão acabando — quer já garantir o próximo pacote?'},
@@ -5283,7 +5851,7 @@
       if(!q){res.classList.remove('open');return;}
       var digits=q.replace(/\D/g,'');
       var found=alunos.filter(function(a){return a.nome.toLowerCase().indexOf(q)>=0 || (digits&&a.cpf.replace(/\D/g,'').indexOf(digits)>=0);});
-      if(!found.length){res.innerHTML='<div class="sr-empty">Nenhum aluno encontrado.</div>';res.classList.add('open');return;}
+      if(!found.length){res.innerHTML='<div class="sr-empty">Nenhum aluno encontrado.</div><button class="sr-cad" id="srCad" type="button" data-cad="'+(digits||'')+'">＋ Cadastrar novo aluno</button>';res.classList.add('open');return;}
       res.innerHTML=found.map(function(a){return '<button class="sr-item" data-cpf="'+a.cpf+'"><span class="sr-av">'+a.nome.charAt(0)+'</span><span class="sr-tx"><b>'+a.nome+'</b><span>'+a.cpf+' · '+a.plano+'</span></span><span class="sr-dot" style="background:'+(a.ok?'var(--good)':'var(--red)')+'"></span></button>';}).join('');
       res.classList.add('open');
     }
