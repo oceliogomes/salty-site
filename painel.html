@@ -1739,6 +1739,11 @@
     .menu-btn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:9px;border:1.5px solid var(--line2);background:var(--panel);color:var(--ink);cursor:pointer}
     .scrim.on{display:block}
   }
+  /* tablet-first: alvos de toque maiores em telas de toque (iPad do balcão) — não afeta mouse */
+  @media (pointer:coarse){
+    .att-check,.att-crm,.att-actbtn,.att-av,.a-checkbtn,.a-faltou,.a-av,.ff-dots,.modal-x,.side-toggle,.sb-ico,.fcopy{min-width:40px;min-height:40px}
+    .ag-tool,.btn-ghost,.est-do,.est-go,.fg-act,.wt-btn,.att .go,.ccard .cb,.dtab,.sr-item,.pw-item,.dacc-hd{min-height:42px}
+  }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -4882,8 +4887,8 @@
       e.stopPropagation(); gmenu.classList.remove('open');
       var a=mi.dataset.ga;
       if(a==='edit'){ openM(); }
-      else if(a==='prof'){ alert('Alterar professor — abriria a lista de professores pra trocar quem dá essa aula. (protótipo)'); }
-      else if(a==='rec'){ alert('Remover recorrência — a aula deixaria de repetir toda semana. (protótipo)'); }
+      else if(a==='prof'){ toast('Alterar professor — trocaria quem dá essa aula (protótipo)'); }
+      else if(a==='rec'){ toast('Remover recorrência — a aula deixaria de repetir toda semana (protótipo)'); }
     });
   });
 
@@ -4930,8 +4935,8 @@
     document.getElementById('vFinish').addEventListener('click',function(){
       var parcTxt='';
       if(st.isSub && st.dval>0){ var pv=(parcIn.value||'').trim(); parcTxt='\nDesconto nas parcelas: '+((pv===''||pv==='0')?'todas':pv); }
-      if(st.isCredit){ var q=parseInt(vQtd&&vQtd.value,10)||1; alert('Lançado! (protótipo)\n\n'+q+' × '+vName.textContent+' creditados pro aluno\nTotal: '+vTotal.textContent); return; }
-      alert('Venda registrada! (protótipo)\n\nItem: '+vName.textContent+'\nPagamento: '+document.getElementById('paySel').value+'\nTotal: '+vTotal.textContent+parcTxt);
+      if(st.isCredit){ var q=parseInt(vQtd&&vQtd.value,10)||1; if(window.__saltyToast)window.__saltyToast('Lançado ✓ '+q+' × '+vName.textContent+' creditados · total '+vTotal.textContent+' (protótipo)'); return; }
+      if(window.__saltyToast)window.__saltyToast('Venda registrada ✓ '+vName.textContent+' · '+document.getElementById('paySel').value+' · '+vTotal.textContent+' (protótipo)');
     });
   })();
 
@@ -5113,7 +5118,7 @@
       cart=[]; cartDisc={mode:'pct',val:0}; if(dip)dip.value='';
       document.querySelectorAll('#descSegP button').forEach(function(x){x.classList.toggle('on',x.dataset.dt==='pct');});
       renderAll();
-      alert('Venda lançada! (protótipo)\n\n'+linhas.join('\n')+'\nTotal: '+tot+'\n\nBaixa no estoque feita.');
+      if(window.__saltyToast)window.__saltyToast('Venda lançada ✓ total '+tot+' · baixa no estoque feita (protótipo)');
     });
   })();
 
@@ -5371,7 +5376,7 @@
     var ff=document.getElementById('fecharFolha');
     if(ff)ff.addEventListener('click',function(e){ e.stopPropagation();
       folhaFechada=true; renderFolha(); ff.innerHTML='<span>✓</span> Folha fechada';
-      alert('Folha de Outubro fechada! (protótipo)\n\nTotal: '+document.getElementById('folhaFootVal').textContent+' · '+profList().length+' professores\nPronta pra pagamento.');
+      if(window.__saltyToast)window.__saltyToast('Folha de Outubro fechada ✓ '+document.getElementById('folhaFootVal').textContent+' · '+profList().length+' professores · pronta pra pagamento (protótipo)');
     });
 
     // sub-abas Quadro | Folha | Comissão
@@ -5477,7 +5482,7 @@
     cm.addEventListener('click',function(e){if(e.target===cm)closeC();});
     document.getElementById('cupomSave').addEventListener('click',function(){
       var c=(document.getElementById('cpCode').value||'NOVOCUPOM').toUpperCase(); closeC();
-      alert('Cupom "'+c+'" criado! (protótipo)\n\nJá pode ser compartilhado com os alunos.');
+      if(window.__saltyToast)window.__saltyToast('Cupom "'+c+'" criado ✓ já pode compartilhar com os alunos (protótipo)');
     });
   }
   document.querySelectorAll('.cp-copy').forEach(function(b){
@@ -5493,8 +5498,8 @@
         if(cp.classList.contains('pausado')){cp.classList.remove('pausado');cp.classList.add('ativo');st.className='cp-status ativo';st.textContent='Ativo';b.textContent='Pausar';}
         else {cp.classList.remove('ativo');cp.classList.add('pausado');st.className='cp-status pausado';st.textContent='Pausado';b.textContent='Ativar';}
       } else if(a==='share'){
-        alert('Link do cupom copiado! (protótipo)\n\nsalty.com.br/cupom/'+cp.querySelector('.cp-code').textContent.trim().split(' ')[0]);
-      } else if(a==='dup'){ alert('Cupom duplicado pra você editar e reativar. (protótipo)'); }
+        if(window.__saltyToast)window.__saltyToast('Link do cupom copiado ✓ salty.com.br/cupom/'+cp.querySelector('.cp-code').textContent.trim().split(' ')[0]+' (protótipo)');
+      } else if(a==='dup'){ if(window.__saltyToast)window.__saltyToast('Cupom duplicado pra editar e reativar (protótipo)'); }
     });
   });
   document.querySelectorAll('[data-cf]').forEach(function(c){
@@ -5818,7 +5823,7 @@
     // ---------- publicar ----------
     document.getElementById('escPublicar').addEventListener('click',function(){
       var nc=covGaps(), a=dDate(0),b=dDate(6);
-      alert('Escala ('+TEAMS[team].nome+') publicada! (protótipo)\n\nSemana de '+a.getDate()+'–'+b.getDate()+' '+MES3[a.getMonth()]+' '+b.getFullYear()+'\n'+(nc?('⚠ Atenção: '+nc+' turno(s) sem cobertura.'):'✓ Todos os turnos cobertos.')+'\n\nNo sistema real, cada pessoa da equipe receberia a própria escala por WhatsApp/e-mail.');
+      toast('Escala ('+TEAMS[team].nome+') publicada · semana '+a.getDate()+'–'+b.getDate()+' '+MES3[a.getMonth()]+' · '+(nc?('⚠ '+nc+' turno(s) sem cobertura'):'✓ tudo coberto')+' (protótipo)');
     });
     // ========== MODAL: configurar turnos ==========
     var TM=document.getElementById('escTurnosModal');
@@ -5953,7 +5958,7 @@
   })();
 
   // Financeiro (protótipo)
-  document.querySelectorAll('.fin-act').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.nf.pend').forEach(function(n){n.className='nf ok';n.textContent='Emitida';});alert('Notas fiscais pendentes emitidas! (protótipo)');});});
+  document.querySelectorAll('.fin-act').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.nf.pend').forEach(function(n){n.className='nf ok';n.textContent='Emitida';});if(window.__saltyToast)window.__saltyToast('Notas fiscais pendentes emitidas ✓ (protótipo)');});});
   document.querySelectorAll('.nf.pend').forEach(function(b){b.addEventListener('click',function(){b.className='nf ok';b.textContent='Emitida';});});
 
   // Busca de aluno + ficha
@@ -6272,13 +6277,14 @@
     function closeFFMenus(){ document.querySelectorAll('#fichaFull .ff-rowmenu').forEach(function(m){m.hidden=true;}); }
     function handleFFAct(act,ctx,hash){
       if(act==='evento'){ if(hash&&hash!=='#lista'){ location.hash=hash; } else show('lista'); return; }
-      if(act==='detalhes'){ alert('Detalhes do uso (protótipo)\n\n'+ctx); return; }
-      if(act==='devolver'){ alert('Crédito devolvido ao aluno (protótipo)\n\n'+ctx); return; }
-      if(act==='reserva'){ alert('Informações da reserva (protótipo)\n\n'+ctx); return; }
-      if(act==='comprovante'){ alert('Comprovante reenviado por WhatsApp (protótipo)\n\n'+ctx); return; }
-      if(act==='vendedor'){ alert('Alterar vendedor do pedido (protótipo)\n\n'+ctx); return; }
-      if(act==='estorno'){ alert('Pedido cancelado e ESTORNADO (protótipo)\n\n'+ctx); return; }
-      if(act==='semestorno'){ alert('Pedido cancelado SEM estorno (protótipo)\n\n'+ctx); return; }
+      var T=window.__saltyToast||function(){};
+      if(act==='detalhes'){ T('Detalhes do uso: '+ctx+' (protótipo)'); return; }
+      if(act==='devolver'){ T('Crédito devolvido ao aluno · '+ctx+' (protótipo)'); return; }
+      if(act==='reserva'){ T('Informações da reserva: '+ctx+' (protótipo)'); return; }
+      if(act==='comprovante'){ T('Comprovante reenviado por WhatsApp · '+ctx+' (protótipo)'); return; }
+      if(act==='vendedor'){ T('Alterar vendedor do pedido · '+ctx+' (protótipo)'); return; }
+      if(act==='estorno'){ T('Pedido cancelado e ESTORNADO · '+ctx+' (protótipo)'); return; }
+      if(act==='semestorno'){ T('Pedido cancelado SEM estorno · '+ctx+' (protótipo)'); return; }
     }
     document.getElementById('fichaFull').addEventListener('click',function(e){
       var dots=e.target.closest('[data-rowmenu]');
