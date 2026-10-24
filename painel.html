@@ -980,6 +980,11 @@
   .ag-tools .exp-wrap{position:relative;margin-bottom:0}
   .ag-tools .exp-menu{position:absolute;z-index:30;top:calc(100% + .35rem);left:0;min-width:210px;box-shadow:0 10px 26px -12px rgba(0,0,0,.3)}
   .ag-tools .exp-chev{width:13px;height:13px;margin-left:.1rem}
+  .ag-tool.on{border-color:var(--navy);color:var(--navy);background:color-mix(in srgb,var(--navy) 8%,transparent)}
+  /* declutter: modo compacto da lista de agendados */
+  .att-list.compact .att-meta{display:none}
+  .att-list.compact .att-cake,.att-list.compact .att-first-ic,.att-list.compact .att-marco-ic,.att-list.compact .att-owe{display:none}
+  .att-list.compact .att-row{padding-top:.5rem;padding-bottom:.5rem}
   /* cabeçalho do card lateral + cadeado */
   .aside-cardhd{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-bottom:.7rem}
   .aside-cardhd h4{margin-bottom:0}
@@ -1345,6 +1350,33 @@
   .esc-rowlbl small{color:var(--muted);font-weight:600;font-size:.62rem;font-family:var(--f-mono);margin-top:.1rem}
   .esc-cell{background:var(--panel);border:1.5px solid var(--line2);border-radius:10px;padding:.4rem}
   .esc-cell.nocov{border-color:var(--red);background:color-mix(in srgb,var(--red) 7%,transparent)}
+  .esc-teamseg{margin-bottom:1rem}
+  /* Permissões por papel */
+  .perm-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.8rem}
+  .perm-h{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.35rem}
+  .perm-sub{font-size:.86rem;color:var(--muted);max-width:62ch;margin-top:.2rem}
+  .perm-legend{display:flex;gap:1.3rem;flex-wrap:wrap;font-size:.78rem;color:var(--muted);margin-bottom:1rem}
+  .perm-legend span{display:inline-flex;align-items:center;gap:.45rem}
+  .perm-legend small{color:var(--faint)}
+  .pl-sw{width:30px;height:17px;border-radius:999px;background:var(--line2);flex:none;position:relative}
+  .pl-sw.on{background:var(--good)} .pl-sw.gestor{background:var(--navy)}
+  .perm-wrap{overflow-x:auto;border:1.5px solid var(--line2);border-radius:14px;background:var(--panel)}
+  .perm-table{width:100%;border-collapse:collapse;min-width:540px}
+  .perm-table th{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:.85rem .6rem;text-align:center;border-bottom:1.5px solid var(--line2)}
+  .perm-table th.pt-area{text-align:left}
+  .perm-table th small{display:block;font-size:.52rem;color:var(--faint);font-weight:600;letter-spacing:.02em}
+  .perm-table td{padding:.6rem;text-align:center;border-bottom:1px solid var(--line)}
+  .perm-table tr:last-child td{border-bottom:none}
+  .perm-table tbody tr:hover{background:var(--raise)}
+  .perm-table td.pt-area{text-align:left;line-height:1.25}
+  .perm-table td.pt-area b{display:block;font-size:.88rem}
+  .perm-table td.pt-area span{font-size:.74rem;color:var(--muted)}
+  .perm-sw{width:40px;height:23px;border-radius:999px;border:1.5px solid var(--line2);background:var(--line2);position:relative;cursor:pointer;transition:.15s;padding:0;vertical-align:middle}
+  .perm-sw::after{content:'';position:absolute;top:1.5px;left:2px;width:17px;height:17px;border-radius:50%;background:#fff;transition:.15s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+  .perm-sw.on{background:var(--good);border-color:var(--good)}
+  .perm-sw.on::after{left:19px}
+  .perm-sw.fixed{background:var(--navy);border-color:var(--navy);cursor:not-allowed;opacity:.9}
+  .perm-sw.fixed::after{left:19px}
   .esc-sel{width:100%;font-family:inherit;font-weight:700;font-size:.74rem;border:1.5px solid var(--line2);border-left-width:4px;border-radius:7px;padding:.32rem;background:var(--raise);color:var(--ink);cursor:pointer}
   .esc-sel:hover{border-color:var(--red)}
   .esc-closed{text-align:center;color:var(--muted);font-size:.72rem;font-weight:600;padding:.4rem 0}
@@ -2592,7 +2624,8 @@
           <button class="ag-tab" type="button" data-stab="folha">Folha de pagamento</button>
           <button class="ag-tab" type="button" data-stab="comissao">Comissão de vendas</button>
           <button class="ag-tab" type="button" data-stab="engaja">Engajamento</button>
-          <button class="ag-tab" type="button" data-stab="escala">Escala da recepção</button>
+          <button class="ag-tab" type="button" data-stab="escala">Escala</button>
+          <button class="ag-tab" type="button" data-stab="perm">Permissões</button>
         </div>
 
         <div class="staff-sub" id="staffQuadro">
@@ -2685,6 +2718,10 @@
         </div>
 
         <div class="staff-sub" id="staffEscala" hidden>
+          <div class="esc-teamseg seg-toggle" id="escTeamSeg">
+            <button class="on" type="button" data-team="recep">👋 Recepção</button>
+            <button type="button" data-team="prof">🏋️ Professores</button>
+          </div>
           <div class="esc-ctrl">
             <div class="esc-ctrl-l">
               <div class="seg-toggle" id="escViewSeg">
@@ -2711,6 +2748,23 @@
           <div class="esc-wrap" id="escWeekWrap"><div class="esc-grid" id="escGrid"></div></div>
           <div class="esc-month" id="escMonth" hidden></div>
           <p class="week-note" id="escNote">Clique em cada célula pra escolher <b>quem</b> cobre o turno (ou <b>Folga</b>). A grade soma as horas de cada um e avisa se algum turno ficou <b>sem cobertura</b>. Use <b>Turnos</b> pra mudar os horários (ex: sábado abrir 8h), <b>Auto-preencher</b> pra aplicar uma regra de rodízio, e <b>Ver como</b> pra simular o acesso da recepção (só leitura). No protótipo nada é salvo ao recarregar.</p>
+        </div>
+
+        <div class="staff-sub" id="staffPerm" hidden>
+          <div class="perm-head">
+            <div>
+              <h3 class="perm-h">Permissões por papel</h3>
+              <p class="perm-sub">Define o que cada tipo de usuário <b>vê e edita</b> no sistema. Quem é de cada papel você escolhe no cadastro do funcionário (Quadro).</p>
+            </div>
+            <button class="btn-new" id="permSave"><span>✓</span> Salvar permissões</button>
+          </div>
+          <div class="perm-legend">
+            <span><span class="pl-sw gestor"></span>Gestor <small>acesso total (fixo)</small></span>
+            <span><span class="pl-sw"></span>desligado = sem acesso</span>
+            <span><span class="pl-sw on"></span>ligado = pode acessar</span>
+          </div>
+          <div class="perm-wrap"><table class="perm-table" id="permTable"></table></div>
+          <p class="week-note">O <b>Gestor</b> tem acesso total (coluna travada). Ajuste <b>Recepção</b> e <b>Professor</b> marcando o que cada um acessa. No sistema real isso roda no login (Supabase Auth + regras de acesso por linha) — aqui é protótipo visual.</p>
         </div>
       </section>
 
@@ -4193,6 +4247,7 @@
     document.addEventListener('keydown',function(e){if(e.key==='Escape'&&alModal.classList.contains('open'))closeAl();});
     // ---- estado da página de agendados (slots: posição -> aluno ou null) ----
     var agState=null;
+    var agCompact=false; // declutter: modo compacto da lista de agendados
     function fn(a){return a.n.split(' ')[0];}
     function countBooked(){ var c=0; agState.slots.forEach(function(s){if(s)c++;}); return c; }
     function blockedCount(){ return agState.blocked.size; }
@@ -4350,7 +4405,7 @@
     var CRM_CASES=['Créditos acabando','Sumido +14 dias','Aniversariante','Frequência caindo','Fez experimental','Bateu um marco'];
     function crmCaseOf(n){ var h=0; for(var i=0;i<n.length;i++)h=(h*31+n.charCodeAt(i))|0; h=Math.abs(h); return (h%3===0)?CRM_CASES[h%CRM_CASES.length]:null; }
     function renderAgList(){
-      var ab=document.getElementById('agBody'); ab.innerHTML=''; var isBike=agState.isBike, cfg=mapCfg(agState.ev.mod);
+      var ab=document.getElementById('agBody'); ab.innerHTML=''; ab.classList.toggle('compact',agCompact); var isBike=agState.isBike, cfg=mapCfg(agState.ev.mod);
       // monta lista {si, aluno, crm}, aplica ordenação escolhida
       var entries=[]; agState.slots.forEach(function(a,si){ if(a) entries.push({si:si,a:a,crm:crmCaseOf(a.n)}); });
       // mini-CRM da aula: só os alunos com um CASO de CRM precisam de contato
@@ -4552,6 +4607,7 @@
         +'<button class="ag-tool" id="btnMsg" type="button" data-sa="msg"><svg><use href="#i-crm"/></svg>Mensagem aos inscritos</button>'
         +'<div class="exp-wrap'+(expOpen?' open':'')+'"><button class="ag-tool" id="expBtn" type="button"><svg><use href="#i-list"/></svg>Exportar lista<svg class="exp-chev"><use href="#i-chev"/></svg></button>'
           +'<div class="exp-menu"><button type="button" data-exp="excel"><svg><use href="#i-list"/></svg>Excel BR (.csv, ;)</button><button type="button" data-exp="csv"><svg><use href="#i-list"/></svg>CSV padrão (.csv, ,)</button></div></div>'
+        +'<button class="ag-tool'+(agCompact?' on':'')+'" id="btnCompact" type="button" title="Alterna entre lista detalhada e enxuta"><svg><use href="#i-list"/></svg>'+(agCompact?'Detalhado':'Compacto')+'</button>'
         +'<button class="ag-tool danger" id="btnClose" type="button" data-sa="close"><svg><use href="#i-check"/></svg>Encerrar sessão</button>';
       document.getElementById('btnBlock').addEventListener('click',toggleBlock);
       updBlkCount();
@@ -4560,6 +4616,7 @@
     document.getElementById('agTools').addEventListener('click',function(e){
       if(!agState) return;
       if(e.target.closest('#btnBlock')) return; // tratado pelo próprio botão
+      if(e.target.closest('#btnCompact')){ agCompact=!agCompact; renderAgTools(); renderAgList(); toast(agCompact?'Lista compacta — só o essencial':'Lista detalhada'); return; }
       var exp=e.target.closest('[data-exp]'); if(exp){ expOpen=false; exportList(exp.dataset.exp); renderAgTools(); return; }
       if(e.target.closest('#expBtn')){ expOpen=!expOpen; renderAgTools(); return; }
       var sa=e.target.closest('[data-sa]');
@@ -5318,7 +5375,7 @@
     });
 
     // sub-abas Quadro | Folha | Comissão
-    var subMap={quadro:'staffQuadro',folha:'staffFolha',comissao:'staffComissao',engaja:'staffEngaja',escala:'staffEscala'};
+    var subMap={quadro:'staffQuadro',folha:'staffFolha',comissao:'staffComissao',engaja:'staffEngaja',escala:'staffEscala',perm:'staffPerm'};
     document.querySelectorAll('#staffTabs .ag-tab').forEach(function(t){
       t.addEventListener('click',function(){
         document.querySelectorAll('#staffTabs .ag-tab').forEach(function(x){x.classList.remove('on');});
@@ -5328,6 +5385,7 @@
         if(sel==='folha') renderFolha();
         if(sel==='comissao') renderComissao();
         if(sel==='engaja') renderEngaja();
+        if(sel==='perm' && window.__renderPerm) window.__renderPerm();
       });
     });
 
@@ -5624,21 +5682,32 @@
       {l:'Seg',wk:false},{l:'Ter',wk:false},{l:'Qua',wk:false},
       {l:'Qui',wk:false},{l:'Sex',wk:false},{l:'Sáb',wk:true},{l:'Dom',wk:true}
     ];
-    var PEOPLE=['Ana','Pedro','Camila'];
-    var FULL={Ana:'Ana Oliveira',Pedro:'Pedro Alves',Camila:'Camila Rocha'};
-    var COLORS={Ana:'#37346A',Pedro:'#2A6C8C',Camila:'#C0791A'};
+    // duas equipes na mesma máquina de escala: Recepção e Professores
+    var TEAMS={
+      recep:{ nome:'Recepção', people:['Ana','Pedro','Camila'],
+        full:{Ana:'Ana Oliveira',Pedro:'Pedro Alves',Camila:'Camila Rocha'},
+        colors:{Ana:'#37346A',Pedro:'#2A6C8C',Camila:'#C0791A'},
+        turnos:{ semM:{on:true,ini:'06:00',fim:'14:00'}, semT:{on:true,ini:'14:00',fim:'22:00'}, sab:{on:true,ini:'08:00',fim:'14:00'}, dom:{on:false,ini:'08:00',fim:'12:00'} },
+        esc:[ {m:'Ana',t:'Pedro'},{m:'Pedro',t:'Camila'},{m:'Ana',t:'Camila'},{m:'Camila',t:'Pedro'},{m:'Ana',t:'Pedro'},{m:'Camila',t:'folga'},{m:'folga',t:'folga'} ] },
+      prof:{ nome:'Professores', people:['Cauã','Marina','Bia'],
+        full:{'Cauã':'Cauã Ribeiro','Marina':'Marina Alves','Bia':'Bia Costa'},
+        colors:{'Cauã':'#2E90C4','Marina':'#E73737','Bia':'#C8102E'},
+        turnos:{ semM:{on:true,ini:'06:00',fim:'13:00'}, semT:{on:true,ini:'13:00',fim:'22:00'}, sab:{on:true,ini:'08:00',fim:'12:00'}, dom:{on:false,ini:'08:00',fim:'12:00'} },
+        esc:[ {m:'Cauã',t:'Marina'},{m:'Marina',t:'Bia'},{m:'Cauã',t:'Bia'},{m:'Bia',t:'Marina'},{m:'Cauã',t:'Marina'},{m:'Marina',t:'folga'},{m:'folga',t:'folga'} ] }
+    };
+    var team='recep', PEOPLE, FULL, COLORS, turnos, esc;
+    function loadTeam(k){ team=k; var t=TEAMS[k]; PEOPLE=t.people; FULL=t.full; COLORS=t.colors; turnos=t.turnos; esc=t.esc; ruleVaga=null; rulePessoa=null; }
+    loadTeam('recep');
     var MES3=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
     var MESFULL=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
     var BASE=new Date(2026,9,12); // segunda 12/10/2026 (semana 0)
     function p2(n){return (n<10?'0':'')+n;}
     function ph(s){var p=(''+s).split(':');return (+p[0])+((+p[1]||0)/60);}
-    // config de turnos editável
-    var turnos={ semM:{on:true,ini:'06:00',fim:'14:00'}, semT:{on:true,ini:'14:00',fim:'22:00'}, sab:{on:true,ini:'08:00',fim:'14:00'}, dom:{on:false,ini:'08:00',fim:'12:00'} };
+    // config de turnos editável (vem do TEAMS pela loadTeam)
     function tcfg(i,sh){ var d=DAYS[i]; if(d.l==='Sáb') return sh==='m'?turnos.sab:null; if(d.l==='Dom') return sh==='m'?turnos.dom:null; return sh==='m'?turnos.semM:turnos.semT; }
     function active(i,sh){ var c=tcfg(i,sh); return !!(c&&c.on); }
     function tHours(c){ return Math.max(0,ph(c.fim)-ph(c.ini)); }
-    // estado da semana atual
-    var esc=[ {m:'Ana',t:'Pedro'},{m:'Pedro',t:'Camila'},{m:'Ana',t:'Camila'},{m:'Camila',t:'Pedro'},{m:'Ana',t:'Pedro'},{m:'Camila',t:'folga'},{m:'folga',t:'folga'} ];
+    // estado da semana atual (esc vem do TEAMS pela loadTeam)
     var weekOffset=0, monthOffset=0, viewMode='gestor', viewKind='semana';
     var ruleVaga=null, rulePessoa=null;
     // ---------- datas ----------
@@ -5719,12 +5788,19 @@
     function applyPerm(){
       var recep=(viewMode==='recep');
       ['escConfig','escAuto','escPublicar'].forEach(function(id){ var b=document.getElementById(id); if(b)b.style.display=recep?'none':''; });
-      var bn=document.getElementById('escBanner'); if(bn){ bn.hidden=!recep; if(recep) bn.innerHTML='👁️ Você está vendo <b>como recepção</b>: a escala fica <b>somente leitura</b>. Só o login de <b>gestor</b> edita turnos, aplica rodízio e publica.'; }
+      var bn=document.getElementById('escBanner'); if(bn){ bn.hidden=!recep; if(recep) bn.innerHTML='👁️ Você está vendo <b>como '+(team==='prof'?'professor':'recepção')+'</b>: a escala fica <b>somente leitura</b>. Só o login de <b>gestor</b> edita turnos, aplica rodízio e publica.'; }
       renderAll();
     }
     // ---------- editar célula (override manual) ----------
     grid.addEventListener('change',function(e){ var s=e.target.closest('.esc-sel'); if(!s||viewMode==='recep')return;
       esc[+s.dataset.d][s.dataset.sh]=s.value; renderWeek();
+    });
+    // ---------- toggle equipe (recepção / professores) ----------
+    document.getElementById('escTeamSeg').addEventListener('click',function(e){ var b=e.target.closest('[data-team]'); if(!b||b.dataset.team===team)return;
+      loadTeam(b.dataset.team);
+      this.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x.dataset.team===team);});
+      tmpVaga={m:[],t:[],sab:[],dom:[]}; tmpPessoa={m:null,t:null,sab:null,dom:null};
+      renderAll(); toast('Escala: '+TEAMS[team].nome);
     });
     // ---------- toggle semana/mês ----------
     document.getElementById('escViewSeg').addEventListener('click',function(e){ var b=e.target.closest('[data-ev]'); if(!b)return;
@@ -5742,7 +5818,7 @@
     // ---------- publicar ----------
     document.getElementById('escPublicar').addEventListener('click',function(){
       var nc=covGaps(), a=dDate(0),b=dDate(6);
-      alert('Escala publicada! (protótipo)\n\nSemana de '+a.getDate()+'–'+b.getDate()+' '+MES3[a.getMonth()]+' '+b.getFullYear()+'\n'+(nc?('⚠ Atenção: '+nc+' turno(s) sem cobertura.'):'✓ Todos os turnos cobertos.')+'\n\nNo sistema real, cada recepcionista receberia a própria escala por WhatsApp/e-mail.');
+      alert('Escala ('+TEAMS[team].nome+') publicada! (protótipo)\n\nSemana de '+a.getDate()+'–'+b.getDate()+' '+MES3[a.getMonth()]+' '+b.getFullYear()+'\n'+(nc?('⚠ Atenção: '+nc+' turno(s) sem cobertura.'):'✓ Todos os turnos cobertos.')+'\n\nNo sistema real, cada pessoa da equipe receberia a própria escala por WhatsApp/e-mail.');
     });
     // ========== MODAL: configurar turnos ==========
     var TM=document.getElementById('escTurnosModal');
@@ -5829,6 +5905,51 @@
     document.addEventListener('keydown',function(e){ if(e.key!=='Escape')return; if(TM.classList.contains('open'))closeTurnos(); if(AM.classList.contains('open'))closeAuto(); });
     // init
     applyPerm();
+  })();
+
+  // Permissões por papel (Gestor / Recepção / Professor)
+  (function(){
+    var AREAS=[
+      {k:'dash',l:'Dashboard',d:'visão geral do negócio'},
+      {k:'agora',l:'Agora (balcão ao vivo)',d:'check-in das aulas do dia'},
+      {k:'lista',l:'Lista de aulas',d:'grade operacional do dia a dia'},
+      {k:'aulas',l:'Controle de aulas',d:'grade-modelo, recorrência, bloqueio'},
+      {k:'pdv',l:'PDV / Vendas',d:'vender planos e produtos'},
+      {k:'cat',l:'Catálogo / Produtos',d:'planos, produtos e cupons'},
+      {k:'crm',l:'CRM',d:'listas de contato e réguas'},
+      {k:'cad',l:'Cadastrar aluno',d:'abrir ficha nova'},
+      {k:'fin',l:'Financeiro / NF',d:'faturas e notas fiscais'},
+      {k:'func',l:'Funcionários',d:'quadro, folha e comissão'},
+      {k:'esc',l:'Escala',d:'montar escala da equipe'},
+      {k:'rel',l:'Relatórios',d:'relatórios gerenciais'},
+      {k:'perm',l:'Permissões',d:'esta tela de acessos'}
+    ];
+    var ROLES=[ {k:'gestor',l:'Gestor',fixed:true}, {k:'recep',l:'Recepção'}, {k:'prof',l:'Professor'} ];
+    var PERM={
+      gestor:{},
+      recep:{dash:true,agora:true,lista:true,aulas:false,pdv:true,cat:false,crm:true,cad:true,fin:true,func:false,esc:false,rel:false,perm:false},
+      prof:{dash:false,agora:true,lista:true,aulas:false,pdv:false,cat:false,crm:false,cad:false,fin:false,func:false,esc:false,rel:false,perm:false}
+    };
+    AREAS.forEach(function(a){PERM.gestor[a.k]=true;});
+    function render(){
+      var tbl=document.getElementById('permTable'); if(!tbl)return;
+      var head='<thead><tr><th class="pt-area">Área do sistema</th>'+ROLES.map(function(r){return '<th>'+r.l+(r.fixed?'<small>acesso total</small>':'')+'</th>';}).join('')+'</tr></thead>';
+      var body='<tbody>'+AREAS.map(function(a){
+        return '<tr><td class="pt-area"><b>'+a.l+'</b><span>'+a.d+'</span></td>'+ROLES.map(function(r){
+          var on=!!PERM[r.k][a.k];
+          return '<td><button class="perm-sw'+(on?' on':'')+(r.fixed?' fixed':'')+'" type="button" data-role="'+r.k+'" data-area="'+a.k+'"'+(r.fixed?' disabled':'')+' aria-pressed="'+on+'" title="'+r.l+' · '+a.l+'"></button></td>';
+        }).join('')+'</tr>';
+      }).join('')+'</tbody>';
+      tbl.innerHTML=head+body;
+    }
+    window.__renderPerm=render;
+    var tbl=document.getElementById('permTable');
+    if(tbl) tbl.addEventListener('click',function(e){ var b=e.target.closest('.perm-sw'); if(!b||b.disabled)return;
+      var role=b.dataset.role, area=b.dataset.area; PERM[role][area]=!PERM[role][area];
+      b.classList.toggle('on',PERM[role][area]); b.setAttribute('aria-pressed',PERM[role][area]);
+    });
+    var sv=document.getElementById('permSave');
+    if(sv) sv.addEventListener('click',function(){ if(window.__saltyToast)window.__saltyToast('Permissões salvas (protótipo) — valem no próximo login de cada usuário'); });
   })();
 
   // Financeiro (protótipo)
