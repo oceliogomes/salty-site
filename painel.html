@@ -58,7 +58,16 @@
   .afoc-slotlbl{font-size:.85rem;color:var(--muted)}
   .afoc-cards{display:grid;grid-template-columns:1fr;gap:1rem}
   .afoc-cards.multi{grid-template-columns:1fr 1fr}
-  @media(max-width:720px){.afoc-cards.multi{grid-template-columns:1fr}}
+  @media(max-width:1500px){.afoc-cards.multi{grid-template-columns:1fr}}
+  /* estado vazio da página de Agendados (aberta sem uma aula carregada) */
+  .ag-emptyguide{display:none}
+  .ag-head:empty{display:none}
+  .ag-head:empty ~ .ag-cols{display:none}
+  .ag-head:empty ~ .ag-emptyguide{display:block;text-align:center;max-width:460px;margin:3rem auto;padding:1.7rem;border:1.5px dashed var(--line2);border-radius:16px;background:var(--panel)}
+  .ag-emptyguide .ege-ic{font-size:1.8rem}
+  .ag-emptyguide h4{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.3rem;margin:.4rem 0 .5rem;color:var(--ink)}
+  .ag-emptyguide p{font-size:.9rem;color:var(--muted);line-height:1.5;margin:0 auto 1.1rem;max-width:40ch}
+  .ag-emptyguide .ege-btn{display:inline-block;background:var(--red);color:#FFFBF4;font-weight:700;font-size:.9rem;padding:.6rem 1.15rem;border-radius:999px;text-decoration:none}
   .afoc-card{background:var(--panel);border:1.5px solid var(--line2);border-radius:16px;overflow:hidden}
   .afoc-head{padding:.95rem 1.1rem;border-bottom:1.5px solid var(--line);display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
   .afoc-dot{width:12px;height:12px;border-radius:50%;flex:none}
@@ -1823,7 +1832,7 @@
         <div class="search-res" id="searchRes"></div>
       </div>
       <div style="display:flex;align-items:center;gap:.9rem">
-        <span class="pts-chip" id="ptsChip" title="Pontos de contato do recepcionista — mini-CRM da aula, listas do CRM e esteira de renovação somam todos aqui">🏆 <b data-saltypts>0</b> pts</span>
+        <span class="pts-chip" id="ptsChip" title="Pontos de contato do recepcionista — mini-CRM da aula, listas do CRM e esteira de renovação somam todos aqui">🏆 <b data-saltypts>12</b> pts</span>
         <span class="date">Hoje · 14 out 2026</span>
         <span class="demo">Protótipo · dados de exemplo</span>
       </div>
@@ -2147,6 +2156,12 @@
           </div>
         </div>
         <div class="ag-head" id="agHead"></div>
+        <div class="ag-emptyguide">
+          <div class="ege-ic">📋</div>
+          <h4>Nenhuma aula selecionada</h4>
+          <p>Escolha uma aula na <b>Lista de aulas</b> ou abra uma aula ao vivo pela tela <b>Agora</b> para conferir presença, agendados, cancelamentos e lista de espera.</p>
+          <a class="ege-btn" href="#lista">Ir para a lista de aulas</a>
+        </div>
         <div class="ag-cols">
         <div class="ag-main">
         <div class="ag-tools" id="agTools"></div>
@@ -2267,14 +2282,14 @@
           </div>
 
           <div class="dacc open" data-acc>
-            <button class="dacc-hd" type="button"><span class="dacc-ic">🗓️</span><span class="dacc-ti">Grade semanal</span><span class="dacc-sum">19 aulas · 4 profs · 74%</span><svg class="dacc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+            <button class="dacc-hd" type="button"><span class="dacc-ic">🗓️</span><span class="dacc-ti">Grade semanal</span><span class="dacc-sum">19 aulas · 3 profs · 74%</span><svg class="dacc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
             <div class="dacc-bd">
 
         <div class="mini-stats">
           <div><b>19</b><span>aulas na grade-modelo</span></div>
-          <div><b>4</b><span>professores ativos</span></div>
+          <div><b>3</b><span>professores ativos</span></div>
           <div><b>74%</b><span>ocupação média</span></div>
-          <div><b>5</b><span>modalidades</span></div>
+          <div><b>3</b><span>modalidades</span></div>
         </div>
 
         <div class="aulas-bar">
@@ -3458,6 +3473,7 @@
     var t=titles[v]||['',''];
     document.getElementById('crumb').textContent=t[0];
     document.getElementById('ptitle').textContent=t[1];
+    try{var si=document.getElementById('alunoSearch'); if(si){ si.placeholder = v==='staff'?'Buscar funcionário por nome…' : (v==='produtos'||v==='cupons')?'Buscar produto…' : 'Buscar aluno por CPF ou nome…'; }}catch(_){}
     document.querySelector('.content').scrollTo?window.scrollTo(0,0):0;
     if(navAulas){var inA=!!aulasVs[v]; if(inA)navAulas.classList.add('open'); navAulas.querySelector('.navi-parent').classList.toggle('hasactive',inA);}
     if(navProd){var inP=!!prodVs[v]; if(inP)navProd.classList.add('open'); navProd.querySelector('.navi-parent').classList.toggle('hasactive',inP);}
@@ -3467,7 +3483,7 @@
   }
   window.__saltyGo=function(v){ try{show(v);}catch(_){ } }; // ponte de navegação p/ outras IIFEs
   // PLACAR ÚNICO de pontos — todos os canais de contato (mini-CRM da aula, listas do CRM, esteira de renovação) somam aqui
-  window.__saltyPoints=window.__saltyPoints||{ n:0,
+  window.__saltyPoints=window.__saltyPoints||{ n:12,
     add:function(k){ this.n=Math.max(0,this.n+k); this.render(true); },
     render:function(flash){ var v=this.n; document.querySelectorAll('[data-saltypts]').forEach(function(el){ el.textContent=v; if(flash){ el.classList.remove('pulse'); void el.offsetWidth; el.classList.add('pulse'); } }); }
   };
@@ -5129,7 +5145,7 @@
     var ACESSO={prof:'vê apenas as próprias aulas e números.',recep:'balcão, aulas, check-in e vendas (não vê financeiro/folha).',gestor:'acesso total, incluindo financeiro e folha.'};
     var staff=[
       {nome:'Cauã Ribeiro',cargo:'prof',mods:['l-bike'],user:'caua@saltysergipe.com',cor:'#3AA0D0',ativo:true,pay:{param:1,base:40,pp:1}},
-      {nome:'Marina Lopes',cargo:'prof',mods:['l-hy'],user:'marina@saltysergipe.com',cor:'#E73737',ativo:true,pay:{param:1,base:45,pp:0}},
+      {nome:'Marina Lopes',cargo:'prof',mods:['l-hy','l-sc'],user:'marina@saltysergipe.com',cor:'#E73737',ativo:true,pay:{param:1,base:45,pp:0}},
       {nome:'Bia Santos',cargo:'prof',mods:['l-sc'],user:'bia@saltysergipe.com',cor:'#E0A020',ativo:true,pay:{param:2,base:45,faixas:[{pct:70,bonus:20},{pct:90,bonus:30}]}},
       {nome:'Ana Oliveira',cargo:'recep',mods:[],user:'recepcao@saltysergipe.com',cor:'#37346A',ativo:true,comiss:3,comissTipo:'pct',meta:15000},
       {nome:'Pedro Alves',cargo:'recep',mods:[],user:'pedro@saltysergipe.com',cor:'#2A6C8C',ativo:true,comiss:400,comissTipo:'fixo',meta:10000},

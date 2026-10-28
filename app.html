@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>App Salty — Aluno</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    color-scheme:light;
+    --bg:#F1E7D6; --panel:#FFFBF4; --raise:#FCF4E6;
+    --ink:#3B2417; --muted:#8A6B5C; --faint:#B49A87;
+    --line:rgba(72,39,29,.13); --line2:rgba(72,39,29,.22);
+    --red:#E73737; --sky:#C9E8F5; --sky-ink:#2A6C8C; --navy:#37346A;
+    --good:#2E8B57; --warn:#C0791A; --bad:#E73737;
+    --bike:#2E90C4; --hy:#E73737; --sc:#C8102E;
+    --f-disp:"Fraunces",Georgia,serif;
+    --f:"Hanken Grotesk","Segoe UI",system-ui,sans-serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  }
+  @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#241a12;}}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{background:
+    radial-gradient(1200px 600px at 50% -10%, #efe0cb, var(--bg));
+    min-height:100vh;font-family:var(--f);color:var(--ink);display:flex;justify-content:center;align-items:flex-start}
+  /* casca do celular */
+  .phone{width:100%;max-width:430px;min-height:100vh;background:var(--bg);position:relative;overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.4)}
+  @media(min-width:470px){ body{align-items:center;padding:24px 0} .phone{min-height:0;height:900px;max-height:94vh;border-radius:38px;border:10px solid #1c140e;overflow:hidden} }
+  .screen{display:none;flex-direction:column;height:100%;min-height:100vh}
+  @media(min-width:470px){ .screen{min-height:0;height:100%} }
+  .screen.on{display:flex;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:1rem 1.1rem 6.5rem}
+
+  /* ====== LOGIN ====== */
+  #login{background:linear-gradient(160deg,var(--navy),#4a4790 60%,var(--red));color:#FFFBF4;justify-content:space-between;padding:0}
+  #login .lg-top{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;text-align:center;padding:2rem}
+  #login .lg-logo{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:4rem;line-height:1}
+  #login .lg-sub{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;opacity:.85}
+  #login .lg-tag{font-size:1rem;opacity:.92;max-width:22ch;margin-top:1rem;line-height:1.4}
+  .lg-form{background:var(--panel);color:var(--ink);border-radius:26px 26px 0 0;padding:1.6rem 1.3rem 2.2rem}
+  .lg-form h2{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.5rem;margin-bottom:.2rem}
+  .lg-form p{font-size:.85rem;color:var(--muted);margin-bottom:1.1rem}
+  .fld{display:block;font-size:.72rem;font-weight:700;color:var(--ink);margin:.7rem 0 .35rem}
+  .inp{width:100%;font-family:inherit;font-size:1rem;padding:.8rem .9rem;border:1.5px solid var(--line2);border-radius:12px;background:var(--panel);color:var(--ink);outline:none}
+  .inp:focus{border-color:var(--red)}
+  .btn{width:100%;font-family:inherit;font-weight:800;font-size:1rem;border:none;border-radius:999px;padding:.95rem;cursor:pointer;transition:.12s}
+  .btn-red{background:var(--red);color:#FFFBF4;margin-top:1.2rem}
+  .btn-red:active{transform:scale(.99);filter:brightness(1.05)}
+  .lg-alt{text-align:center;font-size:.82rem;color:var(--muted);margin-top:1rem}
+  .lg-alt b{color:var(--red)}
+
+  /* ====== HEADER ====== */
+  .appbar{display:flex;align-items:center;gap:.7rem;padding:1.1rem 1.1rem .4rem}
+  .appbar .ab-hi{flex:1;min-width:0}
+  .appbar .ab-hi .hello{font-size:.8rem;color:var(--muted)}
+  .appbar .ab-hi .nm{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.45rem;line-height:1.1}
+  .ab-av{width:42px;height:42px;border-radius:50%;background:var(--navy);color:#FFFBF4;display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}
+
+  .sect-t{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:1.3rem .2rem .6rem}
+
+  /* cartão de créditos */
+  .cred-card{background:linear-gradient(135deg,var(--navy),#514d94);color:#FFFBF4;border-radius:20px;padding:1.2rem 1.3rem;position:relative;overflow:hidden}
+  .cred-card::after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.07)}
+  .cred-card .cc-lbl{font-size:.78rem;opacity:.85}
+  .cred-card .cc-big{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:2.7rem;line-height:1;margin:.1rem 0}
+  .cred-card .cc-sub{font-size:.82rem;opacity:.9}
+  .cred-card .cc-plan{display:inline-block;margin-top:.7rem;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.04em;background:rgba(255,255,255,.18);padding:.25rem .6rem;border-radius:999px}
+  .cred-card.low .cc-big{color:#FFD9A0}
+
+  /* próxima aula */
+  .next-card{background:var(--panel);border:1.5px solid var(--line2);border-radius:18px;padding:1rem 1.1rem;display:flex;align-items:center;gap:.9rem}
+  .nx-dot{width:12px;height:12px;border-radius:50%;flex:none}
+  .nx-b{flex:1;min-width:0}
+  .nx-b .nx-cls{font-weight:800;font-size:1rem}
+  .nx-b .nx-meta{font-size:.8rem;color:var(--muted);margin-top:.1rem}
+  .nx-when{text-align:right;flex:none}
+  .nx-when .nw-h{font-family:var(--f-mono);font-weight:800;font-size:1.05rem}
+  .nx-when .nw-d{font-size:.7rem;color:var(--muted)}
+  .next-empty{background:var(--raise);border:1.5px dashed var(--line2);border-radius:18px;padding:1.1rem;text-align:center;color:var(--muted);font-size:.9rem}
+
+  /* ações rápidas */
+  .quick{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+  .qa{display:flex;flex-direction:column;gap:.3rem;background:var(--panel);border:1.5px solid var(--line2);border-radius:16px;padding:.9rem 1rem;font-family:inherit;text-align:left;cursor:pointer;transition:.12s}
+  .qa:active{transform:scale(.98)}
+  .qa .qa-ic{font-size:1.3rem}
+  .qa .qa-t{font-weight:700;font-size:.9rem}
+  .qa .qa-s{font-size:.74rem;color:var(--muted)}
+
+  /* chips de modalidade */
+  .chips{display:flex;gap:.45rem;overflow-x:auto;padding-bottom:.3rem;margin-bottom:.2rem}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none;font-family:inherit;font-weight:700;font-size:.82rem;color:var(--ink);background:var(--panel);border:1.5px solid var(--line2);border-radius:999px;padding:.5rem .9rem;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem}
+  .chip .cdot{width:9px;height:9px;border-radius:50%}
+  .chip.on{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+  .chip.on .cdot{outline:2px solid var(--panel)}
+
+  /* abas de dia */
+  .daytabs{display:flex;gap:.4rem;overflow-x:auto;margin-bottom:.8rem}
+  .daytabs::-webkit-scrollbar{display:none}
+  .dtab{flex:none;font-family:inherit;font-weight:700;font-size:.82rem;color:var(--muted);background:none;border:none;border-radius:12px;padding:.5rem .7rem;cursor:pointer;text-align:center;line-height:1.2}
+  .dtab small{display:block;font-family:var(--f-mono);font-size:.62rem;font-weight:600}
+  .dtab.on{background:var(--red);color:#FFFBF4}
+  .dtab.on small{opacity:.85}
+
+  /* card de aula (agendar) */
+  .cl-card{background:var(--panel);border:1.5px solid var(--line2);border-left-width:5px;border-radius:16px;padding:.85rem 1rem;margin-bottom:.7rem;display:flex;align-items:center;gap:.85rem}
+  .cl-card.l-bike{border-left-color:var(--bike)} .cl-card.l-hy{border-left-color:var(--hy)} .cl-card.l-sc{border-left-color:var(--sc)}
+  .cl-time{text-align:center;flex:none;width:52px}
+  .cl-time .ct-h{font-family:var(--f-mono);font-weight:800;font-size:1rem}
+  .cl-time .ct-d{font-size:.64rem;color:var(--muted)}
+  .cl-main{flex:1;min-width:0}
+  .cl-main .cl-nm{font-weight:800;font-size:.96rem}
+  .cl-main .cl-meta{font-size:.76rem;color:var(--muted);margin-top:.1rem}
+  .cl-vagas{font-size:.72rem;font-weight:700;margin-top:.25rem}
+  .cl-vagas.ok{color:var(--good)} .cl-vagas.few{color:var(--warn)} .cl-vagas.full{color:var(--red)}
+  .cl-act{flex:none}
+  .bk{font-family:inherit;font-weight:800;font-size:.82rem;border-radius:999px;padding:.55rem .95rem;cursor:pointer;border:1.5px solid var(--red);background:var(--red);color:#FFFBF4;transition:.12s}
+  .bk:active{transform:scale(.97)}
+  .bk.ghost{background:none;color:var(--red)}
+  .bk.wait{border-color:var(--warn);background:none;color:var(--warn)}
+  .bk.booked{border-color:var(--good);background:color-mix(in srgb,var(--good) 12%,transparent);color:var(--good)}
+
+  /* minha agenda */
+  .ag-item{background:var(--panel);border:1.5px solid var(--line2);border-left-width:5px;border-radius:16px;padding:.9rem 1rem;margin-bottom:.7rem}
+  .ag-item.l-bike{border-left-color:var(--bike)} .ag-item.l-hy{border-left-color:var(--hy)} .ag-item.l-sc{border-left-color:var(--sc)}
+  .ag-top{display:flex;align-items:center;gap:.7rem}
+  .ag-top .ag-nm{flex:1;font-weight:800;font-size:.96rem}
+  .ag-top .ag-h{font-family:var(--f-mono);font-weight:800;font-size:.95rem}
+  .ag-meta{font-size:.78rem;color:var(--muted);margin-top:.15rem}
+  .ag-tag{display:inline-block;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;padding:.18rem .5rem;border-radius:6px;margin-top:.5rem}
+  .ag-tag.conf{background:color-mix(in srgb,var(--good) 14%,transparent);color:var(--good)}
+  .ag-tag.wait{background:color-mix(in srgb,var(--warn) 16%,transparent);color:#8a6a13}
+  .ag-tag.past{background:var(--raise);color:var(--muted)}
+  .ag-actions{display:flex;gap:.5rem;margin-top:.7rem}
+  .ag-btn{flex:1;font-family:inherit;font-weight:700;font-size:.8rem;border-radius:10px;padding:.55rem;cursor:pointer;border:1.5px solid var(--line2);background:var(--panel);color:var(--ink)}
+  .ag-btn.danger{color:var(--red);border-color:color-mix(in srgb,var(--red) 35%,transparent)}
+  .ag-btn:active{transform:scale(.98)}
+  .empty{text-align:center;color:var(--muted);font-size:.9rem;padding:2rem 1rem;background:var(--raise);border-radius:16px;border:1.5px dashed var(--line2)}
+
+  /* perfil */
+  .prof-head{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1.5rem 0 .5rem}
+  .prof-av{width:76px;height:76px;border-radius:50%;background:var(--navy);color:#FFFBF4;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.8rem}
+  .prof-nm{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.5rem}
+  .prof-plan{font-size:.82rem;color:var(--muted)}
+  .prow{display:flex;align-items:center;gap:.8rem;background:var(--panel);border:1.5px solid var(--line2);border-radius:14px;padding:.9rem 1rem;margin-bottom:.6rem}
+  .prow .pr-ic{font-size:1.2rem;flex:none}
+  .prow .pr-tx{flex:1;min-width:0}
+  .prow .pr-tx b{display:block;font-size:.9rem}
+  .prow .pr-tx span{font-size:.76rem;color:var(--muted)}
+  .prow .pr-v{font-weight:800;color:var(--navy)}
+  .switch{width:46px;height:27px;border-radius:999px;background:var(--line2);border:none;position:relative;cursor:pointer;transition:.15s;flex:none}
+  .switch::after{content:"";position:absolute;top:2.5px;left:2.5px;width:21px;height:21px;border-radius:50%;background:#fff;transition:.15s}
+  .switch.on{background:var(--good)} .switch.on::after{left:21px}
+
+  /* tabbar */
+  .tabbar{position:absolute;left:0;right:0;bottom:0;display:flex;background:var(--panel);border-top:1.5px solid var(--line2);padding:.4rem .3rem calc(.4rem + env(safe-area-inset-bottom,0px))}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:.15rem;background:none;border:none;font-family:inherit;color:var(--muted);cursor:pointer;padding:.45rem 0}
+  .tab svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .tab span{font-size:.62rem;font-weight:700}
+  .tab.on{color:var(--red)}
+
+  /* toast */
+  .toast{position:absolute;left:50%;bottom:86px;transform:translateX(-50%) translateY(16px);background:var(--ink);color:var(--panel);font-size:.84rem;font-weight:600;padding:.65rem 1rem;border-radius:12px;box-shadow:0 18px 40px -12px rgba(0,0,0,.5);z-index:60;opacity:0;transition:.25s;pointer-events:none;max-width:88%;text-align:center}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  .proto-note{font-size:.72rem;color:var(--faint);text-align:center;margin-top:1rem}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+  /* cabeçalho de sub-tela (voltar) */
+  .sub-head{display:flex;align-items:center;gap:.6rem;padding:1.1rem 1.1rem .3rem}
+  .sub-back{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--line2);background:var(--panel);color:var(--ink);font-size:1.1rem;cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center}
+  .sub-head .sh-t{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.45rem}
+
+  /* MURAL */
+  .mural-strip{display:flex;gap:.6rem;overflow-x:auto;padding-bottom:.3rem;margin:0 -.1rem}
+  .mural-strip::-webkit-scrollbar{display:none}
+  .mrl-card{flex:none;width:230px;border-radius:16px;padding:.9rem 1rem;color:#FFFBF4;cursor:pointer;display:flex;flex-direction:column;gap:.25rem;min-height:104px}
+  .mrl-card .mrl-ic{font-size:1.2rem}
+  .mrl-card .mrl-t{font-weight:800;font-size:.92rem;line-height:1.2}
+  .mrl-card .mrl-x{font-size:.76rem;opacity:.92;line-height:1.3}
+  .mrl-card .mrl-d{font-family:var(--f-mono);font-size:.6rem;opacity:.8;margin-top:auto}
+  .mural-seeall{display:block;width:100%;text-align:center;font-family:inherit;font-weight:700;font-size:.82rem;color:var(--navy);background:none;border:none;padding:.6rem;cursor:pointer}
+  .mrl-full{border:1.5px solid var(--line2);border-left-width:5px;border-radius:16px;padding:1rem 1.1rem;margin-bottom:.7rem;background:var(--panel)}
+  .mrl-full .mf-top{display:flex;align-items:center;gap:.5rem}
+  .mrl-full .mf-ic{font-size:1.25rem}
+  .mrl-full .mf-t{font-weight:800;font-size:1rem;flex:1}
+  .mrl-full .mf-d{font-family:var(--f-mono);font-size:.62rem;color:var(--muted)}
+  .mrl-full .mf-x{font-size:.86rem;color:var(--muted);line-height:1.45;margin-top:.4rem}
+  .mrl-cta{margin-top:.7rem;font-family:inherit;font-weight:700;font-size:.8rem;color:var(--red);background:color-mix(in srgb,var(--red) 8%,transparent);border:1.5px solid color-mix(in srgb,var(--red) 30%,transparent);border-radius:999px;padding:.45rem .9rem;cursor:pointer}
+
+  /* botão pequeno no cartão de crédito */
+  .cc-buy{position:relative;z-index:1;margin-top:.9rem;font-family:inherit;font-weight:800;font-size:.8rem;color:var(--navy);background:#FFFBF4;border:none;border-radius:999px;padding:.5rem .9rem;cursor:pointer}
+
+  /* teaser de progresso na home */
+  .prog-teaser{display:flex;align-items:center;gap:.9rem;background:linear-gradient(120deg,#C8102E,#E73737);color:#FFFBF4;border-radius:18px;padding:1rem 1.1rem;cursor:pointer}
+  .prog-teaser .pt-big{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:2rem;line-height:1}
+  .prog-teaser .pt-tx{flex:1}
+  .prog-teaser .pt-tx b{font-size:.95rem;display:block}
+  .prog-teaser .pt-tx span{font-size:.78rem;opacity:.9}
+  .prog-teaser .pt-go{font-weight:800;font-size:1.2rem}
+
+  /* PROGRESSO */
+  .prog-hero{background:linear-gradient(160deg,var(--navy),#514d94 55%,var(--red));color:#FFFBF4;border-radius:22px;padding:1.4rem 1.3rem;text-align:center}
+  .prog-hero .ph-big{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:3.6rem;line-height:1}
+  .prog-hero .ph-lbl{font-size:.9rem;opacity:.92}
+  .prog-hero .ph-streak{display:inline-flex;align-items:center;gap:.35rem;margin-top:.8rem;background:rgba(255,255,255,.18);border-radius:999px;padding:.35rem .8rem;font-weight:700;font-size:.82rem}
+  .prog-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.8rem}
+  .prog-stat{background:var(--panel);border:1.5px solid var(--line2);border-radius:16px;padding:.9rem 1rem}
+  .prog-stat b{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.9rem;line-height:1;display:block}
+  .prog-stat span{font-size:.76rem;color:var(--muted)}
+  .pb-row{display:grid;grid-template-columns:84px 1fr 34px;align-items:center;gap:.6rem;margin-bottom:.6rem}
+  .pb-lbl{display:flex;align-items:center;gap:.4rem;font-size:.84rem;font-weight:700}
+  .pb-lbl i{width:10px;height:10px;border-radius:50%}
+  .pb-track{height:11px;border-radius:999px;background:var(--line);overflow:hidden}
+  .pb-track i{display:block;height:100%;border-radius:999px}
+  .pb-val{font-family:var(--f-mono);font-size:.8rem;font-weight:700;text-align:right}
+  .marco-card{background:color-mix(in srgb,var(--warn) 10%,var(--panel));border:1.5px solid color-mix(in srgb,var(--warn) 32%,transparent);border-radius:16px;padding:1rem 1.1rem;display:flex;align-items:center;gap:.8rem;margin-top:.3rem}
+  .marco-card .mc-ic{font-size:1.6rem}
+  .marco-card b{display:block;font-size:.95rem}
+  .marco-card span{font-size:.8rem;color:var(--muted)}
+  .share-btn{width:100%;font-family:inherit;font-weight:800;font-size:.9rem;color:var(--navy);background:var(--raise);border:1.5px solid var(--line2);border-radius:14px;padding:.85rem;cursor:pointer;margin-top:.9rem}
+
+  /* COMUNIDADE / SQUADS */
+  .squad-card{background:var(--panel);border:1.5px solid var(--line2);border-radius:20px;padding:1.2rem 1.2rem;margin-bottom:1rem}
+  .squad-top{display:flex;align-items:center;gap:.7rem}
+  .squad-emoji{width:46px;height:46px;border-radius:14px;background:var(--raise);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex:none}
+  .squad-nm{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.3rem;flex:1}
+  .squad-count{font-size:.74rem;color:var(--muted)}
+  .squad-goal{margin-top:1rem;background:var(--raise);border-radius:14px;padding:.9rem 1rem}
+  .sg-top{display:flex;justify-content:space-between;align-items:baseline;font-size:.84rem}
+  .sg-top b{font-size:1rem}
+  .sg-track{height:12px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:.5rem}
+  .sg-track i{display:block;height:100%;background:var(--good);border-radius:999px}
+  .sg-note{font-size:.76rem;color:var(--muted);margin-top:.5rem}
+  .mem-row{display:flex;align-items:center;gap:.7rem;padding:.6rem 0;border-bottom:1px dashed var(--line)}
+  .mem-row:last-child{border-bottom:none}
+  .mem-av{width:38px;height:38px;border-radius:50%;color:#FFFBF4;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex:none}
+  .mem-b{flex:1;min-width:0}
+  .mem-b .mem-nm{font-weight:700;font-size:.9rem}
+  .mem-b .mem-s{font-size:.74rem;color:var(--muted)}
+  .mem-ck{font-family:var(--f-mono);font-weight:700;font-size:.8rem;color:var(--good)}
+  .feed-item{display:flex;align-items:center;gap:.7rem;background:var(--panel);border:1.5px solid var(--line2);border-radius:14px;padding:.75rem .9rem;margin-bottom:.6rem}
+  .feed-av{width:34px;height:34px;border-radius:50%;color:#FFFBF4;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.76rem;flex:none}
+  .feed-tx{flex:1;min-width:0;font-size:.86rem;line-height:1.3}
+  .feed-tx b{font-weight:800}
+  .feed-join{flex:none;font-family:inherit;font-weight:700;font-size:.76rem;color:var(--red);background:none;border:1.5px solid color-mix(in srgb,var(--red) 35%,transparent);border-radius:999px;padding:.4rem .7rem;cursor:pointer}
+  .priv-note{font-size:.74rem;color:var(--muted);line-height:1.45;background:var(--raise);border:1.5px solid var(--line2);border-radius:12px;padding:.7rem .85rem;margin-top:.3rem}
+
+  /* COMPRAR / RENOVAR */
+  .buy-cur{background:var(--panel);border:1.5px solid var(--line2);border-radius:16px;padding:1rem 1.1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.8rem}
+  .buy-cur .bc-ic{font-size:1.5rem}
+  .buy-cur b{display:block;font-size:1rem}
+  .buy-cur span{font-size:.78rem;color:var(--muted)}
+  .plan-card{background:var(--panel);border:1.5px solid var(--line2);border-radius:18px;padding:1rem 1.1rem;margin-bottom:.7rem;display:flex;align-items:center;gap:.9rem;position:relative}
+  .plan-card.rec{border-color:color-mix(in srgb,var(--red) 45%,transparent)}
+  .plan-b{flex:1;min-width:0}
+  .plan-b .pl-nm{font-weight:800;font-size:1rem}
+  .plan-b .pl-s{font-size:.78rem;color:var(--muted)}
+  .plan-price{text-align:right;flex:none}
+  .plan-price .pp{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.4rem;line-height:1}
+  .plan-price .pbuy{margin-top:.3rem;font-family:inherit;font-weight:800;font-size:.76rem;color:#FFFBF4;background:var(--red);border:none;border-radius:999px;padding:.4rem .8rem;cursor:pointer}
+  .plan-tag{position:absolute;top:-9px;left:1rem;font-family:var(--f-mono);font-size:.54rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;background:var(--red);color:#FFFBF4;padding:.1rem .45rem;border-radius:6px}
+</style>
+</head>
+<body>
+<div class="phone" id="phone">
+
+  <!-- ===== LOGIN ===== -->
+  <section class="screen on" id="login">
+    <div class="lg-top">
+      <div class="lg-logo">salty</div>
+      <div class="lg-sub">estúdio · Sergipe</div>
+      <p class="lg-tag">Sua próxima aula a um toque de distância.</p>
+    </div>
+    <div class="lg-form">
+      <h2>Entrar</h2>
+      <p>Protótipo — é só tocar em entrar pra ver o app.</p>
+      <label class="fld" for="lgPhone">Celular ou e-mail</label>
+      <input class="inp" id="lgPhone" placeholder="(79) 9 9999-9999" autocomplete="off">
+      <label class="fld" for="lgPass">Senha</label>
+      <input class="inp" id="lgPass" type="password" placeholder="••••••••" autocomplete="off">
+      <button class="btn btn-red" id="lgEnter">Entrar</button>
+      <div class="lg-alt">Primeira vez? <b>Criar conta</b></div>
+    </div>
+  </section>
+
+  <!-- ===== HOME ===== -->
+  <section class="screen" id="home">
+    <div class="appbar">
+      <div class="ab-hi"><div class="hello" id="helloTime">Bom dia,</div><div class="nm" id="helloName">Marina</div></div>
+      <button class="ab-av" id="goPerfilAv" aria-label="Perfil">M</button>
+    </div>
+    <div class="scroll">
+      <div class="sect-t" style="margin-top:.2rem">Mural da Salty</div>
+      <div class="mural-strip" id="muralStrip"></div>
+      <button class="mural-seeall" id="muralSeeAll">Ver todos os avisos →</button>
+
+      <div class="cred-card" id="credCard">
+        <div class="cc-lbl">Seus créditos</div>
+        <div class="cc-big" id="credBig">6</div>
+        <div class="cc-sub" id="credSub">de 8 este mês</div>
+        <span class="cc-plan" id="credPlan">Plano 8 aulas/mês</span>
+        <br><button class="cc-buy" id="credBuy">＋ Comprar créditos</button>
+      </div>
+
+      <div class="sect-t">Sua próxima aula</div>
+      <div id="nextWrap"></div>
+
+      <div class="sect-t">Sua evolução</div>
+      <div class="prog-teaser" id="progTeaser"></div>
+
+      <div class="sect-t">Atalhos</div>
+      <div class="quick">
+        <button class="qa" id="qaAgendar"><span class="qa-ic">📅</span><span class="qa-t">Agendar aula</span><span class="qa-s">ver a grade</span></button>
+        <button class="qa" id="qaAgenda"><span class="qa-ic">🗓️</span><span class="qa-t">Minha agenda</span><span class="qa-s" id="qaAgendaSub">0 marcadas</span></button>
+      </div>
+
+      <div class="sect-t">Com vaga · próximos horários</div>
+      <div id="homeToday"></div>
+      <p class="proto-note">Protótipo navegável · dados de exemplo</p>
+    </div>
+  </section>
+
+  <!-- ===== AGENDAR ===== -->
+  <section class="screen" id="agendar">
+    <div class="appbar"><div class="ab-hi"><div class="nm">Agendar</div></div></div>
+    <div class="scroll">
+      <div class="chips" id="modChips"></div>
+      <div class="daytabs" id="dayTabs"></div>
+      <div id="classList"></div>
+      <p class="proto-note">Reservar desconta 1 crédito · cancelar até 4h antes devolve o crédito.</p>
+    </div>
+  </section>
+
+  <!-- ===== MINHA AGENDA ===== -->
+  <section class="screen" id="agenda">
+    <div class="appbar"><div class="ab-hi"><div class="nm">Minha agenda</div></div></div>
+    <div class="scroll">
+      <div class="sect-t">Próximas</div>
+      <div id="agUpcoming"></div>
+      <div class="sect-t">Já fui</div>
+      <div id="agPast"></div>
+    </div>
+  </section>
+
+  <!-- ===== PERFIL ===== -->
+  <section class="screen" id="perfil">
+    <div class="scroll">
+      <div class="prof-head">
+        <div class="prof-av">M</div>
+        <div class="prof-nm">Marina Castro</div>
+        <div class="prof-plan" id="profPlan">Plano 8 aulas/mês</div>
+      </div>
+      <div class="prow"><span class="pr-ic">🎟️</span><div class="pr-tx"><b>Créditos</b><span>disponíveis este mês</span></div><span class="pr-v" id="profCred">6</span></div>
+      <div class="prow"><span class="pr-ic">🔥</span><div class="pr-tx"><b>Sequência</b><span>semanas treinando seguidas</span></div><span class="pr-v">7</span></div>
+      <div class="prow"><span class="pr-ic">🔔</span><div class="pr-tx"><b>Notificações</b><span>vaga relâmpago, lembretes</span></div><button class="switch on" id="notifSw" aria-label="Notificações"></button></div>
+      <div class="prow" id="profPlanRow" style="cursor:pointer"><span class="pr-ic">💳</span><div class="pr-tx"><b>Meu plano</b><span>gerenciar / renovar</span></div><span class="pr-v">›</span></div>
+      <div class="prow" id="profProgRow" style="cursor:pointer"><span class="pr-ic">📊</span><div class="pr-tx"><b>Meu progresso</b><span>aulas, sequência e marcos</span></div><span class="pr-v">›</span></div>
+      <button class="btn btn-red" id="btnSair" style="margin-top:1rem;background:none;color:var(--red);border:1.5px solid var(--red)">Sair</button>
+      <p class="proto-note">App do aluno · Salty · protótipo</p>
+    </div>
+  </section>
+
+  <!-- ===== COMUNIDADE / SQUAD ===== -->
+  <section class="screen" id="comunidade">
+    <div class="appbar"><div class="ab-hi"><div class="nm">Meu squad</div></div></div>
+    <div class="scroll">
+      <div class="squad-card">
+        <div class="squad-top">
+          <div class="squad-emoji">🌊</div>
+          <div style="flex:1"><div class="squad-nm">Marés da Manhã</div><div class="squad-count">5 pessoas · meta semanal juntas</div></div>
+        </div>
+        <div class="squad-goal">
+          <div class="sg-top"><span>Check-ins do squad esta semana</span><span><b id="sgDone">14</b>/18</span></div>
+          <div class="sg-track"><i id="sgBar" style="width:78%"></i></div>
+          <div class="sg-note">Faltam <b>4 check-ins</b> pra bater a meta da semana. Bora! 💪</div>
+        </div>
+      </div>
+
+      <div class="sect-t">Quem tá no squad</div>
+      <div id="squadMembers"></div>
+
+      <div class="sect-t">Próximas aulas do squad</div>
+      <div id="squadFeed"></div>
+      <p class="priv-note">🔒 <b>Privacidade:</b> squads são fechados e por convite. Só quem está no seu squad vê sua frequência — ninguém de fora. Você pode sair quando quiser.</p>
+    </div>
+  </section>
+
+  <!-- ===== PROGRESSO ===== -->
+  <section class="screen" id="progresso">
+    <div class="sub-head"><button class="sub-back" data-back aria-label="Voltar">‹</button><span class="sh-t">Meu progresso</span></div>
+    <div class="scroll">
+      <div class="prog-hero">
+        <div class="ph-big">48</div>
+        <div class="ph-lbl">aulas na Salty desde fevereiro</div>
+        <div class="ph-streak">🔥 7 semanas seguidas treinando</div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-stat"><b>12</b><span>check-ins este mês</span></div>
+        <div class="prog-stat"><b>Bike</b><span>sua modalidade favorita</span></div>
+      </div>
+      <div class="sect-t">Por modalidade</div>
+      <div id="progBars"></div>
+      <div class="marco-card">
+        <div class="mc-ic">🏆</div>
+        <div><b>Faltam 2 aulas pro marco de 50!</b><span>Chegando lá você entra no Clube da Salty 🌊</span></div>
+      </div>
+      <button class="share-btn" id="progShare">📲 Compartilhar meu progresso</button>
+      <p class="proto-note">Seu "Wrapped" da Salty · atualiza a cada check-in</p>
+    </div>
+  </section>
+
+  <!-- ===== COMPRAR / RENOVAR ===== -->
+  <section class="screen" id="comprar">
+    <div class="sub-head"><button class="sub-back" data-back aria-label="Voltar">‹</button><span class="sh-t">Comprar / renovar</span></div>
+    <div class="scroll">
+      <div class="buy-cur">
+        <span class="bc-ic">🎟️</span>
+        <div style="flex:1"><b id="buyCurCred">6 créditos</b><span id="buyCurPlan">Plano 8 aulas/mês</span></div>
+      </div>
+      <div class="sect-t">Avulso</div>
+      <div class="plan-card">
+        <div class="plan-b"><div class="pl-nm">Aula avulsa</div><div class="pl-s">1 crédito pra usar quando quiser</div></div>
+        <div class="plan-price"><div class="pp">R$ 55</div><button class="pbuy" data-buy="avulsa" data-cred="1" data-nome="Aula avulsa">Comprar</button></div>
+      </div>
+      <div class="plan-card">
+        <div class="plan-b"><div class="pl-nm">Pacote 5 créditos</div><div class="pl-s">validade 60 dias · R$ 49/aula</div></div>
+        <div class="plan-price"><div class="pp">R$ 245</div><button class="pbuy" data-buy="p5" data-cred="5" data-nome="Pacote 5 créditos">Comprar</button></div>
+      </div>
+      <div class="sect-t">Planos mensais</div>
+      <div class="plan-card rec"><span class="plan-tag">seu plano</span>
+        <div class="plan-b"><div class="pl-nm">8 aulas / mês</div><div class="pl-s">2x por semana · renova dia 1º</div></div>
+        <div class="plan-price"><div class="pp">R$ 356</div><button class="pbuy" data-buy="r8" data-cred="8" data-nome="Plano 8 aulas/mês">Renovar</button></div>
+      </div>
+      <div class="plan-card">
+        <div class="plan-b"><div class="pl-nm">12 aulas / mês</div><div class="pl-s">3x por semana</div></div>
+        <div class="plan-price"><div class="pp">R$ 468</div><button class="pbuy" data-buy="r12" data-cred="12" data-nome="Plano 12 aulas/mês" data-plano="12 aulas/mês" data-total="12">Fazer upgrade</button></div>
+      </div>
+      <div class="plan-card">
+        <div class="plan-b"><div class="pl-nm">Livre</div><div class="pl-s">aulas sem limite no mês</div></div>
+        <div class="plan-price"><div class="pp">R$ 520</div><button class="pbuy" data-buy="livre" data-cred="30" data-nome="Plano Livre" data-plano="Livre" data-total="30">Fazer upgrade</button></div>
+      </div>
+      <p class="proto-note">Pagamento no cartão/Pix · protótipo (não cobra de verdade)</p>
+    </div>
+  </section>
+
+  <!-- ===== MURAL (completo) ===== -->
+  <section class="screen" id="mural">
+    <div class="sub-head"><button class="sub-back" data-back aria-label="Voltar">‹</button><span class="sh-t">Mural da Salty</span></div>
+    <div class="scroll">
+      <div id="muralFull"></div>
+      <p class="proto-note">Avisos publicados pela equipe da Salty</p>
+    </div>
+  </section>
+
+  <!-- ===== TABBAR ===== -->
+  <nav class="tabbar" id="tabbar" hidden>
+    <button class="tab on" data-tab="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9"/></svg><span>Início</span></button>
+    <button class="tab" data-tab="agendar"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg><span>Agendar</span></button>
+    <button class="tab" data-tab="comunidade"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M15 11a3 3 0 1 0-1-5.8"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M16 15c2.5.4 4 2.3 4 5"/></svg><span>Squad</span></button>
+    <button class="tab" data-tab="agenda"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Agenda</span></button>
+    <button class="tab" data-tab="perfil"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg><span>Perfil</span></button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(s){return document.querySelector(s);};
+  var ME={nome:'Marina Castro',primeiro:'Marina',plano:'8 aulas/mês',creditos:6,total:8};
+
+  // ---- grade de aulas (3 dias) ----
+  var MOD={bike:{cls:'l-bike',nome:'Bike no Rooftop',prof:'Cauã',sala:'Rooftop',cap:9,dot:'var(--bike)'},
+           hy:{cls:'l-hy',nome:'Hot Yoga',prof:'Marina A.',sala:'Sala Quente 1',cap:7,dot:'var(--hy)'},
+           sc:{cls:'l-sc',nome:'Hot Sculpt',prof:'Bia',sala:'Sala Quente 2',cap:7,dot:'var(--sc)'}};
+  var DAYS=[{k:'hoje',lbl:'Hoje',d:'14/10'},{k:'amanha',lbl:'Amanhã',d:'15/10'},{k:'qui',lbl:'Qui',d:'16/10'}];
+  var CLASSES=[
+    {id:1,day:'hoje',h:'17:00',mod:'sc',booked:5},
+    {id:11,day:'hoje',h:'17:00',mod:'hy',booked:4},
+    {id:2,day:'hoje',h:'18:00',mod:'bike',booked:8},
+    {id:3,day:'hoje',h:'19:00',mod:'hy',booked:7},
+    {id:4,day:'amanha',h:'07:00',mod:'sc',booked:3},
+    {id:5,day:'amanha',h:'09:00',mod:'hy',booked:5},
+    {id:6,day:'amanha',h:'12:00',mod:'bike',booked:5},
+    {id:7,day:'amanha',h:'18:00',mod:'sc',booked:6},
+    {id:8,day:'qui',h:'07:00',mod:'sc',booked:2},
+    {id:9,day:'qui',h:'12:00',mod:'bike',booked:4},
+    {id:10,day:'qui',h:'19:00',mod:'hy',booked:6}
+  ];
+  // estado: reservas do aluno (id -> {status:'conf'|'wait'})
+  var MINE={5:{status:'conf'}}; // já tem a Hot Yoga de amanhã 09:00 marcada
+  var PAST=[
+    {nm:'Hot Sculpt',mod:'sc',h:'17:00',d:'ontem · 13/10'},
+    {nm:'Bike no Rooftop',mod:'bike',h:'18:00',d:'sáb · 11/10'}
+  ];
+  var curMod='all', curDay='hoje', notif=true, lastTab='home';
+
+  // ---- Mural (avisos do gestor) ----
+  var MURAL=[
+    {ic:'🎉',cor:'linear-gradient(135deg,#C8102E,#E73737)',t:'Aulão de aniversário da Salty',x:'Sábado 18h no Rooftop — aula aberta e grátis pra todos os alunos. Traz quem você ama! Depois tem um brinde especial.',d:'há 1 dia',cta:'Quero ir'},
+    {ic:'🌊',cor:'linear-gradient(135deg,#2A6C8C,#2E90C4)',t:'Nova modalidade: Hot Pilates',x:'Começa em novembro, nas terças e quintas de manhã. Vagas limitadas pra turma de estreia — fique de olho na grade.',d:'há 3 dias',cta:'Ver horários'},
+    {ic:'🎁',cor:'linear-gradient(135deg,#37346A,#514d94)',t:'Indique um amigo e ganhe 1 crédito',x:'Durante outubro: cada amigo que fechar plano te dá 1 crédito de bônus. Sem limite de indicações.',d:'há 5 dias',cta:'Indicar'},
+    {ic:'⏰',cor:'linear-gradient(135deg,#C0791A,#E0A020)',t:'Feriado 15/11 — grade especial',x:'No feriado teremos só aulas de manhã (8h e 10h). Confira a grade e garanta sua vaga com antecedência.',d:'há 1 semana',cta:'Ver grade'}
+  ];
+  // ---- Progresso (Wrapped) ----
+  var PROG={total:48,mes:12,streak:7,fav:'Bike',mods:[
+    {k:'bike',nome:'Bike',cor:'var(--bike)',n:20},
+    {k:'hy',nome:'Hot Yoga',cor:'var(--hy)',n:15},
+    {k:'sc',nome:'Hot Sculpt',cor:'var(--sc)',n:13}
+  ]};
+  // ---- Squad (comunidade) ----
+  var SQUAD={nome:'Marés da Manhã',emoji:'🌊',done:14,goal:18,
+    members:[
+      {nm:'Marina (você)',cor:'var(--navy)',semana:4,voce:true},
+      {nm:'Beatriz Nunes',cor:'#2A6C8C',semana:3},
+      {nm:'Thiago Ramos',cor:'#C0791A',semana:3},
+      {nm:'Larissa Melo',cor:'#2E8B57',semana:2},
+      {nm:'Gustavo Dias',cor:'#8A5FB0',semana:2}
+    ],
+    feed:[
+      {quem:'Beatriz',cor:'#2A6C8C',cls:'Hot Sculpt',quando:'amanhã 07:00',cid:4},
+      {quem:'Thiago',cor:'#C0791A',cls:'Bike no Rooftop',quando:'amanhã 12:00',cid:6},
+      {quem:'Larissa',cor:'#2E8B57',cls:'Hot Yoga',quando:'qui 19:00',cid:10}
+    ]
+  };
+  // horário "agora" do protótipo (manhã) — pra calcular os próximos horários
+  var NOWH=8*60+45;
+  function hmin(h){var p=h.split(':');return (+p[0])*60+(+p[1]);}
+
+  function clsOf(c){return MOD[c.mod].cls;}
+  function vagas(c){return MOD[c.mod].cap-c.booked;}
+  function dayLabel(k){for(var i=0;i<DAYS.length;i++)if(DAYS[i].k===k)return DAYS[i];return DAYS[0];}
+  function fmtDay(k){var d=dayLabel(k);return d.lbl+' · '+d.d;}
+
+  // ---------- toast ----------
+  var tEl=$('#toast'),tTimer;
+  function toast(m){tEl.textContent=m;tEl.classList.add('on');clearTimeout(tTimer);tTimer=setTimeout(function(){tEl.classList.remove('on');},2200);}
+
+  // ---------- navegação ----------
+  var ALL=['home','agendar','comunidade','agenda','perfil','progresso','comprar','mural'];
+  function showScreen(id){ ALL.forEach(function(s){var el=$('#'+s); if(el)el.classList.toggle('on',s===id);}); var sc=$('#'+id+' .scroll'); if(sc)sc.scrollTop=0; }
+  function go(tab){
+    lastTab=tab; showScreen(tab);
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',t.dataset.tab===tab);});
+    if(tab==='home')renderHome();
+    if(tab==='agendar')renderClasses();
+    if(tab==='comunidade')renderComunidade();
+    if(tab==='agenda')renderAgenda();
+    if(tab==='perfil')renderPerfil();
+  }
+  function openSub(name){
+    showScreen(name);
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
+    if(name==='progresso')renderProgresso();
+    if(name==='comprar')renderComprar();
+    if(name==='mural')renderMural();
+  }
+  document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){go(t.dataset.tab);});});
+
+  // ---------- login ----------
+  $('#lgEnter').addEventListener('click',function(){
+    $('#login').classList.remove('on');
+    $('#tabbar').hidden=false;
+    go('home');
+  });
+
+  // ---------- HOME ----------
+  function nextMine(){ // próxima aula marcada (por ordem da grade)
+    for(var i=0;i<CLASSES.length;i++){ var c=CLASSES[i]; if(MINE[c.id]) return c; } return null;
+  }
+  function renderHome(){
+    $('#helloName').textContent=ME.primeiro;
+    // créditos
+    var low=ME.creditos<=2;
+    $('#credCard').classList.toggle('low',low);
+    $('#credBig').textContent=ME.creditos;
+    $('#credSub').textContent='de '+ME.total+' este mês';
+    $('#credPlan').textContent='Plano '+ME.plano;
+    $('#profCred').textContent=ME.creditos;
+    $('#profPlan').textContent='Plano '+ME.plano;
+    // próxima aula
+    var n=nextMine(), nw=$('#nextWrap');
+    if(n){ var m=MOD[n.mod], st=MINE[n.id].status;
+      nw.innerHTML='<div class="next-card"><span class="nx-dot" style="background:'+m.dot+'"></span>'
+        +'<div class="nx-b"><div class="nx-cls">'+m.nome+'</div><div class="nx-meta">'+(st==='wait'?'Lista de espera · ':'')+'Prof. '+m.prof+' · '+m.sala+'</div></div>'
+        +'<div class="nx-when"><div class="nw-h">'+n.h+'</div><div class="nw-d">'+fmtDay(n.day)+'</div></div></div>';
+    } else { nw.innerHTML='<div class="next-empty">Você não tem aula marcada. <b style="color:var(--red)">Bora agendar?</b></div>'; }
+    // agenda count
+    var cnt=Object.keys(MINE).length;
+    $('#qaAgendaSub').textContent=cnt+(cnt===1?' marcada':' marcadas');
+    // mural (strip) + teaser de progresso
+    renderMuralStrip();
+    $('#progTeaser').innerHTML='<div class="pt-big">'+PROG.total+'</div><div class="pt-tx"><b>'+PROG.total+' aulas · 🔥 '+PROG.streak+' semanas</b><span>veja sua evolução e marcos</span></div><div class="pt-go">›</div>';
+    // com vaga — só os próximos 2 horários (máx ~4 aulas)
+    var ns=nextSlots();
+    $('#homeToday').innerHTML=ns.length?ns.map(cardHTML).join(''):'<div class="next-empty">As aulas de hoje já encheram 🔥</div>';
+  }
+  // próximos 2 horários de hoje com vaga (inclui aulas paralelas no mesmo horário)
+  function nextSlots(){
+    var avail=CLASSES.filter(function(c){return c.day==='hoje'&&vagas(c)>0&&!MINE[c.id]&&hmin(c.h)>=NOWH;})
+      .sort(function(a,b){return hmin(a.h)-hmin(b.h);});
+    var times=[], out=[];
+    for(var i=0;i<avail.length;i++){ var c=avail[i];
+      if(times.indexOf(c.h)<0){ if(times.length>=2) break; times.push(c.h); }
+      out.push(c);
+    }
+    return out;
+  }
+  // ---------- MURAL ----------
+  function renderMuralStrip(){
+    $('#muralStrip').innerHTML=MURAL.slice(0,3).map(function(p,i){
+      return '<div class="mrl-card" data-mural="'+i+'" style="background:'+p.cor+'"><div class="mrl-ic">'+p.ic+'</div><div class="mrl-t">'+p.t+'</div><div class="mrl-d">'+p.d+'</div></div>';
+    }).join('');
+  }
+  function renderMural(){
+    $('#muralFull').innerHTML=MURAL.map(function(p){
+      return '<div class="mrl-full" style="border-left-color:'+p.cor.match(/#\w+/)[0]+'"><div class="mf-top"><span class="mf-ic">'+p.ic+'</span><span class="mf-t">'+p.t+'</span><span class="mf-d">'+p.d+'</span></div><div class="mf-x">'+p.x+'</div><button class="mrl-cta" data-mcta="'+p.cta+'">'+p.cta+'</button></div>';
+    }).join('');
+  }
+  // ---------- COMUNIDADE ----------
+  function ini(n){var p=n.replace(/\(.*\)/,'').trim().split(' ');return (p[0][0]+(p[1]?p[1][0]:'')).toUpperCase();}
+  function renderComunidade(){
+    $('#sgDone').textContent=SQUAD.done;
+    $('#sgBar').style.width=Math.round(SQUAD.done/SQUAD.goal*100)+'%';
+    $('#squadMembers').innerHTML=SQUAD.members.map(function(m){
+      return '<div class="mem-row"><span class="mem-av" style="background:'+m.cor+'">'+ini(m.nm)+'</span>'
+        +'<div class="mem-b"><div class="mem-nm">'+m.nm+'</div><div class="mem-s">'+m.semana+' check-ins esta semana</div></div>'
+        +'<span class="mem-ck">'+m.semana+'🔥</span></div>';
+    }).join('');
+    $('#squadFeed').innerHTML=SQUAD.feed.map(function(f){
+      var mine=MINE[f.cid];
+      return '<div class="feed-item"><span class="feed-av" style="background:'+f.cor+'">'+ini(f.quem)+'</span>'
+        +'<div class="feed-tx"><b>'+f.quem+'</b> vai em <b>'+f.cls+'</b> · '+f.quando+'</div>'
+        +(mine?'<span class="mem-ck">✓ você vai</span>':'<button class="feed-join" data-join="'+f.cid+'">Ir junto</button>')+'</div>';
+    }).join('');
+  }
+  // ---------- PROGRESSO ----------
+  function renderProgresso(){
+    var max=Math.max.apply(null,PROG.mods.map(function(m){return m.n;}));
+    $('#progBars').innerHTML=PROG.mods.map(function(m){
+      return '<div class="pb-row"><span class="pb-lbl"><i style="background:'+m.cor+'"></i>'+m.nome+'</span>'
+        +'<div class="pb-track"><i style="width:'+Math.round(m.n/max*100)+'%;background:'+m.cor+'"></i></div>'
+        +'<span class="pb-val">'+m.n+'</span></div>';
+    }).join('');
+  }
+  // ---------- COMPRAR ----------
+  function renderComprar(){
+    $('#buyCurCred').textContent=ME.creditos+' créditos';
+    $('#buyCurPlan').textContent='Plano '+ME.plano;
+  }
+
+  // ---------- AGENDAR ----------
+  function renderChips(){
+    var items=[['all','Todas',''],['bike','Bike','var(--bike)'],['hy','Hot Yoga','var(--hy)'],['sc','Hot Sculpt','var(--sc)']];
+    $('#modChips').innerHTML=items.map(function(it){
+      return '<button class="chip'+(curMod===it[0]?' on':'')+'" data-mod="'+it[0]+'">'+(it[2]?'<span class="cdot" style="background:'+it[2]+'"></span>':'')+it[1]+'</button>';
+    }).join('');
+  }
+  function renderDayTabs(){
+    $('#dayTabs').innerHTML=DAYS.map(function(d){
+      return '<button class="dtab'+(curDay===d.k?' on':'')+'" data-day="'+d.k+'">'+d.lbl+'<small>'+d.d+'</small></button>';
+    }).join('');
+  }
+  function cardHTML(c){
+    var m=MOD[c.mod], v=vagas(c), mine=MINE[c.id];
+    var vcls=v<=0?'full':(v<=2?'few':'ok');
+    var vtxt=v<=0?'Lotada':(v+' '+(v===1?'vaga':'vagas'));
+    var btn;
+    if(mine){ btn='<button class="bk booked" data-cancel="'+c.id+'">✓ Reservado</button>'; }
+    else if(v<=0){ btn='<button class="bk wait" data-wait="'+c.id+'">Lista de espera</button>'; }
+    else { btn='<button class="bk" data-book="'+c.id+'">Reservar</button>'; }
+    return '<div class="cl-card '+m.cls+'">'
+      +'<div class="cl-time"><div class="ct-h">'+c.h+'</div><div class="ct-d">'+dayLabel(c.day).lbl+'</div></div>'
+      +'<div class="cl-main"><div class="cl-nm">'+m.nome+'</div><div class="cl-meta">Prof. '+m.prof+' · '+m.sala+'</div>'
+        +'<div class="cl-vagas '+vcls+'">'+vtxt+' · '+c.booked+'/'+m.cap+'</div></div>'
+      +'<div class="cl-act">'+btn+'</div></div>';
+  }
+  function renderClasses(){
+    renderChips(); renderDayTabs();
+    var list=CLASSES.filter(function(c){return c.day===curDay&&(curMod==='all'||c.mod===curMod);});
+    $('#classList').innerHTML=list.length?list.map(cardHTML).join(''):'<div class="empty">Nenhuma aula com esse filtro.</div>';
+  }
+
+  // ---------- reservar / cancelar ----------
+  function book(id){
+    var c=CLASSES.filter(function(x){return x.id===id;})[0]; if(!c)return;
+    if(ME.creditos<=0){ toast('Sem créditos — renove seu pacote no Perfil 💳'); return; }
+    ME.creditos--; c.booked++; MINE[id]={status:'conf'};
+    toast('Reservado! '+MOD[c.mod].nome+' · '+fmtDay(c.day)+' '+c.h+' 🎉');
+    refresh();
+  }
+  function waitlist(id){
+    var c=CLASSES.filter(function(x){return x.id===id;})[0]; if(!c)return;
+    MINE[id]={status:'wait'};
+    toast('Você entrou na lista de espera — avisamos se abrir vaga 🔔');
+    refresh();
+  }
+  function cancel(id){
+    var c=CLASSES.filter(function(x){return x.id===id;})[0]; if(!c)return;
+    var wasWait=MINE[id]&&MINE[id].status==='wait';
+    delete MINE[id];
+    if(!wasWait){ c.booked=Math.max(0,c.booked-1); ME.creditos++; toast('Reserva cancelada · crédito devolvido ↩️'); }
+    else toast('Saiu da lista de espera');
+    refresh();
+  }
+  function buy(btn){
+    var cred=+btn.dataset.cred||0, nome=btn.dataset.nome||'pacote';
+    if(btn.dataset.plano){ ME.plano=btn.dataset.plano; ME.total=+btn.dataset.total||ME.total; }
+    ME.creditos+=cred;
+    toast(nome+' ✓ +'+cred+' créditos (compra simulada) 🎉');
+    refresh();
+  }
+  function refresh(){ renderHome(); renderClasses(); renderAgenda(); renderPerfil(); renderComunidade(); renderComprar(); }
+
+  // delegação de cliques (home + agendar + sub-telas)
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('[data-book]'); if(b){ book(+b.dataset.book); return; }
+    var w=e.target.closest('[data-wait]'); if(w){ waitlist(+w.dataset.wait); return; }
+    var cc=e.target.closest('[data-cancel]'); if(cc){ cancel(+cc.dataset.cancel); return; }
+    var ch=e.target.closest('.chip[data-mod]'); if(ch){ curMod=ch.dataset.mod; renderClasses(); return; }
+    var dt=e.target.closest('.dtab[data-day]'); if(dt){ curDay=dt.dataset.day; renderClasses(); return; }
+    var bk=e.target.closest('[data-back]'); if(bk){ go(lastTab||'home'); return; }
+    var mc=e.target.closest('.mrl-card[data-mural]'); if(mc){ openSub('mural'); return; }
+    var mct=e.target.closest('[data-mcta]'); if(mct){ toast('"'+mct.dataset.mcta+'" — ação em construção (protótipo)'); return; }
+    var pb=e.target.closest('[data-buy]'); if(pb){ buy(pb); return; }
+    var jn=e.target.closest('[data-join]'); if(jn){ var id=+jn.dataset.join; if(MINE[id]){ toast('Você já vai nessa aula 🙌'); } else { book(id); } return; }
+  });
+  // atalhos específicos
+  $('#credBuy').addEventListener('click',function(){ openSub('comprar'); });
+  $('#muralSeeAll').addEventListener('click',function(){ openSub('mural'); });
+  $('#progTeaser').addEventListener('click',function(){ openSub('progresso'); });
+  $('#progShare').addEventListener('click',function(){ toast('Card do seu progresso pronto pra compartilhar 📲 (protótipo)'); });
+  $('#profPlanRow').addEventListener('click',function(){ openSub('comprar'); });
+  $('#profProgRow').addEventListener('click',function(){ openSub('progresso'); });
+
+  // ---------- MINHA AGENDA ----------
+  function renderAgenda(){
+    var up=CLASSES.filter(function(c){return MINE[c.id];});
+    $('#agUpcoming').innerHTML=up.length?up.map(function(c){
+      var m=MOD[c.mod], st=MINE[c.id].status;
+      return '<div class="ag-item '+m.cls+'"><div class="ag-top"><span class="ag-nm">'+m.nome+'</span><span class="ag-h">'+c.h+'</span></div>'
+        +'<div class="ag-meta">'+fmtDay(c.day)+' · Prof. '+m.prof+' · '+m.sala+'</div>'
+        +'<span class="ag-tag '+(st==='wait'?'wait':'conf')+'">'+(st==='wait'?'Lista de espera':'Confirmada')+'</span>'
+        +'<div class="ag-actions"><button class="ag-btn danger" data-cancel="'+c.id+'">'+(st==='wait'?'Sair da espera':'Cancelar')+'</button></div></div>';
+    }).join(''):'<div class="empty">Nenhuma aula marcada ainda.<br>Toque em <b>Agendar</b> pra escolher.</div>';
+    $('#agPast').innerHTML=PAST.map(function(c){
+      return '<div class="ag-item l-'+c.mod.replace('bike','bike')+'"><div class="ag-top"><span class="ag-nm">'+c.nm+'</span><span class="ag-h">'+c.h+'</span></div>'
+        +'<div class="ag-meta">'+c.d+'</div><span class="ag-tag past">Presença ✓</span></div>';
+    }).join('');
+  }
+
+  // ---------- PERFIL ----------
+  function renderPerfil(){ $('#profCred').textContent=ME.creditos; $('#profPlan').textContent='Plano '+ME.plano; $('#notifSw').classList.toggle('on',notif); }
+  $('#notifSw').addEventListener('click',function(){ notif=!notif; this.classList.toggle('on',notif); toast(notif?'Notificações ligadas 🔔':'Notificações desligadas'); });
+  $('#btnSair').addEventListener('click',function(){ $('#tabbar').hidden=true; ['home','agendar','agenda','perfil'].forEach(function(s){$('#'+s).classList.remove('on');}); $('#login').classList.add('on'); });
+  $('#goPerfilAv').addEventListener('click',function(){ go('perfil'); });
+  $('#qaAgendar').addEventListener('click',function(){ go('agendar'); });
+  $('#qaAgenda').addEventListener('click',function(){ go('agenda'); });
+
+  // saudação por horário (fixa no protótipo = manhã)
+  $('#helloTime').textContent='Bom dia,';
+})();
+</script>
+</body>
+</html>
