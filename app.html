@@ -263,6 +263,41 @@
   .plan-price .pp{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.4rem;line-height:1}
   .plan-price .pbuy{margin-top:.3rem;font-family:inherit;font-weight:800;font-size:.76rem;color:#FFFBF4;background:var(--red);border:none;border-radius:999px;padding:.4rem .8rem;cursor:pointer}
   .plan-tag{position:absolute;top:-9px;left:1rem;font-family:var(--f-mono);font-size:.54rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;background:var(--red);color:#FFFBF4;padding:.1rem .45rem;border-radius:6px}
+
+  /* ===== AMIGOS / hub social ===== */
+  .social-seg{display:flex;gap:.3rem;background:var(--raise);border:1.5px solid var(--line2);border-radius:999px;padding:.25rem;margin-bottom:1rem}
+  .sseg{flex:1;font-family:inherit;font-weight:700;font-size:.86rem;color:var(--muted);background:none;border:none;border-radius:999px;padding:.55rem;cursor:pointer}
+  .sseg.on{background:var(--red);color:#FFFBF4}
+  .addf-inp{margin-bottom:.9rem}
+  .fr-row{display:flex;align-items:center;gap:.7rem;background:var(--panel);border:1.5px solid var(--line2);border-radius:16px;padding:.75rem .9rem;margin-bottom:.6rem}
+  .fr-row[data-friend]{cursor:pointer}
+  .fr-row[data-friend]:active{transform:scale(.995)}
+  .fr-av{width:42px;height:42px;border-radius:50%;color:#FFFBF4;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.84rem;flex:none}
+  .fr-b{flex:1;min-width:0}
+  .fr-nm{font-weight:800;font-size:.92rem}
+  .fr-s{font-size:.76rem;color:var(--muted);margin-top:.1rem}
+  .fr-s.priv{color:var(--faint)}
+  .fr-mut{font-size:.72rem;color:var(--faint);margin-top:.1rem}
+  .fr-go{flex:none;font-family:inherit;font-weight:800;font-size:.76rem;color:#FFFBF4;background:var(--red);border:none;border-radius:999px;padding:.45rem .8rem;cursor:pointer}
+  .fr-go.ghost{background:none;color:var(--good);border:1.5px solid color-mix(in srgb,var(--good) 35%,transparent)}
+  .fr-add{flex:none;font-family:inherit;font-weight:800;font-size:.76rem;color:var(--red);background:none;border:1.5px solid color-mix(in srgb,var(--red) 35%,transparent);border-radius:999px;padding:.45rem .8rem;cursor:pointer}
+  .fr-add.sent{color:var(--muted);border-color:var(--line2)}
+  .fr-req{display:flex;align-items:center;gap:.7rem;background:color-mix(in srgb,var(--red) 5%,var(--panel));border:1.5px solid color-mix(in srgb,var(--red) 22%,transparent);border-radius:16px;padding:.75rem .9rem;margin-bottom:.6rem}
+  .fr-req .frq-act{display:flex;gap:.4rem;flex:none}
+  .frq-ok{font-family:inherit;font-weight:800;font-size:.76rem;color:#FFFBF4;background:var(--good);border:none;border-radius:999px;padding:.45rem .75rem;cursor:pointer}
+  .frq-no{font-family:inherit;font-weight:700;font-size:.9rem;color:var(--muted);background:none;border:1.5px solid var(--line2);border-radius:999px;padding:.4rem .7rem;cursor:pointer}
+  .cl-friends{font-size:.74rem;font-weight:700;color:var(--sky-ink);margin-top:.28rem}
+  /* detalhe do amigo */
+  .amg-head{display:flex;flex-direction:column;align-items:center;gap:.35rem;padding:1rem 0 .6rem}
+  .amg-av{width:72px;height:72px;border-radius:50%;color:#FFFBF4;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.7rem}
+  .amg-nm{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.5rem}
+  .amg-handle{font-family:var(--f-mono);font-size:.74rem;color:var(--muted)}
+  .amg-stats{display:flex;gap:.6rem;justify-content:center;margin-top:.5rem}
+  .amg-stat{background:var(--panel);border:1.5px solid var(--line2);border-radius:12px;padding:.5rem .85rem;text-align:center}
+  .amg-stat b{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.3rem;display:block;line-height:1}
+  .amg-stat span{font-size:.68rem;color:var(--muted)}
+  .amg-priv{text-align:center;color:var(--muted);font-size:.88rem;line-height:1.45;padding:1.6rem 1.1rem;background:var(--raise);border:1.5px dashed var(--line2);border-radius:16px}
+  .amg-remove{width:100%;font-family:inherit;font-weight:700;font-size:.82rem;color:var(--muted);background:none;border:1.5px solid var(--line2);border-radius:12px;padding:.7rem;cursor:pointer;margin-top:1.2rem}
 </style>
 </head>
 <body>
@@ -357,6 +392,7 @@
       <div class="prow"><span class="pr-ic">🎟️</span><div class="pr-tx"><b>Créditos</b><span>disponíveis este mês</span></div><span class="pr-v" id="profCred">6</span></div>
       <div class="prow"><span class="pr-ic">🔥</span><div class="pr-tx"><b>Sequência</b><span>semanas treinando seguidas</span></div><span class="pr-v">7</span></div>
       <div class="prow"><span class="pr-ic">🔔</span><div class="pr-tx"><b>Notificações</b><span>vaga relâmpago, lembretes</span></div><button class="switch on" id="notifSw" aria-label="Notificações"></button></div>
+      <div class="prow"><span class="pr-ic">👟</span><div class="pr-tx"><b>Mostrar minha agenda</b><span>amigos veem onde você vai treinar</span></div><button class="switch on" id="shareSw" aria-label="Mostrar agenda aos amigos"></button></div>
       <div class="prow" id="profPlanRow" style="cursor:pointer"><span class="pr-ic">💳</span><div class="pr-tx"><b>Meu plano</b><span>gerenciar / renovar</span></div><span class="pr-v">›</span></div>
       <div class="prow" id="profProgRow" style="cursor:pointer"><span class="pr-ic">📊</span><div class="pr-tx"><b>Meu progresso</b><span>aulas, sequência e marcos</span></div><span class="pr-v">›</span></div>
       <button class="btn btn-red" id="btnSair" style="margin-top:1rem;background:none;color:var(--red);border:1.5px solid var(--red)">Sair</button>
@@ -364,29 +400,55 @@
     </div>
   </section>
 
-  <!-- ===== COMUNIDADE / SQUAD ===== -->
+  <!-- ===== HUB SOCIAL: AMIGOS + SQUAD ===== -->
   <section class="screen" id="comunidade">
-    <div class="appbar"><div class="ab-hi"><div class="nm">Meu squad</div></div></div>
+    <div class="appbar"><div class="ab-hi"><div class="nm" id="socialTitle">Amigos</div></div></div>
     <div class="scroll">
-      <div class="squad-card">
-        <div class="squad-top">
-          <div class="squad-emoji">🌊</div>
-          <div style="flex:1"><div class="squad-nm">Marés da Manhã</div><div class="squad-count">5 pessoas · meta semanal juntas</div></div>
-        </div>
-        <div class="squad-goal">
-          <div class="sg-top"><span>Check-ins do squad esta semana</span><span><b id="sgDone">14</b>/18</span></div>
-          <div class="sg-track"><i id="sgBar" style="width:78%"></i></div>
-          <div class="sg-note">Faltam <b>4 check-ins</b> pra bater a meta da semana. Bora! 💪</div>
-        </div>
+      <div class="social-seg">
+        <button class="sseg on" data-seg="amigos">Amigos</button>
+        <button class="sseg" data-seg="squad">Squad</button>
       </div>
 
-      <div class="sect-t">Quem tá no squad</div>
-      <div id="squadMembers"></div>
+      <!-- painel AMIGOS -->
+      <div id="segAmigos">
+        <input class="inp addf-inp" id="friendSearch" placeholder="Buscar amigo por nome ou @usuário" autocomplete="off">
+        <div class="sect-t" id="reqTitle" style="margin-top:.2rem">Pedidos de amizade</div>
+        <div id="friendReqs"></div>
+        <div class="sect-t">Seus amigos</div>
+        <div id="friendsList"></div>
+        <div class="sect-t" id="suggTitle">Pessoas que você talvez conheça</div>
+        <div id="friendSuggest"></div>
+        <p class="priv-note">🔒 <b>Privacidade:</b> seus amigos só veem sua agenda se você permitir — ligue em <b>Perfil › Mostrar minha agenda</b>. Você pode remover um amigo quando quiser.</p>
+      </div>
 
-      <div class="sect-t">Próximas aulas do squad</div>
-      <div id="squadFeed"></div>
-      <p class="priv-note">🔒 <b>Privacidade:</b> squads são fechados e por convite. Só quem está no seu squad vê sua frequência — ninguém de fora. Você pode sair quando quiser.</p>
+      <!-- painel SQUAD -->
+      <div id="segSquad" hidden>
+        <div class="squad-card">
+          <div class="squad-top">
+            <div class="squad-emoji">🌊</div>
+            <div style="flex:1"><div class="squad-nm">Marés da Manhã</div><div class="squad-count">5 pessoas · meta semanal juntas</div></div>
+          </div>
+          <div class="squad-goal">
+            <div class="sg-top"><span>Check-ins do squad esta semana</span><span><b id="sgDone">14</b>/18</span></div>
+            <div class="sg-track"><i id="sgBar" style="width:78%"></i></div>
+            <div class="sg-note">Faltam <b>4 check-ins</b> pra bater a meta da semana. Bora! 💪</div>
+          </div>
+        </div>
+
+        <div class="sect-t">Quem tá no squad</div>
+        <div id="squadMembers"></div>
+
+        <div class="sect-t">Próximas aulas do squad</div>
+        <div id="squadFeed"></div>
+        <p class="priv-note">🔒 <b>Privacidade:</b> squads são fechados e por convite. Só quem está no seu squad vê sua frequência — ninguém de fora. Você pode sair quando quiser.</p>
+      </div>
     </div>
+  </section>
+
+  <!-- ===== DETALHE DO AMIGO ===== -->
+  <section class="screen" id="amigo">
+    <div class="sub-head"><button class="sub-back" data-back aria-label="Voltar">‹</button><span class="sh-t">Amigo</span></div>
+    <div class="scroll" id="amigoBody"></div>
   </section>
 
   <!-- ===== PROGRESSO ===== -->
@@ -460,7 +522,7 @@
   <nav class="tabbar" id="tabbar" hidden>
     <button class="tab on" data-tab="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9"/></svg><span>Início</span></button>
     <button class="tab" data-tab="agendar"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg><span>Agendar</span></button>
-    <button class="tab" data-tab="comunidade"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M15 11a3 3 0 1 0-1-5.8"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M16 15c2.5.4 4 2.3 4 5"/></svg><span>Squad</span></button>
+    <button class="tab" data-tab="comunidade"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M15 11a3 3 0 1 0-1-5.8"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M16 15c2.5.4 4 2.3 4 5"/></svg><span>Amigos</span></button>
     <button class="tab" data-tab="agenda"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Agenda</span></button>
     <button class="tab" data-tab="perfil"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg><span>Perfil</span></button>
   </nav>
@@ -499,6 +561,7 @@
     {nm:'Bike no Rooftop',mod:'bike',h:'18:00',d:'sáb · 11/10'}
   ];
   var curMod='all', curDay='hoje', notif=true, lastTab='home';
+  var curSeg='amigos', friendSearchTerm='', curFriend=null, shareAgenda=true;
 
   // ---- Mural (avisos do gestor) ----
   var MURAL=[
@@ -528,6 +591,22 @@
       {quem:'Larissa',cor:'#2E8B57',cls:'Hot Yoga',quando:'qui 19:00',cid:10}
     ]
   };
+  // ---- Amigos (conexões individuais) ----
+  // classes: ids da grade (CLASSES) em que o amigo está marcado · verAgenda: deixa você ver a agenda dele
+  var FRIENDS=[
+    {id:'f1',nm:'Beatriz Nunes',handle:'@bia.nunes',cor:'#2A6C8C',verAgenda:true,streak:3,classes:[4,6]},
+    {id:'f2',nm:'Thiago Ramos',handle:'@thiago.r',cor:'#C0791A',verAgenda:true,streak:3,classes:[6,9]},
+    {id:'f3',nm:'Larissa Melo',handle:'@lari.melo',cor:'#2E8B57',verAgenda:false,streak:2,classes:[10]}
+  ];
+  var FRIEND_REQ=[
+    {id:'r1',nm:'Gustavo Dias',handle:'@gugadias',cor:'#8A5FB0',mutuals:2,classes:[9]}
+  ];
+  var FRIEND_SUGGEST=[
+    {id:'s1',nm:'Camila Rocha',handle:'@camila.rocha',cor:'#C8102E',mutuals:3,classes:[2]},
+    {id:'s2',nm:'Rafael Lima',handle:'@rafa.lima',cor:'#2E90C4',mutuals:1,classes:[3]},
+    {id:'s3',nm:'Fernanda Dias',handle:'@fe.dias',cor:'#C0791A',mutuals:2,classes:[7]},
+    {id:'s4',nm:'Lucas Ferreira',handle:'@lucasf',cor:'#37346A',mutuals:1,classes:[8]}
+  ];
   // horário "agora" do protótipo (manhã) — pra calcular os próximos horários
   var NOWH=8*60+45;
   function hmin(h){var p=h.split(':');return (+p[0])*60+(+p[1]);}
@@ -542,7 +621,7 @@
   function toast(m){tEl.textContent=m;tEl.classList.add('on');clearTimeout(tTimer);tTimer=setTimeout(function(){tEl.classList.remove('on');},2200);}
 
   // ---------- navegação ----------
-  var ALL=['home','agendar','comunidade','agenda','perfil','progresso','comprar','mural'];
+  var ALL=['home','agendar','comunidade','amigo','agenda','perfil','progresso','comprar','mural'];
   function showScreen(id){ ALL.forEach(function(s){var el=$('#'+s); if(el)el.classList.toggle('on',s===id);}); var sc=$('#'+id+' .scroll'); if(sc)sc.scrollTop=0; }
   function go(tab){
     lastTab=tab; showScreen(tab);
@@ -624,7 +703,7 @@
   }
   // ---------- COMUNIDADE ----------
   function ini(n){var p=n.replace(/\(.*\)/,'').trim().split(' ');return (p[0][0]+(p[1]?p[1][0]:'')).toUpperCase();}
-  function renderComunidade(){
+  function renderSquad(){
     $('#sgDone').textContent=SQUAD.done;
     $('#sgBar').style.width=Math.round(SQUAD.done/SQUAD.goal*100)+'%';
     $('#squadMembers').innerHTML=SQUAD.members.map(function(m){
@@ -639,6 +718,69 @@
         +(mine?'<span class="mem-ck">✓ você vai</span>':'<button class="feed-join" data-join="'+f.cid+'">Ir junto</button>')+'</div>';
     }).join('');
   }
+  // ---------- AMIGOS ----------
+  function renderComunidade(){
+    document.querySelectorAll('.sseg').forEach(function(s){s.classList.toggle('on',s.dataset.seg===curSeg);});
+    $('#segAmigos').hidden=curSeg!=='amigos';
+    $('#segSquad').hidden=curSeg!=='squad';
+    $('#socialTitle').textContent=curSeg==='amigos'?'Amigos':'Meu squad';
+    if(curSeg==='squad')renderSquad(); else renderAmigos();
+  }
+  function friendNextClass(f){ for(var i=0;i<CLASSES.length;i++){ if(f.classes.indexOf(CLASSES[i].id)>=0) return CLASSES[i]; } return null; }
+  function friendsInClass(id){ return FRIENDS.filter(function(f){return f.verAgenda&&f.classes.indexOf(id)>=0;}); }
+  function firstName(n){return n.replace(/\(.*\)/,'').trim().split(' ')[0];}
+  function renderAmigos(){
+    // pedidos de amizade
+    $('#reqTitle').style.display=FRIEND_REQ.length?'':'none';
+    $('#friendReqs').innerHTML=FRIEND_REQ.map(function(r){
+      return '<div class="fr-req"><span class="fr-av" style="background:'+r.cor+'">'+ini(r.nm)+'</span>'
+        +'<div class="fr-b"><div class="fr-nm">'+r.nm+'</div><div class="fr-mut">'+r.handle+' · '+r.mutuals+' amigos em comum</div></div>'
+        +'<div class="frq-act"><button class="frq-ok" data-acc="'+r.id+'">Aceitar</button><button class="frq-no" data-dec="'+r.id+'">✕</button></div></div>';
+    }).join('');
+    // lista de amigos
+    $('#friendsList').innerHTML=FRIENDS.length?FRIENDS.map(function(f){
+      var nx=f.verAgenda?friendNextClass(f):null;
+      var sub=!f.verAgenda?'<div class="fr-s priv">agenda privada</div>'
+        :nx?'<div class="fr-s">próxima: '+MOD[nx.mod].nome+' · '+fmtDay(nx.day)+' '+nx.h+'</div>'
+        :'<div class="fr-s">sem aula marcada</div>';
+      var go=(nx)?(MINE[nx.id]?'<button class="fr-go ghost" disabled>✓ vocês vão</button>':'<button class="fr-go" data-gojunto="'+nx.id+'">Ir junto</button>'):'';
+      return '<div class="fr-row" data-friend="'+f.id+'"><span class="fr-av" style="background:'+f.cor+'">'+ini(f.nm)+'</span>'
+        +'<div class="fr-b"><div class="fr-nm">'+f.nm+'</div>'+sub+'</div>'+go+'</div>';
+    }).join(''):'<div class="empty">Você ainda não adicionou amigos.<br>Busque por nome ou @usuário acima 👆</div>';
+    renderSuggest();
+  }
+  function renderSuggest(){
+    var q=friendSearchTerm.toLowerCase();
+    var list=FRIEND_SUGGEST.filter(function(s){ return !s.hidden && (q===''||s.nm.toLowerCase().indexOf(q)>=0||s.handle.toLowerCase().indexOf(q)>=0); });
+    $('#suggTitle').textContent=q?'Resultados':'Pessoas que você talvez conheça';
+    $('#suggTitle').style.display=(list.length||q)?'':'none';
+    $('#friendSuggest').innerHTML=list.length?list.map(function(s){
+      return '<div class="fr-row"><span class="fr-av" style="background:'+s.cor+'">'+ini(s.nm)+'</span>'
+        +'<div class="fr-b"><div class="fr-nm">'+s.nm+'</div><div class="fr-mut">'+s.handle+' · '+s.mutuals+' em comum</div></div>'
+        +'<button class="fr-add'+(s.sent?' sent':'')+'" data-addf="'+s.id+'">'+(s.sent?'Enviado ✓':'＋ Adicionar')+'</button></div>';
+    }).join(''):(q?'<div class="empty">Ninguém encontrado com "'+friendSearchTerm+'".</div>':'');
+  }
+  function openFriend(id){ curFriend=id; showScreen('amigo'); document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');}); renderAmigo(); }
+  function renderAmigo(){
+    var f=FRIENDS.filter(function(x){return x.id===curFriend;})[0]; if(!f){ go('comunidade'); return; }
+    var head='<div class="amg-head"><div class="amg-av" style="background:'+f.cor+'">'+ini(f.nm)+'</div>'
+      +'<div class="amg-nm">'+f.nm+'</div><div class="amg-handle">'+f.handle+'</div>'
+      +'<div class="amg-stats"><div class="amg-stat"><b>'+(f.streak||1)+'</b><span>semanas 🔥</span></div>'
+      +'<div class="amg-stat"><b>'+(f.verAgenda?f.classes.length:'–')+'</b><span>aulas marcadas</span></div></div></div>';
+    var agenda;
+    if(!f.verAgenda){ agenda='<div class="amg-priv">🔒 '+firstName(f.nm)+' mantém a agenda privada.<br>Vocês ainda podem combinar de treinar juntos por aqui!</div>'; }
+    else {
+      var cs=CLASSES.filter(function(c){return f.classes.indexOf(c.id)>=0;});
+      agenda='<div class="sect-t">Agenda de '+firstName(f.nm)+'</div>'+(cs.length?cs.map(function(c){
+        var m=MOD[c.mod], gb=MINE[c.id]?'<button class="fr-go ghost" disabled>✓ vocês vão</button>':'<button class="fr-go" data-gojunto="'+c.id+'">Ir junto</button>';
+        return '<div class="cl-card '+m.cls+'"><div class="cl-time"><div class="ct-h">'+c.h+'</div><div class="ct-d">'+dayLabel(c.day).lbl+'</div></div>'
+          +'<div class="cl-main"><div class="cl-nm">'+m.nome+'</div><div class="cl-meta">'+fmtDay(c.day)+' · Prof. '+m.prof+'</div></div>'
+          +'<div class="cl-act">'+gb+'</div></div>';
+      }).join(''):'<div class="empty">Sem aulas marcadas no momento.</div>');
+    }
+    $('#amigoBody').innerHTML=head+agenda+'<button class="amg-remove" data-removef="'+f.id+'">Remover amigo</button>';
+  }
+
   // ---------- PROGRESSO ----------
   function renderProgresso(){
     var max=Math.max.apply(null,PROG.mods.map(function(m){return m.n;}));
@@ -674,10 +816,12 @@
     if(mine){ btn='<button class="bk booked" data-cancel="'+c.id+'">✓ Reservado</button>'; }
     else if(v<=0){ btn='<button class="bk wait" data-wait="'+c.id+'">Lista de espera</button>'; }
     else { btn='<button class="bk" data-book="'+c.id+'">Reservar</button>'; }
+    var fr=friendsInClass(c.id);
+    var frHTML=fr.length?'<div class="cl-friends">👟 '+(fr.length===1?firstName(fr[0].nm)+' vai':firstName(fr[0].nm)+' e +'+(fr.length-1)+' vão')+'</div>':'';
     return '<div class="cl-card '+m.cls+'">'
       +'<div class="cl-time"><div class="ct-h">'+c.h+'</div><div class="ct-d">'+dayLabel(c.day).lbl+'</div></div>'
       +'<div class="cl-main"><div class="cl-nm">'+m.nome+'</div><div class="cl-meta">Prof. '+m.prof+' · '+m.sala+'</div>'
-        +'<div class="cl-vagas '+vcls+'">'+vtxt+' · '+c.booked+'/'+m.cap+'</div></div>'
+        +'<div class="cl-vagas '+vcls+'">'+vtxt+' · '+c.booked+'/'+m.cap+'</div>'+frHTML+'</div>'
       +'<div class="cl-act">'+btn+'</div></div>';
   }
   function renderClasses(){
@@ -717,8 +861,22 @@
   }
   function refresh(){ renderHome(); renderClasses(); renderAgenda(); renderPerfil(); renderComunidade(); renderComprar(); }
 
+  function acceptReq(id){
+    var r=FRIEND_REQ.filter(function(x){return x.id===id;})[0]; if(!r)return;
+    FRIEND_REQ=FRIEND_REQ.filter(function(x){return x.id!==id;});
+    FRIENDS.push({id:r.id,nm:r.nm,handle:r.handle,cor:r.cor,verAgenda:true,streak:r.streak||2,classes:r.classes||[]});
+    toast('Agora vocês são amigos 🎉'); renderAmigos();
+  }
+
   // delegação de cliques (home + agendar + sub-telas)
   document.addEventListener('click',function(e){
+    var sg=e.target.closest('.sseg[data-seg]'); if(sg){ curSeg=sg.dataset.seg; renderComunidade(); return; }
+    var gj=e.target.closest('[data-gojunto]'); if(gj){ var gid=+gj.dataset.gojunto; if(MINE[gid]){ toast('Você já vai nessa aula 🙌'); } else { book(gid); } if($('#amigo').classList.contains('on'))renderAmigo(); return; }
+    var af=e.target.closest('[data-addf]'); if(af){ var sgn=FRIEND_SUGGEST.filter(function(x){return x.id===af.dataset.addf;})[0]; if(sgn&&!sgn.sent){ sgn.sent=true; toast('Pedido de amizade enviado para '+firstName(sgn.nm)+' 👋'); renderSuggest(); } return; }
+    var ac=e.target.closest('[data-acc]'); if(ac){ acceptReq(ac.dataset.acc); return; }
+    var dc=e.target.closest('[data-dec]'); if(dc){ FRIEND_REQ=FRIEND_REQ.filter(function(x){return x.id!==dc.dataset.dec;}); toast('Pedido recusado'); renderAmigos(); return; }
+    var rmf=e.target.closest('[data-removef]'); if(rmf){ FRIENDS=FRIENDS.filter(function(x){return x.id!==rmf.dataset.removef;}); toast('Amigo removido'); go('comunidade'); return; }
+    var fro=e.target.closest('.fr-row[data-friend]'); if(fro){ openFriend(fro.dataset.friend); return; }
     var b=e.target.closest('[data-book]'); if(b){ book(+b.dataset.book); return; }
     var w=e.target.closest('[data-wait]'); if(w){ waitlist(+w.dataset.wait); return; }
     var cc=e.target.closest('[data-cancel]'); if(cc){ cancel(+cc.dataset.cancel); return; }
@@ -755,8 +913,10 @@
   }
 
   // ---------- PERFIL ----------
-  function renderPerfil(){ $('#profCred').textContent=ME.creditos; $('#profPlan').textContent='Plano '+ME.plano; $('#notifSw').classList.toggle('on',notif); }
+  function renderPerfil(){ $('#profCred').textContent=ME.creditos; $('#profPlan').textContent='Plano '+ME.plano; $('#notifSw').classList.toggle('on',notif); $('#shareSw').classList.toggle('on',shareAgenda); }
   $('#notifSw').addEventListener('click',function(){ notif=!notif; this.classList.toggle('on',notif); toast(notif?'Notificações ligadas 🔔':'Notificações desligadas'); });
+  $('#shareSw').addEventListener('click',function(){ shareAgenda=!shareAgenda; this.classList.toggle('on',shareAgenda); toast(shareAgenda?'Seus amigos podem ver sua agenda 👟':'Sua agenda ficou privada 🔒'); });
+  $('#friendSearch').addEventListener('input',function(){ friendSearchTerm=this.value.trim(); renderSuggest(); });
   $('#btnSair').addEventListener('click',function(){ $('#tabbar').hidden=true; ['home','agendar','agenda','perfil'].forEach(function(s){$('#'+s).classList.remove('on');}); $('#login').classList.add('on'); });
   $('#goPerfilAv').addEventListener('click',function(){ go('perfil'); });
   $('#qaAgendar').addEventListener('click',function(){ go('agendar'); });
