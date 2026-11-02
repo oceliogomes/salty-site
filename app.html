@@ -330,6 +330,18 @@
   #seatInvite .inv-ttl{width:100%;font-size:.74rem;font-weight:700;color:var(--muted);margin-bottom:.1rem}
   .inv-chip{display:inline-flex;align-items:center;gap:.35rem;font-family:inherit;font-weight:700;font-size:.78rem;color:var(--ink);background:var(--raise);border:1.5px solid var(--line2);border-radius:999px;padding:.22rem .7rem .22rem .22rem;cursor:pointer}
   .inv-chip .fr-av{width:24px;height:24px;font-size:.58rem}
+
+  /* ===== avisos de amigos (bora junto) + streak de dupla ===== */
+  .nudge{display:flex;align-items:center;gap:.7rem;background:color-mix(in srgb,var(--sky) 32%,var(--panel));border:1.5px solid color-mix(in srgb,var(--sky-ink) 28%,transparent);border-radius:16px;padding:.7rem .85rem;margin-bottom:.6rem}
+  .nd-av{width:38px;height:38px;border-radius:50%;color:#FFFBF4;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.78rem;flex:none}
+  .nd-tx{flex:1;min-width:0;font-size:.83rem;line-height:1.3}
+  .nd-tx b{font-weight:800}
+  .nd-go{flex:none;font-family:inherit;font-weight:800;font-size:.76rem;color:#FFFBF4;background:var(--red);border:none;border-radius:999px;padding:.45rem .85rem;cursor:pointer}
+  .fr-duo{font-size:.72rem;font-weight:700;color:var(--warn);margin-top:.15rem}
+  .duo-card{display:flex;align-items:center;gap:.7rem;background:color-mix(in srgb,var(--warn) 12%,var(--panel));border:1.5px solid color-mix(in srgb,var(--warn) 34%,transparent);border-radius:16px;padding:.9rem 1rem;margin-bottom:.4rem}
+  .duo-card .dc-fire{font-size:1.6rem;flex:none}
+  .duo-card b{font-size:.92rem}
+  .duo-card span{font-size:.78rem;color:var(--muted);display:block;margin-top:.1rem}
 </style>
 </head>
 <body>
@@ -375,6 +387,9 @@
 
       <div class="sect-t">Sua próxima aula</div>
       <div id="nextWrap"></div>
+
+      <div class="sect-t" id="nudgeTitle" hidden>Bora treinar junto? 👟</div>
+      <div id="friendNudges"></div>
 
       <div class="sect-t">Sua evolução</div>
       <div class="prog-teaser" id="progTeaser"></div>
@@ -652,12 +667,12 @@
   // ---- Amigos (conexões individuais) ----
   // classes: ids da grade (CLASSES) em que o amigo está marcado · verAgenda: deixa você ver a agenda dele
   var FRIENDS=[
-    {id:'f1',nm:'Beatriz Nunes',handle:'@bia.nunes',cor:'#2A6C8C',verAgenda:true,streak:3,juntos:8,classes:[4,6]},
-    {id:'f2',nm:'Thiago Ramos',handle:'@thiago.r',cor:'#C0791A',verAgenda:true,streak:3,juntos:5,classes:[6,9]},
-    {id:'f3',nm:'Larissa Melo',handle:'@lari.melo',cor:'#2E8B57',verAgenda:false,streak:2,juntos:2,classes:[10]}
+    {id:'f1',nm:'Beatriz Nunes',handle:'@bia.nunes',cor:'#2A6C8C',verAgenda:true,streak:3,juntos:8,duo:3,classes:[4,6]},
+    {id:'f2',nm:'Thiago Ramos',handle:'@thiago.r',cor:'#C0791A',verAgenda:true,streak:3,juntos:5,duo:2,classes:[6,9]},
+    {id:'f3',nm:'Larissa Melo',handle:'@lari.melo',cor:'#2E8B57',verAgenda:false,streak:2,juntos:2,duo:0,classes:[10]}
   ];
   var FRIEND_REQ=[
-    {id:'r1',nm:'Gustavo Dias',handle:'@gugadias',cor:'#8A5FB0',mutuals:2,juntos:0,classes:[9]}
+    {id:'r1',nm:'Gustavo Dias',handle:'@gugadias',cor:'#8A5FB0',mutuals:2,juntos:0,duo:0,classes:[9]}
   ];
   var FRIEND_SUGGEST=[
     {id:'s1',nm:'Camila Rocha',handle:'@camila.rocha',cor:'#C8102E',mutuals:3,classes:[2]},
@@ -730,8 +745,9 @@
     // agenda count
     var cnt=Object.keys(MINE).length;
     $('#qaAgendaSub').textContent=cnt+(cnt===1?' marcada':' marcadas');
-    // mural (strip) + teaser de progresso
+    // mural (strip) + avisos de amigos + teaser de progresso
     renderMuralStrip();
+    renderNudges();
     $('#progTeaser').innerHTML='<div class="pt-big">'+PROG.total+'</div><div class="pt-tx"><b>'+PROG.total+' aulas · 🔥 '+PROG.streak+' semanas</b><span>veja sua evolução e marcos</span></div><div class="pt-go">›</div>';
     // com vaga — só os próximos 2 horários (máx ~4 aulas)
     var ns=nextSlots();
@@ -786,6 +802,26 @@
   }
   function friendNextClass(f){ for(var i=0;i<CLASSES.length;i++){ if(f.classes.indexOf(CLASSES[i].id)>=0) return CLASSES[i]; } return null; }
   function friendsInClass(id){ return FRIENDS.filter(function(f){return f.verAgenda&&f.classes.indexOf(id)>=0;}); }
+  // avisos "seu amigo marcou" — aulas de amigos (com vaga) que você ainda não vai
+  function friendNudges(){
+    var byClass={};
+    FRIENDS.forEach(function(f){ if(!f.verAgenda)return;
+      f.classes.forEach(function(cid){ if(MINE[cid])return; var c=CLASSES.filter(function(x){return x.id===cid;})[0]; if(!c||vagas(c)<=0)return; (byClass[cid]=byClass[cid]||{c:c,fs:[]}).fs.push(f); });
+    });
+    return Object.keys(byClass).map(function(k){return byClass[k];}).sort(function(a,b){return CLASSES.indexOf(a.c)-CLASSES.indexOf(b.c);}).slice(0,3);
+  }
+  function renderNudges(){
+    var ns=friendNudges();
+    $('#nudgeTitle').hidden=ns.length===0;
+    $('#friendNudges').innerHTML=ns.map(function(n){
+      var names=n.fs.map(function(f){return firstName(f.nm);});
+      var who=names.length===1?'<b>'+names[0]+'</b> vai':'<b>'+names.slice(0,2).join(' e ')+'</b> vão';
+      var m=MOD[n.c.mod];
+      return '<div class="nudge"><span class="nd-av" style="background:'+n.fs[0].cor+'">'+ini(n.fs[0].nm)+'</span>'
+        +'<div class="nd-tx">'+who+' em <b>'+m.nome+'</b> · '+fmtDay(n.c.day)+' '+n.c.h+'</div>'
+        +'<button class="nd-go" data-gojunto="'+n.c.id+'">Ir junto</button></div>';
+    }).join('');
+  }
   function firstName(n){return n.replace(/\(.*\)/,'').trim().split(' ')[0];}
   function renderAmigos(){
     // pedidos de amizade
@@ -802,8 +838,9 @@
         :nx?'<div class="fr-s">próxima: '+MOD[nx.mod].nome+' · '+fmtDay(nx.day)+' '+nx.h+'</div>'
         :'<div class="fr-s">sem aula marcada</div>';
       var go=(nx)?(MINE[nx.id]?'<button class="fr-go ghost" disabled>✓ vocês vão</button>':'<button class="fr-go" data-gojunto="'+nx.id+'">Ir junto</button>'):'';
+      var duo=f.duo>0?'<div class="fr-duo">🔥 dupla de '+f.duo+' semana'+(f.duo>1?'s':'')+'</div>':'';
       return '<div class="fr-row" data-friend="'+f.id+'"><span class="fr-av" style="background:'+f.cor+'">'+ini(f.nm)+'</span>'
-        +'<div class="fr-b"><div class="fr-nm">'+f.nm+'</div>'+sub+'</div>'+go+'</div>';
+        +'<div class="fr-b"><div class="fr-nm">'+f.nm+'</div>'+sub+duo+'</div>'+go+'</div>';
     }).join(''):'<div class="empty">Você ainda não adicionou amigos.<br>Busque por nome ou @usuário acima 👆</div>';
     renderSuggest();
   }
@@ -837,7 +874,8 @@
           +'<div class="cl-act">'+gb+'</div></div>';
       }).join(''):'<div class="empty">Sem aulas marcadas no momento.</div>');
     }
-    $('#amigoBody').innerHTML=head+agenda+'<button class="amg-remove" data-removef="'+f.id+'">Remover amigo</button>';
+    var duoCard=f.duo>0?'<div class="duo-card"><span class="dc-fire">🔥</span><div><b>Dupla de '+f.duo+' semana'+(f.duo>1?'s':'')+'</b><span>Vocês treinaram juntos toda semana — não quebra a corrente!</span></div></div>':'';
+    $('#amigoBody').innerHTML=head+duoCard+agenda+'<button class="amg-remove" data-removef="'+f.id+'">Remover amigo</button>';
   }
 
   // ---------- MAPA DA SALA (escolher lugar) ----------
@@ -915,7 +953,9 @@
     var note=seatNote(c,seat);
     ME.creditos--; c.booked++; MINE[id]={status:'conf',seat:seat,note:note};
     $('#seatOv').classList.remove('on');
-    toast('Reservado! '+seatWord(c.mod)+(seat+1)+(note?' ('+note+')':'')+' 🎉');
+    var frC=friendsInClass(id);
+    var extra=frC.length?' · dupla com '+firstName(frC[0].nm)+' 🔥':'';
+    toast('Reservado! '+seatWord(c.mod)+(seat+1)+(note?' ('+note+')':'')+extra+' 🎉');
     refresh(); if($('#amigo').classList.contains('on'))renderAmigo();
   }
   function closeSeat(){ $('#seatOv').classList.remove('on'); seatClassId=null; seatSel=null; }
