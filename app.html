@@ -298,6 +298,38 @@
   .amg-stat span{font-size:.68rem;color:var(--muted)}
   .amg-priv{text-align:center;color:var(--muted);font-size:.88rem;line-height:1.45;padding:1.6rem 1.1rem;background:var(--raise);border:1.5px dashed var(--line2);border-radius:16px}
   .amg-remove{width:100%;font-family:inherit;font-weight:700;font-size:.82rem;color:var(--muted);background:none;border:1.5px solid var(--line2);border-radius:12px;padding:.7rem;cursor:pointer;margin-top:1.2rem}
+
+  /* ===== MAPA DA SALA (escolher lugar) ===== */
+  .seat-ov{position:absolute;inset:0;background:rgba(30,18,12,.55);display:none;align-items:flex-end;z-index:70}
+  .seat-ov.on{display:flex;animation:fade .2s ease}
+  .seat-sheet{width:100%;background:var(--bg);border-radius:24px 24px 0 0;max-height:95%;display:flex;flex-direction:column;animation:slideup .25s ease}
+  @keyframes slideup{from{transform:translateY(34px)}to{transform:none}}
+  .seat-hd{display:flex;align-items:flex-start;gap:.6rem;padding:1.1rem 1.1rem .3rem}
+  .seat-hd .sh-x{margin-left:auto;flex:none}
+  .seat-ti{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.3rem;line-height:1.1}
+  .seat-sub{font-size:.8rem;color:var(--muted);margin-top:.15rem}
+  .seat-body{overflow-y:auto;padding:.3rem 1.1rem .6rem}
+  .stage{text-align:center;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.14em;color:var(--muted);background:var(--raise);border:1.5px solid var(--line2);border-radius:999px;padding:.4rem;margin:.5rem 0 1.1rem}
+  .seat-grid{display:grid;gap:.55rem;justify-content:center;max-width:320px;margin:0 auto}
+  .seat{min-height:56px;border-radius:13px;border:1.5px solid var(--line2);background:var(--panel);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.12rem;cursor:pointer;font-family:inherit;padding:.25rem;color:var(--ink)}
+  .seat .s-ic{font-size:1.15rem;line-height:1}
+  .seat .s-n{font-family:var(--f-mono);font-size:.56rem;color:var(--muted);line-height:1}
+  .seat .s-who{font-size:.58rem;font-weight:800;color:var(--sky-ink);line-height:1.05;text-align:center}
+  .seat.taken{background:var(--raise);border-style:dashed;cursor:not-allowed}
+  .seat.taken .s-ic{opacity:.4}
+  .seat.friend{cursor:not-allowed;border-color:var(--sky-ink);background:color-mix(in srgb,var(--sky) 50%,var(--panel))}
+  .seat.mine{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,transparent)}
+  .seat.sel{border-color:var(--red);background:var(--red);box-shadow:0 0 0 3px color-mix(in srgb,var(--red) 22%,transparent)}
+  .seat.sel .s-n,.seat.sel .s-ic{color:#FFFBF4}
+  .seat-legend{display:flex;flex-wrap:wrap;gap:.45rem .9rem;justify-content:center;margin:1.1rem 0 .2rem;font-size:.7rem;color:var(--muted)}
+  .seat-legend i{display:inline-block;width:12px;height:12px;border-radius:4px;vertical-align:-1px;margin-right:.25rem;border:1.5px solid var(--line2)}
+  .seat-foot{padding:.8rem 1.1rem calc(1rem + env(safe-area-inset-bottom,0px));border-top:1.5px solid var(--line2);background:var(--panel)}
+  .seat-selinfo{font-size:.86rem;font-weight:700;text-align:center;margin-bottom:.6rem;min-height:1.2em}
+  .seat-call{width:100%;font-family:inherit;font-weight:700;font-size:.82rem;color:var(--sky-ink);background:none;border:1.5px solid var(--line2);border-radius:12px;padding:.6rem;margin-top:.55rem;cursor:pointer}
+  #seatInvite{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.7rem}
+  #seatInvite .inv-ttl{width:100%;font-size:.74rem;font-weight:700;color:var(--muted);margin-bottom:.1rem}
+  .inv-chip{display:inline-flex;align-items:center;gap:.35rem;font-family:inherit;font-weight:700;font-size:.78rem;color:var(--ink);background:var(--raise);border:1.5px solid var(--line2);border-radius:999px;padding:.22rem .7rem .22rem .22rem;cursor:pointer}
+  .inv-chip .fr-av{width:24px;height:24px;font-size:.58rem}
 </style>
 </head>
 <body>
@@ -527,6 +559,32 @@
     <button class="tab" data-tab="perfil"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg><span>Perfil</span></button>
   </nav>
 
+  <!-- ===== MAPA DA SALA (escolher lugar) ===== -->
+  <div class="seat-ov" id="seatOv">
+    <div class="seat-sheet">
+      <div class="seat-hd">
+        <div><div class="seat-ti">Escolha seu lugar</div><div class="seat-sub" id="seatSub"></div></div>
+        <button class="sub-back sh-x" id="seatClose" aria-label="Fechar">✕</button>
+      </div>
+      <div class="seat-body">
+        <div class="stage" id="seatStage">★ FRENTE · INSTRUTOR ★</div>
+        <div class="seat-grid" id="seatGrid"></div>
+        <div class="seat-legend">
+          <span><i style="background:var(--panel)"></i>livre</span>
+          <span><i style="background:var(--raise);border-style:dashed"></i>ocupado</span>
+          <span><i style="background:color-mix(in srgb,var(--sky) 50%,var(--panel));border-color:var(--sky-ink)"></i>amigo</span>
+          <span><i style="background:var(--red);border-color:var(--red)"></i>você</span>
+        </div>
+      </div>
+      <div class="seat-foot">
+        <div id="seatInvite" hidden></div>
+        <div class="seat-selinfo" id="seatSel">Toque num lugar livre</div>
+        <button class="btn btn-red" id="seatConfirm" style="margin-top:0;opacity:.5" disabled>Confirmar reserva</button>
+        <button class="seat-call" id="seatCall">👋 Chamar um amigo pra essa aula</button>
+      </div>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 </div>
 
@@ -594,12 +652,12 @@
   // ---- Amigos (conexões individuais) ----
   // classes: ids da grade (CLASSES) em que o amigo está marcado · verAgenda: deixa você ver a agenda dele
   var FRIENDS=[
-    {id:'f1',nm:'Beatriz Nunes',handle:'@bia.nunes',cor:'#2A6C8C',verAgenda:true,streak:3,classes:[4,6]},
-    {id:'f2',nm:'Thiago Ramos',handle:'@thiago.r',cor:'#C0791A',verAgenda:true,streak:3,classes:[6,9]},
-    {id:'f3',nm:'Larissa Melo',handle:'@lari.melo',cor:'#2E8B57',verAgenda:false,streak:2,classes:[10]}
+    {id:'f1',nm:'Beatriz Nunes',handle:'@bia.nunes',cor:'#2A6C8C',verAgenda:true,streak:3,juntos:8,classes:[4,6]},
+    {id:'f2',nm:'Thiago Ramos',handle:'@thiago.r',cor:'#C0791A',verAgenda:true,streak:3,juntos:5,classes:[6,9]},
+    {id:'f3',nm:'Larissa Melo',handle:'@lari.melo',cor:'#2E8B57',verAgenda:false,streak:2,juntos:2,classes:[10]}
   ];
   var FRIEND_REQ=[
-    {id:'r1',nm:'Gustavo Dias',handle:'@gugadias',cor:'#8A5FB0',mutuals:2,classes:[9]}
+    {id:'r1',nm:'Gustavo Dias',handle:'@gugadias',cor:'#8A5FB0',mutuals:2,juntos:0,classes:[9]}
   ];
   var FRIEND_SUGGEST=[
     {id:'s1',nm:'Camila Rocha',handle:'@camila.rocha',cor:'#C8102E',mutuals:3,classes:[2]},
@@ -666,7 +724,7 @@
     var n=nextMine(), nw=$('#nextWrap');
     if(n){ var m=MOD[n.mod], st=MINE[n.id].status;
       nw.innerHTML='<div class="next-card"><span class="nx-dot" style="background:'+m.dot+'"></span>'
-        +'<div class="nx-b"><div class="nx-cls">'+m.nome+'</div><div class="nx-meta">'+(st==='wait'?'Lista de espera · ':'')+'Prof. '+m.prof+' · '+m.sala+'</div></div>'
+        +'<div class="nx-b"><div class="nx-cls">'+m.nome+'</div><div class="nx-meta">'+(st==='wait'?'Lista de espera · ':'')+'Prof. '+m.prof+(MINE[n.id].seat!=null?' · '+seatWord(n.mod)+(MINE[n.id].seat+1):' · '+m.sala)+'</div></div>'
         +'<div class="nx-when"><div class="nw-h">'+n.h+'</div><div class="nw-d">'+fmtDay(n.day)+'</div></div></div>';
     } else { nw.innerHTML='<div class="next-empty">Você não tem aula marcada. <b style="color:var(--red)">Bora agendar?</b></div>'; }
     // agenda count
@@ -765,7 +823,8 @@
     var f=FRIENDS.filter(function(x){return x.id===curFriend;})[0]; if(!f){ go('comunidade'); return; }
     var head='<div class="amg-head"><div class="amg-av" style="background:'+f.cor+'">'+ini(f.nm)+'</div>'
       +'<div class="amg-nm">'+f.nm+'</div><div class="amg-handle">'+f.handle+'</div>'
-      +'<div class="amg-stats"><div class="amg-stat"><b>'+(f.streak||1)+'</b><span>semanas 🔥</span></div>'
+      +'<div class="amg-stats"><div class="amg-stat"><b>'+(f.juntos||0)+'</b><span>treinos juntos</span></div>'
+      +'<div class="amg-stat"><b>'+(f.streak||1)+'</b><span>semanas 🔥</span></div>'
       +'<div class="amg-stat"><b>'+(f.verAgenda?f.classes.length:'–')+'</b><span>aulas marcadas</span></div></div></div>';
     var agenda;
     if(!f.verAgenda){ agenda='<div class="amg-priv">🔒 '+firstName(f.nm)+' mantém a agenda privada.<br>Vocês ainda podem combinar de treinar juntos por aqui!</div>'; }
@@ -780,6 +839,95 @@
     }
     $('#amigoBody').innerHTML=head+agenda+'<button class="amg-remove" data-removef="'+f.id+'">Remover amigo</button>';
   }
+
+  // ---------- MAPA DA SALA (escolher lugar) ----------
+  function seatCols(mod){ return mod==='bike'?3:4; }
+  function rngSeed(n){ return function(){ n=(n*1103515245+12345)&0x7fffffff; return n/0x7fffffff; }; }
+  function neighbors(i,cols,total){
+    var r=Math.floor(i/cols), c=i%cols, out=[];
+    [[r-1,c],[r+1,c],[r,c-1],[r,c+1]].forEach(function(p){
+      var rr=p[0],cc=p[1]; if(rr<0||cc<0||cc>=cols)return; var idx=rr*cols+cc; if(idx>=0&&idx<total)out.push(idx);
+    });
+    return out;
+  }
+  var seatClassId=null, seatSel=null, seatData=[];
+  function buildSeats(c){
+    var cap=MOD[c.mod].cap, cols=seatCols(c.mod), i;
+    var seats=[]; for(i=0;i<cap;i++) seats.push({i:i,state:'free',who:null,friend:false,color:null});
+    var order=[]; for(i=0;i<cap;i++) order.push(i);
+    var rnd=rngSeed(c.id*97+7);
+    for(i=cap-1;i>0;i--){ var j=Math.floor(rnd()*(i+1)); var t=order[i]; order[i]=order[j]; order[j]=t; }
+    var used={}, prot={}, oi=0;
+    friendsInClass(c.id).forEach(function(f){
+      var idx=order[oi++%cap]; while(used[idx]&&oi<cap){ idx=order[oi++%cap]; }
+      seats[idx].state='taken'; seats[idx].friend=true; seats[idx].who=firstName(f.nm); seats[idx].color=f.cor; used[idx]=1;
+      var nb=neighbors(idx,cols,cap).filter(function(x){return !used[x];}); if(nb.length)prot[nb[0]]=1;
+    });
+    if(MINE[c.id]&&MINE[c.id].seat!=null){ seats[MINE[c.id].seat].state='mine'; used[MINE[c.id].seat]=1; }
+    var takenCount=Object.keys(used).length, target=Math.min(cap-1,c.booked);
+    for(var k=0;k<order.length&&takenCount<target;k++){ var ix=order[k]; if(used[ix]||prot[ix])continue; seats[ix].state='taken'; used[ix]=1; takenCount++; }
+    return seats;
+  }
+  function suggestSeat(c){
+    var cols=seatCols(c.mod), cap=MOD[c.mod].cap;
+    for(var i=0;i<seatData.length;i++){ if(seatData[i].friend){ var nb=neighbors(i,cols,cap); for(var k=0;k<nb.length;k++){ if(seatData[nb[k]].state==='free') return nb[k]; } } }
+    return null;
+  }
+  function seatNote(c,idx){ var cols=seatCols(c.mod),cap=MOD[c.mod].cap,nb=neighbors(idx,cols,cap); for(var k=0;k<nb.length;k++){ if(seatData[nb[k]].friend) return 'do lado de '+seatData[nb[k]].who; } return ''; }
+  function seatWord(mod){ return mod==='bike'?'Bike ':'Lugar '; }
+  function openSeatMap(id){
+    var c=CLASSES.filter(function(x){return x.id===id;})[0]; if(!c)return;
+    if(MINE[id]){ toast('Você já está nessa aula 🙌'); return; }
+    if(vagas(c)<=0){ toast('Aula lotada — entre na lista de espera 🔔'); return; }
+    seatClassId=id; seatSel=null;
+    $('#seatSub').textContent=MOD[c.mod].nome+' · '+fmtDay(c.day)+' '+c.h;
+    $('#seatStage').textContent=c.mod==='bike'?'★ FRENTE · PALCO DO INSTRUTOR ★':'★ FRENTE · PROFESSOR ★';
+    $('#seatInvite').hidden=true;
+    seatData=buildSeats(c);
+    var sg=suggestSeat(c); if(sg!=null) seatSel=sg;
+    renderSeatGrid(c); updateSeatFoot(c);
+    $('#seatOv').classList.add('on');
+  }
+  function renderSeatGrid(c){
+    var cols=seatCols(c.mod), ic=c.mod==='bike'?'🚲':'🧘';
+    $('#seatGrid').style.gridTemplateColumns='repeat('+cols+',minmax(0,1fr))';
+    $('#seatGrid').innerHTML=seatData.map(function(s){
+      var sel=seatSel===s.i;
+      var lock=(s.state==='taken'||s.state==='friend'||s.state==='mine');
+      var top = s.friend?'<span class="s-who">👟 '+s.who+'</span>'
+        : sel?'<span class="s-ic">✅</span>'
+        : s.state==='mine'?'<span class="s-ic">✓</span>'
+        : '<span class="s-ic">'+ic+'</span>';
+      return '<button class="seat '+(s.friend?'friend':s.state)+(sel?' sel':'')+'" data-seat="'+s.i+'"'+(lock&&!sel?' disabled':'')+'>'+top+'<span class="s-n">'+seatWord(c.mod)+(s.i+1)+'</span></button>';
+    }).join('');
+  }
+  function updateSeatFoot(c){
+    var btn=$('#seatConfirm');
+    if(seatSel==null){ $('#seatSel').textContent='Toque num lugar livre'; btn.disabled=true; btn.style.opacity=.5; btn.textContent='Confirmar reserva'; }
+    else { var note=seatNote(c,seatSel);
+      $('#seatSel').innerHTML=seatWord(c.mod)+(seatSel+1)+(note?' · <b style="color:var(--sky-ink)">'+note+' 👟</b>':'');
+      btn.disabled=false; btn.style.opacity=1; btn.textContent='Confirmar · '+seatWord(c.mod)+(seatSel+1);
+    }
+  }
+  function bookSeat(id,seat){
+    var c=CLASSES.filter(function(x){return x.id===id;})[0]; if(!c)return;
+    if(ME.creditos<=0){ toast('Sem créditos — renove no Perfil 💳'); return; }
+    var note=seatNote(c,seat);
+    ME.creditos--; c.booked++; MINE[id]={status:'conf',seat:seat,note:note};
+    $('#seatOv').classList.remove('on');
+    toast('Reservado! '+seatWord(c.mod)+(seat+1)+(note?' ('+note+')':'')+' 🎉');
+    refresh(); if($('#amigo').classList.contains('on'))renderAmigo();
+  }
+  function closeSeat(){ $('#seatOv').classList.remove('on'); seatClassId=null; seatSel=null; }
+  $('#seatClose').addEventListener('click',closeSeat);
+  $('#seatOv').addEventListener('click',function(e){ if(e.target===this)closeSeat(); });
+  $('#seatConfirm').addEventListener('click',function(){ if(seatSel==null||seatClassId==null)return; bookSeat(seatClassId,seatSel); });
+  $('#seatCall').addEventListener('click',function(){
+    var inv=$('#seatInvite'); if(!inv.hidden){ inv.hidden=true; return; }
+    inv.innerHTML='<div class="inv-ttl">Convidar pra treinar junto:</div>'+FRIENDS.map(function(f){
+      return '<button class="inv-chip" data-invite="'+f.id+'"><span class="fr-av" style="background:'+f.cor+'">'+ini(f.nm)+'</span>'+firstName(f.nm)+'</button>';
+    }).join(''); inv.hidden=false;
+  });
 
   // ---------- PROGRESSO ----------
   function renderProgresso(){
@@ -864,20 +1012,22 @@
   function acceptReq(id){
     var r=FRIEND_REQ.filter(function(x){return x.id===id;})[0]; if(!r)return;
     FRIEND_REQ=FRIEND_REQ.filter(function(x){return x.id!==id;});
-    FRIENDS.push({id:r.id,nm:r.nm,handle:r.handle,cor:r.cor,verAgenda:true,streak:r.streak||2,classes:r.classes||[]});
+    FRIENDS.push({id:r.id,nm:r.nm,handle:r.handle,cor:r.cor,verAgenda:true,streak:r.streak||2,juntos:r.juntos||0,classes:r.classes||[]});
     toast('Agora vocês são amigos 🎉'); renderAmigos();
   }
 
   // delegação de cliques (home + agendar + sub-telas)
   document.addEventListener('click',function(e){
+    var st=e.target.closest('.seat[data-seat]'); if(st){ var si=+st.dataset.seat; if(seatData[si]&&seatData[si].state==='free'){ seatSel=si; var scl=CLASSES.filter(function(x){return x.id===seatClassId;})[0]; if(scl){ renderSeatGrid(scl); updateSeatFoot(scl); } } return; }
+    var iv=e.target.closest('[data-invite]'); if(iv){ var fiv=FRIENDS.filter(function(x){return x.id===iv.dataset.invite;})[0]; if(fiv)toast('Convite enviado pra '+firstName(fiv.nm)+' — bora treinar junto! 👋'); $('#seatInvite').hidden=true; return; }
     var sg=e.target.closest('.sseg[data-seg]'); if(sg){ curSeg=sg.dataset.seg; renderComunidade(); return; }
-    var gj=e.target.closest('[data-gojunto]'); if(gj){ var gid=+gj.dataset.gojunto; if(MINE[gid]){ toast('Você já vai nessa aula 🙌'); } else { book(gid); } if($('#amigo').classList.contains('on'))renderAmigo(); return; }
+    var gj=e.target.closest('[data-gojunto]'); if(gj){ var gid=+gj.dataset.gojunto; if(MINE[gid]){ toast('Você já vai nessa aula 🙌'); } else { openSeatMap(gid); } return; }
     var af=e.target.closest('[data-addf]'); if(af){ var sgn=FRIEND_SUGGEST.filter(function(x){return x.id===af.dataset.addf;})[0]; if(sgn&&!sgn.sent){ sgn.sent=true; toast('Pedido de amizade enviado para '+firstName(sgn.nm)+' 👋'); renderSuggest(); } return; }
     var ac=e.target.closest('[data-acc]'); if(ac){ acceptReq(ac.dataset.acc); return; }
     var dc=e.target.closest('[data-dec]'); if(dc){ FRIEND_REQ=FRIEND_REQ.filter(function(x){return x.id!==dc.dataset.dec;}); toast('Pedido recusado'); renderAmigos(); return; }
     var rmf=e.target.closest('[data-removef]'); if(rmf){ FRIENDS=FRIENDS.filter(function(x){return x.id!==rmf.dataset.removef;}); toast('Amigo removido'); go('comunidade'); return; }
     var fro=e.target.closest('.fr-row[data-friend]'); if(fro){ openFriend(fro.dataset.friend); return; }
-    var b=e.target.closest('[data-book]'); if(b){ book(+b.dataset.book); return; }
+    var b=e.target.closest('[data-book]'); if(b){ openSeatMap(+b.dataset.book); return; }
     var w=e.target.closest('[data-wait]'); if(w){ waitlist(+w.dataset.wait); return; }
     var cc=e.target.closest('[data-cancel]'); if(cc){ cancel(+cc.dataset.cancel); return; }
     var ch=e.target.closest('.chip[data-mod]'); if(ch){ curMod=ch.dataset.mod; renderClasses(); return; }
@@ -886,7 +1036,7 @@
     var mc=e.target.closest('.mrl-card[data-mural]'); if(mc){ openSub('mural'); return; }
     var mct=e.target.closest('[data-mcta]'); if(mct){ toast('"'+mct.dataset.mcta+'" — ação em construção (protótipo)'); return; }
     var pb=e.target.closest('[data-buy]'); if(pb){ buy(pb); return; }
-    var jn=e.target.closest('[data-join]'); if(jn){ var id=+jn.dataset.join; if(MINE[id]){ toast('Você já vai nessa aula 🙌'); } else { book(id); } return; }
+    var jn=e.target.closest('[data-join]'); if(jn){ var id=+jn.dataset.join; if(MINE[id]){ toast('Você já vai nessa aula 🙌'); } else { openSeatMap(id); } return; }
   });
   // atalhos específicos
   $('#credBuy').addEventListener('click',function(){ openSub('comprar'); });
@@ -903,6 +1053,7 @@
       var m=MOD[c.mod], st=MINE[c.id].status;
       return '<div class="ag-item '+m.cls+'"><div class="ag-top"><span class="ag-nm">'+m.nome+'</span><span class="ag-h">'+c.h+'</span></div>'
         +'<div class="ag-meta">'+fmtDay(c.day)+' · Prof. '+m.prof+' · '+m.sala+'</div>'
+        +(MINE[c.id].seat!=null?'<div class="ag-meta" style="color:var(--sky-ink);font-weight:700">'+(c.mod==='bike'?'🚲 ':'🧘 ')+seatWord(c.mod)+(MINE[c.id].seat+1)+(MINE[c.id].note?' · '+MINE[c.id].note+' 👟':'')+'</div>':'')
         +'<span class="ag-tag '+(st==='wait'?'wait':'conf')+'">'+(st==='wait'?'Lista de espera':'Confirmada')+'</span>'
         +'<div class="ag-actions"><button class="ag-btn danger" data-cancel="'+c.id+'">'+(st==='wait'?'Sair da espera':'Cancelar')+'</button></div></div>';
     }).join(''):'<div class="empty">Nenhuma aula marcada ainda.<br>Toque em <b>Agendar</b> pra escolher.</div>';
