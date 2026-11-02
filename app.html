@@ -351,7 +351,18 @@
   .desaf-teaser .dt-tx span{font-size:.78rem;opacity:.9}
   .desaf-teaser .dt-go{font-weight:800;font-size:1.2rem}
   .ondas-card{background:linear-gradient(135deg,var(--sky-ink),#2E90C4);color:#FFFBF4;border-radius:20px;padding:1.1rem 1.2rem;position:relative;overflow:hidden}
-  .ondas-card::after{content:"🌊";position:absolute;right:-4px;bottom:-16px;font-size:5rem;opacity:.18}
+  .ondas-card::after{content:"🪙";position:absolute;right:-4px;bottom:-16px;font-size:5rem;opacity:.18}
+  .moeda-note{font-size:.75rem;color:var(--muted);line-height:1.45;background:var(--raise);border:1.5px solid var(--line2);border-radius:12px;padding:.65rem .8rem;margin-top:.7rem}
+  .moeda-note b{color:var(--ink)}
+  /* feed de conquistas */
+  .ach{display:flex;align-items:center;gap:.7rem;background:var(--panel);border:1.5px solid var(--line2);border-radius:14px;padding:.7rem .85rem;margin-bottom:.55rem}
+  .ach-av{width:36px;height:36px;border-radius:50%;color:#FFFBF4;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.72rem;flex:none;position:relative}
+  .ach-ic{position:absolute;right:-5px;bottom:-5px;font-size:.85rem}
+  .ach-tx{flex:1;min-width:0;font-size:.83rem;line-height:1.3}
+  .ach-tx b{font-weight:800}
+  .ach-when{display:block;font-size:.68rem;color:var(--faint);margin-top:.1rem}
+  .ach-clap{flex:none;font-family:inherit;font-weight:700;font-size:.82rem;background:var(--raise);border:1.5px solid var(--line2);border-radius:999px;padding:.35rem .65rem;cursor:pointer}
+  .ach-clap.done{background:color-mix(in srgb,var(--warn) 14%,transparent);border-color:color-mix(in srgb,var(--warn) 32%,transparent)}
   .ondas-lbl{font-size:.78rem;opacity:.9}
   .ondas-big{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:2.6rem;line-height:1;margin:.05rem 0}
   .ondas-sub{font-size:.8rem;opacity:.9}
@@ -650,11 +661,12 @@
     <div class="sub-head"><button class="sub-back" data-back aria-label="Voltar">‹</button><span class="sh-t">Desafios</span></div>
     <div class="scroll">
       <div class="ondas-card">
-        <div class="ondas-lbl">Suas Ondas</div>
+        <div class="ondas-lbl">Suas Moedas</div>
         <div class="ondas-big" id="ondasBig">170</div>
         <div class="ondas-sub">pontos pra trocar por recompensas</div>
-        <button class="ondas-trocar" id="ondasTrocar">🌊 Ver recompensas</button>
+        <button class="ondas-trocar" id="ondasTrocar">🪙 Ver recompensas</button>
       </div>
+      <div class="moeda-note">🪙 Você ganha <b>1 moeda por aula</b> — sempre, com desafio ativo ou não. Os desafios dão <b>moedas de bônus</b> ao completar. Ex: desafio de 20 aulas (+30 de bônus) = <b>50 moedas</b>.</div>
 
       <div class="sect-t">Desafio do mês · todo mundo participa</div>
       <div id="mesCard"></div>
@@ -667,7 +679,10 @@
       <div id="grpCard"></div>
       <button class="grp-create" id="grpCreate">＋ Criar desafio com amigos</button>
 
-      <div class="sect-t" id="lojaTitle">Recompensas · troque suas Ondas</div>
+      <div class="sect-t">Rolê da comunidade 🎉</div>
+      <div id="feedList"></div>
+
+      <div class="sect-t" id="lojaTitle">Recompensas · troque suas Moedas</div>
       <div class="loja-grid" id="lojaGrid"></div>
       <p class="proto-note">Pontos descontados no resgate · protótipo (não cobra de verdade)</p>
     </div>
@@ -867,7 +882,7 @@
     renderMuralStrip();
     renderNudges();
     $('#progTeaser').innerHTML='<div class="pt-big">'+PROG.total+'</div><div class="pt-tx"><b>'+PROG.total+' aulas · 🔥 '+PROG.streak+' semanas</b><span>veja sua evolução e marcos</span></div><div class="pt-go">›</div>';
-    $('#desafTeaser').innerHTML='<div class="dt-ic">🌊</div><div class="dt-tx"><b>Desafios Salty</b><span>'+activeDesafios().length+' ativos · você tem '+ONDAS+' ondas</span></div><div class="dt-go">›</div>';
+    $('#desafTeaser').innerHTML='<div class="dt-ic">🪙</div><div class="dt-tx"><b>Desafios Salty</b><span>'+activeDesafios().length+' ativos · você tem '+ONDAS+' moedas</span></div><div class="dt-go">›</div>';
     // com vaga — só os próximos 2 horários (máx ~4 aulas)
     var ns=nextSlots();
     $('#homeToday').innerHTML=ns.length?ns.map(cardHTML).join(''):'<div class="next-empty">As aulas de hoje já encheram 🔥</div>';
@@ -1104,7 +1119,7 @@
   var DESAFIO_MES={ mes:'Novembro', titulo:'16 aulas em novembro', desc:'Complete 16 check-ins no mês — toda modalidade conta.', meta:16, feito:7, recompensa:20, dias:21, completaram:38 };
   var DESAFIOS=[
     {id:1,cat:'mod',catL:'Modalidade',ti:'3 aulas de Hot Sculpt em 7 dias',ds:'Vá 3 vezes ao Hot Sculpt nesta semana.',rew:3,prazo:7,meta:3,feito:2,ativo:true},
-    {id:2,cat:'social',catL:'Social',ti:'Treine com um amigo 2x',ds:'Faça 2 aulas na mesma turma que um amigo seu.',rew:5,prazo:14,meta:2,feito:1,ativo:true},
+    {id:2,cat:'social',catL:'Social',ti:'Treine com um amigo 5x',ds:'Faça 5 aulas na mesma turma que um amigo seu no mês.',rew:10,prazo:30,meta:5,feito:2,ativo:true},
     {id:3,cat:'freq',catL:'Frequência',ti:'12 aulas em novembro',ds:'Complete 12 check-ins no mês. Qualquer modalidade conta.',rew:8,prazo:30,meta:12,feito:0,ativo:false},
     {id:4,cat:'seq',catL:'Sequência',ti:'7 dias seguidos treinando',ds:'Apareça pelo menos 1 vez por dia, 7 dias seguidos.',rew:7,prazo:7,meta:7,feito:0,ativo:false},
     {id:5,cat:'mod',catL:'Modalidade',ti:'5 pedaladas em 14 dias',ds:'5 aulas de Bike no Rooftop em 2 semanas.',rew:4,prazo:14,meta:5,feito:0,ativo:false},
@@ -1119,6 +1134,24 @@
   var GRUPO={ nome:'Desafio de novembro', metric:'Quem faz mais aulas', dias:12,
     rank:[ {nm:'Beatriz Nunes',cor:'#2A6C8C',score:8,seq:5}, {nm:'Você',cor:'var(--navy)',score:6,seq:3,me:true}, {nm:'Thiago Ramos',cor:'#C0791A',score:5,seq:2}, {nm:'Larissa Melo',cor:'#2E8B57',score:3,seq:1} ] };
   var LOJA=[ {ic:'🎟️',nm:'Aula avulsa grátis',cost:120}, {ic:'🧴',nm:'Kit pós-treino',cost:220}, {ic:'👕',nm:'Camiseta Salty',cost:400}, {ic:'%',nm:'15% na renovação',cost:300} ];
+  // feed de conquistas da comunidade (no backend: eventos gerados por check-in / conclusão de desafio / resgate)
+  var FEED=[
+    {nm:'Beatriz Nunes',cor:'#2A6C8C',ic:'🔥',tx:'completou <b>7 dias seguidos</b>',when:'há 2h',claps:4},
+    {nm:'Thiago Ramos',cor:'#C0791A',ic:'🏆',tx:'bateu o marco de <b>50 aulas</b>',when:'ontem',claps:11},
+    {nm:'Você',cor:'var(--navy)',ic:'🥉',tx:'entrou no <b>top 3</b> do desafio do grupo',when:'ontem',me:true,claps:6},
+    {nm:'Camila Rocha',cor:'#C8102E',ic:'✅',tx:'completou <b>Experimente as 3 modalidades</b>',when:'há 2 dias',claps:3},
+    {nm:'Larissa Melo',cor:'#2E8B57',ic:'👕',tx:'resgatou a <b>Camiseta Salty</b> com as moedas',when:'há 3 dias',claps:5}
+  ];
+  var clapped={};
+  function renderFeed(){
+    $('#feedList').innerHTML=FEED.map(function(f,i){
+      var who=f.me?'<b>Você</b>':'<b>'+firstName(f.nm)+'</b>';
+      var done=clapped[i];
+      return '<div class="ach"><span class="ach-av" style="background:'+f.cor+'">'+ini(f.nm)+'<span class="ach-ic">'+f.ic+'</span></span>'
+        +'<div class="ach-tx">'+who+' '+f.tx+'<span class="ach-when">'+f.when+'</span></div>'
+        +(f.me?'':'<button class="ach-clap'+(done?' done':'')+'" data-clap="'+i+'">👏 '+(f.claps+(done?1:0))+'</button>')+'</div>';
+    }).join('');
+  }
 
   function activeDesafios(){ return DESAFIOS.filter(function(d){return d.ativo;}); }
   function renderDesafios(){
@@ -1126,7 +1159,7 @@
     var d=DESAFIO_MES, mp=Math.round(d.feito/d.meta*100);
     $('#mesCard').innerHTML='<div class="mes-card"><span class="mes-badge">Desafio de '+d.mes+'</span>'
       +'<div class="mes-ti">'+d.titulo+'</div><div class="mes-dsc">'+d.desc+'</div>'
-      +'<div class="mes-rew">🌊 +'+d.recompensa+' ondas ao completar</div>'
+      +'<div class="mes-rew">🪙 +'+d.recompensa+' moedas de bônus ao completar</div>'
       +'<div class="mes-pll"><span>'+d.feito+' / '+d.meta+' aulas</span><span>'+mp+'%</span></div>'
       +'<div class="mes-track"><i style="width:'+mp+'%"></i></div>'
       +'<div class="mes-foot"><span>'+d.completaram+' alunos já completaram</span><span>'+d.dias+' dias restantes</span></div></div>';
@@ -1140,7 +1173,7 @@
       var days=d.ativo?'':'<div class="ch-days">'+(d.prazo?d.prazo+' dias':'sem prazo')+'</div>';
       return '<div class="ch-card'+(d.ativo?' ativo':'')+'"><span class="ch-cat cat-'+d.cat+'">'+d.catL+'</span>'
         +'<div class="ch-ti">'+d.ti+'</div><div class="ch-dsc">'+d.ds+'</div>'+prog
-        +'<div class="ch-foot"><div><div class="ch-rew">🌊 +'+d.rew+' <small>ondas</small></div>'+days+'</div>'+btn+'</div></div>';
+        +'<div class="ch-foot"><div><div class="ch-rew">🪙 +'+d.rew+' <small>moedas bônus</small></div>'+days+'</div>'+btn+'</div></div>';
     }).join('');
     var ranks=GRUPO.rank.slice().sort(function(a,b){return b.score-a.score||b.seq-a.seq;});
     $('#grpCard').innerHTML='<div class="grp-card"><div class="grp-hd"><div><div class="grp-nm">'+GRUPO.nome+' 💪</div><div class="grp-meta">'+GRUPO.metric+' · '+GRUPO.dias+' dias restantes</div></div></div>'
@@ -1151,9 +1184,10 @@
       }).join('')+'</div>';
     $('#lojaGrid').innerHTML=LOJA.map(function(l){
       var can=ONDAS>=l.cost;
-      return '<div class="loja-card"><div class="loja-ic">'+l.ic+'</div><div class="loja-nm">'+l.nm+'</div><div class="loja-cost">🌊 '+l.cost+'</div>'
+      return '<div class="loja-card"><div class="loja-ic">'+l.ic+'</div><div class="loja-nm">'+l.nm+'</div><div class="loja-cost">🪙 '+l.cost+'</div>'
         +(can?'<button class="loja-btn" data-resgatar="'+l.cost+'" data-rnome="'+l.nm+'">Resgatar</button>':'<button class="loja-btn lock" disabled>Faltam '+(l.cost-ONDAS)+'</button>')+'</div>';
     }).join('');
+    renderFeed();
   }
   function acceptDesafio(id){
     if(activeDesafios().length>=3){ toast('Você já tem 3 desafios ativos — desista de um pra aceitar outro'); return; }
@@ -1161,10 +1195,10 @@
   }
   function cancelDesafio(id){
     var d=DESAFIOS.filter(function(x){return x.id===id;})[0]; if(!d)return;
-    confirmAsk('Desistir do desafio?','Você perde o progresso já conquistado ('+d.feito+'/'+d.meta+') e ele zera. As Ondas que você já ganhou não são afetadas.',function(){ d.ativo=false; d.feito=0; toast('Desafio cancelado — o progresso zerou'); renderDesafios(); });
+    confirmAsk('Desistir do desafio?','Você perde o progresso já conquistado ('+d.feito+'/'+d.meta+') e ele zera. As moedas que você já ganhou (1 por aula) não são afetadas — só o bônus deste desafio.',function(){ d.ativo=false; d.feito=0; toast('Desafio cancelado — o progresso zerou'); renderDesafios(); });
   }
   function resgatarOnda(cost,nome){
-    confirmAsk(nome,'Resgatar por 🌊 '+cost+' ondas? Seu saldo vai de '+ONDAS+' para '+(ONDAS-cost)+'.',function(){ ONDAS-=cost; toast(nome+' resgatado! 🎉 (protótipo)'); renderDesafios(); });
+    confirmAsk(nome,'Resgatar por 🪙 '+cost+' moedas? Seu saldo vai de '+ONDAS+' para '+(ONDAS-cost)+'.',function(){ ONDAS-=cost; toast(nome+' resgatado! 🎉 (protótipo)'); renderDesafios(); });
   }
   var cfmYes=null;
   function confirmAsk(ttl,tx,onyes){ $('#cfmTtl').textContent=ttl; $('#cfmTx').textContent=tx; cfmYes=onyes; $('#cfmOv').classList.add('on'); }
@@ -1266,6 +1300,7 @@
     var cha=e.target.closest('[data-chaccept]'); if(cha){ acceptDesafio(+cha.dataset.chaccept); return; }
     var chc=e.target.closest('[data-chcancel]'); if(chc){ cancelDesafio(+chc.dataset.chcancel); return; }
     var rg=e.target.closest('[data-resgatar]'); if(rg){ resgatarOnda(+rg.dataset.resgatar, rg.dataset.rnome); return; }
+    var cl=e.target.closest('[data-clap]'); if(cl){ var ci=+cl.dataset.clap; if(!clapped[ci]){ clapped[ci]=true; toast('Você parabenizou '+firstName(FEED[ci].nm)+' 👏'); renderFeed(); } return; }
     var b=e.target.closest('[data-book]'); if(b){ openSeatMap(+b.dataset.book); return; }
     var w=e.target.closest('[data-wait]'); if(w){ waitlist(+w.dataset.wait); return; }
     var cc=e.target.closest('[data-cancel]'); if(cc){ cancel(+cc.dataset.cancel); return; }
