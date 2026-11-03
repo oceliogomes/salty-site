@@ -430,6 +430,35 @@
   .cfm-acts button{flex:1;font-family:inherit;font-weight:700;font-size:.86rem;border-radius:12px;padding:.7rem;cursor:pointer}
   #cfmNo{background:none;border:1.5px solid var(--line2);color:var(--muted)}
   #cfmYes{background:var(--red);border:none;color:#FFFBF4}
+
+  /* aviso de grupo + hall do mês + experiências */
+  .gnudge{display:flex;align-items:center;gap:.6rem;background:color-mix(in srgb,var(--warn) 12%,var(--panel));border:1.5px solid color-mix(in srgb,var(--warn) 34%,transparent);border-radius:14px;padding:.7rem .9rem;margin-bottom:.6rem;font-size:.84rem;line-height:1.3}
+  .gnudge .gn-ic{font-size:1.2rem;flex:none}
+  .gnudge b{font-weight:800}
+  .home-gnudge{display:flex;align-items:center;gap:.8rem;background:linear-gradient(120deg,#C79A2E,#E0A020);color:#FFFBF4;border-radius:16px;padding:.85rem 1rem;margin-bottom:.6rem;cursor:pointer}
+  .home-gnudge .hg-ic{font-size:1.5rem;flex:none}
+  .home-gnudge .hg-tx{flex:1;font-size:.85rem;line-height:1.35}
+  .home-gnudge .hg-tx b{font-weight:800}
+  .home-gnudge .hg-go{font-weight:800;font-size:1.1rem;flex:none}
+  .hall-card{border:1.5px solid var(--line2);border-radius:16px;background:var(--panel);padding:1rem}
+  .hall-top{display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem;font-size:.9rem}
+  .hall-avs{display:flex;align-items:center}
+  .hall-avs .ha{width:32px;height:32px;border-radius:50%;color:#FFFBF4;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.62rem;border:2px solid var(--panel);margin-left:-8px}
+  .hall-avs .ha:first-child{margin-left:0}
+  .hall-avs .ha.more{background:var(--raise);color:var(--muted);font-size:.58rem}
+  .hall-status{font-size:.8rem;color:var(--muted);margin-top:.7rem;padding-top:.65rem;border-top:1px dashed var(--line)}
+  .hall-status b{color:var(--ink)}
+  .hall-status.in{color:var(--good)}.hall-status.in b{color:var(--good)}
+  .exp-card{display:flex;align-items:center;gap:.8rem;border:1.5px solid var(--line2);border-radius:16px;background:var(--panel);padding:.85rem 1rem;margin-bottom:.6rem}
+  .exp-ic{font-size:1.6rem;flex:none}
+  .exp-b{flex:1;min-width:0}
+  .exp-nm{font-weight:800;font-size:.9rem}
+  .exp-ds{font-size:.76rem;color:var(--muted);margin-top:.1rem;line-height:1.35}
+  .exp-act{flex:none;text-align:right}
+  .exp-cost{font-size:.76rem;font-weight:800;color:var(--sky-ink)}
+  .exp-btn{margin-top:.25rem;font-family:inherit;font-weight:800;font-size:.74rem;color:#FFFBF4;background:var(--red);border:none;border-radius:999px;padding:.4rem .85rem;cursor:pointer}
+  .exp-badge{display:inline-block;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--good);background:color-mix(in srgb,var(--good) 13%,transparent);border-radius:999px;padding:.22rem .55rem}
+  .exp-badge.lock{color:var(--muted);background:var(--raise)}
 </style>
 </head>
 <body>
@@ -478,6 +507,7 @@
 
       <div class="sect-t" id="nudgeTitle" hidden>Bora treinar junto? 👟</div>
       <div id="friendNudges"></div>
+      <div id="grpHomeNudge"></div>
 
       <div class="sect-t">Sua evolução</div>
       <div class="prog-teaser" id="progTeaser"></div>
@@ -671,13 +701,20 @@
       <div class="sect-t">Desafio do mês · todo mundo participa</div>
       <div id="mesCard"></div>
 
+      <div class="sect-t">Hall do mês 🏆</div>
+      <div id="hallCard"></div>
+
       <div class="sect-t">Seus desafios</div>
       <div class="slots" id="chSlots"></div>
       <div id="chList"></div>
 
       <div class="sect-t">Desafio em grupo · com seus amigos</div>
+      <div id="grpNudge"></div>
       <div id="grpCard"></div>
       <button class="grp-create" id="grpCreate">＋ Criar desafio com amigos</button>
+
+      <div class="sect-t">Experiências &amp; eventos 🎟️</div>
+      <div id="expList"></div>
 
       <div class="sect-t">Rolê da comunidade 🎉</div>
       <div id="feedList"></div>
@@ -881,6 +918,7 @@
     // mural (strip) + avisos de amigos + teaser de progresso
     renderMuralStrip();
     renderNudges();
+    renderGrpHomeNudge();
     $('#progTeaser').innerHTML='<div class="pt-big">'+PROG.total+'</div><div class="pt-tx"><b>'+PROG.total+' aulas · 🔥 '+PROG.streak+' semanas</b><span>veja sua evolução e marcos</span></div><div class="pt-go">›</div>';
     $('#desafTeaser').innerHTML='<div class="dt-ic">🪙</div><div class="dt-tx"><b>Desafios Salty</b><span>'+activeDesafios().length+' ativos · você tem '+ONDAS+' moedas</span></div><div class="dt-go">›</div>';
     // com vaga — só os próximos 2 horários (máx ~4 aulas)
@@ -1153,6 +1191,49 @@
     }).join('');
   }
 
+  // hall do mês (quem completou o desafio geral) + experiências/eventos
+  var HALL={ mes:'Novembro', avatares:[ {nm:'Ana Lima',cor:'#C8102E'},{nm:'Beatriz Nunes',cor:'#2A6C8C'},{nm:'Rafael Lima',cor:'#2E90C4'},{nm:'Carla Souza',cor:'#8A5FB0'},{nm:'Pedro Alves',cor:'#2E8B57'},{nm:'Ju Martins',cor:'#C0791A'} ] };
+  var EXPERIENCIAS=[
+    {ic:'🎟️',nm:'Convide um amigo',ds:'Uma aula grátis pra quem você trouxer conhecer a Salty.',cost:150,tipo:'moeda'},
+    {ic:'🌙',nm:'Night Salty',ds:'Evento fechado só pros Top 10 do mês. Acesso por ranking, não por moedas.',tipo:'status'}
+  ];
+  function grupoNudge(){
+    var ranks=GRUPO.rank.slice().sort(function(a,b){return b.score-a.score||b.seq-a.seq;});
+    var mi=-1; for(var i=0;i<ranks.length;i++){ if(ranks[i].me){ mi=i; break; } }
+    if(mi<0) return null;
+    if(mi===0) return {pos:1,msg:'Você está em <b>1º</b> — segura a ponta! Faltam '+GRUPO.dias+' dias.'};
+    var acima=ranks[mi-1], gap=acima.score-ranks[mi].score;
+    return {pos:mi+1,msg:'Você está em <b>'+(mi+1)+'º</b>, '+gap+' aula'+(gap>1?'s':'')+' atrás de '+firstName(acima.nm)+'. Dá pra virar em '+GRUPO.dias+' dias!'};
+  }
+  function renderHall(){
+    var faltam=DESAFIO_MES.meta-DESAFIO_MES.feito;
+    var avs=HALL.avatares.slice(0,5).map(function(a){return '<span class="ha" style="background:'+a.cor+'">'+ini(a.nm)+'</span>';}).join('');
+    var more=DESAFIO_MES.completaram>5?'<span class="ha more">+'+(DESAFIO_MES.completaram-5)+'</span>':'';
+    var status= faltam<=0 ? '<div class="hall-status in">🏅 <b>Você está no Hall!</b> Desafio do mês completo.</div>'
+      : '<div class="hall-status">Faltam <b>'+faltam+' aulas</b> pra você entrar no Hall de '+HALL.mes+'.</div>';
+    $('#hallCard').innerHTML='<div class="hall-card"><div class="hall-top"><span>🏆</span><b>Quem já completou o desafio de '+HALL.mes+'</b></div><div class="hall-avs">'+avs+more+'</div>'+status+'</div>';
+  }
+  function renderGrpNudge(){
+    var n=grupoNudge();
+    $('#grpNudge').innerHTML=n?'<div class="gnudge"><span class="gn-ic">⏳</span><div>'+n.msg+'</div></div>':'';
+  }
+  function renderExp(){
+    var ranks=GRUPO.rank.slice().sort(function(a,b){return b.score-a.score||b.seq-a.seq;});
+    var mePos=99; for(var i=0;i<ranks.length;i++){ if(ranks[i].me){ mePos=i+1; break; } }
+    $('#expList').innerHTML=EXPERIENCIAS.map(function(x){
+      if(x.tipo==='moeda'){ var can=ONDAS>=x.cost;
+        return '<div class="exp-card"><span class="exp-ic">'+x.ic+'</span><div class="exp-b"><div class="exp-nm">'+x.nm+'</div><div class="exp-ds">'+x.ds+'</div></div>'
+          +'<div class="exp-act"><div class="exp-cost">🪙 '+x.cost+'</div>'+(can?'<button class="exp-btn" data-resgatar="'+x.cost+'" data-rnome="'+x.nm+'">Resgatar</button>':'<div class="exp-badge lock">Faltam '+(x.cost-ONDAS)+'</div>')+'</div></div>';
+      }
+      var inTop=mePos<=10;
+      return '<div class="exp-card"><span class="exp-ic">'+x.ic+'</span><div class="exp-b"><div class="exp-nm">'+x.nm+'</div><div class="exp-ds">'+x.ds+'</div></div>'
+        +'<div class="exp-act">'+(inTop?'<div class="exp-badge">Você está dentro 🎉</div>':'<div class="exp-badge lock">Top 10 do mês</div>')+'</div></div>';
+    }).join('');
+  }
+  function renderGrpHomeNudge(){
+    var n=grupoNudge();
+    $('#grpHomeNudge').innerHTML=n?'<div class="home-gnudge" data-opendesaf="1"><span class="hg-ic">🏆</span><div class="hg-tx"><b>Desafio do grupo</b> · '+n.msg+'</div><span class="hg-go">›</span></div>':'';
+  }
   function activeDesafios(){ return DESAFIOS.filter(function(d){return d.ativo;}); }
   function renderDesafios(){
     $('#ondasBig').textContent=ONDAS;
@@ -1187,7 +1268,7 @@
       return '<div class="loja-card"><div class="loja-ic">'+l.ic+'</div><div class="loja-nm">'+l.nm+'</div><div class="loja-cost">🪙 '+l.cost+'</div>'
         +(can?'<button class="loja-btn" data-resgatar="'+l.cost+'" data-rnome="'+l.nm+'">Resgatar</button>':'<button class="loja-btn lock" disabled>Faltam '+(l.cost-ONDAS)+'</button>')+'</div>';
     }).join('');
-    renderFeed();
+    renderHall(); renderGrpNudge(); renderExp(); renderFeed();
   }
   function acceptDesafio(id){
     if(activeDesafios().length>=3){ toast('Você já tem 3 desafios ativos — desista de um pra aceitar outro'); return; }
@@ -1301,6 +1382,7 @@
     var chc=e.target.closest('[data-chcancel]'); if(chc){ cancelDesafio(+chc.dataset.chcancel); return; }
     var rg=e.target.closest('[data-resgatar]'); if(rg){ resgatarOnda(+rg.dataset.resgatar, rg.dataset.rnome); return; }
     var cl=e.target.closest('[data-clap]'); if(cl){ var ci=+cl.dataset.clap; if(!clapped[ci]){ clapped[ci]=true; toast('Você parabenizou '+firstName(FEED[ci].nm)+' 👏'); renderFeed(); } return; }
+    var od=e.target.closest('[data-opendesaf]'); if(od){ openSub('desafios'); return; }
     var b=e.target.closest('[data-book]'); if(b){ openSeatMap(+b.dataset.book); return; }
     var w=e.target.closest('[data-wait]'); if(w){ waitlist(+w.dataset.wait); return; }
     var cc=e.target.closest('[data-cancel]'); if(cc){ cancel(+cc.dataset.cancel); return; }
