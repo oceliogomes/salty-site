@@ -300,6 +300,33 @@
   .folga-intro{font-size:.86rem;line-height:1.5;color:var(--muted);margin:.3rem 0 .9rem}
   .folga-intro b{color:var(--ink)}
   .folga-list{display:flex;flex-direction:column;gap:.6rem}
+  /* resumo rápido de cupons */
+  .cup-quick{background:var(--panel);border:1.5px solid var(--line2);border-radius:14px;padding:1rem 1.1rem;margin-bottom:1rem}
+  .cup-quick-hd{display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;margin-bottom:.8rem}
+  .cup-quick-hd b{font-size:.95rem}
+  .cup-filters{display:flex;gap:.35rem}
+  .cup-quick-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1rem}
+  .cq-stat{background:var(--raise);border:1.5px solid var(--line2);border-radius:10px;padding:.6rem .75rem}
+  .cq-stat span{display:block;font-size:.7rem;color:var(--muted)}
+  .cq-stat b{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.35rem;color:var(--navy)}
+  .cq-top-hd{font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:.5rem}
+  .cq-top-row{display:flex;align-items:center;gap:.7rem;padding:.5rem .1rem;border-bottom:1px dashed var(--line);font-size:.86rem}
+  .cq-top-row:last-child{border-bottom:none}
+  .cq-pos{font-family:var(--f-disp);font-style:italic;font-weight:600;color:var(--navy);width:24px;flex:none}
+  .cq-code{font-family:var(--f-mono);font-weight:700;flex:1;min-width:0}
+  .cq-u{font-size:.78rem;color:var(--ink);flex:none}
+  .cq-d{font-size:.74rem;color:var(--muted);flex:none;white-space:nowrap}
+  @media(max-width:560px){.cup-quick-row{grid-template-columns:1fr}.cq-d{display:none}}
+  /* quem chamar (aulas com folga) */
+  .fi-item{display:flex;align-items:center;gap:.7rem;padding:.7rem 1.5rem;border-bottom:1px solid var(--line)}
+  .fi-item:last-child{border-bottom:none}
+  .fi-av{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#FFFBF4;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.74rem;flex:none}
+  .fi-tx{flex:1;min-width:0}
+  .fi-tx b{display:block;font-size:.88rem}
+  .fi-tx span{font-size:.74rem;color:var(--muted)}
+  .fi-call{flex:none;font-family:inherit;font-weight:700;font-size:.76rem;color:var(--good);background:color-mix(in srgb,var(--good) 10%,transparent);border:1.5px solid color-mix(in srgb,var(--good) 38%,transparent);border-radius:999px;padding:.4rem .8rem;cursor:pointer}
+  .fi-item.done .fi-call{background:var(--good);color:#FFFBF4;pointer-events:none}
+  .fi-item.done .fi-tx b{color:var(--good)}
   .folga-row{display:flex;align-items:center;gap:.8rem;background:var(--raise);border:1.5px solid var(--line2);border-radius:12px;padding:.7rem .85rem;flex-wrap:wrap}
   .fg-when{flex:none;min-width:58px;line-height:1.15}
   .fg-when b{display:block;font-size:.82rem}
@@ -2256,7 +2283,7 @@
                 </div>
                 <div class="sb-body" id="nsBody">
                   <div class="rec-set">
-                    <div class="rec-card"><div class="rl">Marca no-show após</div><div class="ns-minrow"><input type="number" class="wl-input" id="nsMin" value="10" min="0" step="1"><span>min do início</span></div><div class="rh">Tempo sem check-in depois do início. Digite os minutos que quiser — dá uma folga pra quem atrasou.</div></div>
+                    <div class="rec-card"><div class="rl">Marca no-show após</div><div class="ns-minrow"><input type="number" class="wl-input" id="nsMin" value="60" min="0" step="1"><span>min do início</span></div><div class="rh">Tempo sem check-in depois do início. Ex: aluno do studio = 60 min. Digite os minutos que quiser — dá uma folga pra quem atrasou.</div></div>
                     <div class="rec-card"><div class="rl">Devolve o crédito?</div><select><option>Não devolve (no-show)</option><option>Devolve se avisou antes</option></select><div class="rh">No-show normalmente consome o crédito — regra da recorrência.</div></div>
                   </div>
                   <div class="tg-row" style="margin-top:.2rem">
@@ -2273,9 +2300,18 @@
                     <button class="switch on" data-sw aria-pressed="true"></button>
                   </div>
                   <div class="rec-set">
-                    <div class="rec-card"><div class="rl">Reporta no-show do agregador após</div><div class="ns-minrow"><input type="number" class="wl-input" id="nsMinAgg" value="15" min="0" step="1"><span>min do início</span></div><div class="rh">Alguns apps exigem janela mínima antes de marcar falta — ajuste conforme a regra de cada um.</div></div>
+                    <div class="rec-card"><div class="rl">Reporta no-show do agregador após</div><div class="ns-minrow"><input type="number" class="wl-input" id="nsMinAgg" value="30" min="0" step="1"><span>min do início</span></div><div class="rh">Ex: agregador = 30 min (janela mais curta que a do aluno do studio). Ajuste conforme a regra de cada app.</div></div>
                   </div>
-                  <p class="sb-note">⏱️ <b>Já funciona na prática na tela "Agora":</b> quando a recepção marca uma falta, o 1º da espera é encaixado na hora. Esta config deixa isso <b>100% automático</b> no motor (Supabase) — inclusive o report de no-show pros agregadores, que seguem regra própria.</p>
+                  <div class="sb-modhd" style="margin-top:.9rem">Encerramento automático dos eventos</div>
+                  <div class="tg-row" style="margin-top:0">
+                    <div class="tg-txt"><b>Fechar os eventos sozinho, 2× por dia</b><span>No fim de cada expediente (manhã e noite) o sistema fecha todos os eventos do turno. Garante que, no fim do dia, <b>todo evento esteja fechado</b> — nada fica pendurado, e o fechamento de eventos sai preciso.</span></div>
+                    <button class="switch on" data-sw aria-pressed="true"></button>
+                  </div>
+                  <div class="rec-set">
+                    <div class="rec-card"><div class="rl">1º fechamento · fim da manhã</div><div class="ns-minrow"><input type="time" class="wl-input" id="nsClose1" value="14:00"></div><div class="rh">Fecha os eventos do turno da manhã.</div></div>
+                    <div class="rec-card"><div class="rl">2º fechamento · fim da noite</div><div class="ns-minrow"><input type="time" class="wl-input" id="nsClose2" value="22:30"></div><div class="rh">Fecha os eventos do turno da noite — tudo fechado no fim do dia.</div></div>
+                  </div>
+                  <p class="sb-note">⏱️ <b>Já funciona na prática na tela "Agora":</b> quando a recepção marca uma falta, o 1º da espera é encaixado na hora. Esta config deixa isso <b>100% automático</b> no motor (Supabase) — inclusive o report de no-show pros agregadores e o <b>fechamento 2× ao dia</b> dos eventos.</p>
                 </div>
               </div>
             </div>
@@ -2534,6 +2570,24 @@
           <div class="tile"><div class="tl">Usos no mês</div><div class="val">63</div><div class="delta up">▲ 18 vs. mês passado</div></div>
           <div class="tile"><div class="tl">Desconto concedido</div><div class="val">R$ 1.240</div><div class="delta flat">no mês</div></div>
           <div class="tile"><div class="tl">Novos alunos via cupom</div><div class="val">21</div><div class="delta up">▲ campanhas funcionando</div></div>
+        </div>
+
+        <div class="cup-quick">
+          <div class="cup-quick-hd">
+            <b>Resumo rápido</b>
+            <div class="cup-filters" id="cupFilters">
+              <button class="chip" data-cper="hoje">Hoje</button>
+              <button class="chip" data-cper="7">7 dias</button>
+              <button class="chip on" data-cper="mes">Mês</button>
+            </div>
+          </div>
+          <div class="cup-quick-row">
+            <div class="cq-stat"><span>Vendido com cupom</span><b id="cqVend">—</b></div>
+            <div class="cq-stat"><span>Desconto concedido</span><b id="cqDesc">—</b></div>
+            <div class="cq-stat"><span>Usos</span><b id="cqUsos">—</b></div>
+          </div>
+          <div class="cq-top-hd">Top 3 cupons no período</div>
+          <div id="cqTop"></div>
         </div>
 
         <div class="aulas-bar">
@@ -3143,6 +3197,17 @@
   </div>
 </div>
 
+<div class="modal-ov" id="folgaInvModal" role="dialog" aria-modal="true" aria-label="Quem chamar">
+  <div class="modal-card list-card">
+    <div class="modal-checker"></div>
+    <button class="modal-x" id="folgaInvX" aria-label="Fechar">×</button>
+    <h3 id="folgaInvTitle">Quem chamar</h3>
+    <p class="modal-sub" id="folgaInvSub"></p>
+    <div class="list-wrap" id="folgaInvBody"></div>
+    <p class="v-note" style="padding:0 1.5rem;margin-top:.8rem">O sistema sugere pelo <b>horário que a pessoa costuma treinar</b> e pela <b>modalidade que ela faz</b> — ideal pra encher aula especial com o público certo. Cada contato pontua no placar da recepção 🏆.</p>
+  </div>
+</div>
+
 <div class="modal-ov" id="attModal" role="dialog" aria-modal="true" aria-label="Agendados na aula">
   <div class="modal-card" id="attCard">
     <div class="modal-checker"></div>
@@ -3521,13 +3586,93 @@
       var fa=ev.target.closest('[data-folga]'); if(fa){
         var row=fa.closest('.folga-row'), cls=row?(row.querySelector('.fg-cls b')||{}).textContent:'', when=row?(row.querySelector('.fg-when')||{}).textContent.replace(/([a-zç])(\d)/i,'$1 $2'):'';
         var act=fa.getAttribute('data-folga'), msg;
-        if(act==='convidar') msg='Convite enviado pros alunos do CRM (sumidos, experimentais, aniversariantes) pra '+cls+' '+when+' — protótipo';
+        if(act==='convidar'){ if(window.__folgaInvite) window.__folgaInvite(cls, when); return; }
         else if(act==='apps') msg='Mais vagas liberadas pros apps parceiros (Gympass/TotalPass) em '+cls+' '+when+' — protótipo';
         else msg='Card de "últimas vagas" de '+cls+' '+when+' pronto pros stories — baixe e poste — protótipo';
         if(window.__saltyToast) window.__saltyToast(msg); return;
       }
       var ed=ev.target.closest('.est-do'); if(ed){ var row=ed.closest('[data-estname]'); if(row){ var nm=row.getAttribute('data-estname'); var already=window.__saltyCRM&&window.__saltyCRM.is(nm); row.classList.add('done'); ed.textContent='✓ Falado'; if(window.__saltyCRM)window.__saltyCRM.mark(nm,true); if(window.__saltyToast)window.__saltyToast(already?(nm.split(' ')[0]+' já estava contatado — consta no CRM'):('Contato com '+nm.split(' ')[0]+' registrado · +1 ponto 🏆 · consta no CRM e no placar')); } return; }
       var ej=ev.target.closest('[data-estjump]'); if(ej){ var dest=ej.getAttribute('data-estjump'); if(window.__saltyGo)window.__saltyGo(dest); if(window.__saltyToast)window.__saltyToast(dest==='fin'?'Abri o Financeiro — faturas em aberto pra cobrar':'Abri o CRM — listas de renovação e créditos prontas pra contato'); return; }
+    });
+  })();
+
+  // Resumo rápido de cupons (filtro de período + top 3)
+  (function(){
+    var box=document.getElementById('cqTop'); if(!box) return;
+    var DATA={
+      hoje:{vend:380,desc:95,usos:6,top:[{c:'PARCERIA10',u:4,d:60},{c:'EXPERIMENTAL',u:2,d:35}]},
+      '7':{vend:1420,desc:360,usos:19,top:[{c:'EXPERIMENTAL',u:9,d:0},{c:'PARCERIA10',u:7,d:210},{c:'VOLTA15',u:3,d:150}]},
+      mes:{vend:4850,desc:1240,usos:63,top:[{c:'EXPERIMENTAL',u:34,d:0},{c:'PARCERIA10',u:21,d:620},{c:'VOLTA15',u:8,d:380}]}
+    };
+    function brl(n){ return 'R$ '+Math.round(n).toLocaleString('pt-BR'); }
+    function render(per){
+      var d=DATA[per]||DATA.mes;
+      document.getElementById('cqVend').textContent=brl(d.vend);
+      document.getElementById('cqDesc').textContent=brl(d.desc);
+      document.getElementById('cqUsos').textContent=d.usos;
+      box.innerHTML=d.top.map(function(t,i){ return '<div class="cq-top-row"><span class="cq-pos">'+(i+1)+'º</span><span class="cq-code">'+t.c+'</span><span class="cq-u">'+t.u+' usos</span><span class="cq-d">'+brl(t.d)+' desc.</span></div>'; }).join('');
+    }
+    var fl=document.getElementById('cupFilters');
+    if(fl) fl.addEventListener('click',function(e){ var b=e.target.closest('[data-cper]'); if(!b)return; fl.querySelectorAll('[data-cper]').forEach(function(x){x.classList.toggle('on',x===b);}); render(b.getAttribute('data-cper')); });
+    render('mes');
+  })();
+
+  // Aulas com folga — sugestão de quem chamar
+  (function(){
+    var M=document.getElementById('folgaInvModal'); if(!M) return;
+    var POOL=[
+      {nm:'Marina Fontes',mod:'Hot Sculpt',hor:'17:00',st:'freq'},
+      {nm:'Gustavo Dias',mod:'Hot Sculpt',hor:'17:00',st:'sumido'},
+      {nm:'Rafael Lima',mod:'Hot Sculpt',hor:'07:00',st:'freq'},
+      {nm:'Thiago Ramos',mod:'Hot Sculpt',hor:'07:00',st:'exper'},
+      {nm:'Beatriz Nunes',mod:'Bike no Rooftop',hor:'12:00',st:'freq'},
+      {nm:'Larissa Melo',mod:'Bike no Rooftop',hor:'12:00',st:'cred'},
+      {nm:'Camila Rocha',mod:'Bike no Rooftop',hor:'18:00',st:'freq'},
+      {nm:'Ana Oliveira',mod:'Hot Yoga',hor:'09:00',st:'freq'},
+      {nm:'Pedro Alves',mod:'Hot Sculpt',hor:'19:00',st:'sumido'},
+      {nm:'Fernanda Dias',mod:'Bike no Rooftop',hor:'12:00',st:'exper'}
+    ];
+    function ini(n){ var p=n.trim().split(' '); return (p[0][0]+(p[1]?p[1][0]:'')).toUpperCase(); }
+    function reason(p,mod,hor){
+      if(p.st==='sumido') return 'Sumiu há '+(5+(p.nm.length%8))+' dias — curtia '+p.mod+' nesse horário';
+      if(p.st==='exper') return 'Fez experimental e não voltou — encaixa no perfil';
+      if(p.st==='cred') return 'Tem créditos sobrando este mês';
+      if(p.mod===mod && p.hor===hor) return 'Costuma treinar '+mod+' às '+hor;
+      if(p.mod===mod) return 'Faz '+mod+' toda semana';
+      return 'Treina sempre no horário das '+hor;
+    }
+    function suggest(mod,hor){
+      var out=[];
+      POOL.forEach(function(p){
+        var s=-1;
+        if(p.mod===mod && p.hor===hor) s=3; else if(p.mod===mod) s=2; else if(p.hor===hor) s=1;
+        if(s<0) return;
+        out.push({nm:p.nm,reason:reason(p,mod,hor),s:s});
+      });
+      out.sort(function(a,b){return b.s-a.s;});
+      return out.slice(0,5);
+    }
+    window.__folgaInvite=function(cls,when){
+      var mod=(cls||'').trim();
+      var hm=(when||'').match(/\d{1,2}:\d{2}/); var hor=hm?hm[0]:'';
+      var list=suggest(mod,hor);
+      document.getElementById('folgaInvTitle').textContent='Quem chamar · '+mod;
+      document.getElementById('folgaInvSub').textContent=(when||'')+' · '+list.length+' sugestões pelo perfil de quem costuma vir';
+      document.getElementById('folgaInvBody').innerHTML=list.length?list.map(function(s){
+        return '<div class="fi-item" data-finame="'+s.nm+'"><span class="fi-av">'+ini(s.nm)+'</span><div class="fi-tx"><b>'+s.nm+'</b><span>'+s.reason+'</span></div><button class="fi-call" data-folgacall="'+s.nm+'">Chamar</button></div>';
+      }).join(''):'<p class="week-note" style="padding:0 1.5rem">Sem sugestões pra esse filtro.</p>';
+      M.style.display='flex';
+    };
+    function closeM(){ M.style.display='none'; }
+    document.getElementById('folgaInvX').addEventListener('click',closeM);
+    M.addEventListener('click',function(e){
+      if(e.target===M){ closeM(); return; }
+      var c=e.target.closest('[data-folgacall]'); if(!c) return;
+      var nm=c.getAttribute('data-folgacall'), row=c.closest('.fi-item');
+      var already=window.__saltyCRM&&window.__saltyCRM.is(nm);
+      if(row)row.classList.add('done'); c.textContent='✓ Chamado';
+      if(window.__saltyCRM)window.__saltyCRM.mark(nm,true);
+      if(window.__saltyToast)window.__saltyToast(already?(nm.split(' ')[0]+' já estava contatado — consta no CRM'):('Chamou '+nm.split(' ')[0]+' pra encher a aula · +1 ponto 🏆'));
     });
   })();
 
