@@ -305,6 +305,9 @@
   .cup-quick-hd{display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;margin-bottom:.8rem}
   .cup-quick-hd b{font-size:.95rem}
   .cup-filters{display:flex;gap:.35rem}
+  .cup-range{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center;font-size:.76rem;color:var(--muted)}
+  .cup-range label{display:inline-flex;align-items:center;gap:.4rem;font-weight:600}
+  .cup-range input[type=date]{font-family:inherit;font-size:.8rem;border:1.5px solid var(--line2);border-radius:8px;padding:.3rem .5rem;background:var(--panel);color:var(--ink)}
   .cup-quick-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1rem}
   .cq-stat{background:var(--raise);border:1.5px solid var(--line2);border-radius:10px;padding:.6rem .75rem}
   .cq-stat span{display:block;font-size:.7rem;color:var(--muted)}
@@ -2575,10 +2578,9 @@
         <div class="cup-quick">
           <div class="cup-quick-hd">
             <b>Resumo rápido</b>
-            <div class="cup-filters" id="cupFilters">
-              <button class="chip" data-cper="hoje">Hoje</button>
-              <button class="chip" data-cper="7">7 dias</button>
-              <button class="chip on" data-cper="mes">Mês</button>
+            <div class="cup-range" id="cupRange">
+              <label>De <input type="date" id="cupFrom" value="2026-09-15"></label>
+              <label>Até <input type="date" id="cupTo" value="2026-10-14"></label>
             </div>
           </div>
           <div class="cup-quick-row">
@@ -3596,25 +3598,29 @@
     });
   })();
 
-  // Resumo rápido de cupons (filtro de período + top 3)
+  // Resumo rápido de cupons (intervalo de datas De/Até + top 3)
   (function(){
     var box=document.getElementById('cqTop'); if(!box) return;
-    var DATA={
-      hoje:{vend:380,desc:95,usos:6,top:[{c:'PARCERIA10',u:4,d:60},{c:'EXPERIMENTAL',u:2,d:35}]},
-      '7':{vend:1420,desc:360,usos:19,top:[{c:'EXPERIMENTAL',u:9,d:0},{c:'PARCERIA10',u:7,d:210},{c:'VOLTA15',u:3,d:150}]},
-      mes:{vend:4850,desc:1240,usos:63,top:[{c:'EXPERIMENTAL',u:34,d:0},{c:'PARCERIA10',u:21,d:620},{c:'VOLTA15',u:8,d:380}]}
-    };
+    var TOPBASE=[{c:'EXPERIMENTAL',u:34,d:0},{c:'PARCERIA10',u:21,d:620},{c:'VOLTA15',u:8,d:380}];
     function brl(n){ return 'R$ '+Math.round(n).toLocaleString('pt-BR'); }
-    function render(per){
-      var d=DATA[per]||DATA.mes;
-      document.getElementById('cqVend').textContent=brl(d.vend);
-      document.getElementById('cqDesc').textContent=brl(d.desc);
-      document.getElementById('cqUsos').textContent=d.usos;
-      box.innerHTML=d.top.map(function(t,i){ return '<div class="cq-top-row"><span class="cq-pos">'+(i+1)+'º</span><span class="cq-code">'+t.c+'</span><span class="cq-u">'+t.u+' usos</span><span class="cq-d">'+brl(t.d)+' desc.</span></div>'; }).join('');
+    function render(){
+      var f=document.getElementById('cupFrom'), t=document.getElementById('cupTo');
+      var vEl=document.getElementById('cqVend'), dEl=document.getElementById('cqDesc'), uEl=document.getElementById('cqUsos');
+      if(!f||!t||!vEl) return;
+      var df=f.value?new Date(f.value+'T00:00:00'):null, dt=t.value?new Date(t.value+'T00:00:00'):null;
+      if(!df||!dt){ vEl.textContent='—'; dEl.textContent='—'; uEl.textContent='—'; box.innerHTML='<p class="week-note" style="padding:0;margin:0">Escolha as duas datas.</p>'; return; }
+      var days=Math.floor((dt-df)/86400000)+1;
+      if(days<1){ vEl.textContent='—'; dEl.textContent='—'; uEl.textContent='—'; box.innerHTML='<p class="week-note" style="padding:0;margin:0">A data "De" precisa ser antes (ou igual) à data "Até".</p>'; return; }
+      var k=days/30;
+      vEl.textContent=brl(160*days);
+      dEl.textContent=brl(41*days);
+      uEl.textContent=Math.round(2.1*days);
+      box.innerHTML=TOPBASE.map(function(x,i){ var u=Math.max(1,Math.round(x.u*k)), d=Math.round(x.d*k); return '<div class="cq-top-row"><span class="cq-pos">'+(i+1)+'º</span><span class="cq-code">'+x.c+'</span><span class="cq-u">'+u+' usos</span><span class="cq-d">'+brl(d)+' desc.</span></div>'; }).join('');
     }
-    var fl=document.getElementById('cupFilters');
-    if(fl) fl.addEventListener('click',function(e){ var b=e.target.closest('[data-cper]'); if(!b)return; fl.querySelectorAll('[data-cper]').forEach(function(x){x.classList.toggle('on',x===b);}); render(b.getAttribute('data-cper')); });
-    render('mes');
+    var f=document.getElementById('cupFrom'), t=document.getElementById('cupTo');
+    if(f) f.addEventListener('change',render);
+    if(t) t.addEventListener('change',render);
+    render();
   })();
 
   // Aulas com folga — sugestão de quem chamar
