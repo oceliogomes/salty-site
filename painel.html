@@ -1837,6 +1837,48 @@
   .ap-prog li.done{color:var(--ink)} .ap-prog li.done .pi{border-color:var(--good);background:var(--good)}
   @keyframes apspin{to{transform:rotate(360deg)}}
   .ap-done-card{text-align:center;padding:1.3rem;background:color-mix(in srgb,var(--good) 8%,var(--panel));border:1.5px solid color-mix(in srgb,var(--good) 30%,transparent);border-radius:14px;margin-top:.7rem}
+  /* ROI */
+  .ap-roi{background:linear-gradient(135deg,#1f7a46,#2E8B57);color:#fff;border-radius:14px;padding:1.2rem 1.3rem}
+  .ap-roi .rl{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;opacity:.9}
+  .ap-roi h3{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.3rem;margin:.15rem 0 .9rem;color:#fff}
+  .ap-roi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.9rem}
+  .ap-roi-cell .v{font-family:var(--f-disp);font-size:1.75rem;font-weight:500;line-height:1}
+  .ap-roi-cell .k{font-size:.76rem;opacity:.92;margin-top:.22rem;line-height:1.3}
+  .ap-roi-note{margin-top:.9rem;font-size:.8rem;opacity:.95;background:rgba(255,255,255,.14);border-radius:8px;padding:.5rem .7rem;line-height:1.4}
+  /* confiança + sugerir automatizar */
+  .ap-conf{display:flex;align-items:center;gap:.4rem;font-family:var(--f-mono);font-size:.64rem;color:var(--muted);margin-top:.55rem}
+  .ap-conf b{color:var(--ink)}
+  .ap-suggest{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-top:.6rem;padding:.6rem .75rem;background:color-mix(in srgb,var(--good) 10%,var(--panel));border:1.5px solid color-mix(in srgb,var(--good) 30%,transparent);border-radius:10px}
+  .ap-suggest .sg-t{flex:1;min-width:170px;font-size:.8rem;color:var(--ink);line-height:1.4}
+  .ap-suggest .sg-t b{color:var(--good)}
+  .ap-sgbtn{background:var(--good);color:#fff;border:none;border-radius:8px;padding:.45rem .8rem;font-family:inherit;font-weight:700;font-size:.78rem;cursor:pointer}
+  .ap-sgno{background:none;border:none;color:var(--muted);font-family:inherit;font-weight:600;font-size:.76rem;cursor:pointer;text-decoration:underline}
+  .ap-autobadge{display:inline-flex;align-items:center;gap:.3rem;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good);padding:.2rem .5rem;border-radius:999px;margin-left:.45rem;vertical-align:middle}
+  /* ritmo individual */
+  .ap-who{background:none;border:none;color:var(--navy);font-family:inherit;font-size:.74rem;font-weight:700;cursor:pointer;padding:.1rem 0;margin-top:.3rem;display:block}
+  .ap-rhythm{display:none;margin-top:.45rem;border-top:1px dashed var(--line2);padding-top:.35rem}
+  .ap-act.who-open .ap-rhythm{display:block}
+  .ap-rhythm .rr{display:flex;align-items:center;gap:.5rem;font-size:.8rem;padding:.3rem 0;border-bottom:1px solid var(--line)}
+  .ap-rhythm .rr:last-child{border-bottom:none}
+  .ap-rhythm .rr .nm{font-weight:700;color:var(--ink);min-width:60px}
+  .ap-rhythm .rr .cad{font-family:var(--f-mono);font-size:.7rem;color:var(--muted);flex:1}
+  .ap-rhythm .rr .flag{font-size:.72rem;font-weight:700;color:var(--bad)}
+  /* ===== Mapa de calor auto-explicativo ===== */
+  .hm{background:var(--panel);border:1.5px solid var(--line2);border-radius:14px;padding:1.2rem 1.3rem;margin-bottom:1.3rem}
+  .hm h3{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.25rem;margin:0 0 .15rem}
+  .hm .hsub{color:var(--muted);font-size:.86rem;margin:0 0 1rem}
+  #hmGrid{overflow-x:auto}
+  .hm-cell{min-width:36px;height:34px;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;border-radius:5px;color:#3B2417}
+  .hm-cell.empty{background:repeating-linear-gradient(45deg,var(--raise),var(--raise) 4px,transparent 4px,transparent 8px);color:var(--faint);font-weight:400;font-size:.8rem}
+  .hm-lbl{display:flex;align-items:center;font-size:.74rem;font-weight:700;color:var(--muted);height:34px}
+  .hm-hr{font-size:.64rem;color:var(--muted);text-align:center;font-family:var(--f-mono);padding-bottom:.2rem}
+  .hm-legend{display:flex;align-items:center;gap:.5rem;margin-top:.85rem;font-size:.74rem;color:var(--muted);flex-wrap:wrap}
+  .hm-legend .sw{display:inline-flex;gap:2px}
+  .hm-legend .sw i{width:16px;height:12px;border-radius:2px;display:block}
+  .hm-reads{margin-top:1rem;display:flex;flex-direction:column;gap:.5rem}
+  .hm-read{display:flex;gap:.6rem;align-items:flex-start;font-size:.88rem;line-height:1.45;background:var(--raise);border-radius:9px;padding:.6rem .8rem}
+  .hm-read .ic{flex:none;font-size:1rem;line-height:1.3}
+  .hm-read b{color:var(--ink)}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -2904,6 +2946,13 @@
       </section>
 
       <section class="view" data-view="rel">
+        <div class="hm">
+          <h3>Mapa de calor — ocupação por dia e horário</h3>
+          <p class="hsub">Uma leitura só: onde a sala enche e onde esvazia. 🟢 cheia · 🔴 vazia · ⬚ sem aula no horário.</p>
+          <div id="hmGrid"></div>
+          <div class="hm-legend">Vazia <span class="sw"><i style="background:#F0A9A4"></i><i style="background:#F7D9A6"></i><i style="background:#D8EBB0"></i><i style="background:#7FC97F"></i></span> Cheia<span style="margin-left:auto">⬚ sem aula no horário</span></div>
+          <div class="hm-reads" id="hmReads"></div>
+        </div>
         <div class="rep-period">
           <span class="fl-lbl">Período:</span>
           <button class="chip">30 dias</button>
@@ -2960,6 +3009,18 @@
             <p>A IA lê os relatórios do mês, monta um plano de ação baseado no desempenho e, com um clique, executa — dispara as mensagens e e-mails certos para cada grupo de alunos. Você aprova; ela faz o trabalho pesado.</p>
           </div>
 
+          <div class="ap-roi">
+            <span class="rl">O que o Piloto já trouxe de volta · últimos 30 dias</span>
+            <h3>R$ 6.340 recuperados</h3>
+            <div class="ap-roi-grid">
+              <div class="ap-roi-cell"><div class="v">54</div><div class="k">alunos que voltaram depois da mensagem</div></div>
+              <div class="ap-roi-cell"><div class="v">46%</div><div class="k">das mensagens trouxeram a pessoa de volta em 14 dias</div></div>
+              <div class="ap-roi-cell"><div class="v">R$ 6.340</div><div class="k">em mensalidades e créditos reativados</div></div>
+              <div class="ap-roi-cell"><div class="v">29</div><div class="k">não teriam voltado sem a mensagem (ganho real)</div></div>
+            </div>
+            <div class="ap-roi-note">Como medimos: comparamos quem recebeu mensagem com um grupo parecido que não recebeu. A diferença é o que a camada de IA realmente adicionou — não o que aconteceria sozinho.</div>
+          </div>
+
           <div class="ap-step">
             <div class="ap-steplabel"><span class="ap-stepnum">1</span>A IA leu o mês</div>
             <h3>Diagnóstico de novembro</h3>
@@ -2968,13 +3029,13 @@
               <div class="ap-sig"><div class="st">Receita do mês</div><div class="sv">R$ 22,7k</div><div class="sd bad">▼ 6% vs. outubro</div></div>
               <div class="ap-sig"><div class="st">Churn</div><div class="sv">5,1%</div><div class="sd bad">▲ 0,9pp</div></div>
               <div class="ap-sig"><div class="st">No-show</div><div class="sv">14%</div><div class="sd warn">concentrado ter/qui 19h</div></div>
-              <div class="ap-sig"><div class="st">Alunos em risco</div><div class="sv">23</div><div class="sd warn">sem check-in há 12+ dias</div></div>
+              <div class="ap-sig"><div class="st">Fora do próprio ritmo</div><div class="sv">23</div><div class="sd warn">desviaram da frequência habitual deles</div></div>
               <div class="ap-sig"><div class="st">Créditos a vencer</div><div class="sv">18</div><div class="sd warn">vencem em 7 dias</div></div>
               <div class="ap-sig"><div class="st">Aniversariantes</div><div class="sv">9</div><div class="sd good">próximos 15 dias</div></div>
             </div>
             <div class="ap-read">
               <div class="spark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg></div>
-              <div class="rt"><span class="ap-readlabel">Leitura da IA</span>A queda de receita veio principalmente de <b>23 alunos em risco de churn</b> (sem frequência há 12+ dias) e de <b>18 créditos prestes a vencer</b> sem reagendamento. O no-show está concentrado nas aulas de <b>terça e quinta às 19h</b> — vale uma confirmação ativa. Montei um plano com 4 ações, priorizadas por impacto na receita.</div>
+              <div class="rt"><span class="ap-readlabel">Leitura da IA</span>A queda de receita veio principalmente de <b>23 alunos que fugiram do próprio ritmo</b> — cada um tem uma frequência habitual, e estes desviaram dela (sinal precoce de churn, antes de sumir de vez) — e de <b>18 créditos prestes a vencer</b> sem reagendamento. O no-show está concentrado nas aulas de <b>terça e quinta às 19h</b> — vale uma confirmação ativa. Montei um plano com 4 ações, priorizadas por impacto na receita.</div>
             </div>
           </div>
 
@@ -6735,21 +6796,26 @@
 /* ===== Piloto Automático (IA) — protótipo "Em breve". NÃO envia nada: simula o disparo. ===== */
 (function(){
   var ACTIONS=[
-    {id:'a1',on:true,title:'Resgatar 23 alunos em risco de churn',
-     why:'Sem check-in há 12+ dias — principal causa da queda de receita do mês.',
-     audience:'23 alunos',chan:'wa',
-     msg:'Oi {nome}! Senti sua falta nas aulas essa semana 💛 Separei um horário especial pra te esperar. Bora voltar com tudo? Me responde que já reservo sua vaga.'},
+    {id:'a1',on:true,title:'Resgatar alunos fora do próprio ritmo',
+     why:'Cada aluno tem uma frequência habitual. Estes desviaram do padrão DELES — sinal precoce de churn, antes de sumir de vez.',
+     audience:'23 alunos',chan:'wa',approvals:12,edits:3,auto:false,dismissed:false,
+     msg:'Oi {nome}! Senti sua falta — você costuma vir toda semana e faz uns dias que não aparece 💛 Separei um horário especial. Bora voltar? Me responde que já reservo sua vaga.',
+     rhythm:[
+       {nm:'Marina',cad:'costuma vir a cada 2,5 dias',flag:'6 dias sem vir'},
+       {nm:'Rafael',cad:'costuma vir a cada 4 dias',flag:'11 dias sem vir'},
+       {nm:'Letícia',cad:'costuma vir a cada 7 dias',flag:'16 dias sem vir'}
+     ]},
     {id:'a2',on:true,title:'Reativar 18 créditos a vencer',
      why:'Créditos vencem em 7 dias sem reagendamento — é receita que já entrou e não pode virar pó.',
-     audience:'18 alunos',chan:'wa',
+     audience:'18 alunos',chan:'wa',approvals:15,edits:9,auto:false,dismissed:false,
      msg:'{nome}, vi aqui que você tem aulas pra usar e elas vencem na próxima semana! Quer que eu já deixe agendado num horário bom pra você? Só me dizer o dia.'},
     {id:'a3',on:true,title:'Confirmar presença nas aulas de ter/qui 19h',
      why:'No-show concentrado nesses horários — confirmar antes reduz vaga ociosa.',
-     audience:'34 alunos',chan:'wa',
+     audience:'34 alunos',chan:'wa',approvals:8,edits:1,auto:false,dismissed:false,
      msg:'Oi {nome}! Sua aula é hoje às 19h 🔥 Posso confirmar sua presença? Se não puder vir, me avisa que libero a vaga pra quem está na espera.'},
     {id:'a4',on:true,title:'Parabenizar 9 aniversariantes com mimo',
      why:'Aniversário é gatilho de reengajamento e indicação — baixo custo, alto carinho.',
-     audience:'9 alunos',chan:'mail',
+     audience:'9 alunos',chan:'mail',approvals:23,edits:0,auto:false,dismissed:false,
      msg:'Feliz aniversário, {nome}! 🎉 Pra comemorar, seu mês tem uma aula-presente pra trazer um amigo. Vem com a gente?'}
   ];
   var elActions=document.getElementById('apActions'),
@@ -6758,16 +6824,35 @@
       elProgWrap=document.getElementById('apProgWrap');
   if(!elActions) return;
   var CH={wa:['wa','WhatsApp'],mail:['mail','E-mail']};
+  function suggestBlock(a){
+    if(a.auto || a.dismissed) return '';
+    if(a.approvals>=20 && a.edits===0){
+      return '<div class="ap-suggest"><div class="sg-t">Você aprovou isso <b>'+a.approvals+'x sem editar</b> nenhuma vez. Quer que eu passe a enviar sozinho daqui pra frente?</div>'
+        +'<button class="ap-sgbtn" data-auto="'+a.id+'">Ativar envio automático</button>'
+        +'<button class="ap-sgno" data-sgno="'+a.id+'">agora não</button></div>';
+    }
+    return '';
+  }
   function render(){
     elActions.innerHTML=ACTIONS.map(function(a){
       var c=CH[a.chan];
+      var rhythm='';
+      if(a.rhythm){
+        rhythm='<button class="ap-who" data-who="'+a.id+'">Ver quem está fora do ritmo ▾</button>'
+          +'<div class="ap-rhythm">'+a.rhythm.map(function(r){
+            return '<div class="rr"><span class="nm">'+r.nm+'</span><span class="cad">'+r.cad+'</span><span class="flag">'+r.flag+'</span></div>';
+          }).join('')+'</div>';
+      }
       return '<div class="ap-act'+(a.on?'':' off')+'" data-id="'+a.id+'">'
         +'<div class="ap-act-top"><div class="ap-act-main">'
-        +'<h4>'+a.title+'</h4>'
+        +'<h4>'+a.title+(a.auto?'<span class="ap-autobadge">● automático</span>':'')+'</h4>'
         +'<p class="ap-why">'+a.why+'</p>'
         +'<div class="ap-meta"><span class="ap-chan '+c[0]+'">'+c[1]+'</span><span class="ap-audience">'+a.audience+'</span></div>'
+        +rhythm
         +'<button class="ap-seemsg" data-see="'+a.id+'">Ver a mensagem que a IA escreveu ▾</button>'
         +'<div class="ap-preview">'+a.msg+'</div>'
+        +'<div class="ap-conf">Confiança: <b>'+a.approvals+'</b> aprovações · <b>'+a.edits+'</b> edições</div>'
+        +suggestBlock(a)
         +'</div>'
         +'<button class="ap-tog'+(a.on?' on':'')+'" data-tog="'+a.id+'" aria-label="Incluir ou tirar do plano"></button>'
         +'</div></div>';
@@ -6786,6 +6871,12 @@
     if(tg){ var a=ACTIONS.filter(function(x){return x.id===tg.dataset.tog;})[0]; if(a){a.on=!a.on; render();} return; }
     var see=e.target.closest('[data-see]');
     if(see){ var card=see.closest('.ap-act'); var open=card.classList.toggle('open'); see.textContent=open?'Ocultar a mensagem ▴':'Ver a mensagem que a IA escreveu ▾'; return; }
+    var who=e.target.closest('[data-who]');
+    if(who){ var card2=who.closest('.ap-act'); var op=card2.classList.toggle('who-open'); who.textContent=op?'Ocultar quem está fora do ritmo ▴':'Ver quem está fora do ritmo ▾'; return; }
+    var au=e.target.closest('[data-auto]');
+    if(au){ var a2=ACTIONS.filter(function(x){return x.id===au.dataset.auto;})[0]; if(a2){ a2.auto=true; render(); if(window.__saltyToast)window.__saltyToast('"'+a2.title+'" agora é automática — envio sozinho. Você pode desligar quando quiser.'); } return; }
+    var no=e.target.closest('[data-sgno]');
+    if(no){ var a3=ACTIONS.filter(function(x){return x.id===no.dataset.sgno;})[0]; if(a3){ a3.dismissed=true; render(); } return; }
   });
   elRun.addEventListener('click',function(){
     var on=ACTIONS.filter(function(a){return a.on;});
@@ -6813,6 +6904,44 @@
     tick();
   });
   render();
+})();
+
+/* ===== Mapa de calor auto-explicativo — dados de exemplo ===== */
+(function(){
+  var g=document.getElementById('hmGrid'); if(!g) return;
+  var DAYS=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+  var HRS=['6h','7h','9h','12h','17h','18h','19h','20h'];
+  var OCC={
+    'Seg':[62,41,55,48,null,72,88,70],
+    'Ter':[58,32,60,52,null,80,96,66],
+    'Qua':[65,44,58,47,null,70,90,74],
+    'Qui':[60,38,62,50,null,null,85,63],
+    'Sex':[57,36,54,45,null,61,58,40],
+    'Sáb':[null,null,74,68,52,null,null,null],
+    'Dom':[null,null,70,58,null,null,null,null]
+  };
+  function col(v){ if(v==null)return null; if(v<35)return '#F0A9A4'; if(v<55)return '#F7D9A6'; if(v<80)return '#D8EBB0'; return '#7FC97F'; }
+  g.style.display='grid';
+  g.style.gridTemplateColumns='46px repeat('+HRS.length+',minmax(36px,1fr))';
+  g.style.gap='3px';
+  var html='<div></div>'+HRS.map(function(h){return '<div class="hm-hr">'+h+'</div>';}).join('');
+  DAYS.forEach(function(d){
+    html+='<div class="hm-lbl">'+d+'</div>';
+    OCC[d].forEach(function(v){
+      if(v==null){ html+='<div class="hm-cell empty">⬚</div>'; }
+      else { html+='<div class="hm-cell" style="background:'+col(v)+'">'+v+'%</div>'; }
+    });
+  });
+  g.innerHTML=html;
+  var cells=[]; DAYS.forEach(function(d){ OCC[d].forEach(function(v,i){ if(v!=null)cells.push({d:d,h:HRS[i],v:v}); }); });
+  var min=cells.reduce(function(a,b){return b.v<a.v?b:a;});
+  var max=cells.reduce(function(a,b){return b.v>a.v?b:a;});
+  var avg=Math.round(cells.reduce(function(s,c){return s+c.v;},0)/cells.length);
+  var reads=document.getElementById('hmReads');
+  reads.innerHTML=
+     '<div class="hm-read"><span class="ic">🔴</span><div>Sua aula mais vazia é <b>'+min.d+' '+min.h+'</b> — só <b>'+min.v+'%</b> de ocupação (média geral '+avg+'%). Vale promover, trocar de horário ou acionar a campanha "Encher aula".</div></div>'
+    +'<div class="hm-read"><span class="ic">🟢</span><div>Sua aula mais cheia é <b>'+max.d+' '+max.h+'</b> com <b>'+max.v+'%</b> — maior aderência da semana. Dá pra considerar abrir uma segunda sessão nesse horário.</div></div>'
+    +'<div class="hm-read"><span class="ic">📉</span><div><b>Sexta à noite</b> (18h-19h) está abaixo de 60% e puxa a média semanal pra baixo — é o ponto que mais derruba sua ocupação.</div></div>';
 })();
 </script>
 </body>
