@@ -1879,6 +1879,31 @@
   .hm-read{display:flex;gap:.6rem;align-items:flex-start;font-size:.88rem;line-height:1.45;background:var(--raise);border-radius:9px;padding:.6rem .8rem}
   .hm-read .ic{flex:none;font-size:1rem;line-height:1.3}
   .hm-read b{color:var(--ink)}
+  /* ===== Funil de aquisição ===== */
+  .fn{margin:.3rem 0 .2rem}
+  .fn-row{display:flex;align-items:center;gap:.9rem;margin-bottom:.5rem}
+  .fn-bar{height:44px;border-radius:9px;display:flex;align-items:center;padding:0 .9rem;color:#fff;font-weight:700;font-size:.86rem;min-width:130px;white-space:nowrap}
+  .fn-side{font-size:.82rem;color:var(--muted);white-space:nowrap}
+  .fn-side b{color:var(--ink);font-size:.95rem}
+  .fn-drop{color:var(--bad);font-weight:700;font-size:.74rem;margin-left:.3rem}
+  /* ===== Jornada do aluno ===== */
+  .jr-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.8rem;margin-bottom:1rem}
+  .jr-filters{display:flex;gap:.4rem;flex-wrap:wrap}
+  .jr-camp{display:inline-flex;align-items:center;gap:.4rem;background:var(--navy);color:#fff;border:none;border-radius:10px;padding:.6rem 1rem;font-family:inherit;font-weight:700;font-size:.82rem;cursor:pointer;transition:.12s}
+  .jr-camp:hover{filter:brightness(1.12)}
+  .jr-sum{font-size:.88rem;color:var(--muted);margin-bottom:.9rem}
+  .jr-sum b{color:var(--ink)}
+  .jr-list{display:flex;flex-direction:column;gap:.5rem}
+  .jr-item{display:flex;align-items:center;gap:.9rem;background:var(--panel);border:1.5px solid var(--line2);border-radius:11px;padding:.75rem .9rem}
+  .jr-av{flex:none;width:38px;height:38px;border-radius:50%;background:var(--raise);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--navy);font-size:.82rem}
+  .jr-main{flex:1;min-width:0}
+  .jr-nm{font-weight:700;color:var(--ink);font-size:.92rem}
+  .jr-meta{font-size:.78rem;color:var(--muted)}
+  .jr-stat{font-size:.74rem;font-weight:700;padding:.25rem .6rem;border-radius:999px;white-space:nowrap}
+  .jr-stat.won{background:#DCF8C6;color:#1b7a3e}
+  .jr-stat.lost{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
+  .jr-act{background:var(--raise);border:1.5px solid var(--line2);border-radius:8px;padding:.42rem .7rem;font-family:inherit;font-weight:700;font-size:.76rem;color:var(--navy);cursor:pointer;white-space:nowrap}
+  .jr-act:hover{border-color:var(--navy)}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -1939,6 +1964,7 @@
       <button class="navi" data-v="fin"><svg class="ic"><use href="#i-fin"/></svg>Financeiro / NF</button>
       <button class="navi" data-v="staff"><svg class="ic"><use href="#i-staff"/></svg>Funcionários</button>
       <button class="navi" data-v="rel"><svg class="ic"><use href="#i-rep"/></svg>Relatórios</button>
+      <button class="navi" data-v="jornada"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V6a2 2 0 0 1 2-2h8l4 4v12"/><path d="M9 8h4M9 12h7M9 16h7"/></svg>Jornada do aluno</button>
       <button class="navi" data-v="autopilot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4L12 3z"/><path d="M18.5 14l.9 2.3 2.1.7-2.1.8-.9 2.2-.9-2.2-2.1-.8 2.1-.7.9-2.3z"/></svg>Piloto IA<span class="tagx soon">em breve</span></button>
     </nav>
     <div class="who"><span class="av">R</span><div><div class="nm">Recepção</div><div class="rl">Equipe · Salty Sergipe</div></div></div>
@@ -2953,6 +2979,23 @@
           <div class="hm-legend">Vazia <span class="sw"><i style="background:#F0A9A4"></i><i style="background:#F7D9A6"></i><i style="background:#D8EBB0"></i><i style="background:#7FC97F"></i></span> Cheia<span style="margin-left:auto">⬚ sem aula no horário</span></div>
           <div class="hm-reads" id="hmReads"></div>
         </div>
+
+        <div class="hm">
+          <h3>Funil de aquisição</h3>
+          <p class="hsub">Do cadastro ao aluno pagante — onde você perde gente no caminho.</p>
+          <div class="fn">
+            <div class="fn-row"><div class="fn-bar" style="width:100%;background:#37346A">Cadastraram</div><div class="fn-side"><b>420</b> · 100%</div></div>
+            <div class="fn-row"><div class="fn-bar" style="width:72%;background:#514d94">Fizeram a 1ª aula (teste)</div><div class="fn-side"><b>300</b> · 71% <span class="fn-drop">↓ 29% nunca vieram</span></div></div>
+            <div class="fn-row"><div class="fn-bar" style="width:45%;background:#6f6bb0">Voltaram pra 2ª aula</div><div class="fn-side"><b>180</b> · 43% <span class="fn-drop">↓ 40% não voltaram</span></div></div>
+            <div class="fn-row"><div class="fn-bar" style="width:32%;background:#2E8B57">Viraram plano (pagante)</div><div class="fn-side"><b>128</b> · 30%</div></div>
+          </div>
+          <div class="hm-reads">
+            <div class="hm-read"><span class="ic">📉</span><div>Seu maior furo é entre a <b>2ª aula e virar plano</b>: 180 voltaram, mas só 128 assinaram — são <b>52 pessoas</b> que gostaram e não fecharam.</div></div>
+            <div class="hm-read"><span class="ic">🧭</span><div>Os <b>120 que fizeram o teste e não voltaram</b> estão listados na <b>Jornada do aluno</b> — dá pra criar uma campanha de resgate com um clique.</div></div>
+          </div>
+          <button class="jr-camp" id="fnCamp" style="margin-top:.9rem">✦ Criar campanha pros que fizeram o teste e não voltaram</button>
+        </div>
+
         <div class="rep-period">
           <span class="fl-lbl">Período:</span>
           <button class="chip">30 dias</button>
@@ -3053,6 +3096,20 @@
           </div>
 
         </div>
+      </section>
+
+      <section class="view" data-view="jornada">
+        <div class="jr-head">
+          <div class="jr-filters" id="jrFilters">
+            <button class="chip on" data-jf="all">Todos</button>
+            <button class="chip" data-jf="lost">Não prosseguiram</button>
+            <button class="chip" data-jf="won">Viraram aluno</button>
+          </div>
+          <button class="jr-camp" id="jrCamp">✦ Campanha pros que não prosseguiram</button>
+        </div>
+        <div class="jr-sum" id="jrSum"></div>
+        <div class="jr-list" id="jrList"></div>
+        <p class="week-note">Dados de exemplo. Quem comprou o teste vem direto do Angulare; o status (virou aluno ou não) é calculado automaticamente.</p>
       </section>
 
     </div>
@@ -3683,7 +3740,7 @@
 
 <script>
 (function(){
-  var titles={agora:['Recepção','Agora · balcão ao vivo'],dash:['Painel','Dashboard'],lista:['Aulas','Lista de aulas'],agendados:['Aulas','Agendados'],aulas:['Aulas','Controle de aulas'],planos:['Vendas','PDV · Ponto de venda'],produtos:['Catálogo','Produtos'],cupons:['Catálogo','Cupons'],crm:['Relacionamento','CRM'],fin:['Gestão','Financeiro / NF'],staff:['Gestão','Funcionários'],rel:['Análise','Relatórios'],ficha:['Relacionamento','Ficha completa'],autopilot:['Inteligência','Piloto Automático']};
+  var titles={agora:['Recepção','Agora · balcão ao vivo'],dash:['Painel','Dashboard'],lista:['Aulas','Lista de aulas'],agendados:['Aulas','Agendados'],aulas:['Aulas','Controle de aulas'],planos:['Vendas','PDV · Ponto de venda'],produtos:['Catálogo','Produtos'],cupons:['Catálogo','Cupons'],crm:['Relacionamento','CRM'],fin:['Gestão','Financeiro / NF'],staff:['Gestão','Funcionários'],rel:['Análise','Relatórios'],ficha:['Relacionamento','Ficha completa'],autopilot:['Inteligência','Piloto Automático'],jornada:['Relacionamento','Jornada do aluno']};
   var navis=document.querySelectorAll('.navi[data-v]'), views=document.querySelectorAll('.view');
   var side=document.getElementById('side'), scrim=document.getElementById('scrim');
   // marcos de aulas (parabéns) — configuráveis em Controle de aulas; lidos pela página da aula
@@ -6942,6 +6999,46 @@
      '<div class="hm-read"><span class="ic">🔴</span><div>Sua aula mais vazia é <b>'+min.d+' '+min.h+'</b> — só <b>'+min.v+'%</b> de ocupação (média geral '+avg+'%). Vale promover, trocar de horário ou acionar a campanha "Encher aula".</div></div>'
     +'<div class="hm-read"><span class="ic">🟢</span><div>Sua aula mais cheia é <b>'+max.d+' '+max.h+'</b> com <b>'+max.v+'%</b> — maior aderência da semana. Dá pra considerar abrir uma segunda sessão nesse horário.</div></div>'
     +'<div class="hm-read"><span class="ic">📉</span><div><b>Sexta à noite</b> (18h-19h) está abaixo de 60% e puxa a média semanal pra baixo — é o ponto que mais derruba sua ocupação.</div></div>';
+})();
+
+/* ===== Jornada do aluno — dados de exemplo ===== */
+(function(){
+  var LIST=[
+    {nm:'Marina Prado',date:'02/11',status:'won',plan:'10 por mês'},
+    {nm:'Rafael Dias',date:'03/11',status:'lost'},
+    {nm:'Letícia Gomes',date:'05/11',status:'won',plan:'Clube Salty'},
+    {nm:'Bruno Antunes',date:'06/11',status:'lost'},
+    {nm:'Carla Mendes',date:'08/11',status:'lost'},
+    {nm:'Diego Rocha',date:'09/11',status:'won',plan:'8 por mês'},
+    {nm:'Fernanda Lima',date:'11/11',status:'lost'},
+    {nm:'Gustavo Reis',date:'12/11',status:'won',plan:'10 por mês'},
+    {nm:'Helena Castro',date:'13/11',status:'lost'},
+    {nm:'Igor Nunes',date:'14/11',status:'won',plan:'Clube Salty'},
+    {nm:'Juliana Paz',date:'15/11',status:'lost'},
+    {nm:'Karina Melo',date:'16/11',status:'lost'}
+  ];
+  var elList=document.getElementById('jrList'); if(!elList) return;
+  var elSum=document.getElementById('jrSum'), elF=document.getElementById('jrFilters');
+  var filter='all';
+  function ini(n){var p=n.split(' ');return ((p[0]||'')[0]||'')+((p[1]||'')[0]||'');}
+  function render(){
+    var won=LIST.filter(function(x){return x.status==='won';}).length, lost=LIST.length-won;
+    elSum.innerHTML='<b>'+LIST.length+'</b> compraram o teste · <b style="color:var(--good)">'+won+'</b> viraram aluno ('+Math.round(won/LIST.length*100)+'%) · <b style="color:var(--bad)">'+lost+'</b> não prosseguiram';
+    var rows=LIST.filter(function(x){ return filter==='all'||x.status===filter; });
+    elList.innerHTML=rows.map(function(x){
+      var stat=x.status==='won'?'<span class="jr-stat won">Virou aluno · '+x.plan+'</span>':'<span class="jr-stat lost">Não prosseguiu</span>';
+      var act=x.status==='lost'?'<button class="jr-act" data-jcall="'+x.nm+'">Chamar</button>':'';
+      return '<div class="jr-item"><div class="jr-av">'+ini(x.nm)+'</div>'
+        +'<div class="jr-main"><div class="jr-nm">'+x.nm+'</div><div class="jr-meta">Fez o teste em '+x.date+'</div></div>'
+        +stat+act+'</div>';
+    }).join('');
+  }
+  elF.addEventListener('click',function(e){var b=e.target.closest('[data-jf]'); if(!b)return; filter=b.dataset.jf; elF.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',c===b);}); render();});
+  elList.addEventListener('click',function(e){var b=e.target.closest('[data-jcall]'); if(!b)return; if(window.__saltyToast)window.__saltyToast('Abri conversa no WhatsApp com '+b.dataset.jcall.split(' ')[0]);});
+  function toCamp(){ if(window.__saltyGo)window.__saltyGo('autopilot'); if(window.__saltyToast)window.__saltyToast('Piloto aberto — campanha pros que fizeram o teste e não voltaram'); }
+  var jc=document.getElementById('jrCamp'); if(jc)jc.addEventListener('click',toCamp);
+  var fc=document.getElementById('fnCamp'); if(fc)fc.addEventListener('click',toCamp);
+  render();
 })();
 </script>
 </body>
