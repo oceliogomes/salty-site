@@ -1904,6 +1904,27 @@
   .jr-stat.lost{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
   .jr-act{background:var(--raise);border:1.5px solid var(--line2);border-radius:8px;padding:.42rem .7rem;font-family:inherit;font-weight:700;font-size:.76rem;color:var(--navy);cursor:pointer;white-space:nowrap}
   .jr-act:hover{border-color:var(--navy)}
+  /* ===== Identidade visual (white-label) ===== */
+  .idv-wrap{max-width:720px;display:flex;flex-direction:column;gap:1.1rem}
+  .idv-card{background:var(--panel);border:1.5px solid var(--line2);border-radius:14px;padding:1.3rem}
+  .idv-card h3{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.2rem;margin:0 0 .3rem}
+  .idv-card p.d{color:var(--muted);font-size:.86rem;margin:0 0 1rem;line-height:1.45}
+  .idv-field{margin-bottom:1.1rem}
+  .idv-field label{display:block;font-size:.8rem;font-weight:700;color:var(--ink);margin-bottom:.45rem}
+  .idv-input{width:100%;max-width:280px;font-family:inherit;font-size:.9rem;padding:.6rem .75rem;border:1.5px solid var(--line2);border-radius:9px;background:var(--raise);color:var(--ink)}
+  .idv-swatches{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center}
+  .idv-sw{width:34px;height:34px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:.12s;box-shadow:0 0 0 2px var(--panel)}
+  .idv-sw.on{border-color:var(--ink)}
+  .idv-custom{display:inline-flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--muted);margin-left:.3rem}
+  .idv-custom input[type=color]{width:34px;height:34px;border:none;background:none;cursor:pointer;padding:0}
+  .idv-logo-up{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+  .idv-logo-prev{width:54px;height:54px;border-radius:12px;background:var(--red);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--f-disp);font-style:italic;font-weight:600;font-size:1.3rem;overflow:hidden}
+  .idv-upbtn{background:var(--raise);border:1.5px dashed var(--line2);border-radius:9px;padding:.55rem .8rem;font-family:inherit;font-weight:700;font-size:.8rem;color:var(--navy);cursor:pointer}
+  .idv-preview{border:1.5px solid var(--line2);border-radius:12px;padding:1.1rem;background:var(--raise);display:flex;align-items:center;flex-wrap:wrap;gap:.6rem}
+  .idv-pv-nav{display:inline-flex;align-items:center;gap:.45rem;background:var(--red);color:#fff;padding:.5rem .85rem;border-radius:8px;font-weight:700;font-size:.85rem}
+  .idv-pv-btn{background:var(--red);color:#fff;border:none;border-radius:8px;padding:.55rem .9rem;font-family:inherit;font-weight:700;font-size:.82rem;cursor:pointer}
+  .idv-reset{background:none;border:none;color:var(--muted);text-decoration:underline;font-family:inherit;font-weight:600;font-size:.82rem;cursor:pointer;padding:0}
+  .idv-note{font-family:var(--f-mono);font-size:.62rem;color:var(--warn);margin-top:.7rem;line-height:1.5}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -1966,6 +1987,7 @@
       <button class="navi" data-v="rel"><svg class="ic"><use href="#i-rep"/></svg>Relatórios</button>
       <button class="navi" data-v="jornada"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V6a2 2 0 0 1 2-2h8l4 4v12"/><path d="M9 8h4M9 12h7M9 16h7"/></svg>Jornada do aluno</button>
       <button class="navi" data-v="autopilot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4L12 3z"/><path d="M18.5 14l.9 2.3 2.1.7-2.1.8-.9 2.2-.9-2.2-2.1-.8 2.1-.7.9-2.3z"/></svg>Piloto IA<span class="tagx soon">em breve</span></button>
+      <button class="navi" data-v="idv"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="12" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="13" r="2.5"/><path d="M12 22a10 10 0 1 1 0-20c4 0 6 2.5 6 5 0 3-3 3-3 5s2 2 2 4-2.5 6-5 6z"/></svg>Identidade visual</button>
     </nav>
     <div class="who"><span class="av">R</span><div><div class="nm">Recepção</div><div class="rl">Equipe · Salty Sergipe</div></div></div>
   </aside>
@@ -3112,6 +3134,49 @@
         <p class="week-note">Dados de exemplo. Quem comprou o teste vem direto do Angulare; o status (virou aluno ou não) é calculado automaticamente.</p>
       </section>
 
+      <section class="view" data-view="idv">
+        <div class="idv-wrap">
+          <div class="idv-card">
+            <h3>Identidade visual</h3>
+            <p class="d">Deixe o sistema com a cara da sua marca. O que você mudar aqui reflete no painel, no app do aluno e no site — na hora.</p>
+            <div class="idv-field">
+              <label>Nome do estúdio</label>
+              <input class="idv-input" id="idvName" value="Salty" maxlength="18" autocomplete="off">
+            </div>
+            <div class="idv-field">
+              <label>Logo</label>
+              <div class="idv-logo-up">
+                <div class="idv-logo-prev" id="idvLogoPrev">S</div>
+                <button class="idv-upbtn" id="idvUpBtn">Enviar logo (PNG/SVG)</button>
+                <input type="file" id="idvFile" accept="image/*" hidden>
+              </div>
+            </div>
+            <div class="idv-field">
+              <label>Cor principal</label>
+              <div class="idv-swatches" id="idvSwatches">
+                <button class="idv-sw on" data-color="#E73737" style="background:#E73737" aria-label="Vermelho"></button>
+                <button class="idv-sw" data-color="#2E8B57" style="background:#2E8B57" aria-label="Verde"></button>
+                <button class="idv-sw" data-color="#37346A" style="background:#37346A" aria-label="Azul"></button>
+                <button class="idv-sw" data-color="#C0791A" style="background:#C0791A" aria-label="Âmbar"></button>
+                <button class="idv-sw" data-color="#B5306B" style="background:#B5306B" aria-label="Magenta"></button>
+                <button class="idv-sw" data-color="#1F7A8C" style="background:#1F7A8C" aria-label="Petróleo"></button>
+                <label class="idv-custom">ou <input type="color" id="idvColor" value="#E73737"></label>
+              </div>
+            </div>
+            <button class="idv-reset" id="idvReset">Restaurar padrão</button>
+          </div>
+          <div class="idv-card">
+            <h3>Prévia ao vivo</h3>
+            <p class="d">É assim que a marca aparece pro aluno e pra equipe. Troque a cor e veja o menu lateral e o logo mudarem no sistema inteiro, na hora.</p>
+            <div class="idv-preview">
+              <span class="idv-pv-nav"><span id="idvPvLogo">●</span> <span id="idvPvName">Salty</span></span>
+              <button class="idv-pv-btn">Agendar aula</button>
+            </div>
+            <div class="idv-note">White-label: na Angular, cada estúdio cliente teria a própria marca sem mexer em código.</div>
+          </div>
+        </div>
+      </section>
+
     </div>
   </main>
 </div>
@@ -3740,7 +3805,7 @@
 
 <script>
 (function(){
-  var titles={agora:['Recepção','Agora · balcão ao vivo'],dash:['Painel','Dashboard'],lista:['Aulas','Lista de aulas'],agendados:['Aulas','Agendados'],aulas:['Aulas','Controle de aulas'],planos:['Vendas','PDV · Ponto de venda'],produtos:['Catálogo','Produtos'],cupons:['Catálogo','Cupons'],crm:['Relacionamento','CRM'],fin:['Gestão','Financeiro / NF'],staff:['Gestão','Funcionários'],rel:['Análise','Relatórios'],ficha:['Relacionamento','Ficha completa'],autopilot:['Inteligência','Piloto Automático'],jornada:['Relacionamento','Jornada do aluno']};
+  var titles={agora:['Recepção','Agora · balcão ao vivo'],dash:['Painel','Dashboard'],lista:['Aulas','Lista de aulas'],agendados:['Aulas','Agendados'],aulas:['Aulas','Controle de aulas'],planos:['Vendas','PDV · Ponto de venda'],produtos:['Catálogo','Produtos'],cupons:['Catálogo','Cupons'],crm:['Relacionamento','CRM'],fin:['Gestão','Financeiro / NF'],staff:['Gestão','Funcionários'],rel:['Análise','Relatórios'],ficha:['Relacionamento','Ficha completa'],autopilot:['Inteligência','Piloto Automático'],jornada:['Relacionamento','Jornada do aluno'],idv:['Configurações','Identidade visual']};
   var navis=document.querySelectorAll('.navi[data-v]'), views=document.querySelectorAll('.view');
   var side=document.getElementById('side'), scrim=document.getElementById('scrim');
   // marcos de aulas (parabéns) — configuráveis em Controle de aulas; lidos pela página da aula
@@ -7039,6 +7104,27 @@
   var jc=document.getElementById('jrCamp'); if(jc)jc.addEventListener('click',toCamp);
   var fc=document.getElementById('fnCamp'); if(fc)fc.addEventListener('click',toCamp);
   render();
+})();
+
+/* ===== Identidade visual — re-skin ao vivo ===== */
+(function(){
+  var sw=document.getElementById('idvSwatches'); if(!sw) return;
+  var colorIn=document.getElementById('idvColor'), nameIn=document.getElementById('idvName'),
+      pvName=document.getElementById('idvPvName'), logoPrev=document.getElementById('idvLogoPrev'),
+      reset=document.getElementById('idvReset'), upBtn=document.getElementById('idvUpBtn'), fileIn=document.getElementById('idvFile');
+  var DEFAULT='#E73737';
+  function applyColor(c){
+    document.documentElement.style.setProperty('--red',c);
+    colorIn.value=c;
+    sw.querySelectorAll('.idv-sw').forEach(function(b){b.classList.toggle('on',b.dataset.color&&b.dataset.color.toLowerCase()===c.toLowerCase());});
+  }
+  function applyName(n){ n=(n||'Salty'); pvName.textContent=n; if(!logoPrev.querySelector('img'))logoPrev.textContent=(n.charAt(0)||'S').toUpperCase(); }
+  sw.addEventListener('click',function(e){var b=e.target.closest('[data-color]'); if(!b)return; applyColor(b.dataset.color);});
+  colorIn.addEventListener('input',function(){applyColor(colorIn.value);});
+  nameIn.addEventListener('input',function(){applyName(nameIn.value);});
+  reset.addEventListener('click',function(){applyColor(DEFAULT); nameIn.value='Salty'; logoPrev.style.background=''; logoPrev.innerHTML='S'; applyName('Salty'); if(window.__saltyToast)window.__saltyToast('Identidade visual restaurada ao padrão');});
+  upBtn.addEventListener('click',function(){fileIn.click();});
+  fileIn.addEventListener('change',function(){ if(fileIn.files&&fileIn.files[0]){ var r=new FileReader(); r.onload=function(ev){ logoPrev.style.background='#fff'; logoPrev.innerHTML='<img src="'+ev.target.result+'" alt="logo" style="width:100%;height:100%;object-fit:contain">'; if(window.__saltyToast)window.__saltyToast('Logo aplicado na prévia'); }; r.readAsDataURL(fileIn.files[0]); } });
 })();
 </script>
 </body>
