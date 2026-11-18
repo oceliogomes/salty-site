@@ -1839,6 +1839,15 @@
   .ap-actions{display:flex;flex-direction:column;gap:.75rem;margin-top:.9rem}
   .ap-act{border:1.5px solid var(--line2);border-radius:12px;padding:.95rem 1rem;transition:.14s}
   .ap-act.off{opacity:.55;background:var(--raise)}
+  .ap-act.torecep{border-color:color-mix(in srgb,var(--red) 35%,transparent);background:color-mix(in srgb,var(--red) 4%,var(--panel))}
+  .ap-dest{display:flex;align-items:center;gap:.4rem;margin-bottom:.5rem;flex-wrap:wrap}
+  .ap-destlbl{font-family:var(--f-mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin-right:.1rem}
+  .ap-destbtn{border:1.5px solid var(--line2);background:var(--panel);font-family:inherit;font-weight:700;font-size:.74rem;color:var(--muted);padding:.3rem .6rem;border-radius:999px;cursor:pointer;transition:.12s}
+  .ap-destbtn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .ap-destbtn.on.recep{background:var(--red);border-color:var(--red)}
+  .ap-recnote{margin-top:.5rem;padding:.6rem .75rem;background:color-mix(in srgb,var(--red) 8%,transparent);border-left:3px solid var(--red);border-radius:0 8px 8px 0;font-size:.82rem;line-height:1.45;color:var(--ink)}
+  .ap-recnote b{color:var(--red)}
+  .ap-sumpil b{color:var(--navy)} .ap-sumrec b{color:var(--red)}
   .ap-act-top{display:flex;align-items:flex-start;gap:.7rem}
   .ap-act-main{flex:1;min-width:0}
   .ap-act h4{font-size:.98rem;font-weight:700;margin:0 0 .25rem;color:var(--ink)}
@@ -3190,7 +3199,7 @@
           <div class="ap-step">
             <div class="ap-steplabel"><span class="ap-stepnum">2</span>Plano de ação proposto</div>
             <h3>4 ações, priorizadas por impacto</h3>
-            <p style="margin:.1rem 0 0;color:var(--muted);font-size:.86rem">Tire do plano o que não quiser disparar. A mensagem de cada ação a IA já escreveu.</p>
+            <p style="margin:.1rem 0 0;color:var(--muted);font-size:.86rem">Defina quem faz cada ação: 🤖 <b>Piloto</b> (automático, gasta mensagem paga — reserve pro urgente) ou 👤 <b>Recepção</b> (manual, via gamificação, de graça). O que um faz, o outro não repete.</p>
             <div class="ap-actions" id="apActions"></div>
             <div class="ap-foot">
               <div class="ap-summary" id="apSummary"></div>
@@ -7087,7 +7096,10 @@
       elProgWrap=document.getElementById('apProgWrap');
   if(!elActions) return;
   var CH={wa:['wa','WhatsApp'],mail:['mail','E-mail']};
-  ACTIONS.forEach(function(a){ if(a.emailHtml===undefined)a.emailHtml=false; if(a.rhythm)a.rhythm.forEach(function(r){if(r.on===undefined)r.on=true;}); });
+  ACTIONS.forEach(function(a){ if(a.emailHtml===undefined)a.emailHtml=false; if(a.dest===undefined)a.dest=(a.id==='a3'?'recepcao':'piloto'); if(a.rhythm)a.rhythm.forEach(function(r){if(r.on===undefined)r.on=true;}); });
+  function destSel(a){ return '<div class="ap-dest"><span class="ap-destlbl">Quem faz:</span>'
+    +'<button class="ap-destbtn'+(a.dest==='piloto'?' on':'')+'" data-dest="'+a.id+'|piloto">🤖 Piloto</button>'
+    +'<button class="ap-destbtn'+(a.dest==='recepcao'?' on recep':'')+'" data-dest="'+a.id+'|recepcao">👤 Recepção</button></div>'; }
   function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function escA(s){ return esc(s).replace(/"/g,'&quot;'); }
   function getA(id){ return ACTIONS.filter(function(x){return x.id===id;})[0]; }
@@ -7126,16 +7138,18 @@
             return '<div class="rr'+(r.on?'':' off')+'"><button class="rr-ck'+(r.on?' on':'')+'" data-rck="'+a.id+'|'+ri+'" aria-label="Incluir ou tirar aluno"></button><span class="nm">'+r.nm+'</span><span class="cad">'+r.cad+'</span><span class="flag">'+r.flag+'</span></div>';
           }).join('')+'</div>';
       }
-      return '<div class="ap-act'+(a.on?'':' off')+(a.open?' open':'')+(a.whoOpen?' who-open':'')+'" data-id="'+a.id+'">'
+      var piloto=(a.dest==='piloto');
+      var body=piloto
+        ? '<button class="ap-seemsg" data-see="'+a.id+'">'+(a.open?'Fechar edição ▴':'Ver / editar a mensagem ▾')+'</button>'+(a.open?editor(a):'')+'<div class="ap-conf">Confiança: <b>'+a.approvals+'</b> aprovações · <b>'+a.edits+'</b> edições</div>'+suggestBlock(a)
+        : '<div class="ap-recnote">👤 Sai do disparo automático e entra na <b>lista da recepção</b> (gamificação) — o atendente faz o contato pessoalmente. Barato, e sem gastar mensagem paga.</div>';
+      return '<div class="ap-act'+(a.on?'':' off')+(a.open?' open':'')+(a.whoOpen?' who-open':'')+(piloto?'':' torecep')+'" data-id="'+a.id+'">'
         +'<div class="ap-act-top"><div class="ap-act-main">'
-        +'<h4>'+a.title+(a.auto?'<span class="ap-autobadge">● automático</span>':'')+'</h4>'
+        +destSel(a)
+        +'<h4>'+a.title+(a.auto&&piloto?'<span class="ap-autobadge">● automático</span>':'')+'</h4>'
         +'<p class="ap-why">'+a.why+'</p>'
         +'<div class="ap-meta">'+chanBadges(a)+'<span class="ap-audience">'+audienceNum(a)+' alunos</span></div>'
         +rhythm
-        +'<button class="ap-seemsg" data-see="'+a.id+'">'+(a.open?'Fechar edição ▴':'Ver / editar a mensagem ▾')+'</button>'
-        +(a.open?editor(a):'')
-        +'<div class="ap-conf">Confiança: <b>'+a.approvals+'</b> aprovações · <b>'+a.edits+'</b> edições</div>'
-        +suggestBlock(a)
+        +body
         +'</div>'
         +'<button class="ap-tog'+(a.on?' on':'')+'" data-tog="'+a.id+'" aria-label="Incluir ou tirar do plano"></button>'
         +'</div></div>';
@@ -7144,14 +7158,16 @@
   }
   function updateSummary(){
     var on=ACTIONS.filter(function(a){return a.on;});
-    var people=on.reduce(function(s,a){return s+audienceNum(a);},0);
-    var chans={}; on.forEach(function(a){ if(a.chan==='both'){chans.wa=1;chans.mail=1;} else chans[a.chan]=1; });
-    elSummary.innerHTML='<b>'+on.length+'</b> ação(ões) · <b>'+people+'</b> alunos · '+Object.keys(chans).length+' canal(is)';
-    elRun.disabled=(on.length===0);
+    var pil=on.filter(function(a){return a.dest==='piloto';}), rec=on.filter(function(a){return a.dest==='recepcao';});
+    var pilP=pil.reduce(function(s,a){return s+audienceNum(a);},0), recP=rec.reduce(function(s,a){return s+audienceNum(a);},0);
+    elSummary.innerHTML='<span class="ap-sumpil">🤖 Piloto: <b>'+pil.length+'</b> ação(ões) · <b>'+pilP+'</b> alunos</span> &nbsp;·&nbsp; <span class="ap-sumrec">👤 Recepção: <b>'+rec.length+'</b> · <b>'+recP+'</b> alunos</span>';
+    elRun.disabled=(pil.length===0);
   }
   elActions.addEventListener('click',function(e){
     var tg=e.target.closest('[data-tog]');
     if(tg){ var a=getA(tg.dataset.tog); if(a){a.on=!a.on; render();} return; }
+    var ds=e.target.closest('[data-dest]');
+    if(ds){ var pr=ds.dataset.dest.split('|'); var a=getA(pr[0]); if(a){ a.dest=pr[1]; render(); if(window.__saltyToast)window.__saltyToast(pr[1]==='recepcao'?'"'+a.title+'" → vai pra recepção fazer (gamificação)':'"'+a.title+'" → volta pro Piloto (automático)'); } return; }
     var see=e.target.closest('[data-see]');
     if(see){ var a=getA(see.closest('.ap-act').dataset.id); if(a){a.open=!a.open; render();} return; }
     var who=e.target.closest('[data-who]');
@@ -7173,12 +7189,13 @@
     var bd=e.target.closest('[data-body]'); if(bd){ var a=getA(bd.dataset.body); if(a){a.emailBody=bd.value; a.edits++; render();} return; }
   });
   elRun.addEventListener('click',function(){
-    var on=ACTIONS.filter(function(a){return a.on;});
+    var on=ACTIONS.filter(function(a){return a.on && a.dest==='piloto';});
+    var recN=ACTIONS.filter(function(a){return a.on && a.dest==='recepcao';}).length;
     if(!on.length) return;
     elRun.disabled=true;
     elProgWrap.hidden=false;
     elProgWrap.innerHTML='<ul class="ap-prog">'+on.map(function(a){
-      return '<li data-pid="'+a.id+'"><span class="pi"></span>'+a.title+' · '+a.audience+'</li>';
+      return '<li data-pid="'+a.id+'"><span class="pi"></span>'+a.title+' · '+audienceNum(a)+' alunos</li>';
     }).join('')+'</ul>';
     elProgWrap.scrollIntoView({behavior:'smooth',block:'nearest'});
     var items=Array.prototype.slice.call(elProgWrap.querySelectorAll('li')), i=0;
@@ -7188,9 +7205,9 @@
       items[i].classList.add('doing'); i++; setTimeout(tick,850);
     }
     function finish(){
-      var people=on.reduce(function(s,a){return s+(parseInt(a.audience,10)||0);},0);
+      var people=on.reduce(function(s,a){return s+audienceNum(a);},0);
       var d=document.createElement('div'); d.className='ap-done-card';
-      d.innerHTML='<div style="font-family:var(--f-disp);font-style:italic;font-size:1.3rem;color:var(--good)">Plano executado ✓</div><p style="margin:.4rem 0 0;font-size:.88rem;color:var(--ink)">'+on.length+' ações disparadas para '+people+' alunos. O Piloto vai acompanhar as respostas e te avisar quem reagendou.</p>';
+      d.innerHTML='<div style="font-family:var(--f-disp);font-style:italic;font-size:1.3rem;color:var(--good)">Plano executado ✓</div><p style="margin:.4rem 0 0;font-size:.88rem;color:var(--ink)">'+on.length+' ações do Piloto disparadas para '+people+' alunos.'+(recN?' As <b>'+recN+'</b> ação(ões) da recepção foram pra lista deles fazerem na mão.':'')+' O Piloto acompanha as respostas e te avisa quem reagendou.</p>';
       elProgWrap.appendChild(d);
       if(window.__saltyToast)window.__saltyToast('Piloto Automático: plano executado (demonstração)');
       setTimeout(function(){ elRun.disabled=false; },400);
