@@ -59,6 +59,12 @@
   .afoc-cards{display:grid;grid-template-columns:1fr;gap:1rem}
   .afoc-cards.multi{grid-template-columns:1fr 1fr}
   @media(max-width:1100px){.afoc-cards.multi{grid-template-columns:1fr}}
+  .afoc-min{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.9rem}
+  .afoc-minlbl{font-family:var(--f-mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+  .afoc-minchip{display:inline-flex;align-items:center;gap:.45rem;background:var(--panel);border:1.5px solid var(--line2);border-radius:999px;padding:.4rem .8rem;font-family:inherit;font-weight:700;font-size:.82rem;color:var(--ink);cursor:pointer;transition:.12s}
+  .afoc-minchip:hover{border-color:var(--navy);background:var(--raise)}
+  .afoc-minchip small{color:var(--muted);font-weight:600}
+  .afoc-minhint{font-family:var(--f-mono);font-size:.56rem;text-transform:uppercase;letter-spacing:.04em;color:var(--navy);background:color-mix(in srgb,var(--navy) 10%,transparent);padding:.15rem .4rem;border-radius:6px}
   /* estado vazio da página de Agendados (aberta sem uma aula carregada) */
   .ag-emptyguide{display:none}
   .ag-head:empty{display:none}
@@ -4302,6 +4308,7 @@
            {t:'08:15',mod:'l-hy',name:'Hot Yoga',prof:'Marina',cap:7,booked:6,agg:['G']},
            {t:'09:15',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:9,booked:9,agg:['G','T']},
            {t:'09:15',mod:'l-sc',name:'Hot Sculpt',prof:'Bia',cap:7,booked:5,agg:[]},
+           {t:'09:15',mod:'l-hy',name:'Hot Yoga',prof:'Marina',cap:7,booked:6,agg:['G']},
            {t:'10:15',mod:'l-bike',name:'Bike no Rooftop',prof:'Cauã',cap:9,booked:6,agg:['G','T']},
            {t:'10:15',mod:'l-hy',name:'Hot Yoga',prof:'Marina',cap:7,booked:4,agg:['G']},
            {t:'18:00',mod:'l-sc',name:'Hot Sculpt',prof:'Bia',cap:7,booked:4,agg:['G']}],
@@ -4364,7 +4371,7 @@
 
     // ===== Tela "Agora" — balcão ao vivo da recepção (por horário/slot) =====
     var AGORA_NOW=new Date(2026,9,14,9,20); // qua 14/10 09:20 (referência do protótipo)
-    var agoraSlot=null, agoraCheck={}, agoraNoShow={}, agoraProm={};
+    var agoraSlot=null, agoraCheck={}, agoraNoShow={}, agoraProm={}, agoraOpenIdx=null;
     function classByIdx(idx){ return {e:(agenda[WDAY[AGORA_NOW.getDay()]]||[])[idx], i:idx}; }
     function fullWait(ci){ if(!ci.e||ci.e.booked<ci.e.cap) return []; var h=ci.i*7+1; for(var k=0;k<ci.e.name.length;k++)h=(h*31+ci.e.name.charCodeAt(k))|0; h=Math.abs(h); var n=1+(h%3), out=[]; for(var j=0;j<n;j++)out.push(NAMES[(h+j*5+3)%NAMES.length]); return out; }
     function evStart(e){ var p=e.t.split(':'); var d=new Date(AGORA_NOW); d.setHours(+p[0],+(p[1]||0),0,0); return d; }
@@ -4493,7 +4500,18 @@
       var lbl=live?'<span class="aw-tag live">● acontecendo agora</span>':(mins>=0?'<span class="aw-tag soon">começa em '+mins+' min</span>':'já começou');
       var hdr='<div class="afoc-slothd"><div class="afoc-slottime">'+slot.t+'</div><div class="afoc-slotlbl">'+lbl+(slot.classes.length>1?' · <b>'+slot.classes.length+' aulas em paralelo</b>':'')+'</div></div>';
       var dobra=dobraMap(slots);
-      host.innerHTML=hdr+'<div class="afoc-cards'+(slot.classes.length>1?' multi':'')+'">'+slot.classes.map(function(ci){return agoraCard(ci,live,dobra);}).join('')+'</div>';
+      var cls=slot.classes, openIdx, minStrip='';
+      if(cls.length<=2){ openIdx=cls.map(function(_,i){return i;}); }
+      else {
+        if(!agoraOpenIdx || agoraOpenIdx.length!==2 || agoraOpenIdx[0]>=cls.length || agoraOpenIdx[1]>=cls.length) agoraOpenIdx=[0,1];
+        openIdx=agoraOpenIdx;
+        var minIdx=cls.map(function(_,i){return i;}).filter(function(i){return openIdx.indexOf(i)<0;});
+        minStrip='<div class="afoc-min"><span class="afoc-minlbl">Também agora:</span>'+minIdx.map(function(i){
+          var ci=cls[i], dotc=ci.e.mod.replace('l-','d-');
+          return '<button class="afoc-minchip" data-minopen="'+i+'" title="Abrir esta aula (uma das abertas é minimizada)"><span class="ar-dot '+dotc+'"></span>'+ci.e.name+' <small>'+ci.e.booked+'/'+ci.e.cap+'</small><span class="afoc-minhint">abrir ↔</span></button>';
+        }).join('')+'</div>';
+      }
+      host.innerHTML=hdr+minStrip+'<div class="afoc-cards'+(openIdx.length>1?' multi':'')+'">'+openIdx.map(function(i){return agoraCard(cls[i],live,dobra);}).join('')+'</div>';
       renderAgoraRest(slots); renderAgoraPulse(slots); renderAgoraAlerts(slots,dobra);
     }
     window.__renderAgora=renderAgora;
@@ -4509,7 +4527,8 @@
         var ck=ev.target.closest('[data-acheck]');
         if(ck){ var key=ck.dataset.acheck; if(agoraCheck[key])delete agoraCheck[key]; else agoraCheck[key]=true; renderAgora();
           if(window.__saltyToast) window.__saltyToast(agoraCheck[key]?'Check-in confirmado':'Check-in desfeito'); return; }
-        var rs=ev.target.closest('[data-arest]'); if(rs){ if(ev.target.closest('.ar-mod')) ev.preventDefault(); /* esquerdo = foco; meio (nova aba) é nativo */ agoraSlot=+rs.dataset.arest; renderAgora(); return; }
+        var mo=ev.target.closest('[data-minopen]'); if(mo){ var ni=+mo.dataset.minopen; if(agoraOpenIdx){ agoraOpenIdx=[agoraOpenIdx[0], ni]; } renderAgora(); if(window.__saltyToast)window.__saltyToast('Aula aberta — a que estava aberta foi pra "Também agora"'); return; }
+        var rs=ev.target.closest('[data-arest]'); if(rs){ if(ev.target.closest('.ar-mod')) ev.preventDefault(); /* esquerdo = foco; meio (nova aba) é nativo */ agoraSlot=+rs.dataset.arest; agoraOpenIdx=null; renderAgora(); return; }
         var ah=ev.target.closest('.aalert-hd'); if(ah){ var box=ah.parentNode, nm=box.querySelector('.aalert-names'); if(nm){ var closed=nm.hasAttribute('hidden'); if(closed)nm.removeAttribute('hidden'); else nm.setAttribute('hidden',''); box.classList.toggle('open',closed); } return; }
       });
       // passar o mouse num nome do dropdown acende o aluno na lista da aula
