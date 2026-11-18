@@ -58,7 +58,7 @@
   .afoc-slotlbl{font-size:.85rem;color:var(--muted)}
   .afoc-cards{display:grid;grid-template-columns:1fr;gap:1rem}
   .afoc-cards.multi{grid-template-columns:1fr 1fr}
-  @media(max-width:1700px){.afoc-cards.multi{grid-template-columns:1fr}}
+  @media(max-width:1100px){.afoc-cards.multi{grid-template-columns:1fr}}
   /* estado vazio da página de Agendados (aberta sem uma aula carregada) */
   .ag-emptyguide{display:none}
   .ag-head:empty{display:none}
@@ -83,12 +83,13 @@
   .afoc-bar b{font-weight:800}
   .afoc-search{flex:1;min-width:140px;max-width:260px;border:1.5px solid var(--line2);border-radius:999px;padding:.35rem .8rem;font-family:inherit;font-size:.82rem;background:var(--panel);color:var(--ink)}
   .afoc-list{max-height:none}
-  .arow{display:flex;align-items:center;gap:.7rem;padding:.6rem 1.2rem;border-bottom:1px solid var(--line)}
+  .arow{display:flex;align-items:center;gap:.7rem;padding:.6rem 1.2rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .arow .a-trail{display:flex;align-items:center;gap:.5rem;flex:none;margin-left:auto}
   .arow:last-child{border-bottom:none}
   .arow.done{background:color-mix(in srgb,var(--good) 7%,transparent)}
   .arow .a-av{width:34px;height:34px;border-radius:50%;background:var(--navy);color:#FFFBF4;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;flex:none;cursor:pointer;transition:box-shadow .12s}
   .arow .a-av:hover{box-shadow:0 0 0 2px var(--panel),0 0 0 4px var(--navy)}
-  .arow .a-id{flex:1;min-width:0}
+  .arow .a-id{flex:1 1 150px;min-width:140px}
   .arow .a-nm{font-weight:700;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .arow.done .a-nm{color:var(--good)}
   .arow .a-meta{font-size:.72rem;color:var(--muted);display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-top:.05rem}
@@ -4419,12 +4420,12 @@
           +'<button class="a-checkbtn'+(isDone?' on':'')+'" data-acheck="'+key+'" type="button">'+(isDone?'<svg><use href="#i-check"/></svg>presente':'check-in')+'</button></span>';
       return '<div class="arow'+(isDone?' done':'')+(noShow?' noshow':'')+'" data-name="'+a.n.replace(/"/g,'&quot;')+'"><span class="a-av">'+initials(a.n)+'</span>'
         +'<div class="a-id"><div class="a-nm">'+a.n+(crm?' '+crm:'')+(dobTag?' '+dobTag:'')+'</div><div class="a-meta">'+bits.join(' · ')+(late?' · <span class="a-late">⏱ atrasado</span>':'')+'</div></div>'
-        +posTag+shoeTag+action+'</div>';
+        +'<div class="a-trail">'+posTag+shoeTag+action+'</div></div>';
     }
     function promRow(ci,nm,pi){ var dk=ci.i+'-P'+pi, dn=!!agoraCheck[dk];
       return '<div class="arow promoted'+(dn?' done':'')+'" data-name="'+nm.replace(/"/g,'&quot;')+'"><span class="a-av">'+initials(nm)+'</span>'
         +'<div class="a-id"><div class="a-nm">'+nm+' <span class="a-crm first">⬆ da espera</span></div><div class="a-meta">Encaixado agora no lugar de uma falta</div></div>'
-        +'<span class="a-actions"><button class="a-checkbtn'+(dn?' on':'')+'" data-acheck="'+dk+'" type="button">'+(dn?'<svg><use href="#i-check"/></svg>presente':'check-in')+'</button></span></div>';
+        +'<div class="a-trail"><span class="a-actions"><button class="a-checkbtn'+(dn?' on':'')+'" data-acheck="'+dk+'" type="button">'+(dn?'<svg><use href="#i-check"/></svg>presente':'check-in')+'</button></span></div></div>';
     }
     function agoraCard(ci,live,dobra){
       var e=ci.e, dotc=e.mod.replace('l-','d-'), meta=LMOD[e.mod], list=agoraList(ci);
