@@ -2001,6 +2001,26 @@
   .lg-actor.recepcao{background:color-mix(in srgb,var(--red) 12%,transparent);color:var(--red)}
   .lg-tx{flex:1;min-width:0;font-size:.88rem;color:var(--ink);line-height:1.45}
   .lg-tx b{font-weight:700}
+  /* ===== SLA de atendimento (estatística) ===== */
+  .sla-card{background:var(--panel);border:1.5px solid var(--line2);border-radius:14px;padding:1.2rem 1.3rem;margin-bottom:1.3rem}
+  .sla-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+  .sla-head h3{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.2rem;margin:0}
+  .sla-head h3 span{font-family:var(--f);font-style:normal;font-weight:400;font-size:.82rem;color:var(--muted)}
+  .sla-meta{font-family:var(--f-mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);background:var(--raise);border:1px solid var(--line2);border-radius:999px;padding:.25rem .6rem}
+  .sla-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem;margin-bottom:1rem}
+  .sla-t{background:var(--raise);border:1.5px solid var(--line2);border-radius:11px;padding:.7rem .8rem}
+  .sla-t .v{font-family:var(--f-disp);font-size:1.5rem;font-weight:500;line-height:1}
+  .sla-t .v.good{color:var(--good)} .sla-t .v.bad{color:var(--bad)}
+  .sla-t .k{font-size:.74rem;color:var(--muted);margin-top:.25rem;line-height:1.3}
+  .sla-rank{border-top:1px solid var(--line);padding-top:.9rem}
+  .sla-rlbl{font-family:var(--f-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin-bottom:.6rem}
+  .sla-row{display:flex;align-items:center;gap:.8rem;margin-bottom:.5rem}
+  .sla-nm{flex:none;width:120px;font-weight:700;font-size:.85rem;color:var(--ink)}
+  .sla-bar{flex:1;height:10px;background:var(--raise);border-radius:999px;overflow:hidden}
+  .sla-bar i{display:block;height:100%;border-radius:999px}
+  .sla-v{flex:none;width:62px;text-align:right;font-family:var(--f-mono);font-size:.8rem;font-weight:700}
+  .sla-v.good{color:var(--good)} .sla-v.warn{color:var(--warn)} .sla-v.bad{color:var(--bad)}
+  .sla-note{font-size:.84rem;color:var(--ink);background:var(--raise);border-radius:9px;padding:.6rem .8rem;margin-top:.9rem;line-height:1.45}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -2133,6 +2153,24 @@
           <div class="tile"><div class="tl"><svg class="ic"><use href="#i-cal"/></svg>Aulas hoje</div><div class="val">7</div><div class="delta flat">1 lotada · 3 quase</div></div>
           <div class="tile"><div class="tl"><svg class="ic"><use href="#i-crm"/></svg>Churn do mês</div><div class="val">4,2%</div><div class="delta up">▼ 0,5 vs. mês passado</div></div>
           <div class="tile"><div class="tl"><svg class="ic"><use href="#i-prod"/></svg>Vendas hoje</div><div class="val">R$ 890</div><div class="delta flat">planos + produtos</div></div>
+        </div>
+
+        <div class="sla-card">
+          <div class="sla-head"><h3>SLA de atendimento <span>· velocidade de resposta no WhatsApp</span></h3><span class="sla-meta">meta: 1ª resposta em 5 min</span></div>
+          <div class="sla-tiles">
+            <div class="sla-t"><div class="v">3m12s</div><div class="k">1ª resposta média (hoje)</div></div>
+            <div class="sla-t"><div class="v good">92%</div><div class="k">dentro da meta de 5 min</div></div>
+            <div class="sla-t"><div class="v bad">2</div><div class="k">conversas esperando +15 min 🔴</div></div>
+            <div class="sla-t"><div class="v">61%</div><div class="k">respondidas pela IA (Bia)</div></div>
+          </div>
+          <div class="sla-rank">
+            <div class="sla-rlbl">Por atendente · tempo médio de 1ª resposta</div>
+            <div class="sla-row"><span class="sla-nm">🤖 Bia (IA)</span><div class="sla-bar"><i style="width:14%;background:var(--good)"></i></div><span class="sla-v good">0m48s</span></div>
+            <div class="sla-row"><span class="sla-nm">Júlia</span><div class="sla-bar"><i style="width:34%;background:var(--good)"></i></div><span class="sla-v good">2m10s</span></div>
+            <div class="sla-row"><span class="sla-nm">Camila</span><div class="sla-bar"><i style="width:62%;background:var(--warn)"></i></div><span class="sla-v warn">4m05s</span></div>
+            <div class="sla-row"><span class="sla-nm">Rafael</span><div class="sla-bar"><i style="width:100%;background:var(--bad)"></i></div><span class="sla-v bad">11m30s</span></div>
+          </div>
+          <p class="sla-note">🔴 <b>Rafael</b> está bem acima da meta (11min) — vale uma conversa. A IA responde o grosso em segundos; o humano entra onde ela não sabe. Dá pra ver quem "fica no celular" e demora.</p>
         </div>
 
         <div class="dash-accordions">
