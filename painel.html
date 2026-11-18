@@ -1783,6 +1783,60 @@
     .att-check,.att-crm,.att-actbtn,.att-av,.a-checkbtn,.a-faltou,.a-av,.ff-dots,.modal-x,.side-toggle,.sb-ico,.fcopy{min-width:40px;min-height:40px}
     .ag-tool,.btn-ghost,.est-do,.est-go,.fg-act,.wt-btn,.att .go,.ccard .cb,.dtab,.sr-item,.pw-item,.dacc-hd{min-height:42px}
   }
+  /* ===== Piloto Automático (IA) — tela "Em breve" · protótipo ===== */
+  .navi .tagx.soon{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn)}
+  .navi.on .tagx.soon{background:rgba(255,255,255,.25);color:#FFFBF4}
+  .ap-wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:1.1rem}
+  .ap-hero{background:linear-gradient(135deg,var(--navy),#4a4788);color:#fff;border-radius:16px;padding:1.5rem 1.6rem;position:relative;overflow:hidden}
+  .ap-hero::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%);pointer-events:none}
+  .ap-hero h2{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.7rem;margin:.55rem 0 .4rem;color:#fff;position:relative}
+  .ap-hero p{margin:0;font-size:.95rem;line-height:1.5;color:rgba(255,255,255,.88);max-width:580px;position:relative}
+  .ap-pill{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.35);padding:.3rem .65rem;border-radius:999px;position:relative}
+  .ap-pill .dot{width:6px;height:6px;border-radius:50%;background:#FFD66B;box-shadow:0 0 0 3px rgba(255,214,107,.3)}
+  .ap-step{background:var(--panel);border:1.5px solid var(--line2);border-radius:14px;padding:1.2rem 1.3rem}
+  .ap-steplabel{display:flex;align-items:center;gap:.6rem;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem}
+  .ap-stepnum{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;font-size:.68rem;font-weight:700;flex:none}
+  .ap-step h3{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:1.25rem;margin:0 0 .2rem}
+  .ap-signals{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem;margin-top:.9rem}
+  .ap-sig{background:var(--raise);border:1.5px solid var(--line2);border-radius:11px;padding:.7rem .8rem}
+  .ap-sig .st{font-size:.72rem;color:var(--muted);font-weight:600;margin-bottom:.25rem}
+  .ap-sig .sv{font-family:var(--f-disp);font-size:1.3rem;font-weight:500;line-height:1.1}
+  .ap-sig .sd{font-size:.72rem;font-weight:700;margin-top:.2rem}
+  .ap-sig .sd.bad{color:var(--bad)} .ap-sig .sd.good{color:var(--good)} .ap-sig .sd.warn{color:var(--warn)}
+  .ap-read{display:flex;gap:.8rem;background:color-mix(in srgb,var(--navy) 7%,var(--panel));border:1.5px solid color-mix(in srgb,var(--navy) 25%,transparent);border-radius:12px;padding:1rem 1.1rem;margin-top:1rem}
+  .ap-read .spark{flex:none;width:30px;height:30px;border-radius:9px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center}
+  .ap-read .rt{font-size:.92rem;line-height:1.55;color:var(--ink)}
+  .ap-read .rt b{color:var(--navy)}
+  .ap-readlabel{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);font-weight:700;display:block;margin-bottom:.3rem}
+  .ap-actions{display:flex;flex-direction:column;gap:.75rem;margin-top:.9rem}
+  .ap-act{border:1.5px solid var(--line2);border-radius:12px;padding:.95rem 1rem;transition:.14s}
+  .ap-act.off{opacity:.55;background:var(--raise)}
+  .ap-act-top{display:flex;align-items:flex-start;gap:.7rem}
+  .ap-act-main{flex:1;min-width:0}
+  .ap-act h4{font-size:.98rem;font-weight:700;margin:0 0 .25rem;color:var(--ink)}
+  .ap-why{font-size:.82rem;color:var(--muted);line-height:1.45;margin:0 0 .5rem}
+  .ap-meta{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center}
+  .ap-chan{display:inline-flex;align-items:center;gap:.35rem;font-size:.72rem;font-weight:700;padding:.22rem .55rem;border-radius:999px}
+  .ap-chan.wa{background:#DCF8C6;color:#1b7a3e} .ap-chan.mail{background:var(--sky);color:var(--sky-ink)}
+  .ap-audience{font-size:.74rem;color:var(--muted);font-weight:600}
+  .ap-seemsg{background:none;border:none;color:var(--navy);font-family:inherit;font-size:.74rem;font-weight:700;cursor:pointer;padding:.15rem 0;margin-top:.35rem}
+  .ap-preview{font-size:.82rem;color:var(--ink);background:var(--raise);border-left:3px solid var(--navy);border-radius:0 8px 8px 0;padding:.5rem .7rem;margin-top:.45rem;line-height:1.45;font-style:italic;display:none}
+  .ap-act.open .ap-preview{display:block}
+  .ap-tog{flex:none;width:40px;height:23px;border-radius:999px;border:none;background:var(--line2);position:relative;cursor:pointer;transition:.14s}
+  .ap-tog::after{content:"";position:absolute;top:2px;left:2px;width:19px;height:19px;border-radius:50%;background:#fff;transition:.14s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+  .ap-tog.on{background:var(--good)} .ap-tog.on::after{left:19px}
+  .ap-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.9rem;margin-top:1.1rem;padding-top:1rem;border-top:1.5px dashed var(--line2)}
+  .ap-summary{font-size:.86rem;color:var(--muted)} .ap-summary b{color:var(--ink);font-weight:700}
+  .ap-run{display:inline-flex;align-items:center;gap:.55rem;background:var(--navy);color:#fff;border:none;border-radius:11px;padding:.8rem 1.3rem;font-family:inherit;font-weight:700;font-size:.92rem;cursor:pointer;transition:.14s}
+  .ap-run:hover{filter:brightness(1.12)} .ap-run:disabled{opacity:.45;cursor:not-allowed}
+  .ap-demo-note{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.03em;color:var(--warn);text-align:center;margin-top:.8rem}
+  .ap-prog{list-style:none;margin:.9rem 0 0;padding:0;display:flex;flex-direction:column;gap:.5rem}
+  .ap-prog li{display:flex;align-items:center;gap:.6rem;font-size:.86rem;color:var(--muted);padding:.55rem .7rem;background:var(--raise);border-radius:9px;transition:.2s}
+  .ap-prog li .pi{flex:none;width:18px;height:18px;border-radius:50%;border:2px solid var(--line2);display:flex;align-items:center;justify-content:center}
+  .ap-prog li.doing{color:var(--ink)} .ap-prog li.doing .pi{border-color:var(--navy);border-top-color:transparent;animation:apspin .7s linear infinite}
+  .ap-prog li.done{color:var(--ink)} .ap-prog li.done .pi{border-color:var(--good);background:var(--good)}
+  @keyframes apspin{to{transform:rotate(360deg)}}
+  .ap-done-card{text-align:center;padding:1.3rem;background:color-mix(in srgb,var(--good) 8%,var(--panel));border:1.5px solid color-mix(in srgb,var(--good) 30%,transparent);border-radius:14px;margin-top:.7rem}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -1843,6 +1897,7 @@
       <button class="navi" data-v="fin"><svg class="ic"><use href="#i-fin"/></svg>Financeiro / NF</button>
       <button class="navi" data-v="staff"><svg class="ic"><use href="#i-staff"/></svg>Funcionários</button>
       <button class="navi" data-v="rel"><svg class="ic"><use href="#i-rep"/></svg>Relatórios</button>
+      <button class="navi" data-v="autopilot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4L12 3z"/><path d="M18.5 14l.9 2.3 2.1.7-2.1.8-.9 2.2-.9-2.2-2.1-.8 2.1-.7.9-2.3z"/></svg>Piloto IA<span class="tagx soon">em breve</span></button>
     </nav>
     <div class="who"><span class="av">R</span><div><div class="nm">Recepção</div><div class="rl">Equipe · Salty Sergipe</div></div></div>
   </aside>
@@ -2896,6 +2951,49 @@
         <p class="week-note">Dados de exemplo. Todos os números se conectam automaticamente ao banco quando o sistema estiver no ar.</p>
       </section>
 
+      <section class="view" data-view="autopilot">
+        <div class="ap-wrap">
+
+          <div class="ap-hero">
+            <span class="ap-pill"><span class="dot"></span>Em breve · prévia</span>
+            <h2>Piloto Automático</h2>
+            <p>A IA lê os relatórios do mês, monta um plano de ação baseado no desempenho e, com um clique, executa — dispara as mensagens e e-mails certos para cada grupo de alunos. Você aprova; ela faz o trabalho pesado.</p>
+          </div>
+
+          <div class="ap-step">
+            <div class="ap-steplabel"><span class="ap-stepnum">1</span>A IA leu o mês</div>
+            <h3>Diagnóstico de novembro</h3>
+            <p style="margin:.1rem 0 0;color:var(--muted);font-size:.86rem">Puxado automaticamente de Relatórios, Financeiro e Controle de aulas.</p>
+            <div class="ap-signals">
+              <div class="ap-sig"><div class="st">Receita do mês</div><div class="sv">R$ 22,7k</div><div class="sd bad">▼ 6% vs. outubro</div></div>
+              <div class="ap-sig"><div class="st">Churn</div><div class="sv">5,1%</div><div class="sd bad">▲ 0,9pp</div></div>
+              <div class="ap-sig"><div class="st">No-show</div><div class="sv">14%</div><div class="sd warn">concentrado ter/qui 19h</div></div>
+              <div class="ap-sig"><div class="st">Alunos em risco</div><div class="sv">23</div><div class="sd warn">sem check-in há 12+ dias</div></div>
+              <div class="ap-sig"><div class="st">Créditos a vencer</div><div class="sv">18</div><div class="sd warn">vencem em 7 dias</div></div>
+              <div class="ap-sig"><div class="st">Aniversariantes</div><div class="sv">9</div><div class="sd good">próximos 15 dias</div></div>
+            </div>
+            <div class="ap-read">
+              <div class="spark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg></div>
+              <div class="rt"><span class="ap-readlabel">Leitura da IA</span>A queda de receita veio principalmente de <b>23 alunos em risco de churn</b> (sem frequência há 12+ dias) e de <b>18 créditos prestes a vencer</b> sem reagendamento. O no-show está concentrado nas aulas de <b>terça e quinta às 19h</b> — vale uma confirmação ativa. Montei um plano com 4 ações, priorizadas por impacto na receita.</div>
+            </div>
+          </div>
+
+          <div class="ap-step">
+            <div class="ap-steplabel"><span class="ap-stepnum">2</span>Plano de ação proposto</div>
+            <h3>4 ações, priorizadas por impacto</h3>
+            <p style="margin:.1rem 0 0;color:var(--muted);font-size:.86rem">Tire do plano o que não quiser disparar. A mensagem de cada ação a IA já escreveu.</p>
+            <div class="ap-actions" id="apActions"></div>
+            <div class="ap-foot">
+              <div class="ap-summary" id="apSummary"></div>
+              <button class="ap-run" id="apRun"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9V3z"/></svg>Executar plano com 1 clique</button>
+            </div>
+            <div class="ap-demo-note">Modo demonstração — nenhuma mensagem real é enviada nesta prévia.</div>
+            <div id="apProgWrap" hidden></div>
+          </div>
+
+        </div>
+      </section>
+
     </div>
   </main>
 </div>
@@ -3524,7 +3622,7 @@
 
 <script>
 (function(){
-  var titles={agora:['Recepção','Agora · balcão ao vivo'],dash:['Painel','Dashboard'],lista:['Aulas','Lista de aulas'],agendados:['Aulas','Agendados'],aulas:['Aulas','Controle de aulas'],planos:['Vendas','PDV · Ponto de venda'],produtos:['Catálogo','Produtos'],cupons:['Catálogo','Cupons'],crm:['Relacionamento','CRM'],fin:['Gestão','Financeiro / NF'],staff:['Gestão','Funcionários'],rel:['Análise','Relatórios'],ficha:['Relacionamento','Ficha completa']};
+  var titles={agora:['Recepção','Agora · balcão ao vivo'],dash:['Painel','Dashboard'],lista:['Aulas','Lista de aulas'],agendados:['Aulas','Agendados'],aulas:['Aulas','Controle de aulas'],planos:['Vendas','PDV · Ponto de venda'],produtos:['Catálogo','Produtos'],cupons:['Catálogo','Cupons'],crm:['Relacionamento','CRM'],fin:['Gestão','Financeiro / NF'],staff:['Gestão','Funcionários'],rel:['Análise','Relatórios'],ficha:['Relacionamento','Ficha completa'],autopilot:['Inteligência','Piloto Automático']};
   var navis=document.querySelectorAll('.navi[data-v]'), views=document.querySelectorAll('.view');
   var side=document.getElementById('side'), scrim=document.getElementById('scrim');
   // marcos de aulas (parabéns) — configuráveis em Controle de aulas; lidos pela página da aula
@@ -6631,6 +6729,90 @@
     try{ localStorage.setItem('saltyRail',railed?'1':'0'); }catch(e){}
     syncTitle();
   });
+})();
+</script>
+<script>
+/* ===== Piloto Automático (IA) — protótipo "Em breve". NÃO envia nada: simula o disparo. ===== */
+(function(){
+  var ACTIONS=[
+    {id:'a1',on:true,title:'Resgatar 23 alunos em risco de churn',
+     why:'Sem check-in há 12+ dias — principal causa da queda de receita do mês.',
+     audience:'23 alunos',chan:'wa',
+     msg:'Oi {nome}! Senti sua falta nas aulas essa semana 💛 Separei um horário especial pra te esperar. Bora voltar com tudo? Me responde que já reservo sua vaga.'},
+    {id:'a2',on:true,title:'Reativar 18 créditos a vencer',
+     why:'Créditos vencem em 7 dias sem reagendamento — é receita que já entrou e não pode virar pó.',
+     audience:'18 alunos',chan:'wa',
+     msg:'{nome}, vi aqui que você tem aulas pra usar e elas vencem na próxima semana! Quer que eu já deixe agendado num horário bom pra você? Só me dizer o dia.'},
+    {id:'a3',on:true,title:'Confirmar presença nas aulas de ter/qui 19h',
+     why:'No-show concentrado nesses horários — confirmar antes reduz vaga ociosa.',
+     audience:'34 alunos',chan:'wa',
+     msg:'Oi {nome}! Sua aula é hoje às 19h 🔥 Posso confirmar sua presença? Se não puder vir, me avisa que libero a vaga pra quem está na espera.'},
+    {id:'a4',on:true,title:'Parabenizar 9 aniversariantes com mimo',
+     why:'Aniversário é gatilho de reengajamento e indicação — baixo custo, alto carinho.',
+     audience:'9 alunos',chan:'mail',
+     msg:'Feliz aniversário, {nome}! 🎉 Pra comemorar, seu mês tem uma aula-presente pra trazer um amigo. Vem com a gente?'}
+  ];
+  var elActions=document.getElementById('apActions'),
+      elSummary=document.getElementById('apSummary'),
+      elRun=document.getElementById('apRun'),
+      elProgWrap=document.getElementById('apProgWrap');
+  if(!elActions) return;
+  var CH={wa:['wa','WhatsApp'],mail:['mail','E-mail']};
+  function render(){
+    elActions.innerHTML=ACTIONS.map(function(a){
+      var c=CH[a.chan];
+      return '<div class="ap-act'+(a.on?'':' off')+'" data-id="'+a.id+'">'
+        +'<div class="ap-act-top"><div class="ap-act-main">'
+        +'<h4>'+a.title+'</h4>'
+        +'<p class="ap-why">'+a.why+'</p>'
+        +'<div class="ap-meta"><span class="ap-chan '+c[0]+'">'+c[1]+'</span><span class="ap-audience">'+a.audience+'</span></div>'
+        +'<button class="ap-seemsg" data-see="'+a.id+'">Ver a mensagem que a IA escreveu ▾</button>'
+        +'<div class="ap-preview">'+a.msg+'</div>'
+        +'</div>'
+        +'<button class="ap-tog'+(a.on?' on':'')+'" data-tog="'+a.id+'" aria-label="Incluir ou tirar do plano"></button>'
+        +'</div></div>';
+    }).join('');
+    updateSummary();
+  }
+  function updateSummary(){
+    var on=ACTIONS.filter(function(a){return a.on;});
+    var people=on.reduce(function(s,a){return s+(parseInt(a.audience,10)||0);},0);
+    var chans={}; on.forEach(function(a){chans[a.chan]=1;});
+    elSummary.innerHTML='<b>'+on.length+'</b> ação(ões) · <b>'+people+'</b> alunos · '+Object.keys(chans).length+' canal(is)';
+    elRun.disabled=(on.length===0);
+  }
+  elActions.addEventListener('click',function(e){
+    var tg=e.target.closest('[data-tog]');
+    if(tg){ var a=ACTIONS.filter(function(x){return x.id===tg.dataset.tog;})[0]; if(a){a.on=!a.on; render();} return; }
+    var see=e.target.closest('[data-see]');
+    if(see){ var card=see.closest('.ap-act'); var open=card.classList.toggle('open'); see.textContent=open?'Ocultar a mensagem ▴':'Ver a mensagem que a IA escreveu ▾'; return; }
+  });
+  elRun.addEventListener('click',function(){
+    var on=ACTIONS.filter(function(a){return a.on;});
+    if(!on.length) return;
+    elRun.disabled=true;
+    elProgWrap.hidden=false;
+    elProgWrap.innerHTML='<ul class="ap-prog">'+on.map(function(a){
+      return '<li data-pid="'+a.id+'"><span class="pi"></span>'+a.title+' · '+a.audience+'</li>';
+    }).join('')+'</ul>';
+    elProgWrap.scrollIntoView({behavior:'smooth',block:'nearest'});
+    var items=Array.prototype.slice.call(elProgWrap.querySelectorAll('li')), i=0;
+    function tick(){
+      if(i>0){ var prev=items[i-1]; prev.classList.remove('doing'); prev.classList.add('done'); prev.querySelector('.pi').innerHTML='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>'; }
+      if(i>=items.length){ finish(); return; }
+      items[i].classList.add('doing'); i++; setTimeout(tick,850);
+    }
+    function finish(){
+      var people=on.reduce(function(s,a){return s+(parseInt(a.audience,10)||0);},0);
+      var d=document.createElement('div'); d.className='ap-done-card';
+      d.innerHTML='<div style="font-family:var(--f-disp);font-style:italic;font-size:1.3rem;color:var(--good)">Plano executado ✓</div><p style="margin:.4rem 0 0;font-size:.88rem;color:var(--ink)">'+on.length+' ações disparadas para '+people+' alunos. O Piloto vai acompanhar as respostas e te avisar quem reagendou.</p>';
+      elProgWrap.appendChild(d);
+      if(window.__saltyToast)window.__saltyToast('Piloto Automático: plano executado (demonstração)');
+      setTimeout(function(){ elRun.disabled=false; },400);
+    }
+    tick();
+  });
+  render();
 })();
 </script>
 </body>
