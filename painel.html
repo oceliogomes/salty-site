@@ -58,7 +58,7 @@
   .afoc-slotlbl{font-size:.85rem;color:var(--muted)}
   .afoc-cards{display:grid;grid-template-columns:1fr;gap:1rem}
   .afoc-cards.multi{grid-template-columns:1fr 1fr}
-  @media(max-width:1500px){.afoc-cards.multi{grid-template-columns:1fr}}
+  @media(max-width:1700px){.afoc-cards.multi{grid-template-columns:1fr}}
   /* estado vazio da página de Agendados (aberta sem uma aula carregada) */
   .ag-emptyguide{display:none}
   .ag-head:empty{display:none}
@@ -92,7 +92,7 @@
   .arow .a-nm{font-weight:700;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .arow.done .a-nm{color:var(--good)}
   .arow .a-meta{font-size:.72rem;color:var(--muted);display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-top:.05rem}
-  .a-owe{font-family:var(--f-mono);font-size:.6rem;font-weight:700;color:var(--red);background:color-mix(in srgb,var(--red) 12%,transparent);border:1px solid color-mix(in srgb,var(--red) 35%,transparent);border-radius:6px;padding:.08rem .4rem}
+  .a-owe{font-family:var(--f-mono);font-size:.6rem;font-weight:700;color:var(--red);background:color-mix(in srgb,var(--red) 12%,transparent);border:1px solid color-mix(in srgb,var(--red) 35%,transparent);border-radius:6px;padding:.08rem .4rem;white-space:nowrap}
   .a-cred{font-family:var(--f-mono);font-weight:700}
   .a-cred.warn{color:var(--warn)} .a-cred.bad{color:var(--red)}
   .a-pos{display:inline-flex;align-items:center;gap:.22rem;flex:none;font-family:var(--f-mono);font-size:.72rem;font-weight:700;background:color-mix(in srgb,#3AA0D0 15%,transparent);color:#2A6C8C;border-radius:7px;padding:.18rem .44rem}
@@ -1917,6 +1917,8 @@
   .jr-stat.lost{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
   .jr-act{background:var(--raise);border:1.5px solid var(--line2);border-radius:8px;padding:.42rem .7rem;font-family:inherit;font-weight:700;font-size:.76rem;color:var(--navy);cursor:pointer;white-space:nowrap}
   .jr-act:hover{border-color:var(--navy)}
+  .jr-range{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;color:var(--muted);font-weight:600}
+  .jr-range input{font-family:inherit;font-size:.8rem;padding:.4rem .5rem;border:1.5px solid var(--line2);border-radius:8px;background:var(--raise);color:var(--ink)}
   /* ===== Identidade visual (white-label) ===== */
   .idv-wrap{max-width:720px;display:flex;flex-direction:column;gap:1.1rem}
   .idv-card{background:var(--panel);border:1.5px solid var(--line2);border-radius:14px;padding:1.3rem}
@@ -3154,6 +3156,8 @@
             <button class="chip" data-jf="lost">Não prosseguiram</button>
             <button class="chip" data-jf="won">Viraram aluno</button>
           </div>
+          <label class="jr-range">De <input type="date" id="jrFrom" value="2026-11-01"></label>
+          <label class="jr-range">Até <input type="date" id="jrTo" value="2026-11-30"></label>
           <button class="jr-camp" id="jrCamp">✦ Campanha pros que não prosseguiram</button>
         </div>
         <div class="jr-sum" id="jrSum"></div>
@@ -7153,19 +7157,28 @@
   var elSum=document.getElementById('jrSum'), elF=document.getElementById('jrFilters');
   var filter='all';
   function ini(n){var p=n.split(' ');return ((p[0]||'')[0]||'')+((p[1]||'')[0]||'');}
+  function inRange(ddmm){
+    var f=document.getElementById('jrFrom'), t=document.getElementById('jrTo');
+    if(!f||!t||!f.value||!t.value) return true;
+    var p=ddmm.split('/'); var d='2026-'+p[1]+'-'+p[0];
+    return d>=f.value && d<=t.value;
+  }
   function render(){
-    var won=LIST.filter(function(x){return x.status==='won';}).length, lost=LIST.length-won;
-    elSum.innerHTML='<b>'+LIST.length+'</b> compraram o teste · <b style="color:var(--good)">'+won+'</b> viraram aluno ('+Math.round(won/LIST.length*100)+'%) · <b style="color:var(--bad)">'+lost+'</b> não prosseguiram';
-    var rows=LIST.filter(function(x){ return filter==='all'||x.status===filter; });
-    elList.innerHTML=rows.map(function(x){
+    var base=LIST.filter(function(x){return inRange(x.date);});
+    var won=base.filter(function(x){return x.status==='won';}).length, lost=base.length-won;
+    elSum.innerHTML='<b>'+base.length+'</b> compraram o teste no período · <b style="color:var(--good)">'+won+'</b> viraram aluno ('+(base.length?Math.round(won/base.length*100):0)+'%) · <b style="color:var(--bad)">'+lost+'</b> não prosseguiram';
+    var rows=base.filter(function(x){ return filter==='all'||x.status===filter; });
+    elList.innerHTML=rows.length?rows.map(function(x){
       var stat=x.status==='won'?'<span class="jr-stat won">Virou aluno · '+x.plan+'</span>':'<span class="jr-stat lost">Não prosseguiu</span>';
       var act=x.status==='lost'?'<button class="jr-act" data-jcall="'+x.nm+'">Chamar</button>':'';
       return '<div class="jr-item"><div class="jr-av">'+ini(x.nm)+'</div>'
         +'<div class="jr-main"><div class="jr-nm">'+x.nm+'</div><div class="jr-meta">Fez o teste em '+x.date+'</div></div>'
         +stat+act+'</div>';
-    }).join('');
+    }).join(''):'<p class="week-note">Ninguém comprou o teste nesse período.</p>';
   }
   elF.addEventListener('click',function(e){var b=e.target.closest('[data-jf]'); if(!b)return; filter=b.dataset.jf; elF.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',c===b);}); render();});
+  var jf=document.getElementById('jrFrom'), jt=document.getElementById('jrTo');
+  if(jf)jf.addEventListener('change',render); if(jt)jt.addEventListener('change',render);
   elList.addEventListener('click',function(e){var b=e.target.closest('[data-jcall]'); if(!b)return; if(window.__saltyToast)window.__saltyToast('Abri conversa no WhatsApp com '+b.dataset.jcall.split(' ')[0]);});
   function toCamp(){ if(window.__saltyGo)window.__saltyGo('autopilot'); if(window.__saltyToast)window.__saltyToast('Piloto aberto — campanha pros que fizeram o teste e não voltaram'); }
   var jc=document.getElementById('jrCamp'); if(jc)jc.addEventListener('click',toCamp);
